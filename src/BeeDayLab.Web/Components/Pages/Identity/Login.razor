@@ -1,0 +1,162 @@
+@page "/login"
+@layout OnboardingLayout
+@inject NavigationManager Navigation
+@inject IStringLocalizer<AuthenticationResources> Localizer
+@inject IStringLocalizer<BeeDayLab.Web.Components.DesignSystem.DesignSystemResources> ValidationLocalizer
+
+@* Lab adaptation (Sprint 33.12, FE33-077) of BeeDay.Web's
+   Components/Features/Authentication/Pages/Login.razor. Production posts to a real POST /auth/login
+   minimal API that authenticates against BeeDay.Application/Infrastructure and sets a real session
+   cookie — EXCLUDE. Per the Sprint 33.12 Ledger note ("Form HTML puro; Lab intercepta submit
+   localmente"), this page's <form method="post" action="/auth/login"> is kept exactly as production
+   has it (same markup, same field names, same client-side validity messages) and instead posts to a
+   Lab-local POST /auth/login minimal API (Program.cs) that is deterministic and synthetic: it checks
+   the submission against one fixed, obviously-synthetic demo credential pair
+   ("demo@beeday.app" / "BeeDayLab!2026", documented in Program.cs) and sets NO cookie and NO
+   session — see Program.cs for the full endpoint.
+
+   @attribute [AllowAnonymous] is dropped — no authorization pipeline exists in the Lab for it to opt
+   out of. The "?confirmed=true"/"?reset=true"/"?expired=true"/"?error=invalid" query-string-driven
+   feedback banners below are already presentation-only and query-driven — kept verbatim, they now
+   read the query string set by either the Lab's own POST /auth/login (?error=invalid) or by
+   ConfirmEmail.razor/ResetPassword.razor's own "success" links (?confirmed=true / ?reset=true).
+
+   LoginDestinationResolver.IsLocalPath (production's open-redirect guard) lives under
+   Services/Authentication — EXCLUDE, real auth infrastructure. Reimplemented locally below as the
+   same small, generic ASP.NET Core pattern Program.cs's own IsLocalPath already uses for
+   /culture/set and /auth/login — not BeeDay-specific business logic. *@
+
+<PageTitle>@Localizer["PageTitle"]</PageTitle>
+
+<section class="auth-page beeday-fade-in" aria-labelledby="login-heading">
+    <PublicAuthActions DestinationHref="/profile/create" DestinationLabel="@Localizer["CreateAccount"]"
+                       CloseLabel="@Localizer["CloseAndReturnToHome"]" Label="@Localizer["LoginActionsLabel"]" />
+
+    <div class="auth-login">
+            <div class="auth-card__brand"><BeeDayBrand /></div>
+
+            <header class="auth-card__header">
+                <h1 id="login-heading">@Localizer["WelcomeBack"]</h1>
+                <p>@Localizer["SignInToContinue"]</p>
+            </header>
+
+            @if (HasInvalidCredentials)
+            {
+                <div class="auth-feedback auth-feedback--error" role="alert">
+                    @Localizer["InvalidCredentials"]
+                </div>
+            }
+
+            @if (WasConfirmed)
+            {
+                <div class="auth-feedback auth-feedback--success" role="status">@Localizer["EmailConfirmedSignIn"]</div>
+            }
+
+            @if (WasReset)
+            {
+                <div class="auth-feedback auth-feedback--success" role="status">@Localizer["PasswordUpdatedSignIn"]</div>
+            }
+
+            @if (SessionExpired)
+            {
+                <div class="auth-feedback auth-feedback--error" role="alert">
+                    @Localizer["SessionExpired"]
+                </div>
+            }
+
+            <form method="post" action="/auth/login" class="auth-form" onsubmit="const button=this.querySelector('button[type=submit]');if(button){button.disabled=true;button.textContent='@JsSingleQuoteEscape(Localizer["SigningIn"])';}">
+                <AntiforgeryToken />
+                <input type="hidden" name="returnUrl" value="@ReturnUrl" />
+
+                <label class="auth-field beeday-field" for="login-email">
+                    <span class="beeday-field__label">@Localizer["EmailLabel"]</span>
+                    <input id="login-email"
+                           type="email"
+                           class="beeday-field__control"
+                           name="email"
+                           value="@Email"
+                           autocomplete="email"
+                           required
+                           autofocus
+                           oninvalid="this.setCustomValidity(this.validity.valueMissing ? '@JsSingleQuoteEscape(ValidationLocalizer["ValidationEmailRequired"])' : '@JsSingleQuoteEscape(ValidationLocalizer["ValidationEmailFormat"])')"
+                           oninput="this.setCustomValidity('')" />
+                </label>
+
+                <label class="auth-field beeday-field" for="login-password">
+                    <span class="beeday-field__label">@Localizer["PasswordLabel"]</span>
+                    <input id="login-password"
+                           type="password"
+                           class="beeday-field__control"
+                           name="password"
+                           autocomplete="current-password"
+                           required
+                           oninvalid="this.setCustomValidity('@JsSingleQuoteEscape(ValidationLocalizer["ValidationLoginPasswordRequired"])')"
+                           oninput="this.setCustomValidity('')" />
+                </label>
+
+                <div class="auth-form__options">
+                    <label class="auth-remember beeday-checkbox" for="login-remember">
+                        <input id="login-remember" class="beeday-checkbox__control" type="checkbox" name="rememberMe" value="true" />
+                        <span class="beeday-checkbox__visual" aria-hidden="true">
+                            <BeeDayIcon Name="BeeDayIconName.CheckboxUnchecked" Size="BeeDayIconSize.Small" Class="beeday-checkbox__unchecked" />
+                            <BeeDayIcon Name="BeeDayIconName.CheckboxChecked" Size="BeeDayIconSize.Small" Color="BeeDayIconColor.Primary" Class="beeday-checkbox__checked" />
+                        </span>
+                        <span class="beeday-checkbox__label">@Localizer["RememberMe"]</span>
+                    </label>
+                    <a class="beeday-link" href="/account/forgot-password">@Localizer["ForgotPassword"]</a>
+                </div>
+
+                <BeeDayButton Type="submit" FullWidth="true" Class="auth-submit">
+                    @Localizer["SignIn"]
+                </BeeDayButton>
+            </form>
+
+    </div>
+</section>
+
+@code {
+    [SupplyParameterFromQuery(Name = "error")]
+    public string? Error { get; set; }
+
+    [SupplyParameterFromQuery(Name = "confirmed")]
+    public bool Confirmed { get; set; }
+
+    [SupplyParameterFromQuery(Name = "reset")]
+    public bool Reset { get; set; }
+
+    [SupplyParameterFromQuery(Name = "email")]
+    public string? Email { get; set; }
+
+    [SupplyParameterFromQuery(Name = "expired")]
+    public bool Expired { get; set; }
+
+    [SupplyParameterFromQuery(Name = "returnUrl")]
+    public string? RequestedReturnUrl { get; set; }
+
+    private bool HasInvalidCredentials => string.Equals(Error, "invalid", StringComparison.OrdinalIgnoreCase);
+    private bool WasConfirmed => Confirmed;
+    private bool WasReset => Reset;
+    private bool SessionExpired => Expired;
+    private string ReturnUrl => IsLocalPath(RequestedReturnUrl) ? RequestedReturnUrl! : string.Empty;
+
+    /// <summary>
+    /// The only resource value interpolated directly into inline JavaScript on this page — HTML
+    /// attribute-encoding alone (which Blazor already applies automatically) does not protect the
+    /// single-quoted JS string literal it sits inside, so a translation containing an apostrophe
+    /// would otherwise silently break this handler. Escapes backslashes and single quotes so the
+    /// resource text can never terminate the JS string early or inject additional statements.
+    /// </summary>
+    private static string JsSingleQuoteEscape(string value) =>
+        value.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("'", "\\'", StringComparison.Ordinal);
+
+    /// <summary>
+    /// Local reimplementation of production's LoginDestinationResolver.IsLocalPath (Services/Authentication
+    /// — EXCLUDE, real auth infrastructure) — same generic open-redirect guard Program.cs's own
+    /// IsLocalPath local function already applies to /culture/set and /auth/login.
+    /// </summary>
+    private static bool IsLocalPath(string? value) =>
+        !string.IsNullOrWhiteSpace(value) &&
+        value.StartsWith('/') &&
+        !value.StartsWith("//", StringComparison.Ordinal) &&
+        !value.StartsWith("/\\", StringComparison.Ordinal);
+}

@@ -1,0 +1,139 @@
+@page "/onboarding/tutorial"
+@layout OnboardingLayout
+@implements IDisposable
+@inject NavigationManager Navigation
+@inject IStringLocalizer<OnboardingResources> Localizer
+
+@* Lab adaptation (Sprint 33.12, FE33-085) of BeeDay.Web's
+   Components/Features/Onboarding/Pages/Tutorial.razor. Per the Sprint 33.12 Ledger note
+   ("5 slides estáticos — quase todo COPY, só o CTA final é ADAPT"), the 5 static slides and their
+   markup are kept verbatim. @attribute [Authorize] is dropped entirely — no authorization pipeline
+   exists in the Lab for it to mean anything.
+
+   Production's OnInitializedAsync calls the real Store.GetCurrentUserAsync to redirect away visitors
+   who have no profile yet or already completed onboarding — a real BeeDayWebService/backend
+   dependency this Sprint's boundary forbids, and not something a single terminal-action page needs a
+   scenario provider for (the issue's own guidance: "no scenario provider needed for something this
+   simple"). Dropped entirely; every visit simply shows the tutorial from slide 1.
+
+   The final CTA's real Store.CompleteOnboardingAsync() call (and its
+   DomainErrorLocalizer.Translate(exception, SharedLocalizer) failure toast) is replaced with a fixed
+   short delay (preserves the loading-state UX) followed by a fixed local navigation to "/profile" —
+   there is no real "/profile" page in the Lab yet (a later Sprint's concern), so this is the same
+   "fixed local destination" treatment PublicHeader.razor (Sprint 33.9) already got for a comparable
+   not-yet-built target. *@
+
+<PageTitle>@Localizer["PageTitle"]</PageTitle>
+
+<section class="tutorial-page beeday-fade-in">
+    <article class="tutorial-card">
+        <header class="tutorial-header">
+            <BeeDayBrand />
+            <span class="tutorial-progress">@Localizer["StepProgress", _step + 1, Slides.Length]</span>
+        </header>
+
+        <div class="tutorial-content">
+            <div class="tutorial-icon">
+                <BeeDayIcon Name="@Slides[_step].Icon"
+                           Size="BeeDayIconSize.ExtraLarge"
+                           Color="BeeDayIconColor.Primary"
+                           Decorative="false"
+                           Label="@Slides[_step].IconLabel" />
+            </div>
+            <p class="tutorial-eyebrow">@Slides[_step].Eyebrow</p>
+            <h1>@Slides[_step].Title</h1>
+            <p class="tutorial-copy">@Slides[_step].Description</p>
+
+            <div class="tutorial-preview">
+                @foreach (var item in Slides[_step].Items)
+                {
+                    <div class="tutorial-preview__item">
+                        <BeeDayIcon Name="BeeDayIconName.Check" Size="BeeDayIconSize.ExtraSmall" Color="BeeDayIconColor.Primary" />
+                        <p>@item</p>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <footer class="tutorial-actions">
+            <BeeDayButton Variant="BeeDayButtonVariant.Back"
+                           Disabled="@(_step == 0 || _busy)"
+                           OnClick="Previous">
+                @Localizer["BackButton"]
+            </BeeDayButton>
+            <BeeDayButton Variant="BeeDayButtonVariant.Primary"
+                           IsLoading="@_busy"
+                           Disabled="@_busy"
+                           OnClick="NextAsync">
+                @(_step == Slides.Length - 1 ? Localizer["EnterBeeDayButton"] : Localizer["NextButton"])
+            </BeeDayButton>
+        </footer>
+    </article>
+</section>
+
+@code {
+    private int _step;
+    private bool _busy;
+    private readonly CancellationTokenSource _cts = new();
+
+    public void Dispose()
+    {
+        _cts.Cancel();
+        _cts.Dispose();
+    }
+
+    private TutorialSlide[] Slides => _slides ??=
+    [
+        new(Localizer["Slide1Eyebrow"], Localizer["Slide1Title"], BeeDayIconName.Daily, Localizer["Slide1IconLabel"], Localizer["Slide1Description"],
+            [Localizer["Slide1Item1"], Localizer["Slide1Item2"], Localizer["Slide1Item3"]]),
+        new(Localizer["Slide2Eyebrow"], Localizer["Slide2Title"], BeeDayIconName.Habit, Localizer["Slide2IconLabel"], Localizer["Slide2Description"],
+            [Localizer["Slide2Item1"], Localizer["Slide2Item2"], Localizer["Slide2Item3"]]),
+        new(Localizer["Slide3Eyebrow"], Localizer["Slide3Title"], BeeDayIconName.Completed, Localizer["Slide3IconLabel"], Localizer["Slide3Description"],
+            [Localizer["Slide3Item1"], Localizer["Slide3Item2"], Localizer["Slide3Item3"]]),
+        new(Localizer["Slide4Eyebrow"], Localizer["Slide4Title"], BeeDayIconName.Project, Localizer["Slide4IconLabel"], Localizer["Slide4Description"],
+            [Localizer["Slide4Item1"], Localizer["Slide4Item2"], Localizer["Slide4Item3"]]),
+        new(Localizer["Slide5Eyebrow"], Localizer["Slide5Title"], BeeDayIconName.Profile, Localizer["Slide5IconLabel"], Localizer["Slide5Description"],
+            [Localizer["Slide5Item1"], Localizer["Slide5Item2"], Localizer["Slide5Item3"]])
+    ];
+
+    private TutorialSlide[]? _slides;
+
+    private void Previous()
+    {
+        if (_step > 0)
+        {
+            _step--;
+        }
+    }
+
+    private async Task NextAsync()
+    {
+        if (_step < Slides.Length - 1)
+        {
+            _step++;
+            return;
+        }
+
+        _busy = true;
+        try
+        {
+            await Task.Delay(400, _cts.Token);
+            Navigation.NavigateTo("/profile", forceLoad: true, replace: true);
+        }
+        catch (OperationCanceledException) when (_cts.IsCancellationRequested)
+        {
+        }
+        finally
+        {
+            _busy = false;
+        }
+    }
+
+    private sealed record TutorialSlide(
+        string Eyebrow,
+        string Title,
+        BeeDayIconName Icon,
+        string IconLabel,
+        string Description,
+        string[] Items);
+}

@@ -59,6 +59,49 @@ public sealed class ScenarioAndLocalizationBoundaryTests
                 + string.Join(Environment.NewLine, violations));
     }
 
+    /// <summary>
+    /// Sprint 33.12 (Issue #373) guard: proves none of this Sprint's new Identity &amp; Account
+    /// surface files (Login/CreateProfile/Tutorial/Account/etc. and their scenario providers) leak a
+    /// real Domain/Application/Infrastructure dependency, and — the boundary specific to this
+    /// Sprint's brief — that <c>DomainErrorLocalizer</c> is never called from any of them, since it
+    /// is explicitly excluded (never ported, same treatment <c>ValidationMessageLocalizer.cs</c> got
+    /// in Sprint 33.8) rather than adapted. A failure page instead carries a synthetic outcome
+    /// straight from a scenario provider or SharedResources' own already-real "DomainErrorGeneric"
+    /// string — never a translated real exception.
+    /// </summary>
+    [Fact]
+    public void NoIdentityAccountSurfaceFileReferencesTheProductionBackendOrTheExcludedDomainErrorLocalizer()
+    {
+        var identityDirectory = Path.Combine(FindRepositoryRoot(), "src", "BeeDayLab.Web", "Components", "Pages", "Identity");
+        Assert.True(Directory.Exists(identityDirectory), $"Expected directory not found: {identityDirectory}");
+
+        var sourceFiles = Directory.EnumerateFiles(identityDirectory, "*.cs", SearchOption.AllDirectories)
+            .Concat(Directory.EnumerateFiles(identityDirectory, "*.razor", SearchOption.AllDirectories))
+            .ToList();
+        Assert.NotEmpty(sourceFiles);
+
+        var forbidden = ForbiddenSubstrings.Append("DomainErrorLocalizer").ToArray();
+        var violations = new List<string>();
+
+        foreach (var file in sourceFiles)
+        {
+            var content = StripComments(File.ReadAllText(file));
+
+            foreach (var term in forbidden)
+            {
+                if (content.Contains(term, StringComparison.Ordinal))
+                {
+                    violations.Add($"{Path.GetFileName(file)} references '{term}'");
+                }
+            }
+        }
+
+        Assert.True(
+            violations.Count == 0,
+            "Identity & Account surface boundary violated (Sprint 33.12 brief):" + Environment.NewLine
+                + string.Join(Environment.NewLine, violations));
+    }
+
     [Fact]
     public void ScenarioEngineUsesOnlyDeterministicPrimitivesNoRandomOrWallClock()
     {
@@ -131,10 +174,17 @@ public sealed class ScenarioAndLocalizationBoundaryTests
         }
     }
 
-    /// <summary>Strips <c>//</c>/<c>///</c> line comments and <c>/* */</c> block comments so architecture assertions target real code, not explanatory documentation.</summary>
+    /// <summary>
+    /// Strips <c>//</c>/<c>///</c> line comments, <c>/* */</c> block comments, and (Sprint 33.12
+    /// addition, needed once this file started scanning .razor files too) <c>@* *@</c> Razor
+    /// comments, so architecture assertions target real code, not explanatory documentation — this
+    /// Sprint's own adaptation-note comments legitimately name every excluded dependency they explain
+    /// (e.g. "DomainErrorLocalizer.Translate(ex, SharedLocalizer) is replaced with...").
+    /// </summary>
     private static string StripComments(string content)
     {
         content = Regex.Replace(content, @"/\*.*?\*/", string.Empty, RegexOptions.Singleline);
+        content = Regex.Replace(content, @"@\*.*?\*@", string.Empty, RegexOptions.Singleline);
         content = Regex.Replace(content, @"//.*$", string.Empty, RegexOptions.Multiline);
         return content;
     }

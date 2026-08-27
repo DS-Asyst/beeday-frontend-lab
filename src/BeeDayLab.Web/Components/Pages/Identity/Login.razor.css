@@ -1,0 +1,88 @@
+.auth-page {
+    position: relative;
+    display: grid;
+    width: 100%;
+    min-height: calc(100dvh - 4rem);
+    place-items: center;
+    padding: clamp(5.5rem, 12vh, 7rem) var(--beeday-spacing-lg) var(--beeday-spacing-2xl);
+}
+
+.auth-login {
+    width: min(100%, 27rem);
+}
+
+.auth-card__brand {
+    margin-bottom: var(--beeday-spacing-xl);
+    text-align: center;
+}
+
+.auth-card__brand ::deep .beeday-brand {
+    --beeday-brand-height: 2.25rem;
+}
+
+.auth-card__header {
+    margin-bottom: var(--beeday-spacing-xl);
+    text-align: center;
+}
+
+.auth-card__header h1 {
+    margin: 0;
+    color: var(--beeday-color-text-primary);
+    font-size: clamp(2rem, 6vw, 2.6rem);
+    line-height: 1.05;
+}
+
+.auth-card__header p {
+    margin: var(--beeday-spacing-sm) 0 0;
+    color: var(--beeday-color-text-secondary);
+    line-height: 1.5;
+}
+
+.auth-form {
+    display: grid;
+    gap: var(--beeday-spacing-md);
+}
+
+.auth-login ::deep .auth-submit {
+    min-height: 3.25rem;
+    margin-top: var(--beeday-spacing-xs);
+    font-size: var(--beeday-font-size-md);
+}
+
+.auth-feedback {
+    margin-bottom: var(--beeday-spacing-md);
+    padding: .8rem .9rem;
+    border: 1px solid var(--beeday-color-border);
+    border-radius: var(--beeday-radius-xs);
+    box-shadow: var(--beeday-shadow-sm);
+    font-weight: var(--beeday-font-weight-bold);
+}
+
+.auth-feedback--error { background: var(--beeday-color-danger-soft); color: var(--beeday-color-danger); }
+.auth-feedback--success { background: var(--beeday-color-success-soft); color: var(--beeday-color-success); }
+
+.auth-form__options {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--beeday-spacing-md);
+}
+
+.auth-remember {
+    min-height: 2.75rem;
+    color: var(--beeday-color-text-secondary);
+}
+
+@media (max-width: 40rem) {
+    .auth-page {
+        min-height: calc(100dvh - 2rem);
+        padding: 5.25rem 0 var(--beeday-spacing-xl);
+    }
+
+}
+
+@media (max-width: 28rem) {
+    .auth-card__brand { margin-bottom: var(--beeday-spacing-lg); }
+    .auth-card__header { margin-bottom: var(--beeday-spacing-lg); }
+    .auth-form__options { align-items: flex-start; flex-direction: column-reverse; gap: var(--beeday-spacing-xs); }
+}

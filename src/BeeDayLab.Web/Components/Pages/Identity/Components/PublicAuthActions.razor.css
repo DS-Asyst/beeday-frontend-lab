@@ -1,0 +1,44 @@
+.public-auth-actions {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--beeday-spacing-md);
+}
+
+.public-auth-actions__close {
+    display: inline-grid;
+    width: 3rem;
+    height: 3rem;
+    place-items: center;
+    border-radius: var(--beeday-radius-pill);
+    color: var(--beeday-color-text-secondary);
+    text-decoration: none;
+    transition: color var(--beeday-transition-fast), background-color var(--beeday-transition-fast), transform var(--beeday-transition-fast);
+}
+
+.public-auth-actions__close:hover { color: var(--beeday-color-brand-primary); background: var(--beeday-color-brand-primary-soft); }
+.public-auth-actions__close:active { transform: translateY(1px); }
+.public-auth-actions__close:focus-visible,
+.public-auth-actions__destination:focus-visible { outline: var(--beeday-border-width) solid var(--beeday-color-brand-primary); outline-offset: 3px; box-shadow: var(--beeday-focus-ring); }
+.public-auth-actions__destination { min-height: 2.75rem; padding-inline: var(--beeday-spacing-lg); text-decoration: none; }
+
+@media (max-width: 40rem) {
+    .public-auth-actions { gap: var(--beeday-spacing-sm); }
+    .public-auth-actions__destination { padding-inline: var(--beeday-spacing-md); }
+}
+
+@media (max-width: 28rem) {
+    .public-auth-actions__destination { min-height: 2.6rem; padding-inline: var(--beeday-spacing-sm); font-size: var(--beeday-font-size-xs); }
+}
+
+/* EXP32-F010 (Sprint 32.20): local fallback - the global safety net only shortens duration, it
+   does not remove the color/background/transform transition itself. */
+@media (prefers-reduced-motion: reduce) {
+    .public-auth-actions__close {
+        transition: none;
+    }
+}

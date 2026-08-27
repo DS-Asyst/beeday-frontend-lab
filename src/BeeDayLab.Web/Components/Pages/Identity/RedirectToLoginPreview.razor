@@ -1,0 +1,13 @@
+@page "/identity/redirect-to-login-preview"
+@layout OnboardingLayout
+@inject IStringLocalizer<ProfileCreationResources> Localizer
+
+@* Lab-only demo host page (Sprint 33.12, FE33-087) — the "minimal way to make RedirectToLogin
+   previewable" this Sprint's brief calls for. Production's RedirectToLogin.razor is never itself a
+   routable page (it only ever runs inside a real Router's <NotAuthorized> content); this host page
+   exists solely so a reviewer has an explicit, discoverable URL to see what that transitional moment
+   looks like, with no real routing/auth pipeline involved. *@
+
+<PageTitle>@Localizer["RedirectingToLoginTitle"]</PageTitle>
+
+<RedirectToLogin />

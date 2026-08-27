@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="PageTitle" xml:space="preserve">
+    <value>My Account | beeday</value>
+  </data>
+  <data name="HeaderEyebrow" xml:space="preserve">
+    <value>ACCOUNT SETTINGS</value>
+  </data>
+  <data name="HeaderTitle" xml:space="preserve">
+    <value>My Account</value>
+  </data>
+  <data name="HeaderDescription" xml:space="preserve">
+    <value>Keep your profile, security and experience preferences up to date.</value>
+  </data>
+  <data name="SavingLabel" xml:space="preserve">
+    <value>Saving your account...</value>
+  </data>
+  <data name="ToastAccountLoadErrorTitle" xml:space="preserve">
+    <value>Account could not be loaded</value>
+  </data>
+  <data name="ToastProfileSavedMessage" xml:space="preserve">
+    <value>Your profile has been updated.</value>
+  </data>
+  <data name="ToastProfileSavedTitle" xml:space="preserve">
+    <value>Profile saved</value>
+  </data>
+  <data name="ToastProfileErrorTitle" xml:space="preserve">
+    <value>Profile was not saved</value>
+  </data>
+  <data name="ToastProfileCurrentPasswordRequiredMessage" xml:space="preserve">
+    <value>Enter your current password to change your email address.</value>
+  </data>
+  <data name="ToastProfileEmailChangedMessage" xml:space="preserve">
+    <value>Your profile has been updated. Check your new email address to confirm it.</value>
+  </data>
+  <data name="ToastPasswordChangedMessage" xml:space="preserve">
+    <value>Your password has been changed.</value>
+  </data>
+  <data name="ToastPasswordChangedTitle" xml:space="preserve">
+    <value>Password updated</value>
+  </data>
+  <data name="ToastPasswordErrorTitle" xml:space="preserve">
+    <value>Password was not changed</value>
+  </data>
+  <data name="ToastPreferencesSavedMessage" xml:space="preserve">
+    <value>Your preferences have been updated.</value>
+  </data>
+  <data name="ToastPreferencesSavedTitle" xml:space="preserve">
+    <value>Preferences saved</value>
+  </data>
+  <data name="ToastPreferencesErrorTitle" xml:space="preserve">
+    <value>Preferences were not saved</value>
+  </data>
+  <data name="ProfileEyebrow" xml:space="preserve">
+    <value>IDENTITY</value>
+  </data>
+  <data name="ProfileTitle" xml:space="preserve">
+    <value>Profile</value>
+  </data>
+  <data name="ProfileDescription" xml:space="preserve">
+    <value>Manage the personal information shown across beeday.</value>
+  </data>
+  <data name="NameLabel" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="EmailLabel" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="NicknameLabel" xml:space="preserve">
+    <value>Nickname</value>
+  </data>
+  <data name="ProfileSubmitLabel" xml:space="preserve">
+    <value>Save Profile</value>
+  </data>
+  <data name="ProfileHint" xml:space="preserve">
+    <value>Your nickname is permanent after your profile is created.</value>
+  </data>
+  <data name="ProfileEmailChangeHint" xml:space="preserve">
+    <value>Changing your email requires your current password. We'll send a new confirmation link to the new address.</value>
+  </data>
+  <data name="SecurityEyebrow" xml:space="preserve">
+    <value>PASSWORD</value>
+  </data>
+  <data name="SecurityTitle" xml:space="preserve">
+    <value>Security</value>
+  </data>
+  <data name="SecurityDescription" xml:space="preserve">
+    <value>Protect your account with a strong, unique password.</value>
+  </data>
+  <data name="CurrentPasswordLabel" xml:space="preserve">
+    <value>Current password</value>
+  </data>
+  <data name="NewPasswordLabel" xml:space="preserve">
+    <value>New password</value>
+  </data>
+  <data name="ConfirmNewPasswordLabel" xml:space="preserve">
+    <value>Confirm new password</value>
+  </data>
+  <data name="SecuritySubmitLabel" xml:space="preserve">
+    <value>Change Password</value>
+  </data>
+  <data name="SecurityHint" xml:space="preserve">
+    <value>Use at least 8 characters, including one letter and one number. You'll be signed out of every device, including this one, after the change.</value>
+  </data>
+  <data name="PreferencesEyebrow" xml:space="preserve">
+    <value>EXPERIENCE</value>
+  </data>
+  <data name="PreferencesTitle" xml:space="preserve">
+    <value>Preferences</value>
+  </data>
+  <data name="PreferencesDescription" xml:space="preserve">
+    <value>Choose how beeday looks and communicates with you.</value>
+  </data>
+  <data name="LanguageLabel" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="ThemeLabel" xml:space="preserve">
+    <value>Theme</value>
+  </data>
+  <data name="LanguageEnglishOption" xml:space="preserve">
+    <value>English</value>
+  </data>
+  <data name="LanguagePortugueseOption" xml:space="preserve">
+    <value>Portuguese</value>
+  </data>
+  <data name="ThemeSystemOption" xml:space="preserve">
+    <value>System</value>
+  </data>
+  <data name="ThemeLightOption" xml:space="preserve">
+    <value>Light</value>
+  </data>
+  <data name="ThemeDarkOption" xml:space="preserve">
+    <value>Dark</value>
+  </data>
+  <data name="PreferencesSubmitLabel" xml:space="preserve">
+    <value>Save Preferences</value>
+  </data>
+</root>

@@ -1,0 +1,34 @@
+@using BeeDayLab.Web.Components.Pages.Identity.Models
+@inject IStringLocalizer<AccountResources> Localizer
+
+@* Lab COPY (Sprint 33.12, FE33-086) of BeeDay.Web's
+   Components/Features/Account/Components/ProfileSection.razor — purely presentational, receives only
+   a form model + primitives as parameters, injects no service beyond its own localizer. Zero changes
+   beyond the namespace move. *@
+
+<BeeDaySettingsSection Eyebrow="@Localizer["ProfileEyebrow"]"
+                        Title="@Localizer["ProfileTitle"]"
+                        Description="@Localizer["ProfileDescription"]">
+    <BeeDaySettingsForm TModel="ProfileFormModel" Model="Model" OnValidSubmit="OnSave"
+                         FormName="account-profile" SubmitLabel="@Localizer["ProfileSubmitLabel"]" IsBusy="IsBusy">
+        <div class="beeday-settings-form__grid">
+            <BeeDayInput Id="account-name" Label="@Localizer["NameLabel"]" Required="true" MaxLength="100"
+                          @bind-Value="Model.Name" />
+            <BeeDayInput Id="account-email" Label="@Localizer["EmailLabel"]" Required="true" MaxLength="254"
+                          @bind-Value="Model.Email" />
+            <BeeDayInput Id="account-nickname" Label="@Localizer["NicknameLabel"]" ReadOnly="true" @bind-Value="Model.Nickname" />
+        </div>
+
+        <BeeDayInput Id="account-current-password" Label="@Localizer["CurrentPasswordLabel"]"
+                      @bind-Value="Model.CurrentPassword" type="password" autocomplete="current-password" />
+
+        <p class="beeday-settings-form__hint">@Localizer["ProfileHint"]</p>
+        <p class="beeday-settings-form__hint">@Localizer["ProfileEmailChangeHint"]</p>
+    </BeeDaySettingsForm>
+</BeeDaySettingsSection>
+
+@code {
+    [Parameter, EditorRequired] public ProfileFormModel Model { get; set; } = default!;
+    [Parameter] public bool IsBusy { get; set; }
+    [Parameter] public EventCallback OnSave { get; set; }
+}

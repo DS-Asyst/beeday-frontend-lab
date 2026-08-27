@@ -1,0 +1,123 @@
+@page "/profile/create"
+@layout OnboardingLayout
+@inject ProfileCreationState State
+@inject NavigationManager Navigation
+@inject IStringLocalizer<ProfileCreationResources> Localizer
+
+@* Lab adaptation (Sprint 33.12, FE33-079) of BeeDay.Web's
+   Components/Features/ProfileCreation/Pages/CreateProfile.razor. @attribute [AllowAnonymous] dropped.
+   Markup and client-side validation-driven UI are kept verbatim — see CreateProfile.razor.cs and
+   State/ProfileCreationState.cs for what changed (AuthenticationStateProvider/AuthenticatedUserInitializer
+   replaced by a [SupplyParameterFromQuery(Name="authenticated")] toggle; store.CreateAccountAsync/
+   store.CompleteUserProfileAsync replaced by the scenario engine). *@
+
+<PageTitle>@Localizer["PageTitle"]</PageTitle>
+
+<section class="profile-page beeday-fade-in" aria-label="@Localizer["CreateAccountFlowAriaLabel"]">
+    <PublicAuthActions DestinationHref="/login" DestinationLabel="@Localizer["LogIn"]"
+                       CloseLabel="@Localizer["CloseAndReturnToHome"]" Label="@Localizer["CreateAccountActionsLabel"]" />
+
+    <div class="profile-panel profile-panel--@State.CurrentStepClass">
+        <div class="profile-panel__global-brand"><BeeDayBrand /></div>
+        @if (State.Step == ProfileCreationStep.Account)
+        {
+            <h1 id="create-profile-heading">@Localizer["CreateYourAccount"]</h1>
+            <p class="profile-panel__intro">@Localizer["StartYourJourney"]</p>
+
+            <div class="profile-form">
+                <label class="profile-field beeday-field">
+                    <span class="beeday-field__label">@Localizer["FullNameLabel"]</span>
+                    <input type="text"
+                           class="beeday-field__control profile-field__input"
+                           autocomplete="name"
+                           @bind="State.Model.Name"
+                           @bind:event="oninput" />
+                </label>
+
+                <label class="profile-field beeday-field">
+                    <span class="beeday-field__label">@Localizer["EmailLabel"]</span>
+                    <input type="email"
+                           class="beeday-field__control profile-field__input"
+                           autocomplete="email"
+                           @bind="State.Model.Email"
+                           @bind:event="oninput" />
+                </label>
+
+                <label class="profile-field beeday-field">
+                    <span class="beeday-field__label">@Localizer["PasswordLabel"]</span>
+                    <input type="password"
+                           class="beeday-field__control profile-field__input"
+                           autocomplete="new-password"
+                           aria-describedby="password-requirements"
+                           @bind="State.Model.Password"
+                           @bind:event="oninput" />
+                </label>
+
+                <p id="password-requirements"
+                   class="profile-password-hint @(State.IsPasswordValid ? "profile-password-hint--valid" : string.Empty)">
+                    @(State.IsPasswordValid
+                        ? Localizer["PasswordValid"]
+                        : Localizer["PasswordRequirements"])
+                </p>
+
+                @if (State.ShouldShowConfirmPassword)
+                {
+                    <label class="profile-field beeday-field beeday-fade-in">
+                        <span class="beeday-field__label">@Localizer["ConfirmPasswordLabel"]</span>
+                        <input type="password"
+                               class="beeday-field__control profile-field__input"
+                               autocomplete="new-password"
+                               @bind="State.Model.ConfirmPassword"
+                               @bind:event="oninput" />
+                    </label>
+                }
+
+                @if (!string.IsNullOrWhiteSpace(State.ValidationError))
+                {
+                    <p class="profile-validation" role="alert">@State.ValidationError</p>
+                }
+
+                <BeeDayButton Variant="BeeDayButtonVariant.Primary"
+                               FullWidth="true"
+                               Disabled="@(!State.CanContinueAccount)"
+                               OnClick="ContinueToProfile">
+                    @Localizer["ContinueButton"]
+                </BeeDayButton>
+            </div>
+        }
+        else
+        {
+            <h1 id="create-profile-heading">@Localizer["ChooseYourNickname"]</h1>
+            <p class="profile-panel__intro">@Localizer["IdentifiedInBeeDay"]</p>
+
+            <div class="profile-form">
+                <BeeDayButton Variant="BeeDayButtonVariant.Secondary" Compact="true" Class="profile-form__back" OnClick="Back">@Localizer["BackButton"]</BeeDayButton>
+
+                <label class="profile-field beeday-field">
+                    <span class="beeday-field__label">@Localizer["NicknameLabel"]</span>
+                    <div class="profile-nickname-field">
+                        <span class="profile-nickname-field__prefix">@@</span>
+                        <input class="beeday-field__control profile-field__input profile-nickname-field__input"
+                               autocomplete="nickname"
+                               maxlength="24"
+                               @bind="State.Model.Nickname"
+                               @bind:event="oninput" />
+                    </div>
+                </label>
+
+                @if (!string.IsNullOrWhiteSpace(State.ValidationError))
+                {
+                    <p class="profile-validation" role="alert">@State.ValidationError</p>
+                }
+
+                <BeeDayButton Variant="BeeDayButtonVariant.Primary"
+                               FullWidth="true"
+                               IsLoading="@State.IsBusy"
+                               Disabled="@State.IsBusy"
+                               OnClick="CompleteProfileAsync">
+                    @Localizer["CreateAccountButton"]
+                </BeeDayButton>
+            </div>
+        }
+    </div>
+</section>

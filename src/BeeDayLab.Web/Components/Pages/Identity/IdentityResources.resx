@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="BackToSignIn" xml:space="preserve">
+    <value>BACK TO SIGN IN</value>
+  </data>
+  <data name="SignIn" xml:space="preserve">
+    <value>SIGN IN</value>
+  </data>
+  <data name="RequestNewLink" xml:space="preserve">
+    <value>REQUEST A NEW LINK</value>
+  </data>
+  <data name="EmailLabel" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="ForgotPasswordPageTitle" xml:space="preserve">
+    <value>Forgot password | beeday</value>
+  </data>
+  <data name="ForgotPasswordHeading" xml:space="preserve">
+    <value>Forgot password</value>
+  </data>
+  <data name="ForgotPasswordIntro" xml:space="preserve">
+    <value>Enter your email to generate password recovery instructions.</value>
+  </data>
+  <data name="ForgotPasswordSubmittedMessage" xml:space="preserve">
+    <value>If an account exists for this email, recovery instructions were generated.</value>
+  </data>
+  <data name="ForgotPasswordSameResponseNote" xml:space="preserve">
+    <value>For security, this response is the same for every email address.</value>
+  </data>
+  <data name="RequestFailedGeneric" xml:space="preserve">
+    <value>We could not process the request. Please try again.</value>
+  </data>
+  <data name="SendRecoveryLink" xml:space="preserve">
+    <value>Send Recovery Link</value>
+  </data>
+  <data name="ResetPasswordPageTitle" xml:space="preserve">
+    <value>Reset password | beeday</value>
+  </data>
+  <data name="PasswordUpdatedHeading" xml:space="preserve">
+    <value>Password updated</value>
+  </data>
+  <data name="PasswordUpdatedIntro" xml:space="preserve">
+    <value>Your new password is active.</value>
+  </data>
+  <data name="PasswordResetCompletedMessage" xml:space="preserve">
+    <value>Password reset completed successfully.</value>
+  </data>
+  <data name="ResetPasswordHeading" xml:space="preserve">
+    <value>Reset password</value>
+  </data>
+  <data name="ResetPasswordIntro" xml:space="preserve">
+    <value>Choose a new password for your account.</value>
+  </data>
+  <data name="NewPasswordLabel" xml:space="preserve">
+    <value>New password</value>
+  </data>
+  <data name="ConfirmPasswordLabel" xml:space="preserve">
+    <value>Confirm password</value>
+  </data>
+  <data name="ResetPasswordButton" xml:space="preserve">
+    <value>Reset password</value>
+  </data>
+  <data name="ResetTokenMissingError" xml:space="preserve">
+    <value>The password reset token is missing.</value>
+  </data>
+  <data name="ConfirmEmailPageTitle" xml:space="preserve">
+    <value>Email confirmation | beeday</value>
+  </data>
+  <data name="ConfirmingEmailHeading" xml:space="preserve">
+    <value>Confirming email</value>
+  </data>
+  <data name="ValidatingLinkIntro" xml:space="preserve">
+    <value>Validating your confirmation link...</value>
+  </data>
+  <data name="EmailConfirmedHeading" xml:space="preserve">
+    <value>Email confirmed</value>
+  </data>
+  <data name="AccountReadyIntro" xml:space="preserve">
+    <value>Your account is ready. Sign in to begin your journey.</value>
+  </data>
+  <data name="ConfirmationCompletedMessage" xml:space="preserve">
+    <value>Confirmation completed successfully.</value>
+  </data>
+  <data name="AlreadyConfirmedHeading" xml:space="preserve">
+    <value>Email already confirmed</value>
+  </data>
+  <data name="AlreadyConfirmedIntro" xml:space="preserve">
+    <value>This confirmation link has already been used. Your account remains active.</value>
+  </data>
+  <data name="CanSignInNormallyMessage" xml:space="preserve">
+    <value>You can sign in normally.</value>
+  </data>
+  <data name="LinkExpiredHeading" xml:space="preserve">
+    <value>Confirmation link expired</value>
+  </data>
+  <data name="LinkExpiredIntro" xml:space="preserve">
+    <value>This link is no longer valid. Request a new confirmation email.</value>
+  </data>
+  <data name="LinkReplacedHeading" xml:space="preserve">
+    <value>Confirmation link replaced</value>
+  </data>
+  <data name="LinkReplacedIntro" xml:space="preserve">
+    <value>A newer confirmation link was generated for this account.</value>
+  </data>
+  <data name="UseMostRecentLinkMessage" xml:space="preserve">
+    <value>Use the most recent email or request another confirmation link.</value>
+  </data>
+  <data name="InvalidLinkHeading" xml:space="preserve">
+    <value>Invalid confirmation link</value>
+  </data>
+  <data name="InvalidLinkIntro" xml:space="preserve">
+    <value>This link is incomplete or does not belong to a valid confirmation request.</value>
+  </data>
+  <data name="LinkExpiredMessage" xml:space="preserve">
+    <value>Confirmation links expire after a period of time for security reasons.</value>
+  </data>
+  <data name="InvalidLinkMessage" xml:space="preserve">
+    <value>Check the link in your email or request a new one.</value>
+  </data>
+  <data name="DefaultConfirmationError" xml:space="preserve">
+    <value>Unable to confirm this email.</value>
+  </data>
+  <data name="ConfirmationTokenMissingError" xml:space="preserve">
+    <value>The confirmation token is missing.</value>
+  </data>
+  <data name="ResendConfirmationPageTitle" xml:space="preserve">
+    <value>Resend confirmation | beeday</value>
+  </data>
+  <data name="ResendConfirmationHeading" xml:space="preserve">
+    <value>Resend confirmation</value>
+  </data>
+  <data name="ResendConfirmationIntro" xml:space="preserve">
+    <value>Enter the email used to create your account.</value>
+  </data>
+  <data name="ResendSubmittedMessage" xml:space="preserve">
+    <value>If the account is eligible, a new confirmation message was generated.</value>
+  </data>
+  <data name="SendingButton" xml:space="preserve">
+    <value>Sending...</value>
+  </data>
+  <data name="ResendAvailableInSeconds" xml:space="preserve">
+    <value>Resend available in {0}s</value>
+  </data>
+  <data name="ResendEmailButton" xml:space="preserve">
+    <value>Resend Email</value>
+  </data>
+  <data name="EmailConfirmationSentPageTitle" xml:space="preserve">
+    <value>Confirm your email | beeday</value>
+  </data>
+  <data name="CheckYourEmailHeading" xml:space="preserve">
+    <value>Check your email</value>
+  </data>
+  <data name="CheckYourEmailIntro" xml:space="preserve">
+    <value>We created your account, but you must confirm your email before signing in.</value>
+  </data>
+  <data name="YourEmailAddressFallback" xml:space="preserve">
+    <value>your email address</value>
+  </data>
+  <data name="ConfirmationNote" xml:space="preserve">
+    <value>Use the most recent confirmation email. Links expire after 24 hours.</value>
+  </data>
+  <data name="ResendConfirmationButton" xml:space="preserve">
+    <value>Resend Confirmation</value>
+  </data>
+</root>
