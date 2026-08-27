@@ -1,0 +1,29 @@
+@page "/experience-system/ux/responsive"
+@layout PublicLayout
+@inject IStringLocalizer<ExperienceSystemResources> Localizer
+
+<PageTitle>@Localizer["UxResponsivePageTitle"]</PageTitle>
+
+@* Ported from BeeDay.Web's Components/Features/ExperienceSystem/Pages/Ux/UxResponsive.razor
+   (Sprint 33.11, FE33-075). *@
+<ExperienceSystemPage Eyebrow="@Localizer["PillarNavUx"]" Title="@Localizer["UxResponsiveTitle"]" Description="@Localizer["UxResponsiveIntro"]" Pillar="ExperienceSystemPillar.Ux" CurrentHref="/experience-system/ux/responsive">
+    <section class="experience-system-section" aria-labelledby="responsive-viewports-heading">
+        <h2 id="responsive-viewports-heading">@Localizer["UxResponsiveViewportsTitle"]</h2>
+        <p>@Localizer["UxResponsiveViewportsText"]</p>
+    </section>
+
+    <section class="experience-system-section" aria-labelledby="responsive-shell-heading">
+        <h2 id="responsive-shell-heading">@Localizer["UxResponsiveShellTitle"]</h2>
+        <p>@Localizer["UxResponsiveShellText"]</p>
+    </section>
+
+    <section class="experience-system-section" aria-labelledby="responsive-families-heading">
+        <h2 id="responsive-families-heading">@Localizer["UxResponsiveFamiliesTitle"]</h2>
+        <p>@Localizer["UxResponsiveFamiliesText"]</p>
+    </section>
+
+    <section class="experience-system-section" aria-labelledby="responsive-overflow-heading">
+        <h2 id="responsive-overflow-heading">@Localizer["UxResponsiveOverflowTitle"]</h2>
+        <p>@Localizer["UxResponsiveOverflowText"]</p>
+    </section>
+</ExperienceSystemPage>

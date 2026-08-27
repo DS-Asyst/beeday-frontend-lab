@@ -1,0 +1,26 @@
+@inject IStringLocalizer<ExperienceSystemResources> Localizer
+
+@* Ported verbatim from BeeDay.Web's
+   Components/Features/ExperienceSystem/Components/ExperienceSystemPillarNav.razor (Sprint 33.11,
+   FE33-076). Correction vs. the Ledger note for this item: the Ledger documents a NavigationManager
+   dependency for FE33-076, but as read at extraction time no component under
+   Components/Features/ExperienceSystem/ (this file included) injects NavigationManager anywhere —
+   "current page" highlighting is done via an explicit Current/CurrentHref parameter that each
+   calling page hardcodes to match its own known @page route (e.g.
+   CurrentHref="/experience-system/brand/identity" on BrandIdentity.razor), not resolved from the
+   router at runtime. This is documented here and in the PR description as a correction, mirroring
+   how Sprint 33.9 documented its own undocumented-dependency findings — no NavigationManager
+   injection was added to make the Ledger note "true" after the fact. *@
+<nav class="experience-system-pillar-nav" aria-label="@Localizer["PillarNavAriaLabel"]">
+    <a class="experience-system-pillar-nav__home" href="/experience-system">@Localizer["PillarNavHome"]</a>
+    <ul class="experience-system-pillar-nav__list">
+        <li><a href="/experience-system/brand" aria-current="@(Current == ExperienceSystemPillar.Brand ? "page" : null)">@Localizer["PillarNavBrand"]</a></li>
+        <li><a href="/experience-system/ui" aria-current="@(Current == ExperienceSystemPillar.Ui ? "page" : null)">@Localizer["PillarNavUi"]</a></li>
+        <li><a href="/experience-system/ux" aria-current="@(Current == ExperienceSystemPillar.Ux ? "page" : null)">@Localizer["PillarNavUx"]</a></li>
+    </ul>
+</nav>
+
+@code {
+    [Parameter, EditorRequired]
+    public ExperienceSystemPillar Current { get; set; }
+}

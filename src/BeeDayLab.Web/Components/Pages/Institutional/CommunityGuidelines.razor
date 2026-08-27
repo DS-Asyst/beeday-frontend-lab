@@ -1,0 +1,22 @@
+@page "/community-guidelines"
+@layout EditorialLayout
+@inject IStringLocalizer<InstitutionalResources> Localizer
+
+<PageTitle>@Localizer["CommunityGuidelinesPageTitle"]</PageTitle>
+
+@* Ported from BeeDay.Web's Components/Features/Institutional/Pages/CommunityGuidelines.razor
+   (Sprint 33.11, FE33-063). No approved community-guidelines text exists in the repository yet.
+   This delivers the document structure and an explicit pending-review state — no fabricated
+   clauses. *@
+<LegalDocumentPageTemplate PageContext="@Localizer["CommunityGuidelinesPageContext"]" Title="@Localizer["CommunityGuidelinesTitle"]" Description="@Localizer["CommunityGuidelinesIntro"]">
+    <p class="institutional-pending-notice">@Localizer["LegalPendingReview"]</p>
+    <nav class="institutional-legal__toc" aria-labelledby="community-guidelines-toc-heading">
+        <h2 id="community-guidelines-toc-heading">@Localizer["CommunityGuidelinesTocTitle"]</h2>
+        <ol>
+            <li>@Localizer["CommunityGuidelinesSection1"]</li>
+            <li>@Localizer["CommunityGuidelinesSection2"]</li>
+            <li>@Localizer["CommunityGuidelinesSection3"]</li>
+            <li>@Localizer["CommunityGuidelinesSection4"]</li>
+        </ol>
+    </nav>
+</LegalDocumentPageTemplate>

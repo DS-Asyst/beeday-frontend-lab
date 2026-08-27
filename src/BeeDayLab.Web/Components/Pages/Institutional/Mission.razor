@@ -1,0 +1,19 @@
+@page "/mission"
+@layout EditorialLayout
+@inject IStringLocalizer<InstitutionalResources> Localizer
+
+<PageTitle>@Localizer["MissionPageTitle"]</PageTitle>
+
+@* Ported from BeeDay.Web's Components/Features/Institutional/Pages/Mission.razor (Sprint 33.11,
+   FE33-054). @attribute [AllowAnonymous] dropped — no authorization pipeline exists in the Lab for
+   it to opt out of, same as every other Lab page. IStringLocalizer<InstitutionalResources> is KEPT
+   exactly as production injects it (Sprint 33.11 policy reversal — see InstitutionalResources.*.resx). *@
+<EditorialPageTemplate PageContext="@Localizer["MissionPageContext"]" Title="@Localizer["MissionTitle"]" Description="@Localizer["MissionIntro"]">
+    <div class="editorial-story-blocks mission-story-grid">
+        <EditorialStoryBlock Headline="@Localizer["MissionStory1Headline"]" Support="@Localizer["MissionStory1Body"]" />
+        <EditorialStoryBlock Headline="@Localizer["MissionStory2Headline"]" Support="@Localizer["MissionStory2Body"]" />
+        <EditorialStoryBlock Headline="@Localizer["MissionStory3Headline"]" Support="@Localizer["MissionStory3Body"]" />
+        <EditorialStoryBlock Headline="@Localizer["MissionStory4Headline"]" Support="@Localizer["MissionStory4Body"]" />
+        <EditorialStoryBlock Headline="@Localizer["MissionClosingStatement"]" Centered="true" />
+    </div>
+</EditorialPageTemplate>

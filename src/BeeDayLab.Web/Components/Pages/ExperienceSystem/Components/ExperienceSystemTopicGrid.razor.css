@@ -1,0 +1,7 @@
+.experience-system-topic-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr)); gap: var(--beeday-spacing-lg); margin: 0; padding: 0; list-style: none; }
+.experience-system-topic-grid__card { display: grid; gap: var(--beeday-spacing-sm); height: 100%; padding: var(--beeday-spacing-lg); border: var(--beeday-border-width-subtle) solid var(--beeday-color-border); border-radius: var(--beeday-radius-lg); background: var(--beeday-color-surface); color: inherit; text-decoration: none; transition: transform var(--beeday-transition-fast), box-shadow var(--beeday-transition-fast), border-color var(--beeday-transition-fast); }
+.experience-system-topic-grid__card:hover { transform: translateY(-2px); border-color: var(--beeday-color-brand-primary); box-shadow: var(--beeday-shadow-sm); }
+.experience-system-topic-grid__card:focus-visible { box-shadow: var(--beeday-focus-ring); }
+.experience-system-topic-grid__title { color: var(--beeday-color-brand-primary); font: var(--beeday-type-card-title); }
+.experience-system-topic-grid__description { color: var(--beeday-color-text-secondary); font-size: var(--beeday-font-size-sm); line-height: var(--beeday-line-height-normal); }
+@media (prefers-reduced-motion: reduce) { .experience-system-topic-grid__card { transition: none; } }

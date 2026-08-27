@@ -1,0 +1,23 @@
+@page "/terms"
+@layout EditorialLayout
+@inject IStringLocalizer<InstitutionalResources> Localizer
+
+<PageTitle>@Localizer["TermsPageTitle"]</PageTitle>
+
+@* Ported from BeeDay.Web's Components/Features/Institutional/Pages/Terms.razor (Sprint 33.11,
+   FE33-064). No approved terms-of-use text exists in the repository yet (the LICENSE file governs
+   the source code, not end-user terms). This delivers the document structure and an explicit
+   pending-review state — no fabricated clauses. *@
+<LegalDocumentPageTemplate PageContext="@Localizer["TermsPageContext"]" Title="@Localizer["TermsTitle"]" Description="@Localizer["TermsIntro"]">
+    <p class="institutional-pending-notice">@Localizer["LegalPendingReview"]</p>
+    <nav class="institutional-legal__toc" aria-labelledby="terms-toc-heading">
+        <h2 id="terms-toc-heading">@Localizer["TermsTocTitle"]</h2>
+        <ol>
+            <li>@Localizer["TermsSection1"]</li>
+            <li>@Localizer["TermsSection2"]</li>
+            <li>@Localizer["TermsSection3"]</li>
+            <li>@Localizer["TermsSection4"]</li>
+            <li>@Localizer["TermsSection5"]</li>
+        </ol>
+    </nav>
+</LegalDocumentPageTemplate>

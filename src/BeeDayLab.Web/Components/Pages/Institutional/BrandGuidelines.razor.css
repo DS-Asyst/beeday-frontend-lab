@@ -1,0 +1,49 @@
+/* Sprint 29.4 — Brand guidelines' own left/right documentation layout: a small, independently owned
+   grid (not the ExperienceSystemPage.razor.css sticky-with-<details>-toggle setup that page family
+   uses elsewhere), since EditorialPageTemplate's hero+nav replace what that shell would otherwise
+   own here. Sidebar content itself (ExperienceSystemPillarNav/TopicNav) is reused, not duplicated. */
+.brand-guidelines-layout {
+    display: grid;
+    align-items: start;
+    gap: clamp(2rem, 4vw, 3rem);
+    grid-template-columns: 16rem minmax(0, 1fr);
+}
+
+.brand-guidelines-layout__nav {
+    position: sticky;
+    top: var(--beeday-spacing-xl);
+    display: grid;
+    gap: var(--beeday-spacing-lg);
+}
+
+.brand-guidelines-swatches {
+    display: grid;
+    margin: var(--beeday-spacing-lg) 0;
+    padding: 0;
+    gap: var(--beeday-spacing-md);
+    grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr));
+    list-style: none;
+}
+
+.brand-guidelines-swatches li {
+    display: flex;
+    align-items: center;
+    gap: var(--beeday-spacing-sm);
+    color: var(--beeday-color-text-secondary);
+    font-size: var(--beeday-font-size-sm);
+}
+
+.brand-guidelines-swatch {
+    display: inline-block;
+    flex: none;
+    width: 1.75rem;
+    height: 1.75rem;
+    border-radius: var(--beeday-radius-sm);
+}
+
+.brand-guidelines-swatch--bordered { border: var(--beeday-border-width-subtle) solid var(--beeday-color-border); }
+
+@media (max-width: 64rem) {
+    .brand-guidelines-layout { grid-template-columns: 1fr; }
+    .brand-guidelines-layout__nav { position: static; }
+}

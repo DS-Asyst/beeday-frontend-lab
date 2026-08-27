@@ -1,0 +1,22 @@
+@page "/experience-system/ux"
+@layout PublicLayout
+@inject IStringLocalizer<ExperienceSystemResources> Localizer
+
+<PageTitle>@Localizer["UxOverviewPageTitle"]</PageTitle>
+
+@* Ported from BeeDay.Web's Components/Features/ExperienceSystem/Pages/Ux/UxOverview.razor (Sprint
+   33.11, FE33-074). *@
+<ExperienceSystemPage Eyebrow="@Localizer["UxOverviewEyebrow"]" Title="@Localizer["UxOverviewTitle"]" Description="@Localizer["UxOverviewIntro"]" Pillar="ExperienceSystemPillar.Ux" ShowTopicNav="false">
+    <ExperienceSystemTopicGrid AriaLabel="@Localizer["UxOverviewGridAriaLabel"]" Items="TopicLinks" />
+</ExperienceSystemPage>
+
+@code {
+    private IReadOnlyList<ExperienceSystemLink> TopicLinks =>
+    [
+        new(Localizer["UxNavAccessibility"], Localizer["UxAccessibilityCardDescription"], "/experience-system/ux/accessibility"),
+        new(Localizer["UxNavResponsive"], Localizer["UxResponsiveCardDescription"], "/experience-system/ux/responsive"),
+        new(Localizer["UxNavLocalization"], Localizer["UxLocalizationCardDescription"], "/experience-system/ux/localization"),
+        new(Localizer["UxNavMotion"], Localizer["UxMotionCardDescription"], "/experience-system/ux/motion"),
+        new(Localizer["UxNavPerformance"], Localizer["UxPerformanceCardDescription"], "/experience-system/ux/performance")
+    ];
+}

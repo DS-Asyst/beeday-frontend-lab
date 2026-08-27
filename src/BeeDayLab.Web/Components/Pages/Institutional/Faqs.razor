@@ -1,0 +1,28 @@
+@page "/faqs"
+@layout EditorialLayout
+@inject IStringLocalizer<InstitutionalResources> Localizer
+
+<PageTitle>@Localizer["FaqsPageTitle"]</PageTitle>
+
+@* Ported from BeeDay.Web's Components/Features/Institutional/Pages/Faqs.razor (Sprint 33.11,
+   FE33-062). Uses native <details>/<summary> — no script needed. *@
+<HelpPageTemplate PageContext="@Localizer["FaqsPageContext"]" Title="@Localizer["FaqsTitle"]" Description="@Localizer["FaqsIntro"]">
+    <div class="institutional-faq">
+        <details class="institutional-faq__item">
+            <summary>@Localizer["FaqsQ1Question"]</summary>
+            <p>@Localizer["FaqsQ1Answer"]</p>
+        </details>
+        <details class="institutional-faq__item">
+            <summary>@Localizer["FaqsQ2Question"]</summary>
+            <p>@Localizer["FaqsQ2Answer"]</p>
+        </details>
+        <details class="institutional-faq__item">
+            <summary>@Localizer["FaqsQ3Question"]</summary>
+            <p>@Localizer["FaqsQ3Answer"]</p>
+        </details>
+        <details class="institutional-faq__item">
+            <summary>@Localizer["FaqsQ4Question"]</summary>
+            <p>@Localizer["FaqsQ4AnswerLeadIn"] <a class="beeday-link" href="/contact">@Localizer["FaqsQ4ContactLinkLabel"]</a> @Localizer["FaqsQ4AnswerTrailer"]</p>
+        </details>
+    </div>
+</HelpPageTemplate>

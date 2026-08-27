@@ -1,0 +1,52 @@
+@inject NavigationManager Navigation
+@inject IStringLocalizer<InstitutionalResources> EyebrowLocalizer
+
+@* Ported from BeeDay.Web's Components/Features/Institutional/Components/InstitutionalPageShell.razor
+   (Sprint 33.11, FE33-067). NavigationManager is injected only to compute the current page's own
+   route for active-nav highlighting (Navigation.ToBaseRelativePath(Navigation.Uri)) — standard,
+   benign Blazor, no adaptation needed (see the Ledger's own note for this item). Every institutional
+   page composes through this shell via the four templates (FE33-066). *@
+
+<BeeDayHero Surface="Surface" Eyebrow="@EyebrowLocalizer[EditorialSectionRegistry.GetFamilyEyebrowResourceKey(Section)]" Title="@Title" Subtitle="@Description" Illustration="@Illustration" PrimaryAction="@PrimaryAction">
+    <BrandContext>
+        <a class="institutional-hero__home-link"
+           href="/"
+           aria-label="beeday">
+            <BeeDayBrand OnDarkSurface="true" />
+        </a>
+
+        <span class="institutional-hero__context-label">
+            @PageContext
+        </span>
+
+    </BrandContext>
+    <HeaderNav>
+        <EditorialSectionNav Section="Section" CurrentHref="@CurrentHref" />
+    </HeaderNav>
+</BeeDayHero>
+<article class="institutional-page__body">
+    @ChildContent
+</article>
+
+@code {
+    /// <summary>The page's name as shown next to the brand lockup in the hero, e.g. "Mission".</summary>
+    [Parameter, EditorRequired] public string PageContext { get; set; } = string.Empty;
+
+    [Parameter, EditorRequired] public string Title { get; set; } = string.Empty;
+    [Parameter] public string? Description { get; set; }
+
+    /// <summary>
+    /// Solid page-header background. Restricted in practice to Cor0/Cor8 by the four templates —
+    /// the only two COR0-COR9 tokens whose contrast with white text passes WCAG AA (4.5:1).
+    /// </summary>
+    [Parameter] public BeeDayPaletteToken Surface { get; set; } = BeeDayPaletteToken.Cor0;
+
+    /// <summary>The page's own footer family, resolved to its contextual navigation siblings.</summary>
+    [Parameter, EditorRequired] public EditorialSection Section { get; set; }
+
+    [Parameter] public RenderFragment? Illustration { get; set; }
+    [Parameter] public RenderFragment? PrimaryAction { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+
+    private string CurrentHref => "/" + Navigation.ToBaseRelativePath(Navigation.Uri).Split('?', '#')[0];
+}

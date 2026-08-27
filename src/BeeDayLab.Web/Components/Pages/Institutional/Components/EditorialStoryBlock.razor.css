@@ -1,0 +1,29 @@
+/* Sprint 29.4 — editorial narrative rhythm: predictable vertical spacing between blocks (owned by
+   the parent's gap, see institutional.css .editorial-story), generous whitespace, no card surface —
+   this is prose, not a card grid (Sprint 29.4 §32). */
+.editorial-story-block {
+    max-width: 38rem;
+}
+
+.editorial-story-block__headline {
+    margin: 0 0 var(--beeday-spacing-sm);
+    color: var(--beeday-color-text-primary);
+    font: var(--beeday-type-section-title);
+}
+
+.editorial-story-block__support {
+    margin: 0;
+    color: var(--beeday-color-text-secondary);
+    font: var(--beeday-type-body);
+    line-height: var(--beeday-line-height-relaxed);
+}
+
+.editorial-story-block--centered {
+    max-width: 42rem;
+    margin-inline: auto;
+    text-align: center;
+}
+
+.editorial-story-block--centered .editorial-story-block__headline {
+    font: var(--beeday-type-display);
+}

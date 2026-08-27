@@ -1,0 +1,28 @@
+@page "/experience-system"
+@layout PublicLayout
+@inject IStringLocalizer<ExperienceSystemResources> Localizer
+
+<PageTitle>@Localizer["RootPageTitle"]</PageTitle>
+
+@* Ported from BeeDay.Web's Components/Features/ExperienceSystem/Pages/ExperienceSystemHome.razor
+   (Sprint 33.11, FE33-069). "/brand-guidelines" lives on its own page
+   (Components/Pages/Institutional/BrandGuidelines.razor, FE33-056), using the editorial microsite
+   shell instead of this page's own card-grid ExperienceSystemPage shell — this route stays the
+   Brand/UI/UX pillar entry point, unaffected. *@
+<ExperienceSystemPage Eyebrow="@Localizer["RootEyebrow"]" Title="@Localizer["RootTitle"]" Description="@Localizer["RootIntro"]" ShowBrandGuidelinesHero="true">
+    <ExperienceSystemTopicGrid AriaLabel="@Localizer["RootGridAriaLabel"]" Items="PillarLinks" />
+
+    <section class="experience-system-section" aria-labelledby="root-closing-heading">
+        <h2 id="root-closing-heading">@Localizer["RootClosingTitle"]</h2>
+        <p>@Localizer["RootClosingText"]</p>
+    </section>
+</ExperienceSystemPage>
+
+@code {
+    private IReadOnlyList<ExperienceSystemLink> PillarLinks =>
+    [
+        new(Localizer["PillarNavBrand"], Localizer["RootBrandCardDescription"], "/experience-system/brand"),
+        new(Localizer["PillarNavUi"], Localizer["RootUiCardDescription"], "/experience-system/ui"),
+        new(Localizer["PillarNavUx"], Localizer["RootUxCardDescription"], "/experience-system/ux")
+    ];
+}

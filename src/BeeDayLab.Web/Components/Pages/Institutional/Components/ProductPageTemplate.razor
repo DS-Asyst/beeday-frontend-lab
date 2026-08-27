@@ -1,0 +1,17 @@
+@* Product/marketing family: beeday, beeday Plus (footer "Products"), Android, iOS (footer "Apps") —
+   two different footer families share this one template, so Section has no single family-wide
+   default and each page must pass its own. Ported verbatim from BeeDay.Web's
+   Components/Features/Institutional/Components/ProductPageTemplate.razor (Sprint 33.11, FE33-066). *@
+<InstitutionalPageShell PageContext="@PageContext" Title="@Title" Description="@Description" Surface="Surface" Section="Section" PrimaryAction="@PrimaryAction">
+    @ChildContent
+</InstitutionalPageShell>
+
+@code {
+    [Parameter, EditorRequired] public string PageContext { get; set; } = string.Empty;
+    [Parameter, EditorRequired] public string Title { get; set; } = string.Empty;
+    [Parameter] public string? Description { get; set; }
+    [Parameter] public BeeDayPaletteToken Surface { get; set; } = BeeDayPaletteToken.Cor0;
+    [Parameter, EditorRequired] public EditorialSection Section { get; set; }
+    [Parameter] public RenderFragment? PrimaryAction { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+}

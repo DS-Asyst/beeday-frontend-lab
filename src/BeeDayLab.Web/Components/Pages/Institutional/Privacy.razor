@@ -1,0 +1,22 @@
+@page "/privacy"
+@layout EditorialLayout
+@inject IStringLocalizer<InstitutionalResources> Localizer
+
+<PageTitle>@Localizer["PrivacyPageTitle"]</PageTitle>
+
+@* Ported from BeeDay.Web's Components/Features/Institutional/Pages/Privacy.razor (Sprint 33.11,
+   FE33-065). No approved privacy-policy text exists in the repository yet. This delivers the
+   document structure and an explicit pending-review state — no fabricated clauses. *@
+<LegalDocumentPageTemplate PageContext="@Localizer["PrivacyPageContext"]" Title="@Localizer["PrivacyTitle"]" Description="@Localizer["PrivacyIntro"]">
+    <p class="institutional-pending-notice">@Localizer["LegalPendingReview"]</p>
+    <nav class="institutional-legal__toc" aria-labelledby="privacy-toc-heading">
+        <h2 id="privacy-toc-heading">@Localizer["PrivacyTocTitle"]</h2>
+        <ol>
+            <li>@Localizer["PrivacySection1"]</li>
+            <li>@Localizer["PrivacySection2"]</li>
+            <li>@Localizer["PrivacySection3"]</li>
+            <li>@Localizer["PrivacySection4"]</li>
+            <li>@Localizer["PrivacySection5"]</li>
+        </ol>
+    </nav>
+</LegalDocumentPageTemplate>

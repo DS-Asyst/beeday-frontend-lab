@@ -1,0 +1,51 @@
+/* Sprint 29.4: renders inside BeeDayHero's colored surface (beeday-hero__brand-context), so it
+   inherits the hero's own paired foreground (white on Cor0/Cor8) via `color: inherit` rather than a
+   fixed color — correct for every eligible page-header surface by construction. */
+.editorial-section-nav ul {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0;
+    padding: 0;
+    gap: var(--beeday-spacing-md);
+    list-style: none;
+}
+
+/* Sprint 29.4: no opacity dimming for the rest state — white text at reduced opacity failed WCAG AA
+   color-contrast against Cor0/Cor8 (caught by axe-core). Full color throughout; hover/current use
+   font-weight and an underline, never opacity, to stay non-color-only (WCAG 1.4.1) without risking
+   contrast. */
+.editorial-section-nav__link {
+    display: inline-block;
+    padding: .3rem .05rem;
+    border-bottom: var(--beeday-border-width) solid transparent;
+    color: inherit;
+    font-size: var(--beeday-font-size-sm);
+    font-weight: var(--beeday-font-weight-medium);
+    text-decoration: none;
+    transition: border-color var(--beeday-transition-fast);
+}
+
+.editorial-section-nav__link:hover { border-bottom-color: currentColor; }
+
+.editorial-section-nav__link:focus-visible {
+    outline: var(--beeday-border-width) solid currentColor;
+    outline-offset: 3px;
+    border-radius: var(--beeday-radius-xs);
+}
+
+.editorial-section-nav__link--current {
+    border-bottom-color: currentColor;
+    font-weight: var(--beeday-font-weight-bold);
+}
+
+@media (max-width: 30rem) {
+    .editorial-section-nav ul { gap: var(--beeday-spacing-sm) var(--beeday-spacing-md); }
+}
+
+/* Sprint 32.18: local fallback - the global safety net only shortens duration, it does not remove
+   the border-color transition itself. */
+@media (prefers-reduced-motion: reduce) {
+    .editorial-section-nav__link {
+        transition: none;
+    }
+}

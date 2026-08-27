@@ -1,0 +1,28 @@
+@page "/contact"
+@layout EditorialLayout
+@inject IStringLocalizer<InstitutionalResources> Localizer
+
+<PageTitle>@Localizer["ContactPageTitle"]</PageTitle>
+
+@* Lab adaptation (Sprint 33.11, FE33-057) of BeeDay.Web's
+   Components/Features/Institutional/Pages/Contact.razor. The production page links its support
+   channel to the real https://github.com/DS-Asyst/BeeDay repository — the Ledger's own note for
+   this item calls for the same treatment as FE33-048 (AppFooter's social-link placeholders,
+   Sprint 33.9): a non-interactive placeholder instead of a live link to the real repo, so the Lab
+   never sends a reviewer to production infrastructure. Rendered as an inert <span>, not an <a>,
+   with this comment explaining why — not a link to nowhere and not an invented URL either.
+
+   The LinkedIn link below is a real, already-public, non-BeeDay-specific personal profile link
+   (the same one already used verbatim in AppFooter.razor, Sprint 33.9) — kept exactly as-is. *@
+<EditorialPageTemplate PageContext="@Localizer["ContactPageContext"]" Title="@Localizer["ContactTitle"]" Description="@Localizer["ContactIntro"]">
+    <section aria-labelledby="contact-support-heading">
+        <h2 id="contact-support-heading">@Localizer["ContactSupportTitle"]</h2>
+        <p>@Localizer["ContactSupportBody"]</p>
+        <p><span class="institutional-link-unavailable" aria-label="@($"{Localizer["ContactSupportLinkLabel"]} (disabled in this Lab)")">@Localizer["ContactSupportLinkLabel"]</span></p>
+    </section>
+    <section aria-labelledby="contact-direct-heading">
+        <h2 id="contact-direct-heading">@Localizer["ContactDirectTitle"]</h2>
+        <p>@Localizer["ContactDirectBody"]</p>
+        <p><a class="beeday-link" href="https://www.linkedin.com/in/tiago-a-arrigoni-335b9413b/">@Localizer["ContactDirectLinkLabel"]</a></p>
+    </section>
+</EditorialPageTemplate>

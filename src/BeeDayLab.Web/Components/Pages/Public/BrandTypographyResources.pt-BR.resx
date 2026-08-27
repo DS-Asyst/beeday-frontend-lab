@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="PageTitle" xml:space="preserve"><value>Tipografia — Diretrizes de Marca beeday</value></data>
+  <data name="Eyebrow" xml:space="preserve"><value>DIRETRIZES DE MARCA</value></data>
+  <data name="Title" xml:space="preserve"><value>Tipografia com propósito</value></data>
+  <data name="Introduction" xml:space="preserve"><value>Nosso sistema tipográfico dá uma voz expressiva à marca e mantém o produto claro, familiar e fácil de ler.</value></data>
+  <data name="BrandTitle" xml:space="preserve"><value>Marca e display</value></data>
+  <data name="BrandDescription" xml:space="preserve"><value>Coiny é nossa voz de display. Use com moderação em momentos grandes e expressivos da marca — nunca em controles de interface ou textos longos.</value></data>
+  <data name="BrandSample" xml:space="preserve"><value>beeday</value></data>
+  <data name="BrandAccentedSample" xml:space="preserve"><value>Pequenas ações, grandes conquistas.</value></data>
+  <data name="ProductTitle" xml:space="preserve"><value>Produto e interface</value></data>
+  <data name="ProductDescription" xml:space="preserve"><value>Nunito é a base do produto para navegação, botões, rótulos, formulários, textos, legendas e títulos de interface.</value></data>
+  <data name="RoleMatrixTitle" xml:space="preserve"><value>Papéis, não tamanhos arbitrários</value></data>
+  <data name="RoleMatrixDescription" xml:space="preserve"><value>Escolha a tipografia pela função do texto. A escala responsiva preserva a hierarquia sem sacrificar a leitura.</value></data>
+  <data name="RoleBrandDisplay" xml:space="preserve"><value>Display de marca</value></data>
+  <data name="RoleBrandDisplayExample" xml:space="preserve"><value>Faça cada dia valer.</value></data>
+  <data name="RolePageTitle" xml:space="preserve"><value>Título de página</value></data>
+  <data name="RolePageTitleExample" xml:space="preserve"><value>Seu foco diário</value></data>
+  <data name="RoleSectionTitle" xml:space="preserve"><value>Título de seção</value></data>
+  <data name="RoleSectionTitleExample" xml:space="preserve"><value>Prioridades de hoje</value></data>
+  <data name="RoleCardTitle" xml:space="preserve"><value>Título de card</value></data>
+  <data name="RoleCardTitleExample" xml:space="preserve"><value>Rotina da manhã</value></data>
+  <data name="RoleBody" xml:space="preserve"><value>Corpo</value></data>
+  <data name="RoleBodyExample" xml:space="preserve"><value>Leitura clara e confortável para instruções e conteúdos de apoio mais longos.</value></data>
+  <data name="RoleLabel" xml:space="preserve"><value>Rótulo e botão</value></data>
+  <data name="RoleLabelExample" xml:space="preserve"><value>Salvar alterações</value></data>
+  <data name="RoleCaption" xml:space="preserve"><value>Legenda e eyebrow</value></data>
+  <data name="RoleCaptionExample" xml:space="preserve"><value>CONTEXTO DE APOIO</value></data>
+  <data name="UseTitle" xml:space="preserve"><value>Use bem a tipografia</value></data>
+  <data name="UseBrandCasing" xml:space="preserve"><value>Escreva o nome visível da marca como beeday, sempre em letras minúsculas.</value></data>
+  <data name="UseHierarchy" xml:space="preserve"><value>Mantenha uma hierarquia clara e permita a quebra natural do texto em telas menores.</value></data>
+  <data name="UseReadability" xml:space="preserve"><value>Priorize largura de linha confortável, contraste e espaçamento legível entre linhas.</value></data>
+  <data name="AvoidTitle" xml:space="preserve"><value>Evite</value></data>
+  <data name="AvoidProductCoiny" xml:space="preserve"><value>Não use Coiny em textos, formulários, navegação, rótulos ou botões do produto.</value></data>
+  <data name="AvoidCasing" xml:space="preserve"><value>Não apresente a marca visível como BeeDay ou BEEDAY.</value></data>
+  <data name="AvoidDistortion" xml:space="preserve"><value>Não estique, comprima, contorne ou aplique efeitos decorativos às fontes.</value></data>
+</root>

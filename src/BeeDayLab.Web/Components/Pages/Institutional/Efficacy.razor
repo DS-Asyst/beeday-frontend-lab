@@ -1,0 +1,19 @@
+@page "/efficacy"
+@layout EditorialLayout
+@inject IStringLocalizer<InstitutionalResources> Localizer
+
+<PageTitle>@Localizer["EfficacyPageTitle"]</PageTitle>
+
+@* Ported from BeeDay.Web's Components/Features/Institutional/Pages/Efficacy.razor (Sprint 33.11,
+   FE33-055). The pending-evidence disclosure keeps its own heading and highlighted callout instead
+   of becoming a story block — a distinct honesty notice, not narrative prose, copied faithfully.
+   No claim, metric, or study is added. *@
+<EditorialPageTemplate PageContext="@Localizer["EfficacyPageContext"]" Title="@Localizer["EfficacyTitle"]" Description="@Localizer["EfficacyIntro"]">
+    <div class="editorial-story-blocks">
+        <EditorialStoryBlock Headline="@Localizer["EfficacyBodyTitle"]" Support="@Localizer["EfficacyBody"]" />
+    </div>
+    <section aria-labelledby="efficacy-pending-heading">
+        <h2 id="efficacy-pending-heading">@Localizer["EfficacyPendingEvidenceTitle"]</h2>
+        <p class="institutional-pending-notice">@Localizer["EfficacyPendingEvidenceBody"]</p>
+    </section>
+</EditorialPageTemplate>

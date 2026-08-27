@@ -1,0 +1,28 @@
+@page "/experience-system/ux/localization"
+@layout PublicLayout
+@inject IStringLocalizer<ExperienceSystemResources> Localizer
+
+<PageTitle>@Localizer["UxLocalizationPageTitle"]</PageTitle>
+
+@* Ported from BeeDay.Web's Components/Features/ExperienceSystem/Pages/Ux/UxLocalization.razor
+   (Sprint 33.11, FE33-075). *@
+<ExperienceSystemPage Eyebrow="@Localizer["PillarNavUx"]" Title="@Localizer["UxLocalizationTitle"]" Description="@Localizer["UxLocalizationIntro"]" Pillar="ExperienceSystemPillar.Ux" CurrentHref="/experience-system/ux/localization">
+    <section class="experience-system-section" aria-labelledby="localization-precedence-heading">
+        <h2 id="localization-precedence-heading">@Localizer["UxLocalizationPrecedenceTitle"]</h2>
+        <p>@Localizer["UxLocalizationPrecedenceText"]</p>
+    </section>
+
+    <section class="experience-system-section" aria-labelledby="localization-catalog-heading">
+        <h2 id="localization-catalog-heading">@Localizer["UxLocalizationCatalogTitle"]</h2>
+        <p>@Localizer["UxLocalizationCatalogText"]</p>
+    </section>
+
+    <section class="experience-system-section" aria-labelledby="localization-never-heading">
+        <h2 id="localization-never-heading">@Localizer["UxLocalizationNeverTitle"]</h2>
+        <ul>
+            <li>@Localizer["UxLocalizationNever1"]</li>
+            <li>@Localizer["UxLocalizationNever2"]</li>
+            <li>@Localizer["UxLocalizationNever3"]</li>
+        </ul>
+    </section>
+</ExperienceSystemPage>

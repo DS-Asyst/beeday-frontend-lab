@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="PageTitle" xml:space="preserve">
+    <value>beeday — Seja melhor a cada dia</value>
+  </data>
+  <data name="HeroHeading" xml:space="preserve">
+    <value>Construa um dia melhor, um passo de cada vez.</value>
+  </data>
+  <data name="HeroDescription" xml:space="preserve">
+    <value>Mantenha seus hábitos, tarefas e progresso pessoal em um só lugar.</value>
+  </data>
+  <data name="GetStarted" xml:space="preserve">
+    <value>Comece agora</value>
+  </data>
+  <data name="AlreadyHaveAccount" xml:space="preserve">
+    <value>Já tenho uma conta</value>
+  </data>
+  <data name="StepsEyebrow" xml:space="preserve">
+    <value>UM CICLO DIÁRIO SIMPLES</value>
+  </data>
+  <data name="StepsHeading" xml:space="preserve">
+    <value>Como o beeday funciona</value>
+  </data>
+  <data name="StepsDescription" xml:space="preserve">
+    <value>Comece pelo que importa, transforme em ação e deixe a consistência construir o resultado.</value>
+  </data>
+  <data name="Step1Title" xml:space="preserve">
+    <value>Defina o que importa</value>
+  </data>
+  <data name="Step1Description" xml:space="preserve">
+    <value>Transforme seus objetivos em prioridades claras e saiba onde concentrar sua energia.</value>
+  </data>
+  <data name="Step2Title" xml:space="preserve">
+    <value>Organize o seu dia</value>
+  </data>
+  <data name="Step2Description" xml:space="preserve">
+    <value>Reúna sua rotina, tarefas e compromissos em um só lugar para viver com mais clareza.</value>
+  </data>
+  <data name="Step3Title" xml:space="preserve">
+    <value>Evolua todos os dias</value>
+  </data>
+  <data name="Step3Description" xml:space="preserve">
+    <value>Pequenas ações consistentes criam grandes mudanças. Avance um pouco a cada dia.</value>
+  </data>
+  <data name="Step4Title" xml:space="preserve">
+    <value>Acompanhe seu progresso</value>
+  </data>
+  <data name="Step4Description" xml:space="preserve">
+    <value>Veja sua evolução, mantenha a motivação e entenda o quanto você já avançou.</value>
+  </data>
+  <data name="Step5Title" xml:space="preserve">
+    <value>Celebre suas conquistas</value>
+  </data>
+  <data name="Step5Description" xml:space="preserve">
+    <value>Cada passo conta. Reconheça suas vitórias e continue evoluindo.</value>
+  </data>
+</root>

@@ -1,0 +1,52 @@
+@page "/experience-system/brand/color"
+@layout PublicLayout
+@inject IStringLocalizer<ExperienceSystemResources> Localizer
+
+<PageTitle>@Localizer["BrandColorPageTitle"]</PageTitle>
+
+@* Ported from BeeDay.Web's Components/Features/ExperienceSystem/Pages/Brand/BrandColor.razor
+   (Sprint 33.11, FE33-071). *@
+<ExperienceSystemPage Eyebrow="@Localizer["PillarNavBrand"]" Title="@Localizer["BrandColorTitle"]" Description="@Localizer["BrandColorIntro"]" Pillar="ExperienceSystemPillar.Brand" CurrentHref="/experience-system/brand/color">
+    <section class="experience-system-section" aria-labelledby="color-taxonomy-heading">
+        <h2 id="color-taxonomy-heading">@Localizer["BrandColorTaxonomyTitle"]</h2>
+        <p>@Localizer["BrandColorTaxonomyText"]</p>
+        <div class="experience-system-table-wrap">
+            <table class="experience-system-table">
+                <thead>
+                    <tr><th scope="col">@Localizer["BrandColorCategoryHeader"]</th><th scope="col">@Localizer["BrandColorResponsibilityHeader"]</th></tr>
+                </thead>
+                <tbody>
+                    <tr><th scope="row">@Localizer["BrandColorCategoryBrand"]</th><td>@Localizer["BrandColorCategoryBrandText"]</td></tr>
+                    <tr><th scope="row">@Localizer["BrandColorCategorySurface"]</th><td>@Localizer["BrandColorCategorySurfaceText"]</td></tr>
+                    <tr><th scope="row">@Localizer["BrandColorCategoryContent"]</th><td>@Localizer["BrandColorCategoryContentText"]</td></tr>
+                    <tr><th scope="row">@Localizer["BrandColorCategorySemantic"]</th><td>@Localizer["BrandColorCategorySemanticText"]</td></tr>
+                    <tr><th scope="row">@Localizer["BrandColorCategoryProduct"]</th><td>@Localizer["BrandColorCategoryProductText"]</td></tr>
+                    <tr><th scope="row">@Localizer["BrandColorCategoryIllustration"]</th><td>@Localizer["BrandColorCategoryIllustrationText"]</td></tr>
+                    <tr><th scope="row">@Localizer["BrandColorCategoryComponent"]</th><td>@Localizer["BrandColorCategoryComponentText"]</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section class="experience-system-section" aria-labelledby="color-states-heading">
+        <h2 id="color-states-heading">@Localizer["BrandColorStatesTitle"]</h2>
+        <p>@Localizer["BrandColorStatesText"]</p>
+        <div class="experience-system-swatches">
+            <div class="experience-system-swatch"><span class="experience-system-swatch__chip" style="background:#5247F9"></span><span class="experience-system-swatch__name">@Localizer["BrandColorStatePrimary"]</span><span class="experience-system-swatch__value">#5247F9</span></div>
+            <div class="experience-system-swatch"><span class="experience-system-swatch__chip" style="background:#3F33F1"></span><span class="experience-system-swatch__name">@Localizer["BrandColorStateHover"]</span><span class="experience-system-swatch__value">#3F33F1</span></div>
+            <div class="experience-system-swatch"><span class="experience-system-swatch__chip" style="background:#1C0EF2"></span><span class="experience-system-swatch__name">@Localizer["BrandColorStateActive"]</span><span class="experience-system-swatch__value">#1C0EF2</span></div>
+            <div class="experience-system-swatch"><span class="experience-system-swatch__chip" style="background:#827AFC"></span><span class="experience-system-swatch__name">@Localizer["BrandColorStateLight"]</span><span class="experience-system-swatch__value">#827AFC</span></div>
+            <div class="experience-system-swatch"><span class="experience-system-swatch__chip" style="background:#F8F7FF"></span><span class="experience-system-swatch__name">@Localizer["BrandColorStateSoft"]</span><span class="experience-system-swatch__value">#F8F7FF</span></div>
+        </div>
+    </section>
+
+    <section class="experience-system-section" aria-labelledby="color-yellow-heading">
+        <h2 id="color-yellow-heading">@Localizer["BrandColorYellowTitle"]</h2>
+        <p>@Localizer["BrandColorYellowText"]</p>
+    </section>
+
+    <section class="experience-system-section" aria-labelledby="color-hardcode-heading">
+        <h2 id="color-hardcode-heading">@Localizer["BrandColorHardcodeTitle"]</h2>
+        <p>@Localizer["BrandColorHardcodeText"]</p>
+    </section>
+</ExperienceSystemPage>

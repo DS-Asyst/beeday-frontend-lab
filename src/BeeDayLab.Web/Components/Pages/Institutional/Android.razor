@@ -1,0 +1,20 @@
+@page "/android"
+@layout EditorialLayout
+@inject IStringLocalizer<InstitutionalResources> Localizer
+
+<PageTitle>@Localizer["AndroidPageTitle"]</PageTitle>
+
+@* Ported from BeeDay.Web's Components/Features/Institutional/Pages/Android.razor (Sprint 33.11,
+   FE33-060). No Play Store URL exists yet — an honest "coming soon" status page, not a placeholder
+   link. *@
+<ProductPageTemplate PageContext="@Localizer["AndroidPageContext"]" Title="@Localizer["AndroidTitle"]" Description="@Localizer["AndroidIntro"]" Section="EditorialSection.Apps">
+    <PrimaryAction>
+        <a class="beeday-button beeday-button--important-white" href="/profile/create">@Localizer["TryBeedayToday"]</a>
+    </PrimaryAction>
+    <ChildContent>
+        <section aria-label="@Localizer["AndroidTitle"]">
+            <span class="institutional-product__status">@Localizer["AndroidStatus"]</span>
+            <p>@Localizer["AndroidBody"]</p>
+        </section>
+    </ChildContent>
+</ProductPageTemplate>
