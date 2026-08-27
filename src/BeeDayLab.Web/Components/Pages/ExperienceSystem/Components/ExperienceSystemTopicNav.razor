@@ -1,0 +1,59 @@
+@inject IStringLocalizer<ExperienceSystemResources> Localizer
+
+@* Ported verbatim from BeeDay.Web's
+   Components/Features/ExperienceSystem/Components/ExperienceSystemTopicNav.razor (Sprint 33.11,
+   FE33-076). See ExperienceSystemPillarNav.razor's comment — no NavigationManager dependency exists
+   here either; CurrentHref is a plain caller-supplied parameter. *@
+<nav class="experience-system-topic-nav" aria-label="@TopicNavAriaLabel">
+    <ul>
+        @foreach (var topic in Topics)
+        {
+            <li><a href="@topic.Href" aria-current="@(topic.Href == CurrentHref ? "page" : null)">@Localizer[topic.LabelKey]</a></li>
+        }
+    </ul>
+</nav>
+
+@code {
+    [Parameter, EditorRequired]
+    public ExperienceSystemPillar Pillar { get; set; }
+
+    [Parameter]
+    public string? CurrentHref { get; set; }
+
+    private string TopicNavAriaLabel => Pillar switch
+    {
+        ExperienceSystemPillar.Brand => Localizer["TopicNavAriaLabelBrand"],
+        ExperienceSystemPillar.Ui => Localizer["TopicNavAriaLabelUi"],
+        _ => Localizer["TopicNavAriaLabelUx"],
+    };
+
+    private IReadOnlyList<(string LabelKey, string Href)> Topics => Pillar switch
+    {
+        ExperienceSystemPillar.Brand =>
+        [
+            ("BrandNavIdentity", "/experience-system/brand/identity"),
+            ("BrandNavWordmark", "/experience-system/brand/wordmark"),
+            ("BrandNavColor", "/experience-system/brand/color"),
+            ("BrandNavTypography", "/experience-system/brand/typography"),
+            ("BrandNavIllustration", "/experience-system/brand/illustration"),
+            ("BrandNavCharacters", "/experience-system/brand/characters"),
+            ("BrandNavWriting", "/experience-system/brand/writing"),
+        ],
+        ExperienceSystemPillar.Ui =>
+        [
+            ("UiNavFoundations", "/experience-system/ui/foundations"),
+            ("UiNavComponents", "/experience-system/ui/components"),
+            ("UiNavProductPatterns", "/experience-system/ui/product-patterns"),
+            ("UiNavInteraction", "/experience-system/ui/interaction"),
+            ("UiNavLayout", "/experience-system/ui/layout"),
+        ],
+        _ =>
+        [
+            ("UxNavAccessibility", "/experience-system/ux/accessibility"),
+            ("UxNavResponsive", "/experience-system/ux/responsive"),
+            ("UxNavLocalization", "/experience-system/ux/localization"),
+            ("UxNavMotion", "/experience-system/ux/motion"),
+            ("UxNavPerformance", "/experience-system/ux/performance"),
+        ],
+    };
+}

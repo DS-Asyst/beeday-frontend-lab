@@ -1,0 +1,49 @@
+@page "/experience-system/brand/characters"
+@layout PublicLayout
+@inject IStringLocalizer<ExperienceSystemResources> Localizer
+
+<PageTitle>@Localizer["BrandCharactersPageTitle"]</PageTitle>
+
+@* Ported from BeeDay.Web's Components/Features/ExperienceSystem/Pages/Brand/BrandCharacters.razor
+   (Sprint 33.11, FE33-071). *@
+<ExperienceSystemPage Eyebrow="@Localizer["PillarNavBrand"]" Title="@Localizer["BrandCharactersTitle"]" Description="@Localizer["BrandCharactersIntro"]" Pillar="ExperienceSystemPillar.Brand" CurrentHref="/experience-system/brand/characters">
+    <section class="experience-system-section" aria-labelledby="characters-bee-heading">
+        <h2 id="characters-bee-heading">@Localizer["BrandCharactersBeeTitle"]</h2>
+        <p>@Localizer["BrandCharactersBeeText"]</p>
+        <ul>
+            <li>@Localizer["BrandCharactersBee1"]</li>
+            <li>@Localizer["BrandCharactersBee2"]</li>
+            <li>@Localizer["BrandCharactersBee3"]</li>
+        </ul>
+    </section>
+
+    <section class="experience-system-section" aria-labelledby="characters-cast-heading">
+        <h2 id="characters-cast-heading">@Localizer["BrandCharactersCastTitle"]</h2>
+        <p>@Localizer["BrandCharactersCastText"]</p>
+        <div class="experience-system-table-wrap">
+            <table class="experience-system-table">
+                <thead>
+                    <tr><th scope="col">@Localizer["BrandCharactersCastHeader"]</th><th scope="col">@Localizer["BrandCharactersTraitsHeader"]</th></tr>
+                </thead>
+                <tbody>
+                    <tr><th scope="row">@Localizer["BrandCharactersCastFox"]</th><td>@Localizer["BrandCharactersCastFoxTraits"]</td></tr>
+                    <tr><th scope="row">@Localizer["BrandCharactersCastBear"]</th><td>@Localizer["BrandCharactersCastBearTraits"]</td></tr>
+                    <tr><th scope="row">@Localizer["BrandCharactersCastCat"]</th><td>@Localizer["BrandCharactersCastCatTraits"]</td></tr>
+                    <tr><th scope="row">@Localizer["BrandCharactersCastPrimate"]</th><td>@Localizer["BrandCharactersCastPrimateTraits"]</td></tr>
+                    <tr><th scope="row">@Localizer["BrandCharactersCastWhiteCat"]</th><td>@Localizer["BrandCharactersCastWhiteCatTraits"]</td></tr>
+                    <tr><th scope="row">@Localizer["BrandCharactersCastFlower"]</th><td>@Localizer["BrandCharactersCastFlowerTraits"]</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section class="experience-system-callouts" aria-label="@Localizer["BrandCharactersAvoidTitle"]">
+        <div class="experience-system-callout experience-system-callout--avoid">
+            <h3>@Localizer["BrandCharactersAvoidTitle"]</h3>
+            <ul>
+                <li>@Localizer["BrandCharactersAvoid1"]</li>
+                <li>@Localizer["BrandCharactersAvoid2"]</li>
+            </ul>
+        </div>
+    </section>
+</ExperienceSystemPage>

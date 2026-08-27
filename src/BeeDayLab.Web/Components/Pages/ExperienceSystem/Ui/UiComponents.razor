@@ -1,0 +1,67 @@
+@page "/experience-system/ui/components"
+@layout PublicLayout
+@inject IStringLocalizer<ExperienceSystemResources> Localizer
+
+<PageTitle>@Localizer["UiComponentsPageTitle"]</PageTitle>
+
+@* Ported from BeeDay.Web's Components/Features/ExperienceSystem/Pages/Ui/UiComponents.razor
+   (Sprint 33.11, FE33-073). *@
+<ExperienceSystemPage Eyebrow="@Localizer["PillarNavUi"]" Title="@Localizer["UiComponentsTitle"]" Description="@Localizer["UiComponentsIntro"]" Pillar="ExperienceSystemPillar.Ui" CurrentHref="/experience-system/ui/components">
+    <section class="experience-system-section" aria-labelledby="components-actions-heading">
+        <h2 id="components-actions-heading">@Localizer["UiComponentsActionsTitle"]</h2>
+        <div class="experience-system-table-wrap">
+            <table class="experience-system-table">
+                <thead>
+                    <tr><th scope="col">@Localizer["UiComponentsComponentHeader"]</th><th scope="col">@Localizer["UiComponentsResponsibilityHeader"]</th></tr>
+                </thead>
+                <tbody>
+                    <tr><th scope="row">BeeDayButton</th><td>@Localizer["UiComponentsButtonText"]</td></tr>
+                    <tr><th scope="row">BeeDayCard</th><td>@Localizer["UiComponentsCardText"]</td></tr>
+                    <tr><th scope="row">BeeDayConfirmDialog</th><td>@Localizer["UiComponentsConfirmDialogText"]</td></tr>
+                    <tr><th scope="row">BeeDayToastHost</th><td>@Localizer["UiComponentsToastText"]</td></tr>
+                    <tr><th scope="row">BeeDayEmptyState</th><td>@Localizer["UiComponentsEmptyStateText"]</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section class="experience-system-section" aria-labelledby="components-forms-heading">
+        <h2 id="components-forms-heading">@Localizer["UiComponentsFormsTitle"]</h2>
+        <p>@Localizer["UiComponentsFormsText"]</p>
+        <div class="experience-system-table-wrap">
+            <table class="experience-system-table">
+                <thead>
+                    <tr><th scope="col">@Localizer["UiComponentsComponentHeader"]</th><th scope="col">@Localizer["UiComponentsResponsibilityHeader"]</th></tr>
+                </thead>
+                <tbody>
+                    <tr><th scope="row">BeeDayIcon</th><td>@Localizer["UiComponentsIconText"]</td></tr>
+                    <tr><th scope="row">BeeDayPageHeader / SectionHeader / Hero</th><td>@Localizer["UiComponentsHeadersText"]</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section class="experience-system-section" aria-labelledby="components-other-heading">
+        <h2 id="components-other-heading">@Localizer["UiComponentsOtherTitle"]</h2>
+        <div class="experience-system-table-wrap">
+            <table class="experience-system-table">
+                <thead>
+                    <tr><th scope="col">@Localizer["UiComponentsComponentHeader"]</th><th scope="col">@Localizer["UiComponentsResponsibilityHeader"]</th></tr>
+                </thead>
+                <tbody>
+                    <tr><th scope="row">EditorModalShell</th><td>@Localizer["UiComponentsEditorModalText"]</td></tr>
+                    <tr><th scope="row">BeeDayBrand</th><td>@Localizer["UiComponentsBrandText"]</td></tr>
+                    <tr><th scope="row">BeeDayProgressBar</th><td>@Localizer["UiComponentsProgressText"]</td></tr>
+                    <tr><th scope="row">BeeDaySortable</th><td>@Localizer["UiComponentsSortableText"]</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section class="experience-system-callouts" aria-label="@Localizer["UiComponentsCalloutTitle"]">
+        <div class="experience-system-callout experience-system-callout--info">
+            <h3>@Localizer["UiComponentsCalloutTitle"]</h3>
+            <p>@Localizer["UiComponentsCalloutText"]</p>
+        </div>
+    </section>
+</ExperienceSystemPage>

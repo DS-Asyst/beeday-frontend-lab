@@ -1,6 +1,9 @@
 using System.Globalization;
 using BeeDayLab.Web.Components.DesignSystem;
 using BeeDayLab.Web.Components.Layout;
+using BeeDayLab.Web.Components.Pages.ExperienceSystem;
+using BeeDayLab.Web.Components.Pages.Institutional;
+using BeeDayLab.Web.Components.Pages.Public;
 using BeeDayLab.Web.Resources;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
@@ -49,6 +52,54 @@ public sealed class LocalizationResourceTests
         var localizer = BuildLocalizer<DesignSystemResources>();
 
         Assert.Equal(expected, localizer["ConfirmDialogConfirmLabel"].Value);
+    }
+
+    // Sprint 33.11 (FE33-053..076): four new resx catalog families, copied verbatim mirroring this
+    // same Sprint 33.10 convention — kept, not stripped, per the Sprint 33.11 policy reversal (the
+    // Lab now has a real localization pipeline). One representative key per catalog, both cultures.
+
+    [Theory]
+    [InlineData("en-US", "beeday — Be better every day")]
+    [InlineData("pt-BR", "beeday — Seja melhor a cada dia")]
+    public void HomeResourcesResolvesPageTitleForCulture(string culture, string expected)
+    {
+        using var scope = new CultureScope(culture);
+        var localizer = BuildLocalizer<HomeResources>();
+
+        Assert.Equal(expected, localizer["PageTitle"].Value);
+    }
+
+    [Theory]
+    [InlineData("en-US", "Typography with purpose")]
+    [InlineData("pt-BR", "Tipografia com propósito")]
+    public void BrandTypographyResourcesResolvesTitleForCulture(string culture, string expected)
+    {
+        using var scope = new CultureScope(culture);
+        var localizer = BuildLocalizer<BrandTypographyResources>();
+
+        Assert.Equal(expected, localizer["Title"].Value);
+    }
+
+    [Theory]
+    [InlineData("en-US", "Our mission")]
+    [InlineData("pt-BR", "Nossa missão")]
+    public void InstitutionalResourcesResolvesMissionTitleForCulture(string culture, string expected)
+    {
+        using var scope = new CultureScope(culture);
+        var localizer = BuildLocalizer<InstitutionalResources>();
+
+        Assert.Equal(expected, localizer["MissionTitle"].Value);
+    }
+
+    [Theory]
+    [InlineData("en-US", "Brand System")]
+    [InlineData("pt-BR", "Brand System")]
+    public void ExperienceSystemResourcesResolvesPillarNavBrandLabelForCulture(string culture, string expected)
+    {
+        using var scope = new CultureScope(culture);
+        var localizer = BuildLocalizer<ExperienceSystemResources>();
+
+        Assert.Equal(expected, localizer["PillarNavBrand"].Value);
     }
 
     private static IStringLocalizer<T> BuildLocalizer<T>()

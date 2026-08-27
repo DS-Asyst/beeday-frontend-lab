@@ -1,0 +1,79 @@
+/* Mission editorial composition:
+   section heading on the left, supporting narrative on the right. */
+
+.editorial-story-blocks.mission-story-grid {
+    display: grid;
+    gap: 0;
+}
+
+.mission-story-grid ::deep .editorial-story-block {
+    display: grid;
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding-block: clamp(3rem, 5vw, 4.75rem);
+    align-items: start;
+    column-gap: clamp(2rem, 6vw, 5rem);
+    grid-template-columns: minmax(13rem, .8fr) minmax(0, 1.45fr);
+}
+
+    /* Divisor between the narrative sections. */
+    .mission-story-grid ::deep .editorial-story-block + .editorial-story-block {
+        margin-top: 0;
+        border-top: var(--beeday-border-width-subtle) solid var(--beeday-color-border);
+    }
+
+.mission-story-grid ::deep .editorial-story-block__headline {
+    max-width: 17rem;
+    margin: 0;
+}
+
+.mission-story-grid ::deep .editorial-story-block__support {
+    max-width: 38rem;
+    margin: 0;
+}
+
+/* Final Mission statement remains a centered editorial closure. */
+.mission-story-grid ::deep .editorial-story-block--centered {
+    display: block;
+    width: 100%;
+    max-width: none;
+    margin-inline: 0;
+    padding-block: clamp(4rem, 8vw, 7rem);
+    text-align: center;
+}
+
+.mission-story-grid
+::deep
+.editorial-story-block--centered
+.editorial-story-block__headline {
+ max-width: 48rem;
+ margin-inline: auto;
+ }
+
+.mission-story-grid ::deep .editorial-story-block__headline {
+    font-size: clamp(1.15rem, 1.5vw, 1.4rem);
+    line-height: 1.2;
+}
+
+.mission-story-grid ::deep .editorial-story-block__support {
+    font-size: clamp(1rem, 1.1vw, 1.075rem);
+}
+
+/* Real reflow on narrow viewports — never scale the desktop composition. */
+@media (max-width: 46rem) {
+    .mission-story-grid ::deep .editorial-story-block {
+        padding-block: var(--beeday-spacing-xl);
+        row-gap: var(--beeday-spacing-md);
+        grid-template-columns: 1fr;
+    }
+
+    .mission-story-grid ::deep .editorial-story-block__headline,
+    .mission-story-grid ::deep .editorial-story-block__support {
+        max-width: none;
+    }
+
+    .mission-story-grid ::deep .editorial-story-block--centered {
+        padding-block: var(--beeday-spacing-2xl);
+    }
+}

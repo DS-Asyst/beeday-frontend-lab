@@ -1,0 +1,28 @@
+@inject IStringLocalizer<SharedResources> Localizer
+
+@* Ported verbatim from BeeDay.Web's Components/Features/Institutional/Components/EditorialSectionNav.razor
+   (Sprint 33.11, FE33-067) — contextual navigation for the editorial header: the OTHER pages in the
+   current page's own footer family, resolved deterministically from EditorialSectionRegistry
+   (route -> its own family -> siblings), never from click history or session state. A single-page
+   family (Help) has no siblings to show, so it renders nothing rather than a one-item nav pointing
+   at itself. IStringLocalizer<SharedResources> is KEPT exactly as production injects it (Sprint
+   33.11 policy reversal) — SharedResources already carries these FooterXLink keys, copied verbatim
+   in Sprint 33.9 (FE33-048). *@
+@if (Links.Count > 1)
+{
+    <nav class="editorial-section-nav" aria-label="@Localizer["EditorialSectionNavAriaLabel"]">
+        <ul>
+            @foreach (var link in Links)
+            {
+                var isCurrent = string.Equals(link.Href, CurrentHref, StringComparison.OrdinalIgnoreCase);
+                <li>
+                    <a href="@link.Href"
+                       class="@(isCurrent ? "editorial-section-nav__link editorial-section-nav__link--current" : "editorial-section-nav__link")"
+                       aria-current="@(isCurrent ? "page" : null)">
+                        @Localizer[link.LabelResourceKey]
+                    </a>
+                </li>
+            }
+        </ul>
+    </nav>
+}

@@ -1,0 +1,442 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+
+  <!-- Shared navigation -->
+  <data name="PillarNavAriaLabel" xml:space="preserve"><value>beeday Experience System pillars</value></data>
+  <data name="SidebarToggleLabel" xml:space="preserve"><value>Browse topics</value></data>
+  <data name="PillarNavHome" xml:space="preserve"><value>beeday Experience System</value></data>
+  <data name="PillarNavBrand" xml:space="preserve"><value>Brand System</value></data>
+  <data name="PillarNavUi" xml:space="preserve"><value>UI Design System</value></data>
+  <data name="PillarNavUx" xml:space="preserve"><value>UX System</value></data>
+  <data name="TopicNavAriaLabelBrand" xml:space="preserve"><value>Topics in the Brand System</value></data>
+  <data name="TopicNavAriaLabelUi" xml:space="preserve"><value>Topics in the UI Design System</value></data>
+  <data name="TopicNavAriaLabelUx" xml:space="preserve"><value>Topics in the UX System</value></data>
+  <data name="BrandNavIdentity" xml:space="preserve"><value>Identity</value></data>
+  <data name="BrandNavWordmark" xml:space="preserve"><value>Wordmark</value></data>
+  <data name="BrandNavColor" xml:space="preserve"><value>Color</value></data>
+  <data name="BrandNavTypography" xml:space="preserve"><value>Typography</value></data>
+  <data name="BrandNavIllustration" xml:space="preserve"><value>Illustration</value></data>
+  <data name="BrandNavCharacters" xml:space="preserve"><value>Characters</value></data>
+  <data name="BrandNavWriting" xml:space="preserve"><value>Writing</value></data>
+  <data name="UiNavFoundations" xml:space="preserve"><value>Foundations</value></data>
+  <data name="UiNavComponents" xml:space="preserve"><value>Components</value></data>
+  <data name="UiNavProductPatterns" xml:space="preserve"><value>Product Patterns</value></data>
+  <data name="UiNavInteraction" xml:space="preserve"><value>Interaction</value></data>
+  <data name="UiNavLayout" xml:space="preserve"><value>Layout</value></data>
+  <data name="UxNavAccessibility" xml:space="preserve"><value>Accessibility</value></data>
+  <data name="UxNavResponsive" xml:space="preserve"><value>Responsive</value></data>
+  <data name="UxNavLocalization" xml:space="preserve"><value>Localization</value></data>
+  <data name="UxNavMotion" xml:space="preserve"><value>Motion</value></data>
+  <data name="UxNavPerformance" xml:space="preserve"><value>Performance</value></data>
+
+  <!-- Root: /experience-system -->
+  <data name="RootPageTitle" xml:space="preserve"><value>beeday Experience System</value></data>
+  <data name="RootEyebrow" xml:space="preserve"><value>EXPERIENCE SYSTEM</value></data>
+  <data name="RootTitle" xml:space="preserve"><value>beeday Experience System</value></data>
+  <data name="RootIntro" xml:space="preserve"><value>The beeday Experience System — the public, browsable record of how beeday looks, behaves, and communicates. The Brand System, the UI Design System, and the UX System formalized during EPIC 25, kept in sync with the product itself.</value></data>
+  <data name="RootGridAriaLabel" xml:space="preserve"><value>beeday Experience System pillars</value></data>
+  <data name="RootBrandCardDescription" xml:space="preserve"><value>Identity, wordmark, color, typography, illustration, characters, and writing.</value></data>
+  <data name="RootUiCardDescription" xml:space="preserve"><value>Foundations, components, product patterns, interaction, and layout.</value></data>
+  <data name="RootUxCardDescription" xml:space="preserve"><value>Accessibility, responsiveness, localization, motion, and performance.</value></data>
+  <data name="RootClosingTitle" xml:space="preserve"><value>Built from what already ships</value></data>
+  <data name="RootClosingText" xml:space="preserve"><value>Every rule on these pages was formalized against the current beeday codebase — its components, tokens, tests, and resource catalogs — not decided in the abstract. Nothing here is a proposal.</value></data>
+
+  <!-- Brand overview: /experience-system/brand -->
+  <data name="BrandOverviewPageTitle" xml:space="preserve"><value>Brand System | beeday Experience System</value></data>
+  <data name="BrandOverviewEyebrow" xml:space="preserve"><value>beeday Experience System</value></data>
+  <data name="BrandOverviewTitle" xml:space="preserve"><value>Brand System</value></data>
+  <data name="BrandOverviewIntro" xml:space="preserve"><value>Identity, wordmark, logo, and brand color; expressive typography and imagery; illustration and characters; voice and tone. The Brand System governs how beeday presents itself as a brand — distinct from, and sharing foundations with, the UI Design System.</value></data>
+  <data name="BrandOverviewGridAriaLabel" xml:space="preserve"><value>Brand System topics</value></data>
+  <data name="BrandIdentityCardDescription" xml:space="preserve"><value>The official brand name, casing, and color — and where brand identity ends and technical identity begins.</value></data>
+  <data name="BrandWordmarkCardDescription" xml:space="preserve"><value>The two canonical representations of the beeday wordmark, and when each one applies.</value></data>
+  <data name="BrandColorCardDescription" xml:space="preserve"><value>How brand, surface, content, semantic, product, illustration, and component colors are owned and used.</value></data>
+  <data name="BrandTypographyCardDescription" xml:space="preserve"><value>Coiny for brand display, Nunito for product — and the roles that choose between them.</value></data>
+  <data name="BrandIllustrationCardDescription" xml:space="preserve"><value>Shape language, composition rules, and the accessibility contract for beeday's artwork.</value></data>
+  <data name="BrandCharactersCardDescription" xml:space="preserve"><value>The bee and six supporting characters — what the current artwork confirms, and what remains unknown.</value></data>
+  <data name="BrandWritingCardDescription" xml:space="preserve"><value>Narrative, voice, tone by context, style, and the canonical bilingual glossary.</value></data>
+
+  <!-- Brand / Identity -->
+  <data name="BrandIdentityPageTitle" xml:space="preserve"><value>Identity | beeday Experience System</value></data>
+  <data name="BrandIdentityTitle" xml:space="preserve"><value>Identity</value></data>
+  <data name="BrandIdentityIntro" xml:space="preserve"><value>beeday's brand identity is a small set of decisions, approved before EPIC 25 began, that apply everywhere the brand is presented — without needing to be rediscussed sprint by sprint.</value></data>
+  <data name="BrandIdentityContractTitle" xml:space="preserve"><value>The brand contract</value></data>
+  <data name="BrandIdentityContractText" xml:space="preserve"><value>Three decisions define the visible brand, and they hold everywhere the name is presented as branding.</value></data>
+  <data name="BrandIdentityContractElementHeader" xml:space="preserve"><value>Element</value></data>
+  <data name="BrandIdentityContractValueHeader" xml:space="preserve"><value>Official value</value></data>
+  <data name="BrandIdentityContractNameLabel" xml:space="preserve"><value>Brand name</value></data>
+  <data name="BrandIdentityContractCasingLabel" xml:space="preserve"><value>Visual casing</value></data>
+  <data name="BrandIdentityContractCasingValue" xml:space="preserve"><value>lowercase — title case and all-caps styling are never the official visible form</value></data>
+  <data name="BrandIdentityContractColorLabel" xml:space="preserve"><value>Brand color</value></data>
+  <data name="BrandIdentityColorRuleTitle" xml:space="preserve"><value>Color rule</value></data>
+  <data name="BrandIdentityColorRuleText" xml:space="preserve"><value>Whenever the beeday name appears as a branding element, its color is #5247F9 — never an approximation and never substituted, except where a technical or accessibility context makes color representation inapplicable.</value></data>
+  <data name="BrandIdentityBoundaryTitle" xml:space="preserve"><value>Brand identity ≠ technical identity</value></data>
+  <data name="BrandIdentityBoundaryText" xml:space="preserve"><value>The brand decision above does not authorize a technical rename. The product's technical identity — the solution, namespaces, assemblies, component names, database, configuration keys, and infrastructure — remains unchanged until a specific, explicitly approved task changes it, backed by a full consumer and backward-compatibility analysis. Brand identity and technical identity are never the same decision.</value></data>
+  <data name="BrandIdentityBoundaryListTitle" xml:space="preserve"><value>What the technical identity preserves</value></data>
+  <data name="BrandIdentityBoundaryItem1" xml:space="preserve"><value>The solution file and every project inside it</value></data>
+  <data name="BrandIdentityBoundaryItem2" xml:space="preserve"><value>Every namespace under the product's technical root, and components such as BeeDayButton, BeeDayCard, and BeeDayIcon</value></data>
+  <data name="BrandIdentityBoundaryItem3" xml:space="preserve"><value>The database context, migrations, and configuration keys</value></data>
+  <data name="BrandIdentityBoundaryItem4" xml:space="preserve"><value>Cookies and the ASP.NET Core Data Protection application name</value></data>
+  <data name="BrandIdentityDoTitle" xml:space="preserve"><value>Do</value></data>
+  <data name="BrandIdentityDo1" xml:space="preserve"><value>Write the visible brand as beeday, always lowercase, in every language and surface.</value></data>
+  <data name="BrandIdentityDo2" xml:space="preserve"><value>Use #5247F9 whenever the visible brand name carries color.</value></data>
+  <data name="BrandIdentityAvoidTitle" xml:space="preserve"><value>Avoid</value></data>
+  <data name="BrandIdentityAvoid1" xml:space="preserve"><value>Renaming technical namespaces, projects, or components to chase the visual brand.</value></data>
+  <data name="BrandIdentityAvoid2" xml:space="preserve"><value>Styling the visible brand in title case or all caps.</value></data>
+
+  <!-- Brand / Wordmark -->
+  <data name="BrandWordmarkPageTitle" xml:space="preserve"><value>Wordmark | beeday Experience System</value></data>
+  <data name="BrandWordmarkTitle" xml:space="preserve"><value>Wordmark</value></data>
+  <data name="BrandWordmarkIntro" xml:space="preserve"><value>beeday has two canonical wordmark representations. They are not competing versions — each was deliberately kept for a context the other does not cover.</value></data>
+  <data name="BrandWordmarkTextTitle" xml:space="preserve"><value>BeeDayBrand — the inline text primitive</value></data>
+  <data name="BrandWordmarkTextText" xml:space="preserve"><value>BeeDayBrand renders the name as two literal text nodes, bee and day, entirely in Brand Primary (#5247F9), with role="img" and an accessible name of beeday. It is compact and chrome-scale, used in the authenticated shell — the desktop sidebar, the mobile sidebar, and the mobile header.</value></data>
+  <data name="BrandWordmarkLockupTitle" xml:space="preserve"><value>The public lockup</value></data>
+  <data name="BrandWordmarkLockupText" xml:space="preserve"><value>The public header and footer use a raster lockup: the bee illustration together with the wordmark, at hero scale (866×288), already lowercase and already in the official brand color. It was preserved as-is rather than converged into BeeDayBrand — replacing it would remove the bee illustration from the two most visible public surfaces, and would require a hero-scale sizing contract BeeDayBrand does not have today.</value></data>
+  <data name="BrandWordmarkUsageTitle" xml:space="preserve"><value>Where each one is used</value></data>
+  <data name="BrandWordmarkUsageContextHeader" xml:space="preserve"><value>Context</value></data>
+  <data name="BrandWordmarkUsageRepresentationHeader" xml:space="preserve"><value>Representation</value></data>
+  <data name="BrandWordmarkUsageShellContext" xml:space="preserve"><value>Authenticated shell (sidebar, mobile header)</value></data>
+  <data name="BrandWordmarkUsageShellValue" xml:space="preserve"><value>BeeDayBrand (text primitive)</value></data>
+  <data name="BrandWordmarkUsagePublicContext" xml:space="preserve"><value>Public header and footer</value></data>
+  <data name="BrandWordmarkUsagePublicValue" xml:space="preserve"><value>beeday-top-navigation.png (raster lockup)</value></data>
+  <data name="BrandWordmarkUsageExperienceContext" xml:space="preserve"><value>This Experience System</value></data>
+  <data name="BrandWordmarkUsageExperienceValue" xml:space="preserve"><value>beeday-top-navigation.png, matching the public shell</value></data>
+  <data name="BrandWordmarkCalloutTitle" xml:space="preserve"><value>Neither is a violation</value></data>
+  <data name="BrandWordmarkCalloutText" xml:space="preserve"><value>Both representations satisfy the brand contract — lowercase, official color — so neither one is waiting to be fixed. Which one a future component should use is a decision this page reports, not one it makes.</value></data>
+
+  <!-- Brand / Color -->
+  <data name="BrandColorPageTitle" xml:space="preserve"><value>Color | beeday Experience System</value></data>
+  <data name="BrandColorTitle" xml:space="preserve"><value>Color</value></data>
+  <data name="BrandColorIntro" xml:space="preserve"><value>Every color token in beeday belongs to one of seven categories, owned by meaning rather than by hex value.</value></data>
+  <data name="BrandColorTaxonomyTitle" xml:space="preserve"><value>Seven categories, one ownership rule</value></data>
+  <data name="BrandColorTaxonomyText" xml:space="preserve"><value>The same physical value can legitimately serve two different categories at once — #FFFFFF is Background, Surface, and Text Inverse at the same time — because ownership follows meaning, not hex equivalence.</value></data>
+  <data name="BrandColorCategoryHeader" xml:space="preserve"><value>Category</value></data>
+  <data name="BrandColorResponsibilityHeader" xml:space="preserve"><value>Responsibility</value></data>
+  <data name="BrandColorCategoryBrand" xml:space="preserve"><value>Brand</value></data>
+  <data name="BrandColorCategoryBrandText" xml:space="preserve"><value>Official identity and its directly derived states</value></data>
+  <data name="BrandColorCategorySurface" xml:space="preserve"><value>Surface</value></data>
+  <data name="BrandColorCategorySurfaceText" xml:space="preserve"><value>Neutral shared backgrounds and layers</value></data>
+  <data name="BrandColorCategoryContent" xml:space="preserve"><value>Content</value></data>
+  <data name="BrandColorCategoryContentText" xml:space="preserve"><value>Text, borders, and interactive content</value></data>
+  <data name="BrandColorCategorySemantic" xml:space="preserve"><value>Semantic</value></data>
+  <data name="BrandColorCategorySemanticText" xml:space="preserve"><value>Feedback independent of feature — success, warning, danger, information</value></data>
+  <data name="BrandColorCategoryProduct" xml:space="preserve"><value>Product</value></data>
+  <data name="BrandColorCategoryProductText" xml:space="preserve"><value>Product-specific meaning — reward, activities, Wallet</value></data>
+  <data name="BrandColorCategoryIllustration" xml:space="preserve"><value>Illustration</value></data>
+  <data name="BrandColorCategoryIllustrationText" xml:space="preserve"><value>Artistic composition values, not automatically promoted to UI tokens</value></data>
+  <data name="BrandColorCategoryComponent" xml:space="preserve"><value>Component</value></data>
+  <data name="BrandColorCategoryComponentText" xml:space="preserve"><value>Aliases that stabilize one primitive's implementation</value></data>
+  <data name="BrandColorStatesTitle" xml:space="preserve"><value>Brand Primary and its states</value></data>
+  <data name="BrandColorStatesText" xml:space="preserve"><value>#5247F9 is the only approved brand color. Hover, active, light, and soft are derived states of the same family — not additional brand colors.</value></data>
+  <data name="BrandColorStateHeader" xml:space="preserve"><value>State</value></data>
+  <data name="BrandColorValueHeader" xml:space="preserve"><value>Value</value></data>
+  <data name="BrandColorStatePrimary" xml:space="preserve"><value>Primary</value></data>
+  <data name="BrandColorStateHover" xml:space="preserve"><value>Hover</value></data>
+  <data name="BrandColorStateActive" xml:space="preserve"><value>Active</value></data>
+  <data name="BrandColorStateLight" xml:space="preserve"><value>Light</value></data>
+  <data name="BrandColorStateSoft" xml:space="preserve"><value>Soft</value></data>
+  <data name="BrandColorYellowTitle" xml:space="preserve"><value>Brand Yellow is Product/Reward, not a second brand color</value></data>
+  <data name="BrandColorYellowText" xml:space="preserve"><value>#FFD326 was evaluated and classified Semantic/Component under Product/Reward ownership — its real consumers are the experience bar and the reward tone of the progress bar, not brand identity. The public brand-yellow tokens still resolve to the same values for backward compatibility, but new work should consume the reward tokens directly.</value></data>
+  <data name="BrandColorHardcodeTitle" xml:space="preserve"><value>Not every literal is debt</value></data>
+  <data name="BrandColorHardcodeText" xml:space="preserve"><value>A hardcoded value is only promoted to a token when meaning, reuse, ownership, and real consumers justify it — a token created for a single consumer is its own kind of debt. Illustration values, product-specific values, and values still awaiting a convergence sprint are deliberately preserved as local literals rather than forced into premature tokens.</value></data>
+
+  <!-- Brand / Illustration -->
+  <data name="BrandIllustrationPageTitle" xml:space="preserve"><value>Illustration | beeday Experience System</value></data>
+  <data name="BrandIllustrationTitle" xml:space="preserve"><value>Illustration</value></data>
+  <data name="BrandIllustrationIntro" xml:space="preserve"><value>beeday's artwork follows a consistent shape language and a small set of composition rules, extracted directly from the seven approved assets and their consumers — not prescribed in the abstract.</value></data>
+  <data name="BrandIllustrationShapeTitle" xml:space="preserve"><value>Shape language</value></data>
+  <data name="BrandIllustrationShape1" xml:space="preserve"><value>Geometry: simple, rounded, inflated masses; edges, snouts, ears, and accessories avoid dominant sharp corners.</value></data>
+  <data name="BrandIllustrationShape2" xml:space="preserve"><value>Contour: no uniform external outline — separation comes from color changes, occlusion, highlights, and soft shadows.</value></data>
+  <data name="BrandIllustrationShape3" xml:space="preserve"><value>Volume and perspective: stylized 3D rendering, front or three-quarter view, with body overlap suggesting depth.</value></data>
+  <data name="BrandIllustrationShape4" xml:space="preserve"><value>Light: soft highlights, contact shadows, and diffuse colored glow — never hard UI shadows, hatching, or realistic texture.</value></data>
+  <data name="BrandIllustrationShape5" xml:space="preserve"><value>Color: the bee's yellow and the brand's violet/blue coexist with orange, brown, pink, green, and cyan specific to the artwork — these artistic colors remain Illustration and are not automatically Brand, Semantic, or Product tokens.</value></data>
+  <data name="BrandIllustrationCompositionTitle" xml:space="preserve"><value>Composition rules</value></data>
+  <data name="BrandIllustrationComposition1" xml:space="preserve"><value>Use the complete approved groups in their two approved contexts — the individual bee art belongs to the how-it-works section and does not substitute for the group compositions, or the other way around.</value></data>
+  <data name="BrandIllustrationComposition2" xml:space="preserve"><value>Preserve the intrinsic aspect ratio with height: auto or object-fit: contain — artwork is never stretched to fill a box.</value></data>
+  <data name="BrandIllustrationComposition3" xml:space="preserve"><value>Never crop a character, antenna, wing, ear, or the flower. The only approved crop is the wave's vertical crop, controlled by its own container.</value></data>
+  <data name="BrandIllustrationComposition4" xml:space="preserve"><value>Keep text and controls outside the art. Illustration never intercepts pointer input or covers focus, labels, or controls.</value></data>
+  <data name="BrandIllustrationA11yTitle" xml:space="preserve"><value>Accessibility and performance</value></data>
+  <data name="BrandIllustrationA11yText" xml:space="preserve"><value>All current artwork is decorative: the surrounding heading, steps, and links already communicate the full content, so every image is marked decorative and hidden from assistive technology. The Home hero stays above the fold and loads with high priority; the three images below it use lazy loading and asynchronous decoding. Declared width and height are always kept to reserve proportion and reduce layout shift. The four artistic PNGs together weigh about 4.6 MB with no responsive variants today — that is documented debt, not a silent gap, and any future optimization must be validated visually at the existing breakpoints.</value></data>
+
+  <!-- Brand / Characters -->
+  <data name="BrandCharactersPageTitle" xml:space="preserve"><value>Characters | beeday Experience System</value></data>
+  <data name="BrandCharactersTitle" xml:space="preserve"><value>Characters</value></data>
+  <data name="BrandCharactersIntro" xml:space="preserve"><value>beeday's cast is documented exactly as far as the approved artwork proves — no names, lore, or anatomy are invented to fill the gaps.</value></data>
+  <data name="BrandCharactersBeeTitle" xml:space="preserve"><value>The bee — confirmed by evidence</value></data>
+  <data name="BrandCharactersBeeText" xml:space="preserve"><value>The bee is the central character: it is the only one with an individually named file, it occupies the largest foreground in the hero, and it reappears in the closing group. The repository does not establish a proper name, gender, age, personality, or biography.</value></data>
+  <data name="BrandCharactersBee1" xml:space="preserve"><value>Rounded, compact silhouette; roughly circular body; two antennae with spherical tips; two dark stripes; translucent side wings; short limbs.</value></data>
+  <data name="BrandCharactersBee2" xml:space="preserve"><value>Approved artwork covers open-mouth joy, closed-eyes joy, and a dynamic pose — no other emotion is approved today.</value></data>
+  <data name="BrandCharactersBee3" xml:space="preserve"><value>No approved composition crops the bee's silhouette — antennae and wings stay fully inside the frame.</value></data>
+  <data name="BrandCharactersCastTitle" xml:space="preserve"><value>Six supporting characters</value></data>
+  <data name="BrandCharactersCastText" xml:space="preserve"><value>The same six supporting characters appear in both group compositions. The labels below are visual descriptions, not official names.</value></data>
+  <data name="BrandCharactersCastHeader" xml:space="preserve"><value>Visual description</value></data>
+  <data name="BrandCharactersTraitsHeader" xml:space="preserve"><value>Confirmed traits</value></data>
+  <data name="BrandCharactersCastFox" xml:space="preserve"><value>Orange fox</value></data>
+  <data name="BrandCharactersCastFoxTraits" xml:space="preserve"><value>Pointed ears, light snout and tail, purple bow, light shirt, blue overalls</value></data>
+  <data name="BrandCharactersCastBear" xml:space="preserve"><value>Brown bear</value></data>
+  <data name="BrandCharactersCastBearTraits" xml:space="preserve"><value>Round ears, light snout, blue shirt, purple pants or shorts with a belt</value></data>
+  <data name="BrandCharactersCastCat" xml:space="preserve"><value>Striped orange cat</value></data>
+  <data name="BrandCharactersCastCatTraits" xml:space="preserve"><value>Dark stripes, red band, red shorts</value></data>
+  <data name="BrandCharactersCastPrimate" xml:space="preserve"><value>Brown primate</value></data>
+  <data name="BrandCharactersCastPrimateTraits" xml:space="preserve"><value>Light face and ears, curved tail, yellow shirt with a blue trim</value></data>
+  <data name="BrandCharactersCastWhiteCat" xml:space="preserve"><value>White cat</value></data>
+  <data name="BrandCharactersCastWhiteCatTraits" xml:space="preserve"><value>Triangular ears, pink bow, pink outfit with a light top</value></data>
+  <data name="BrandCharactersCastFlower" xml:space="preserve"><value>Anthropomorphic flower</value></data>
+  <data name="BrandCharactersCastFlowerTraits" xml:space="preserve"><value>Yellow petals, brown face, green leaves and stem, green pot</value></data>
+  <data name="BrandCharactersAvoidTitle" xml:space="preserve"><value>Avoid</value></data>
+  <data name="BrandCharactersAvoid1" xml:space="preserve"><value>Inventing names, exact species, personalities, or lore beyond what the approved artwork shows.</value></data>
+  <data name="BrandCharactersAvoid2" xml:space="preserve"><value>Extracting or cropping an individual character out of a group composition.</value></data>
+
+  <!-- Brand / Writing -->
+  <data name="BrandWritingPageTitle" xml:space="preserve"><value>Writing | beeday Experience System</value></data>
+  <data name="BrandWritingTitle" xml:space="preserve"><value>Writing</value></data>
+  <data name="BrandWritingIntro" xml:space="preserve"><value>beeday helps build a better day, one step at a time. The approved narrative connects what matters to concrete action — organizing Daily, habits, tasks, and projects, tracking progress, and recognizing consistent advancement — without promising instant transformation, perfect productivity, or results the product does not compute.</value></data>
+  <data name="BrandWritingVoiceTitle" xml:space="preserve"><value>Voice</value></data>
+  <data name="BrandWritingVoice1" xml:space="preserve"><value>Clear — concrete words, names the object of the action, avoids slogans in place of instruction.</value></data>
+  <data name="BrandWritingVoice2" xml:space="preserve"><value>Encouraging — recognizes progress without infantilizing, pressuring, or assigning blame.</value></data>
+  <data name="BrandWritingVoice3" xml:space="preserve"><value>Action-oriented — verbs say what to do, feedback confirms what happened.</value></data>
+  <data name="BrandWritingVoice4" xml:space="preserve"><value>Honest — distinguishes success, failure, and partial state, without hiding consequences or inventing benefits.</value></data>
+  <data name="BrandWritingVoice5" xml:space="preserve"><value>Close, not invasive — speaks directly with "you" and "your" without assuming emotion, routine, or personal goals.</value></data>
+  <data name="BrandWritingToneTitle" xml:space="preserve"><value>Tone by context</value></data>
+  <data name="BrandWritingToneContextHeader" xml:space="preserve"><value>Context</value></data>
+  <data name="BrandWritingToneHeader" xml:space="preserve"><value>Tone</value></data>
+  <data name="BrandWritingToneNeutral" xml:space="preserve"><value>Neutral operation</value></data>
+  <data name="BrandWritingToneNeutralValue" xml:space="preserve"><value>Direct and calm — state or action in a few words</value></data>
+  <data name="BrandWritingToneOnboarding" xml:space="preserve"><value>Onboarding and motivation</value></data>
+  <data name="BrandWritingToneOnboardingValue" xml:space="preserve"><value>Welcoming — real benefit plus next step, never artificial urgency</value></data>
+  <data name="BrandWritingToneError" xml:space="preserve"><value>Error or failure</value></data>
+  <data name="BrandWritingToneErrorValue" xml:space="preserve"><value>Factual and recoverable — what failed, what was preserved, a retry when one exists</value></data>
+  <data name="BrandWritingToneDestructive" xml:space="preserve"><value>Destructive confirmation</value></data>
+  <data name="BrandWritingToneDestructiveValue" xml:space="preserve"><value>Unambiguous and sober — verb plus object, permanent consequence stated separately</value></data>
+  <data name="BrandWritingToneWallet" xml:space="preserve"><value>Wallet and finance</value></data>
+  <data name="BrandWritingToneWalletValue" xml:space="preserve"><value>Precise and restrained — value, type, date, effect, and reversibility, never a judgment</value></data>
+  <data name="BrandWritingStyleTitle" xml:space="preserve"><value>Style highlights</value></data>
+  <data name="BrandWritingStyle1" xml:space="preserve"><value>The visual brand is always beeday, even mid-sentence, in a heading, or inside a button — never Title Case.</value></data>
+  <data name="BrandWritingStyle2" xml:space="preserve"><value>New product copy uses sentence case for headings, labels, and buttons.</value></data>
+  <data name="BrandWritingStyle3" xml:space="preserve"><value>A CTA starts with a specific verb — Create transaction, Try again — and still reads correctly outside its surrounding paragraph.</value></data>
+  <data name="BrandWritingStyle4" xml:space="preserve"><value>Headings, labels, tabs, and toast titles do not take a final period.</value></data>
+  <data name="BrandWritingStyle5" xml:space="preserve"><value>XP is an invariant, uppercase abbreviation in both languages; Level localizes to Nível in Portuguese.</value></data>
+  <data name="BrandWritingStyle6" xml:space="preserve"><value>Wallet always represents USD — the $ sign is fixed, while grouping, decimals, and symbol position follow the active culture.</value></data>
+  <data name="BrandWritingGlossaryTitle" xml:space="preserve"><value>Canonical glossary</value></data>
+  <data name="BrandWritingGlossaryConceptHeader" xml:space="preserve"><value>Concept</value></data>
+  <data name="BrandWritingGlossaryMeaningHeader" xml:space="preserve"><value>Product meaning</value></data>
+  <data name="BrandWritingGlossaryActivityMeaning" xml:space="preserve"><value>Umbrella term for Habit, Task, and To-Do — never replaces the specific subtype in the UI</value></data>
+  <data name="BrandWritingGlossaryHabitMeaning" xml:space="preserve"><value>Recurring behavior with progress or a counter</value></data>
+  <data name="BrandWritingGlossaryTaskMeaning" xml:space="preserve"><value>Recurring or repeatable activity, completed manually</value></data>
+  <data name="BrandWritingGlossaryTodoMeaning" xml:space="preserve"><value>Action that belongs to exactly one Project</value></data>
+  <data name="BrandWritingGlossaryProjectMeaning" xml:space="preserve"><value>Goal composed of To-Dos</value></data>
+  <data name="BrandWritingGlossaryDailyMeaning" xml:space="preserve"><value>Surface that organizes the day's activities</value></data>
+  <data name="BrandWritingGlossaryWalletMeaning" xml:space="preserve"><value>Financial surface, denominated in USD</value></data>
+  <data name="BrandWritingGlossaryXpMeaning" xml:space="preserve"><value>Unit of Experience — an invariant abbreviation</value></data>
+
+  <!-- UI overview: /experience-system/ui -->
+  <data name="UiOverviewPageTitle" xml:space="preserve"><value>UI Design System | beeday Experience System</value></data>
+  <data name="UiOverviewEyebrow" xml:space="preserve"><value>beeday Experience System</value></data>
+  <data name="UiOverviewTitle" xml:space="preserve"><value>UI Design System</value></data>
+  <data name="UiOverviewIntro" xml:space="preserve"><value>Foundations and semantic tokens; components, states, and layouts; forms, navigation, surfaces, and feedback; responsive behavior and accessibility contracts; interaction. The UI Design System is the shared component tree that every product page composes from — not a separately published library.</value></data>
+  <data name="UiOverviewGridAriaLabel" xml:space="preserve"><value>UI Design System topics</value></data>
+  <data name="UiFoundationsCardDescription" xml:space="preserve"><value>Typography roles, spacing, shape, motion, and the shared layer order.</value></data>
+  <data name="UiComponentsCardDescription" xml:space="preserve"><value>The 26 shared contracts — no V2, no parallel component library.</value></data>
+  <data name="UiProductPatternsCardDescription" xml:space="preserve"><value>Where a specialized pattern is legitimate, and where it is not.</value></data>
+  <data name="UiInteractionCardDescription" xml:space="preserve"><value>The state matrix, microinteractions, and the shared dialog lifecycle.</value></data>
+  <data name="UiLayoutCardDescription" xml:space="preserve"><value>The three layouts, the shell breakpoint, and shared containers.</value></data>
+
+  <!-- UI / Foundations -->
+  <data name="UiFoundationsPageTitle" xml:space="preserve"><value>Foundations | beeday Experience System</value></data>
+  <data name="UiFoundationsTitle" xml:space="preserve"><value>Foundations</value></data>
+  <data name="UiFoundationsIntro" xml:space="preserve"><value>Typography, spacing, shape, motion, and layering are the tokens every shared component and product page is built from. Color foundations are covered on their own page — see Color in the Brand System.</value></data>
+  <data name="UiFoundationsTypographyTitle" xml:space="preserve"><value>Typography roles</value></data>
+  <data name="UiFoundationsTypographyRoleHeader" xml:space="preserve"><value>Role</value></data>
+  <data name="UiFoundationsTypographyFamilyHeader" xml:space="preserve"><value>Family</value></data>
+  <data name="UiFoundationsTypographyUseHeader" xml:space="preserve"><value>Use</value></data>
+  <data name="UiFoundationsTypographyProductRole" xml:space="preserve"><value>Product/UI</value></data>
+  <data name="UiFoundationsTypographyProductUse" xml:space="preserve"><value>Body, navigation, buttons, labels, forms, captions, product headings</value></data>
+  <data name="UiFoundationsTypographyBrandRole" xml:space="preserve"><value>Brand/Display</value></data>
+  <data name="UiFoundationsTypographyBrandFamily" xml:space="preserve"><value>Coiny → Nunito → Segoe UI</value></data>
+  <data name="UiFoundationsTypographyBrandUse" xml:space="preserve"><value>Large, expressive brand moments only — never controls or long-form reading</value></data>
+  <data name="UiFoundationsSpacingTitle" xml:space="preserve"><value>Spacing scale</value></data>
+  <data name="UiFoundationsSpacingText" xml:space="preserve"><value>A single linear scale of nine steps, all in rem, shared by every layout and component.</value></data>
+  <data name="UiFoundationsShapeTitle" xml:space="preserve"><value>Shape and radius</value></data>
+  <data name="UiFoundationsShapeText" xml:space="preserve"><value>Seven radius steps, chosen by role rather than by component: controls and inputs use lg; cards default to lg and reserve 2xl for prominent or showcase moments; dialogs use lg; pills and chips use pill; true circles — avatars, markers — use 50%, never pill.</value></data>
+  <data name="UiFoundationsMotionTitle" xml:space="preserve"><value>Motion foundation</value></data>
+  <data name="UiFoundationsMotionText" xml:space="preserve"><value>Three shared durations and two easings cover hover, state change, and panel motion. Every shared motion change needs a local prefers-reduced-motion fallback — the count stands at 23 of 31 production stylesheets today, tracked as an open item rather than claimed complete.</value></data>
+  <data name="UiFoundationsDurationHeader" xml:space="preserve"><value>Duration</value></data>
+  <data name="UiFoundationsDurationOwnershipHeader" xml:space="preserve"><value>Ownership</value></data>
+  <data name="UiFoundationsDurationFast" xml:space="preserve"><value>Fast — 120ms</value></data>
+  <data name="UiFoundationsDurationFastText" xml:space="preserve"><value>Hover, pressed, and immediate visual response</value></data>
+  <data name="UiFoundationsDurationNormal" xml:space="preserve"><value>Normal — 180ms</value></data>
+  <data name="UiFoundationsDurationNormalText" xml:space="preserve"><value>State change and short entrances</value></data>
+  <data name="UiFoundationsDurationSlow" xml:space="preserve"><value>Slow — 260ms</value></data>
+  <data name="UiFoundationsDurationSlowText" xml:space="preserve"><value>Panels and drawers with noticeable displacement</value></data>
+  <data name="UiFoundationsLayerTitle" xml:space="preserve"><value>Layer order</value></data>
+  <data name="UiFoundationsLayerText" xml:space="preserve"><value>Shared z-index values only apply when an element needs to compete outside its local stacking context, in this fixed order:</value></data>
+  <data name="UiFoundationsLayerOrder" xml:space="preserve"><value>Navigation → Drawer backdrop → Drawer → Dropdown → Modal → Raised modal → Destructive confirmation → Loading → Toast</value></data>
+
+  <!-- UI / Components -->
+  <data name="UiComponentsPageTitle" xml:space="preserve"><value>Components | beeday Experience System</value></data>
+  <data name="UiComponentsTitle" xml:space="preserve"><value>Components</value></data>
+  <data name="UiComponentsIntro" xml:space="preserve"><value>26 shared contracts — 25 primitives under Components/DesignSystem plus BeeDaySortable — cover the product's actions, feedback, forms, layout, and progress. There is no V2 of any component and no parallel component library; the governance rule is reuse, then extend, then consolidate, then refactor, and create only when nothing existing fits.</value></data>
+  <data name="UiComponentsActionsTitle" xml:space="preserve"><value>Actions, cards, and feedback</value></data>
+  <data name="UiComponentsComponentHeader" xml:space="preserve"><value>Component</value></data>
+  <data name="UiComponentsResponsibilityHeader" xml:space="preserve"><value>Responsibility</value></data>
+  <data name="UiComponentsButtonText" xml:space="preserve"><value>The canonical action — eight variants, loading and disabled states, always keeps an accessible name.</value></data>
+  <data name="UiComponentsCardText" xml:space="preserve"><value>A stateless content surface; interactive semantics belong to the consumer.</value></data>
+  <data name="UiComponentsConfirmDialogText" xml:space="preserve"><value>Destructive confirmation only, never a general-purpose modal.</value></data>
+  <data name="UiComponentsToastText" xml:space="preserve"><value>The result of a mutation — success or error — always the last thing that happens after saving or deleting.</value></data>
+  <data name="UiComponentsEmptyStateText" xml:space="preserve"><value>Title, description, and an optional icon; the action is composed by the caller.</value></data>
+  <data name="UiComponentsFormsTitle" xml:space="preserve"><value>Forms, icon, and layout</value></data>
+  <data name="UiComponentsFormsText" xml:space="preserve"><value>Six form components share one contract: label, disabled, validation flag, and a two-way bound value — none of them inherit the framework's InputBase.</value></data>
+  <data name="UiComponentsIconText" xml:space="preserve"><value>The only icon primitive. Decorative by default; an informative icon requires an explicit, non-empty label and is validated at render time.</value></data>
+  <data name="UiComponentsHeadersText" xml:space="preserve"><value>PageHeader, SectionHeader, and Hero share one eyebrow-title-description-actions shape at three different scales.</value></data>
+  <data name="UiComponentsOtherTitle" xml:space="preserve"><value>Modal, text, progress, and behavior</value></data>
+  <data name="UiComponentsEditorModalText" xml:space="preserve"><value>The shared editor shell — three slots, three callbacks, and the same focus lifecycle as every other dialog.</value></data>
+  <data name="UiComponentsBrandText" xml:space="preserve"><value>The inline wordmark primitive — see Wordmark in the Brand System.</value></data>
+  <data name="UiComponentsProgressText" xml:space="preserve"><value>Receives a ready value; it never computes XP or task completion itself.</value></data>
+  <data name="UiComponentsSortableText" xml:space="preserve"><value>Drag, touch, and keyboard reordering with a single shared ownership of the result.</value></data>
+  <data name="UiComponentsCalloutTitle" xml:space="preserve"><value>Before creating something new</value></data>
+  <data name="UiComponentsCalloutText" xml:space="preserve"><value>Reuse, then extend, then consolidate, then refactor — create a new primitive only when none of the previous steps can honestly solve the problem.</value></data>
+
+  <!-- UI / Product Patterns -->
+  <data name="UiProductPatternsPageTitle" xml:space="preserve"><value>Product Patterns | beeday Experience System</value></data>
+  <data name="UiProductPatternsTitle" xml:space="preserve"><value>Product Patterns</value></data>
+  <data name="UiProductPatternsIntro" xml:space="preserve"><value>A Product Pattern is a feature-specific specialization built from shared primitives — not a shortcut around them. It stays specialized when the difference it encodes is semantically real, and it converges when the difference turns out to be accidental.</value></data>
+  <data name="UiProductPatternsWalletTitle" xml:space="preserve"><value>Wallet — a financial pattern</value></data>
+  <data name="UiProductPatternsWalletText" xml:space="preserve"><value>Wallet composes a compact BeeDayHero, cards, buttons, empty states, and the shared editor and confirm dialogs. Monetary formatting and income/expense semantics remain product-specific specializations, while Tag color now draws from the same shared COR0-COR9 palette token hero surfaces use, instead of a free-form picker.</value></data>
+  <data name="UiProductPatternsDailyTitle" xml:space="preserve"><value>Daily and ProjectWorkspace — operational patterns</value></data>
+  <data name="UiProductPatternsDailyText" xml:space="preserve"><value>Daily preserves four distinct concepts — Habit, Task, To-Do, and Project — with their own colors, metrics, and actions; physical equality between two values never authorizes collapsing their meaning. Manual ordering is owned by BeeDaySortable, not by an implicit sort.</value></data>
+  <data name="UiProductPatternsEmptyTitle" xml:space="preserve"><value>Empty state adapters</value></data>
+  <data name="UiProductPatternsEmptyText" xml:space="preserve"><value>WalletEmptyState chooses copy and an action for zero transactions or a filtered zero-result state, then delegates the actual surface to the shared EmptyState — the visual pattern is one, the composition is feature-owned.</value></data>
+  <data name="UiProductPatternsCalloutTitle" xml:space="preserve"><value>Not every divergence is debt</value></data>
+  <data name="UiProductPatternsCalloutText" xml:space="preserve"><value>Login and CreateProfile keep native HTML controls rather than the shared form components, because they must preserve exact field names, antiforgery tokens, and a login endpoint contract that predates EditContext — they still consume the same visual field chrome as every other form.</value></data>
+
+  <!-- UI / Interaction -->
+  <data name="UiInteractionPageTitle" xml:space="preserve"><value>Interaction | beeday Experience System</value></data>
+  <data name="UiInteractionTitle" xml:space="preserve"><value>Interaction</value></data>
+  <data name="UiInteractionIntro" xml:space="preserve"><value>A formal state matrix and a small set of interaction rules apply across every shared component, so that hover, focus, and busy states mean the same thing everywhere in the product.</value></data>
+  <data name="UiInteractionRulesTitle" xml:space="preserve"><value>Interaction rules</value></data>
+  <data name="UiInteractionRule1" xml:space="preserve"><value>Hover never substitutes for focus-visible — both are always available independently.</value></data>
+  <data name="UiInteractionRule2" xml:space="preserve"><value>Pressed and active confirm an action without reflowing anything outside the control.</value></data>
+  <data name="UiInteractionRule3" xml:space="preserve"><value>Disabled stops both interaction and motion.</value></data>
+  <data name="UiInteractionRule4" xml:space="preserve"><value>Loading and busy states preserve the component's accessible name and semantics.</value></data>
+  <data name="UiInteractionRule5" xml:space="preserve"><value>Selected and expanded states are exposed through a real attribute, never through color alone.</value></data>
+  <data name="UiInteractionMicroTitle" xml:space="preserve"><value>Microinteractions</value></data>
+  <data name="UiInteractionMicroHeader" xml:space="preserve"><value>Interaction</value></data>
+  <data name="UiInteractionMicroEffectHeader" xml:space="preserve"><value>Effect</value></data>
+  <data name="UiInteractionMicroHover" xml:space="preserve"><value>Card hover</value></data>
+  <data name="UiInteractionMicroHoverText" xml:space="preserve"><value>A small upward shift plus a raised shadow</value></data>
+  <data name="UiInteractionMicroPress" xml:space="preserve"><value>Button press</value></data>
+  <data name="UiInteractionMicroPressText" xml:space="preserve"><value>A physical downward displacement, like a real button sinking</value></data>
+  <data name="UiInteractionMicroEnter" xml:space="preserve"><value>Card enter</value></data>
+  <data name="UiInteractionMicroEnterText" xml:space="preserve"><value>A fade with a subtle scale, for a newly added list item</value></data>
+  <data name="UiInteractionMicroReorder" xml:space="preserve"><value>Reorder settle</value></data>
+  <data name="UiInteractionMicroReorderText" xml:space="preserve"><value>A short scale bounce after a dragged card is dropped in its new place</value></data>
+  <data name="UiInteractionDialogTitle" xml:space="preserve"><value>The shared dialog lifecycle</value></data>
+  <data name="UiInteractionDialogText" xml:space="preserve"><value>Confirm, Editor, and Feedback dialogs share the smallest common behavior — open, move initial focus, contain Tab and Shift+Tab, close on Escape, and restore focus to the trigger — without sharing markup or meaning beyond that lifecycle.</value></data>
+
+  <!-- UI / Layout -->
+  <data name="UiLayoutPageTitle" xml:space="preserve"><value>Layout | beeday Experience System</value></data>
+  <data name="UiLayoutTitle" xml:space="preserve"><value>Layout</value></data>
+  <data name="UiLayoutIntro" xml:space="preserve"><value>Three layouts host every route in the product, and one structural breakpoint decides which navigation paradigm the authenticated shell uses.</value></data>
+  <data name="UiLayoutTableTitle" xml:space="preserve"><value>The three layouts</value></data>
+  <data name="UiLayoutHeader" xml:space="preserve"><value>Layout</value></data>
+  <data name="UiLayoutUseHeader" xml:space="preserve"><value>Use</value></data>
+  <data name="UiLayoutStructureHeader" xml:space="preserve"><value>Structure</value></data>
+  <data name="UiLayoutMain" xml:space="preserve"><value>MainLayout</value></data>
+  <data name="UiLayoutMainUse" xml:space="preserve"><value>Authenticated routes</value></data>
+  <data name="UiLayoutMainStructure" xml:space="preserve"><value>Mobile header plus desktop sidebar and workspace, plus mobile sidebar</value></data>
+  <data name="UiLayoutPublic" xml:space="preserve"><value>PublicLayout</value></data>
+  <data name="UiLayoutPublicUse" xml:space="preserve"><value>The public Home and the beeday Experience System</value></data>
+  <data name="UiLayoutPublicStructure" xml:space="preserve"><value>Public header, page content, and the institutional footer</value></data>
+  <data name="UiLayoutOnboarding" xml:space="preserve"><value>OnboardingLayout</value></data>
+  <data name="UiLayoutOnboardingUse" xml:space="preserve"><value>Login, Identity, and the initial profile and tutorial flow</value></data>
+  <data name="UiLayoutOnboardingStructure" xml:space="preserve"><value>Focused content, no product navigation</value></data>
+  <data name="UiLayoutShellTitle" xml:space="preserve"><value>The shell breakpoint — 1200px</value></data>
+  <data name="UiLayoutShellText" xml:space="preserve"><value>1200px is the only breakpoint that swaps the authenticated shell's entire navigation paradigm: at or above it, the desktop sidebar is fixed and the workspace is offset by its width; below it, a mobile header and an overlay sidebar take over and the workspace uses its full width. 1024px belongs to the tablet range of that same shell, not to a separate desktop paradigm.</value></data>
+  <data name="UiLayoutContainersTitle" xml:space="preserve"><value>Containers</value></data>
+  <data name="UiLayoutContainersText" xml:space="preserve"><value>Public pages share a fluid gutter and a 72rem reading width; the header and footer use a container capped at 1440px. Authenticated pages remove that global width so Daily, Wallet, and Profile can each own their layout without being forced into the same container.</value></data>
+  <data name="UiLayoutBreakpointFamiliesTitle" xml:space="preserve"><value>Shared breakpoint families</value></data>
+  <data name="UiLayoutBreakpointFamiliesText" xml:space="preserve"><value>42rem (672px) coordinates the public header, language switcher, and header primitives; 40rem (640px) is the compact family shared by Auth, Onboarding, the footer, and Brand Guidelines pages including this Experience System.</value></data>
+
+  <!-- UX overview: /experience-system/ux -->
+  <data name="UxOverviewPageTitle" xml:space="preserve"><value>UX System | beeday Experience System</value></data>
+  <data name="UxOverviewEyebrow" xml:space="preserve"><value>beeday Experience System</value></data>
+  <data name="UxOverviewTitle" xml:space="preserve"><value>UX System</value></data>
+  <data name="UxOverviewIntro" xml:space="preserve"><value>What the product guarantees today for accessibility, responsiveness, localization, motion, and performance — described as verified behavior, not as a wish list.</value></data>
+  <data name="UxOverviewGridAriaLabel" xml:space="preserve"><value>UX System topics</value></data>
+  <data name="UxAccessibilityCardDescription" xml:space="preserve"><value>ARIA patterns, keyboard and focus lifecycle, reduced motion, and automated contrast.</value></data>
+  <data name="UxResponsiveCardDescription" xml:space="preserve"><value>The regression viewports and the breakpoints that actually change structure.</value></data>
+  <data name="UxLocalizationCardDescription" xml:space="preserve"><value>How culture is resolved, persisted, and applied — and what never gets translated.</value></data>
+  <data name="UxMotionCardDescription" xml:space="preserve"><value>Shared durations, easings, and the reduced-motion contract.</value></data>
+  <data name="UxPerformanceCardDescription" xml:space="preserve"><value>Image and font loading discipline, and the gaps that are tracked, not hidden.</value></data>
+
+  <!-- UX / Accessibility -->
+  <data name="UxAccessibilityPageTitle" xml:space="preserve"><value>Accessibility | beeday Experience System</value></data>
+  <data name="UxAccessibilityTitle" xml:space="preserve"><value>Accessibility</value></data>
+  <data name="UxAccessibilityIntro" xml:space="preserve"><value>What the code guarantees today, and where it does not — none of the statements on this page are aspirational.</value></data>
+  <data name="UxAccessibilityAriaTitle" xml:space="preserve"><value>ARIA patterns in active use</value></data>
+  <data name="UxAccessibilityAriaText" xml:space="preserve"><value>Destructive confirmation uses role="alertdialog"; the editor and feedback dialogs use role="dialog"; the toast host switches between role="status" and role="alert" by severity; busy regions expose aria-busy; decorative icons default to aria-hidden. Every dynamic ARIA boolean is serialized in lowercase.</value></data>
+  <data name="UxAccessibilityFocusTitle" xml:space="preserve"><value>Keyboard and focus</value></data>
+  <data name="UxAccessibilityFocusText" xml:space="preserve"><value>Every canonical dialog follows the same lifecycle: open, move initial focus, contain Tab and Shift+Tab, close on Escape, and restore focus — recalculated on every Tab press to respect busy and disabled controls. Focus-visible is styled globally with a ring derived from Brand Primary, complemented by generous scroll margin so a focused target never lands under a fixed header.</value></data>
+  <data name="UxAccessibilityMotionTitle" xml:space="preserve"><value>Reduced motion</value></data>
+  <data name="UxAccessibilityMotionText" xml:space="preserve"><value>23 of 31 production stylesheets with animation, transition, or keyframes carry a local prefers-reduced-motion fallback today; the rest rely on a universal safety net that shortens duration but does not replace a proper local fallback. Reduced motion never hides feedback — loading keeps its label visible without a spinner, and menus and modals still appear, just without an animated entrance.</value></data>
+  <data name="UxAccessibilityContrastTitle" xml:space="preserve"><value>Automated contrast</value></data>
+  <data name="UxAccessibilityContrastText" xml:space="preserve"><value>An automated gate resolves real tokens from the foundation and applies the WCAG relative-luminance formula to nine deterministic pairs — brand, primary and secondary text, the four semantic buttons, information, and inverse focus. Secondary text on Surface measures about 8.69:1, comfortably above the AA and AAA thresholds for normal text; muted text on Surface measures about 4.26:1, which clears the large-text threshold but sits below 4.5:1 for normal-size text, so it is not used where that guarantee matters.</value></data>
+  <data name="UxAccessibilityDisclaimerTitle" xml:space="preserve"><value>What automation does not prove</value></data>
+  <data name="UxAccessibilityDisclaimerText" xml:space="preserve"><value>Automated scanning covers a representative sample of public and authenticated pages and a canonical dialog, without exclusions — a clean result means no automatically detectable violation in that sample, not WCAG conformance, legal certification, or a substitute for manual keyboard and screen-reader review.</value></data>
+
+  <!-- UX / Responsive -->
+  <data name="UxResponsivePageTitle" xml:space="preserve"><value>Responsive | beeday Experience System</value></data>
+  <data name="UxResponsiveTitle" xml:space="preserve"><value>Responsive</value></data>
+  <data name="UxResponsiveIntro" xml:space="preserve"><value>Breakpoints stay as literal values next to the component that owns them — CSS custom properties are not valid inside a media feature — but the structural ones are shared contracts, coordinated across files and protected by tests.</value></data>
+  <data name="UxResponsiveViewportsTitle" xml:space="preserve"><value>Regression viewports</value></data>
+  <data name="UxResponsiveViewportsText" xml:space="preserve"><value>Automated coverage exercises mobile (390 and 430px), tablet (768, 900, 1024, and 1199px), the desktop boundary (1200px), and wide desktop (1280, 1440, and 1920px) — chosen for real structural change, not for generic labels like "tablet."</value></data>
+  <data name="UxResponsiveShellTitle" xml:space="preserve"><value>The shell breakpoint — 1200px</value></data>
+  <data name="UxResponsiveShellText" xml:space="preserve"><value>1200px is the one breakpoint that changes the authenticated shell's navigation paradigm end to end; Daily's own board aligns to the same 1199/1200 pair to control its internal overflow.</value></data>
+  <data name="UxResponsiveFamiliesTitle" xml:space="preserve"><value>Public breakpoint families</value></data>
+  <data name="UxResponsiveFamiliesText" xml:space="preserve"><value>42rem coordinates the public header and header primitives; 40rem is the compact family shared by Auth, Onboarding, the footer, and Brand Guidelines pages, including this Experience System.</value></data>
+  <data name="UxResponsiveOverflowTitle" xml:space="preserve"><value>No horizontal overflow</value></data>
+  <data name="UxResponsiveOverflowText" xml:space="preserve"><value>No public document is allowed to produce horizontal overflow at the regression viewports; only the Daily board may scroll horizontally, and only inside its own container, never widening the page itself.</value></data>
+
+  <!-- UX / Localization -->
+  <data name="UxLocalizationPageTitle" xml:space="preserve"><value>Localization | beeday Experience System</value></data>
+  <data name="UxLocalizationTitle" xml:space="preserve"><value>Localization</value></data>
+  <data name="UxLocalizationIntro" xml:space="preserve"><value>beeday supports en-US and pt-BR today, resolved fresh on every request rather than sniffed from the browser.</value></data>
+  <data name="UxLocalizationPrecedenceTitle" xml:space="preserve"><value>How culture is resolved</value></data>
+  <data name="UxLocalizationPrecedenceText" xml:space="preserve"><value>An explicit culture cookie always wins when present. Without one, an authenticated request falls back to the account's saved language preference and writes the cookie for next time. A request with neither signal resolves to en-US, the default culture — there is no browser Accept-Language sniffing.</value></data>
+  <data name="UxLocalizationCatalogTitle" xml:space="preserve"><value>One catalog per feature area</value></data>
+  <data name="UxLocalizationCatalogText" xml:space="preserve"><value>Every resource family follows the same four-file shape: a neutral fallback, an en-US file identical to the neutral one, and a pt-BR translation. An automated contract fails the build if any catalog loses key parity, if the neutral fallback drifts from en-US, or if a translation drops a placeholder.</value></data>
+  <data name="UxLocalizationNeverTitle" xml:space="preserve"><value>What is never translated</value></data>
+  <data name="UxLocalizationNever1" xml:space="preserve"><value>User-generated content — habit, task, and project titles, notes, tag names.</value></data>
+  <data name="UxLocalizationNever2" xml:space="preserve"><value>Technical and ISO values — date input values, datetime attributes, correlation IDs, routes.</value></data>
+  <data name="UxLocalizationNever3" xml:space="preserve"><value>The brand name beeday, the XP abbreviation, and the Tag concept — by current product decision.</value></data>
+
+  <!-- UX / Motion -->
+  <data name="UxMotionPageTitle" xml:space="preserve"><value>Motion | beeday Experience System</value></data>
+  <data name="UxMotionTitle" xml:space="preserve"><value>Motion</value></data>
+  <data name="UxMotionIntro" xml:space="preserve"><value>A small shared vocabulary of durations and easings covers hover, state change, and panel motion across the product, with reduced motion treated as a first-class contract rather than an afterthought.</value></data>
+  <data name="UxMotionTaxonomyTitle" xml:space="preserve"><value>Six categories of motion</value></data>
+  <data name="UxMotionTaxonomy1" xml:space="preserve"><value>Micro-interaction — a short hover, press, or selection cue that is never the only signal of state.</value></data>
+  <data name="UxMotionTaxonomy2" xml:space="preserve"><value>State transition — a color, border, opacity, or size change that explains a real update.</value></data>
+  <data name="UxMotionTaxonomy3" xml:space="preserve"><value>Entrance and exit — drawers, menus, modals, and toasts, always respecting focus order.</value></data>
+  <data name="UxMotionTaxonomy4" xml:space="preserve"><value>Loading and progress — spinners, shimmer, and progress bars; the reduced alternative keeps surface and text visible.</value></data>
+  <data name="UxMotionTaxonomy5" xml:space="preserve"><value>Feedback and celebration — confirmation and experience gains, with the semantic content preserved when the animation is removed.</value></data>
+  <data name="UxMotionTaxonomy6" xml:space="preserve"><value>Brand and decorative — optional expressive composition that never blocks reading or navigation.</value></data>
+  <data name="UxMotionReducedTitle" xml:space="preserve"><value>Reduced motion is a contract, not a bonus</value></data>
+  <data name="UxMotionReducedText" xml:space="preserve"><value>Every shared motion change needs a local prefers-reduced-motion fallback that removes translation, pulse, and repetition without hiding feedback — loading keeps its capsule visible, reconnect keeps its dialog and a static indicator, and menus still appear, just without an animated entrance. Coverage today stands at 23 of 31 production stylesheets, tracked openly rather than rounded up.</value></data>
+
+  <!-- UX / Performance -->
+  <data name="UxPerformancePageTitle" xml:space="preserve"><value>Performance | beeday Experience System</value></data>
+  <data name="UxPerformanceTitle" xml:space="preserve"><value>Performance</value></data>
+  <data name="UxPerformanceIntro" xml:space="preserve"><value>Loading discipline is applied where it is verifiable today — image priority, lazy loading, and font delivery — without claiming metrics that are not actually measured.</value></data>
+  <data name="UxPerformanceImagesTitle" xml:space="preserve"><value>Image loading discipline</value></data>
+  <data name="UxPerformanceImagesText" xml:space="preserve"><value>The one hero image that renders above the fold loads with high fetch priority; every image below the fold uses lazy loading and asynchronous decoding. Width and height are always declared to reserve proportion and reduce layout shift.</value></data>
+  <data name="UxPerformanceFontsTitle" xml:space="preserve"><value>Font loading</value></data>
+  <data name="UxPerformanceFontsText" xml:space="preserve"><value>Coiny and Nunito are delivered through Google Fonts with a preconnect hint and font-display: swap, so text stays visible while the brand or product typeface finishes loading.</value></data>
+  <data name="UxPerformanceGapsTitle" xml:space="preserve"><value>Known gaps</value></data>
+  <data name="UxPerformanceGapsText" xml:space="preserve"><value>There is no responsive image pipeline or srcset today, and real-world LCP and CLS are not measured — both are documented gaps, not silent ones. The four artistic PNGs on the Home page weigh about 4.6 MB combined with no responsive variants; any future optimization must be validated visually before it ships.</value></data>
+  <data name="UxPerformanceDisclaimerTitle" xml:space="preserve"><value>Not a performance budget</value></data>
+  <data name="UxPerformanceDisclaimerText" xml:space="preserve"><value>These practices describe verified loading behavior, not a performance certification or an enforced budget.</value></data>
+</root>

@@ -1,0 +1,20 @@
+@page "/beeday-plus"
+@layout EditorialLayout
+@inject IStringLocalizer<InstitutionalResources> Localizer
+
+<PageTitle>@Localizer["ProductPlusPageTitle"]</PageTitle>
+
+@* Ported from BeeDay.Web's Components/Features/Institutional/Pages/ProductPlus.razor (Sprint
+   33.11, FE33-059). No price, entitlement, or benefit is invented here — beeday Plus does not
+   exist in the product yet. *@
+<ProductPageTemplate PageContext="@Localizer["ProductPlusPageContext"]" Title="@Localizer["ProductPlusTitle"]" Description="@Localizer["ProductPlusIntro"]" Section="EditorialSection.Products">
+    <PrimaryAction>
+        <a class="beeday-button beeday-button--important-white" href="/profile/create">@Localizer["TryBeedayToday"]</a>
+    </PrimaryAction>
+    <ChildContent>
+        <section aria-label="@Localizer["ProductPlusTitle"]">
+            <span class="institutional-product__status">@Localizer["ProductPlusStatus"]</span>
+            <p>@Localizer["ProductPlusBody"]</p>
+        </section>
+    </ChildContent>
+</ProductPageTemplate>

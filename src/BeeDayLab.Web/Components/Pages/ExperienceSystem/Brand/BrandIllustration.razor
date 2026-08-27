@@ -1,0 +1,35 @@
+@page "/experience-system/brand/illustration"
+@layout PublicLayout
+@inject IStringLocalizer<ExperienceSystemResources> Localizer
+
+<PageTitle>@Localizer["BrandIllustrationPageTitle"]</PageTitle>
+
+@* Ported from BeeDay.Web's Components/Features/ExperienceSystem/Pages/Brand/BrandIllustration.razor
+   (Sprint 33.11, FE33-071). *@
+<ExperienceSystemPage Eyebrow="@Localizer["PillarNavBrand"]" Title="@Localizer["BrandIllustrationTitle"]" Description="@Localizer["BrandIllustrationIntro"]" Pillar="ExperienceSystemPillar.Brand" CurrentHref="/experience-system/brand/illustration">
+    <section class="experience-system-section" aria-labelledby="illustration-shape-heading">
+        <h2 id="illustration-shape-heading">@Localizer["BrandIllustrationShapeTitle"]</h2>
+        <ul>
+            <li>@Localizer["BrandIllustrationShape1"]</li>
+            <li>@Localizer["BrandIllustrationShape2"]</li>
+            <li>@Localizer["BrandIllustrationShape3"]</li>
+            <li>@Localizer["BrandIllustrationShape4"]</li>
+            <li>@Localizer["BrandIllustrationShape5"]</li>
+        </ul>
+    </section>
+
+    <section class="experience-system-section" aria-labelledby="illustration-composition-heading">
+        <h2 id="illustration-composition-heading">@Localizer["BrandIllustrationCompositionTitle"]</h2>
+        <ul>
+            <li>@Localizer["BrandIllustrationComposition1"]</li>
+            <li>@Localizer["BrandIllustrationComposition2"]</li>
+            <li>@Localizer["BrandIllustrationComposition3"]</li>
+            <li>@Localizer["BrandIllustrationComposition4"]</li>
+        </ul>
+    </section>
+
+    <section class="experience-system-section" aria-labelledby="illustration-a11y-heading">
+        <h2 id="illustration-a11y-heading">@Localizer["BrandIllustrationA11yTitle"]</h2>
+        <p>@Localizer["BrandIllustrationA11yText"]</p>
+    </section>
+</ExperienceSystemPage>

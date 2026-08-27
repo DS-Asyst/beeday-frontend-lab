@@ -1,0 +1,40 @@
+@page "/experience-system/ui/layout"
+@layout PublicLayout
+@inject IStringLocalizer<ExperienceSystemResources> Localizer
+
+<PageTitle>@Localizer["UiLayoutPageTitle"]</PageTitle>
+
+@* Ported from BeeDay.Web's Components/Features/ExperienceSystem/Pages/Ui/UiLayout.razor (Sprint
+   33.11, FE33-073). *@
+<ExperienceSystemPage Eyebrow="@Localizer["PillarNavUi"]" Title="@Localizer["UiLayoutTitle"]" Description="@Localizer["UiLayoutIntro"]" Pillar="ExperienceSystemPillar.Ui" CurrentHref="/experience-system/ui/layout">
+    <section class="experience-system-section" aria-labelledby="layout-table-heading">
+        <h2 id="layout-table-heading">@Localizer["UiLayoutTableTitle"]</h2>
+        <div class="experience-system-table-wrap">
+            <table class="experience-system-table">
+                <thead>
+                    <tr><th scope="col">@Localizer["UiLayoutHeader"]</th><th scope="col">@Localizer["UiLayoutUseHeader"]</th><th scope="col">@Localizer["UiLayoutStructureHeader"]</th></tr>
+                </thead>
+                <tbody>
+                    <tr><th scope="row">@Localizer["UiLayoutMain"]</th><td>@Localizer["UiLayoutMainUse"]</td><td>@Localizer["UiLayoutMainStructure"]</td></tr>
+                    <tr><th scope="row">@Localizer["UiLayoutPublic"]</th><td>@Localizer["UiLayoutPublicUse"]</td><td>@Localizer["UiLayoutPublicStructure"]</td></tr>
+                    <tr><th scope="row">@Localizer["UiLayoutOnboarding"]</th><td>@Localizer["UiLayoutOnboardingUse"]</td><td>@Localizer["UiLayoutOnboardingStructure"]</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section class="experience-system-section" aria-labelledby="layout-shell-heading">
+        <h2 id="layout-shell-heading">@Localizer["UiLayoutShellTitle"]</h2>
+        <p>@Localizer["UiLayoutShellText"]</p>
+    </section>
+
+    <section class="experience-system-section" aria-labelledby="layout-containers-heading">
+        <h2 id="layout-containers-heading">@Localizer["UiLayoutContainersTitle"]</h2>
+        <p>@Localizer["UiLayoutContainersText"]</p>
+    </section>
+
+    <section class="experience-system-section" aria-labelledby="layout-families-heading">
+        <h2 id="layout-families-heading">@Localizer["UiLayoutBreakpointFamiliesTitle"]</h2>
+        <p>@Localizer["UiLayoutBreakpointFamiliesText"]</p>
+    </section>
+</ExperienceSystemPage>

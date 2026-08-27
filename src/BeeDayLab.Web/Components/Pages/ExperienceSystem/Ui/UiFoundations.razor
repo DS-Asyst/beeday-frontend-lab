@@ -1,0 +1,58 @@
+@page "/experience-system/ui/foundations"
+@layout PublicLayout
+@inject IStringLocalizer<ExperienceSystemResources> Localizer
+
+<PageTitle>@Localizer["UiFoundationsPageTitle"]</PageTitle>
+
+@* Ported from BeeDay.Web's Components/Features/ExperienceSystem/Pages/Ui/UiFoundations.razor
+   (Sprint 33.11, FE33-073). *@
+<ExperienceSystemPage Eyebrow="@Localizer["PillarNavUi"]" Title="@Localizer["UiFoundationsTitle"]" Description="@Localizer["UiFoundationsIntro"]" Pillar="ExperienceSystemPillar.Ui" CurrentHref="/experience-system/ui/foundations">
+    <section class="experience-system-section" aria-labelledby="foundations-typography-heading">
+        <h2 id="foundations-typography-heading">@Localizer["UiFoundationsTypographyTitle"]</h2>
+        <div class="experience-system-table-wrap">
+            <table class="experience-system-table">
+                <thead>
+                    <tr><th scope="col">@Localizer["UiFoundationsTypographyRoleHeader"]</th><th scope="col">@Localizer["UiFoundationsTypographyFamilyHeader"]</th><th scope="col">@Localizer["UiFoundationsTypographyUseHeader"]</th></tr>
+                </thead>
+                <tbody>
+                    <tr><th scope="row">@Localizer["UiFoundationsTypographyProductRole"]</th><td>Nunito</td><td>@Localizer["UiFoundationsTypographyProductUse"]</td></tr>
+                    <tr><th scope="row">@Localizer["UiFoundationsTypographyBrandRole"]</th><td>@Localizer["UiFoundationsTypographyBrandFamily"]</td><td>@Localizer["UiFoundationsTypographyBrandUse"]</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section class="experience-system-section" aria-labelledby="foundations-spacing-heading">
+        <h2 id="foundations-spacing-heading">@Localizer["UiFoundationsSpacingTitle"]</h2>
+        <p>@Localizer["UiFoundationsSpacingText"]</p>
+        <p><code>2xs .125rem · xs .25rem · sm .5rem · smd .75rem · md 1rem · lg 1.5rem · xl 2rem · 2xl 3rem · 3xl 4rem</code></p>
+    </section>
+
+    <section class="experience-system-section" aria-labelledby="foundations-shape-heading">
+        <h2 id="foundations-shape-heading">@Localizer["UiFoundationsShapeTitle"]</h2>
+        <p>@Localizer["UiFoundationsShapeText"]</p>
+    </section>
+
+    <section class="experience-system-section" aria-labelledby="foundations-motion-heading">
+        <h2 id="foundations-motion-heading">@Localizer["UiFoundationsMotionTitle"]</h2>
+        <p>@Localizer["UiFoundationsMotionText"]</p>
+        <div class="experience-system-table-wrap">
+            <table class="experience-system-table">
+                <thead>
+                    <tr><th scope="col">@Localizer["UiFoundationsDurationHeader"]</th><th scope="col">@Localizer["UiFoundationsDurationOwnershipHeader"]</th></tr>
+                </thead>
+                <tbody>
+                    <tr><th scope="row">@Localizer["UiFoundationsDurationFast"]</th><td>@Localizer["UiFoundationsDurationFastText"]</td></tr>
+                    <tr><th scope="row">@Localizer["UiFoundationsDurationNormal"]</th><td>@Localizer["UiFoundationsDurationNormalText"]</td></tr>
+                    <tr><th scope="row">@Localizer["UiFoundationsDurationSlow"]</th><td>@Localizer["UiFoundationsDurationSlowText"]</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section class="experience-system-section" aria-labelledby="foundations-layer-heading">
+        <h2 id="foundations-layer-heading">@Localizer["UiFoundationsLayerTitle"]</h2>
+        <p>@Localizer["UiFoundationsLayerText"]</p>
+        <p><code>@Localizer["UiFoundationsLayerOrder"]</code></p>
+    </section>
+</ExperienceSystemPage>

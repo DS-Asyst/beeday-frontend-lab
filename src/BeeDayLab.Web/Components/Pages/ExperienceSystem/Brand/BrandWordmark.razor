@@ -1,0 +1,44 @@
+@page "/experience-system/brand/wordmark"
+@layout PublicLayout
+@inject IStringLocalizer<ExperienceSystemResources> Localizer
+
+<PageTitle>@Localizer["BrandWordmarkPageTitle"]</PageTitle>
+
+@* Ported from BeeDay.Web's Components/Features/ExperienceSystem/Pages/Brand/BrandWordmark.razor
+   (Sprint 33.11, FE33-071). *@
+<ExperienceSystemPage Eyebrow="@Localizer["PillarNavBrand"]" Title="@Localizer["BrandWordmarkTitle"]" Description="@Localizer["BrandWordmarkIntro"]" Pillar="ExperienceSystemPillar.Brand" CurrentHref="/experience-system/brand/wordmark">
+    <section class="experience-system-section" aria-labelledby="wordmark-text-heading">
+        <h2 id="wordmark-text-heading">@Localizer["BrandWordmarkTextTitle"]</h2>
+        <p>@Localizer["BrandWordmarkTextText"]</p>
+        <BeeDayBrand />
+    </section>
+
+    <section class="experience-system-section" aria-labelledby="wordmark-lockup-heading">
+        <h2 id="wordmark-lockup-heading">@Localizer["BrandWordmarkLockupTitle"]</h2>
+        <p>@Localizer["BrandWordmarkLockupText"]</p>
+        <img class="brand-wordmark__lockup" src="/assets/brand/beeday-top-navigation.png" alt="beeday" width="866" height="288" loading="lazy" decoding="async" />
+    </section>
+
+    <section class="experience-system-section" aria-labelledby="wordmark-usage-heading">
+        <h2 id="wordmark-usage-heading">@Localizer["BrandWordmarkUsageTitle"]</h2>
+        <div class="experience-system-table-wrap">
+            <table class="experience-system-table">
+                <thead>
+                    <tr><th scope="col">@Localizer["BrandWordmarkUsageContextHeader"]</th><th scope="col">@Localizer["BrandWordmarkUsageRepresentationHeader"]</th></tr>
+                </thead>
+                <tbody>
+                    <tr><th scope="row">@Localizer["BrandWordmarkUsageShellContext"]</th><td>@Localizer["BrandWordmarkUsageShellValue"]</td></tr>
+                    <tr><th scope="row">@Localizer["BrandWordmarkUsagePublicContext"]</th><td>@Localizer["BrandWordmarkUsagePublicValue"]</td></tr>
+                    <tr><th scope="row">@Localizer["BrandWordmarkUsageExperienceContext"]</th><td>@Localizer["BrandWordmarkUsageExperienceValue"]</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section class="experience-system-callouts" aria-label="@Localizer["BrandWordmarkCalloutTitle"]">
+        <div class="experience-system-callout experience-system-callout--info">
+            <h3>@Localizer["BrandWordmarkCalloutTitle"]</h3>
+            <p>@Localizer["BrandWordmarkCalloutText"]</p>
+        </div>
+    </section>
+</ExperienceSystemPage>

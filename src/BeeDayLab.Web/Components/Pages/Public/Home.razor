@@ -1,0 +1,99 @@
+@page "/"
+@layout PublicLayout
+@inject NavigationManager Navigation
+@inject IStringLocalizer<HomeResources> Localizer
+@inject IStringLocalizer<SharedResources> SharedLocalizer
+
+@* Lab adaptation (Sprint 33.11, FE33-053) of BeeDay.Web's
+   Components/Features/Home/Pages/Home.razor. This replaces the Sprint 33.5 bootstrap shell that
+   previously owned route "/" (an empty placeholder page whose own doc comment said it "exists to
+   become" real content) — now that the real Home page is extracted, the bootstrap shell is retired
+   in its favor. See HomePageTests.cs -> PublicPagesTests.cs for the corresponding test move.
+
+   The production page wraps the hero CTA in
+   <AuthorizeView><Authorized>...</Authorized><NotAuthorized>...</NotAuthorized></AuthorizeView>,
+   which requires a real AuthenticationStateProvider that ADR-008 forbids the Lab from adding. It is
+   replaced with a plain [SupplyParameterFromQuery] bool (IsAuthenticatedScenario) toggling the same
+   CTA block via an explicit @if/else — the same "Lab-local scenario state instead of real auth"
+   pattern Sprint 33.9 established for PublicHeader's own, separately-toggleable
+   IsAuthenticatedScenario parameter. The two are deliberately independent (no cross-component
+   broadcast mechanism is introduced): preview this page's authorized branch via
+   "/?authenticated=true", and PublicHeader's own CTA separately via whatever composes it.
+
+   The real AuthenticatedEntryDestinationResolver injection and its NavigationManager-based
+   ContinueToBeeDay() (which resolves the signed-in user's real landing route via
+   BeeDay.Application) are dropped entirely — the Lab has no such resolver and must not fabricate
+   one. ContinueToBeeDay() instead navigates to a fixed local placeholder route ("/"), the same
+   "fixed local destination" treatment PublicHeader.razor already got in Sprint 33.9.
+
+   @attribute [AllowAnonymous] is dropped for the same reason every other Lab page drops it — no
+   authorization pipeline exists for it to opt out of. IStringLocalizer<HomeResources> and
+   IStringLocalizer<SharedResources> are KEPT exactly as production injects them (Sprint 33.11
+   policy reversal — see HomeResources.*.resx and SharedResources.*.resx). *@
+
+<PageTitle>@Localizer["PageTitle"]</PageTitle>
+
+<article class="home-page">
+    <section class="home-hero" aria-labelledby="home-heading">
+        <div class="home-hero__inner">
+            <div class="home-hero__visual" aria-hidden="true">
+                <img class="home-hero__image" src="/assets/hero/home-team.png" alt="" width="1536" height="1024" fetchpriority="high" />
+            </div>
+            <div class="home-hero__content">
+                <h1 id="home-heading">@Localizer["HeroHeading"]</h1>
+                <p>@Localizer["HeroDescription"]</p>
+                <div class="home-hero__actions">
+                    @if (IsAuthenticatedScenario)
+                    {
+                        <BeeDayButton OnClick="ContinueToBeeDay">@SharedLocalizer["ContinueToBeeDay"]</BeeDayButton>
+                    }
+                    else
+                    {
+                        <a class="beeday-button beeday-button--primary home-hero__start" href="/profile/create">@Localizer["GetStarted"]</a>
+                        <a class="beeday-button beeday-button--important-white home-hero__login" href="/login">@Localizer["AlreadyHaveAccount"]</a>
+                    }
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="home-how" aria-labelledby="how-heading">
+        <div class="home-how__inner">
+            <div class="home-section__heading">
+                <span class="home-page__eyebrow">@Localizer["StepsEyebrow"]</span>
+                <h2 id="how-heading">@Localizer["StepsHeading"]</h2>
+                <p>@Localizer["StepsDescription"]</p>
+            </div>
+            <div class="home-how__composition">
+                <div class="home-how__visual" aria-hidden="true">
+                    <img src="/assets/brand/bee-color-neutral.png" alt="" width="1254" height="1254" loading="lazy" decoding="async" />
+                </div>
+                <ol class="home-steps">
+                    <li><span>1</span><div><h3>@Localizer["Step1Title"]</h3><p>@Localizer["Step1Description"]</p></div></li>
+                    <li><span>2</span><div><h3>@Localizer["Step2Title"]</h3><p>@Localizer["Step2Description"]</p></div></li>
+                    <li><span>3</span><div><h3>@Localizer["Step3Title"]</h3><p>@Localizer["Step3Description"]</p></div></li>
+                    <li><span>4</span><div><h3>@Localizer["Step4Title"]</h3><p>@Localizer["Step4Description"]</p></div></li>
+                    <li><span>5</span><div><h3>@Localizer["Step5Title"]</h3><p>@Localizer["Step5Description"]</p></div></li>
+                </ol>
+            </div>
+        </div>
+    </section>
+
+    <div class="home-brand-closure">
+        <img class="home-brand-closure__characters" src="/assets/home/home-team-fall.png" alt="" width="1536" height="1024" loading="lazy" decoding="async" aria-hidden="true" />
+    </div>
+</article>
+
+@code {
+    /// <summary>
+    /// Lab-local scenario toggle standing in for the real &lt;AuthorizeView&gt; — set via the
+    /// "authenticated" query string (e.g. "/?authenticated=true") to preview the hero with the
+    /// authenticated "Continue to beeday" CTA instead of the anonymous Get Started/Log in actions,
+    /// with no real AuthenticationStateProvider involved.
+    /// </summary>
+    [Parameter]
+    [SupplyParameterFromQuery(Name = "authenticated")]
+    public bool IsAuthenticatedScenario { get; set; }
+
+    private void ContinueToBeeDay() => Navigation.NavigateTo("/", forceLoad: true, replace: true);
+}
