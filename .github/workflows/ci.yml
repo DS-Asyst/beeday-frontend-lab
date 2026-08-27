@@ -1,0 +1,54 @@
+name: beeday Frontend Lab — CI
+
+# Every check here is database-free by construction (ADR-008 / DS-Asyst/BeeDay): no SQL Server, no
+# LocalDB, no production backend. This is the only required check for "Protect HMG" and
+# "Protect PRD" — there is no separate release-boundary gate yet because there is no separate
+# release boundary yet (see docs "Frontend Lab Workflow, Promotion Contract & EPIC Closure",
+# Sprint 33.19).
+
+on:
+  pull_request:
+    branches:
+      - hmg
+      - prd
+
+  workflow_dispatch:
+
+concurrency:
+  group: beeday-lab-ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  ci:
+    name: Lab CI
+
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7.0.1
+
+      - name: Configure .NET 10
+        uses: actions/setup-dotnet@v6.0.0
+        with:
+          dotnet-version: "10.0.x"
+          cache: true
+          cache-dependency-path: |
+            Directory.Packages.props
+            **/*.csproj
+
+      - name: Restore dependencies
+        run: dotnet restore BeeDayLab.slnx
+
+      - name: Verify formatting
+        run: dotnet format BeeDayLab.slnx --verify-no-changes
+
+      - name: Build solution
+        run: dotnet build BeeDayLab.slnx --configuration Release --no-restore --warnaserror
+
+      - name: Run tests
+        run: dotnet test BeeDayLab.slnx --configuration Release --no-build

@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <AssemblyName>BeeDayLab.Web</AssemblyName>
+    <RootNamespace>BeeDayLab.Web</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="BeeDayLab.Web.Tests" />
+  </ItemGroup>
+</Project>

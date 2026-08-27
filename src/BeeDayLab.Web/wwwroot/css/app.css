@@ -1,0 +1,32 @@
+/* Minimal bootstrap reset for the beeday Frontend Lab shell.
+   Real Design System foundations are copied in Sprint 33.6 (FE33-001..008) — this file is
+   intentionally not a copy of production tokens yet. */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+.lab-shell {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.lab-shell__header {
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.lab-shell__brand {
+    font-weight: 600;
+}
+
+.lab-shell__body {
+    flex: 1;
+    padding: 1.5rem;
+}
