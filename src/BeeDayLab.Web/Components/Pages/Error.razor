@@ -1,6 +1,39 @@
 @page "/Error"
 
-<PageTitle>Error — beeday Frontend Lab</PageTitle>
+@* Lab adaptation (Sprint 33.9, FE33-052): the BeeDay source cascades the real HttpContext and
+   reads Activity.Current?.Id ?? HttpContext?.TraceIdentifier to show the real request's trace id.
+   Both are dropped — [CascadingParameter] HttpContext isn't provided by anything in the Lab, and
+   fabricating a lookalike would misrepresent a real per-request value. RequestId is instead a
+   fixed, obviously-synthetic placeholder constant.
 
-<h1>Something went wrong</h1>
-<p>An unexpected error occurred in the beeday Frontend Lab.</p>
+   @attribute [AllowAnonymous] is also dropped: the Lab has no authorization pipeline for this to
+   opt out of (Program.cs has no AddAuthorization/UseAuthorization).
+
+   The BeeDay source injects IStringLocalizer<SharedResources> for every string below — dropped for
+   plain hardcoded English strings taken verbatim from SharedResources.en-US.resx at extraction
+   time. *@
+
+<PageTitle>Error</PageTitle>
+
+<h1 class="text-danger">Error</h1>
+<h2 class="text-danger">An error occurred while processing your request.</h2>
+
+@if (ShowRequestId)
+{
+    <p>
+        <strong>Request ID:</strong> <code>@RequestId</code>
+    </p>
+}
+
+<h3>Development mode</h3>
+<p>The Development environment displays more detailed information about the error.</p>
+<p><strong>Do not enable the Development environment in deployed applications. It can expose sensitive exception information to users.</strong></p>
+<p>For local debugging, set ASPNETCORE_ENVIRONMENT to Development and restart the app.</p>
+
+@code
+{
+    // Sprint 33.9 (FE33-052): fixed, obviously-synthetic placeholder — not derived from any real
+    // request (no HttpContext/Activity is available or fabricated here).
+    private const string RequestId = "00000000-0000-0000-0000-000000000000";
+    private static bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
+}

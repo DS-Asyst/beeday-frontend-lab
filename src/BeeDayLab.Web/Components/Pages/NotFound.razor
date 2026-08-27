@@ -1,6 +1,14 @@
 @page "/not-found"
+@layout MainLayout
+@rendermode InteractiveServer
 
-<PageTitle>Not found — beeday Frontend Lab</PageTitle>
+@* Lab adaptation (Sprint 33.9, FE33-051): the BeeDay source injects IStringLocalizer<SharedResources>
+   for both strings below — dropped for plain hardcoded English strings taken verbatim from
+   SharedResources.en-US.resx at extraction time. @attribute [AllowAnonymous] is also dropped for
+   the same reason as Error.razor (FE33-052) — the Lab has no authorization pipeline for this to
+   opt out of. *@
 
-<h1>Page not found</h1>
-<p>The page you requested does not exist in the beeday Frontend Lab.</p>
+<PageTitle>Not Found</PageTitle>
+
+<h1>Not Found</h1>
+<p>Sorry, the content you are looking for does not exist.</p>

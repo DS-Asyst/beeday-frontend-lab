@@ -1,0 +1,21 @@
+@* Lab adaptation (Sprint 33.9, FE33-049): the BeeDay source injects IStringLocalizer<SharedResources>
+   for the two labels and the shared copyright string below — dropped for plain hardcoded English
+   strings taken verbatim from SharedResources.en-US.resx at extraction time. *@
+
+@* Sprint 29.4: the public editorial microsite's own layout — used only by the footer's editorial
+   page families (About us, Products, Apps, Help, Privacy and terms). Unlike PublicLayout, there is
+   no separate PublicHeader: brand + contextual navigation render as part of the page's own colored
+   BeeDayHero (InstitutionalPageShell), so header and hero are one surface (§6). AppFooter is
+   replaced by the minimal white EditorialFooter (§26). Home, Login, and other PublicLayout
+   consumers are unaffected — they keep PublicLayout. *@
+<footer class="editorial-footer">
+    <div class="editorial-footer__content beeday-container">
+        <button type="button" class="editorial-footer__back-to-top" @onclick="ScrollToTopAsync" aria-label="Back to top">
+            @* ChevronDown rotated 180deg in CSS — the existing "Expand" chevron re-used as "up",
+               avoiding a new icon asset for a single-direction affordance. *@
+            <BeeDayIcon Name="BeeDayIconName.ChevronDown" Decorative="true" Class="editorial-footer__back-to-top-icon" />
+        </button>
+        <a class="editorial-footer__coffee" href="/buy-me-a-coffee">BUY ME A COFFEE</a>
+        <p class="editorial-footer__copyright">© 2026 beeday. All rights reserved.</p>
+    </div>
+</footer>

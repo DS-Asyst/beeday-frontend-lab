@@ -1,0 +1,15 @@
+@* Lab adaptation (Sprint 33.9, FE33-043): the BeeDay source injects IStringLocalizer<LayoutResources>
+   for the two aria-labels below. The Lab has no localization pipeline (Program.cs has no
+   AddLocalization), so these are plain hardcoded English strings instead, taken verbatim from
+   LayoutResources.en-US.resx at extraction time. The NavLink/NavigationItems composition itself is
+   presentation-only and copied as-is, including the hrefs (/profile, /daily, /wallet, /settings,
+   /account) that point to authenticated-app routes this Sprint does not extract — those pages
+   arrive in later Sprints (e.g. Dashboard/Wallet extraction); no placeholder pages are fabricated
+   for them here. *@
+<aside class="desktop-sidebar" aria-label="Primary navigation">
+    <NavLink href="/profile" Match="NavLinkMatch.Prefix" class="desktop-sidebar__brand-link" aria-label="beeday — go to Profile">
+        <BeeDayBrand />
+    </NavLink>
+
+    <NavigationItems />
+</aside>

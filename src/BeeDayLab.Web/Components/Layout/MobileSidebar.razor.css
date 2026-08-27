@@ -1,0 +1,109 @@
+/* Sprint 21.3 (EPIC 21) — mobile equivalent of the Lingo Sheet-wrapped Sidebar documented in
+   docs/epics/21-lingo-product-experience/README.md §3 (w-3/4 capped sm:max-w-sm). Reuses
+   a compact cap matching the desktop navigation proportions.
+   Sprint 29.3: canonical --beeday-color-overlay token, not a hardcoded purple literal — see the
+   matching comment on .editor-modal-backdrop in editor-modal.css for the full rationale. */
+.mobile-nav-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: var(--beeday-z-drawer-backdrop);
+    background: var(--beeday-color-overlay);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity var(--beeday-transition-emphasized), var(--beeday-transition-visibility);
+}
+
+.mobile-nav-backdrop.is-open {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity var(--beeday-transition-emphasized), visibility 0s linear 0s;
+}
+
+.mobile-nav-drawer {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: var(--beeday-z-drawer);
+    display: flex;
+    width: min(85vw, 18rem);
+    flex-direction: column;
+    padding: var(--beeday-spacing-md);
+    color: var(--beeday-color-text-primary);
+    background: var(--beeday-color-surface);
+    border-right: 2px solid var(--beeday-color-border);
+    box-shadow: var(--beeday-shadow-lg);
+    transform: translateX(-100%);
+    visibility: hidden;
+    transition: transform var(--beeday-transition-emphasized), var(--beeday-transition-visibility);
+    overflow-y: auto;
+}
+
+/* `visibility`, not just an off-screen `transform`: a translated-off-screen element still has a
+   real, focusable, hit-testable box — a sighted keyboard user could Tab into "closed" content, and
+   automated visibility checks (axe, Playwright) correctly flag it as still visible. The delay
+   lets the slide-out transition finish before the drawer actually leaves the accessibility tree. */
+.mobile-nav-drawer.is-open {
+    transform: translateX(0);
+    visibility: visible;
+    transition: transform var(--beeday-transition-emphasized), visibility 0s linear 0s;
+}
+
+@media (min-width: 1200px) {
+    .mobile-nav-backdrop,
+    .mobile-nav-drawer {
+        display: none;
+    }
+}
+
+.mobile-nav-drawer__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--beeday-spacing-lg);
+}
+
+/* EPIC 27 Sprint 27.12: NavLink is a child component, not markup literally written in this
+   file, so its rendered <a> never receives this file's own scope attribute — ::deep is required
+   to reach it (same fix as DesktopSidebar's brand link, Sprint 27.9; flagged as a known,
+   deferred limitation in that sprint's own commit message). Without it the wordmark rendered
+   with the browser's default underline/link color instead of beeday-brand's own styling. */
+.mobile-nav-drawer__header ::deep .mobile-nav-drawer__brand {
+    display: flex;
+    align-items: center;
+    color: inherit;
+    text-decoration: none;
+}
+
+.mobile-nav-drawer__close {
+    display: grid;
+    width: 2.65rem;
+    height: 2.65rem;
+    place-items: center;
+    color: var(--beeday-color-brand-primary);
+    background: transparent;
+    border: 0;
+    border-radius: var(--beeday-radius-xs);
+    cursor: pointer;
+    transition: color var(--beeday-transition-normal), background-color var(--beeday-transition-normal);
+}
+
+.mobile-nav-drawer__close:hover,
+.mobile-nav-drawer__close:focus-visible {
+    color: var(--beeday-color-brand-primary-active);
+    background: var(--beeday-color-brand-primary-soft);
+}
+
+.mobile-nav-drawer__close:focus-visible {
+    outline: var(--beeday-border-width) solid var(--beeday-color-brand-primary);
+    outline-offset: 2px;
+    box-shadow: var(--beeday-focus-ring);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .mobile-nav-backdrop,
+    .mobile-nav-drawer,
+    .mobile-nav-drawer__close {
+        transition: none;
+    }
+}

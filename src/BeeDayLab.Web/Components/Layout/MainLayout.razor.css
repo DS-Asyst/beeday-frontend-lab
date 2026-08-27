@@ -1,0 +1,22 @@
+.beeday-app {
+    --beeday-top-navigation-height: 3.75rem;
+    --beeday-sidebar-width: 15.5rem;
+    display: flex;
+    width: 100%;
+    min-height: 100dvh;
+    flex-direction: column;
+    padding-top: var(--beeday-top-navigation-height);
+    overflow-x: clip;
+    background: var(--beeday-color-background);
+}
+
+.beeday-shell { display: flex; width: 100%; flex: 1 0 auto; min-width: 0; }
+.beeday-workspace { width: 100%; min-width: 0; min-height: calc(100dvh - var(--beeday-top-navigation-height)); }
+.beeday-main { display: flex; width: 100%; min-width: 0; min-height: inherit; flex-direction: column; }
+
+/* Shared structural shell breakpoint. Keep this literal aligned with DesktopSidebar, MobileHeader
+   and MobileSidebar; CSS custom properties cannot be used in media feature conditions. */
+@media (min-width: 1200px) {
+    .beeday-app { --beeday-top-navigation-height: 0px; padding-top: 0; }
+    .beeday-workspace { padding-left: var(--beeday-sidebar-width); }
+}

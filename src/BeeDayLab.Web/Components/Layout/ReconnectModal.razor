@@ -1,0 +1,62 @@
+@* Lab treatment (Sprint 33.9, FE33-050): MOCK, not COPY/ADAPT. The BeeDay source represents
+   Blazor Server's real SignalR circuit-reconnection UI — ReconnectModal.razor.js (not copied) is
+   real reconnection JS interop wired to a live circuit-loss/retry/pause circuit-handler, which the
+   Lab has no real equivalent of and must not fabricate. The <script type="module"
+   src="@Assets[...]"> tag that loads that JS is dropped entirely; no circuit-handler is wired.
+
+   What's kept: the static markup/CSS exactly as authored — the .components-reconnect-*/
+   .components-pause-*/.components-resume-* state classes already encode, via plain CSS
+   visibility, which text block shows for which state (originally driven by whichever class the
+   real JS interop toggled on #components-reconnect-modal). A [Parameter] (State, of type
+   ReconnectDisplayState) lets a Lab caller/demo set that class directly to preview each visual
+   state — no real circuit involved.
+
+   The BeeDay source also injects IStringLocalizer<LayoutResources> for every string below —
+   dropped for plain hardcoded English strings taken verbatim from LayoutResources.en-US.resx at
+   extraction time. *@
+<dialog id="components-reconnect-modal" data-nosnippet open="@IsVisible" class="@StateClass">
+    <div class="components-reconnect-container">
+        <div class="components-rejoining-animation" aria-hidden="true">
+            <div></div>
+            <div></div>
+        </div>
+        <p class="components-reconnect-first-attempt-visible">
+            Rejoining the server...
+        </p>
+        <p class="components-reconnect-repeated-attempt-visible">
+            Rejoin failed... trying again in <span id="components-seconds-to-next-attempt"></span> seconds.
+        </p>
+        <p class="components-reconnect-failed-visible">
+            Failed to rejoin.<br />Please retry or reload the page.
+        </p>
+        <button id="components-reconnect-button" class="components-reconnect-failed-visible">
+            Retry
+        </button>
+        <p class="components-pause-visible">
+            The session has been paused by the server.
+        </p>
+        <p class="components-resume-failed-visible">
+            Failed to resume the session.<br />Please retry or reload the page.
+        </p>
+        <button id="components-resume-button" class="components-pause-visible components-resume-failed-visible">
+            Resume
+        </button>
+    </div>
+</dialog>
+
+@code {
+    /// <summary>Which visual state to preview. Defaults to hidden (no real circuit involved).</summary>
+    [Parameter] public ReconnectDisplayState State { get; set; } = ReconnectDisplayState.Hidden;
+
+    private bool IsVisible => State != ReconnectDisplayState.Hidden;
+
+    private string? StateClass => State switch
+    {
+        ReconnectDisplayState.Rejoining => "components-reconnect-show",
+        ReconnectDisplayState.Retrying => "components-reconnect-retrying",
+        ReconnectDisplayState.Failed => "components-reconnect-failed",
+        ReconnectDisplayState.Paused => "components-reconnect-paused",
+        ReconnectDisplayState.ResumeFailed => "components-reconnect-resume-failed",
+        _ => null
+    };
+}

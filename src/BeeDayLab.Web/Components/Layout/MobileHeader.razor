@@ -1,0 +1,44 @@
+@* Lab adaptation (Sprint 33.9, FE33-044): the BeeDay source injects IStringLocalizer<LayoutResources>
+   for the brand aria-label and the open/close menu button aria-labels below. The Lab has no
+   localization pipeline (Program.cs has no AddLocalization), so these are plain hardcoded English
+   strings instead, taken verbatim from LayoutResources.en-US.resx at extraction time. The
+   focus-return-on-close behavior (OnAfterRenderAsync toggling focus back to the trigger button) is
+   a real, valuable accessibility behavior — not a production dependency — and is kept verbatim. *@
+<header class="mobile-header">
+    <NavLink href="/profile" Match="NavLinkMatch.Prefix" class="mobile-header__brand" aria-label="beeday — go to Profile">
+        <BeeDayBrand />
+    </NavLink>
+
+    <button type="button"
+            class="mobile-header__menu-button"
+            aria-label="@(IsNavOpen ? "Close navigation menu" : "Open navigation menu")"
+            aria-expanded="@(IsNavOpen ? "true" : "false")"
+            aria-controls="mobile-navigation"
+            @onclick="OnToggleNav"
+            @ref="toggleButtonElement">
+        <BeeDayIcon Name="@(IsNavOpen ? BeeDayIconName.Close : BeeDayIconName.Menu)" Size="BeeDayIconSize.Large" />
+    </button>
+</header>
+
+@code {
+    [Parameter] public bool IsNavOpen { get; set; }
+    [Parameter] public EventCallback OnToggleNav { get; set; }
+
+    private ElementReference toggleButtonElement;
+    private bool wasOpen;
+
+    // EPIC 30 Sprint 30.20: the drawer (MobileSidebar) already moves focus to its own close button
+    // on open, but nothing previously returned focus to this trigger when it closed — via Escape,
+    // the backdrop, the close button, or navigating away — leaving keyboard/screen-reader focus
+    // lost to <body>. Mirrors the same open/close focus-management pattern MobileSidebar already
+    // uses for its own close button, just for the reverse (closing) transition.
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (wasOpen && !IsNavOpen)
+        {
+            await toggleButtonElement.FocusAsync();
+        }
+
+        wasOpen = IsNavOpen;
+    }
+}

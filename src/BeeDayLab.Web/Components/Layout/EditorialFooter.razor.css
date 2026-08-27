@@ -1,0 +1,66 @@
+/* Sprint 29.4 — white, minimal editorial footer: circular Back to Top at the row start, BUY ME A
+   COFFEE centered independently of it, a rule, then copyright. No purple surface, no columns. */
+.editorial-footer {
+    background: var(--beeday-color-background);
+    border-top: var(--beeday-border-width-subtle) solid var(--beeday-color-border);
+}
+
+.editorial-footer__content {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    padding-block: clamp(2rem, 5vw, 3.5rem);
+    gap: var(--beeday-spacing-md);
+}
+
+.editorial-footer__back-to-top {
+    display: grid;
+    width: 2.75rem;
+    height: 2.75rem;
+    place-items: center;
+    border: var(--beeday-border-width-subtle) solid var(--beeday-color-border);
+    border-radius: var(--beeday-radius-pill);
+    background: var(--beeday-color-surface);
+    color: var(--beeday-color-text-primary);
+    cursor: pointer;
+    transition: background-color var(--beeday-transition-fast);
+}
+
+.editorial-footer__back-to-top:hover { background: var(--beeday-color-surface-muted); }
+
+.editorial-footer__back-to-top:focus-visible {
+    outline: var(--beeday-border-width) solid var(--beeday-color-brand-primary);
+    outline-offset: 3px;
+}
+
+/* The shared Icon System only models a downward chevron ("Expand") — rotating it is a plain
+   presentational transform, not a new icon asset. */
+.editorial-footer__back-to-top-icon { transform: rotate(180deg); }
+
+.editorial-footer__coffee {
+    grid-column: 2;
+    justify-self: center;
+    border-bottom: var(--beeday-border-width) solid transparent;
+    color: var(--beeday-color-text-primary);
+    font: var(--beeday-type-button);
+    letter-spacing: var(--beeday-letter-spacing-label);
+    text-decoration: none;
+    transition: border-color var(--beeday-transition-fast);
+}
+
+.editorial-footer__coffee:hover,
+.editorial-footer__coffee:focus-visible { border-bottom-color: currentColor; }
+
+.editorial-footer__copyright {
+    grid-column: 1 / -1;
+    margin: 0;
+    padding-top: var(--beeday-spacing-lg);
+    border-top: var(--beeday-border-width-subtle) solid var(--beeday-color-border);
+    color: var(--beeday-color-text-secondary);
+    font-size: var(--beeday-font-size-xs);
+    text-align: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .editorial-footer__back-to-top { transition: none; }
+}
