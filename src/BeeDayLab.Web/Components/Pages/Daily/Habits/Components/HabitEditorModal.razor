@@ -1,0 +1,75 @@
+<div class="@VisualStateClass">
+@using BeeDayLab.Web.Scenarios
+@using BeeDayLab.Web.Components.Pages.Daily.Habits
+<EditorModalShell Model="Model"
+                  Title="@(IsEditing ? Localizer["EditHabitTitle"] : Localizer["CreateHabitTitle"])"
+                  TitleId="habit-editor-title"
+                  SubmitLabel="@(IsEditing ? Localizer["SaveButtonLabel"] : Localizer["CreateButtonLabel"])"
+                  ShowDelete="IsEditing"
+                  FallbackFocusSelector="@FallbackFocusSelector"
+                  OnSubmit="Save"
+                  OnCancel="Cancel"
+                  OnDelete="RequestDelete">
+    <HeroContent>
+        <div class="editor-modal__hero">
+            <BeeDayInput Id="habit-title"
+                          Label="@Localizer["TitleFieldLabel"]"
+                          Required="true"
+                          @bind-Value="Model.Title"
+                          Placeholder="@Localizer["TitlePlaceholder"]"
+                          MaxLength="100"
+                          FieldCssClass="editor-modal__hero-field"
+                          LabelCssClass="editor-modal__label-line"
+                          autofocus />
+            <BeeDayTextArea Id="habit-notes"
+                             Label="@Localizer["NotesLabel"]"
+                             @bind-Value="Model.Description"
+                             Placeholder="@Localizer["NotesPlaceholder"]"
+                             MaxLength="500"
+                             ShowCounter="true"
+                             FieldCssClass="editor-modal__hero-field"
+                             LabelCssClass="editor-modal__label-line"
+                             CounterCssClass="editor-modal__counter" />
+        </div>
+    </HeroContent>
+    <BodyContent>
+        <div class="editor-modal__body">
+            <div class="habit-editor__direction" aria-label="@Localizer["DirectionAriaLabel"]">
+                <button type="button" class="habit-editor__direction-button @(AllowsPositive ? "active" : string.Empty)" aria-pressed="@PositiveAriaPressed" @onclick="TogglePositive"><span>+</span><strong>@Localizer["DirectionPositive"]</strong></button>
+                <button type="button" class="habit-editor__direction-button @(AllowsNegative ? "active" : string.Empty)" aria-pressed="@NegativeAriaPressed" @onclick="ToggleNegative"><span>−</span><strong>@Localizer["DirectionNegative"]</strong></button>
+            </div>
+            <BeeDaySelect TValue="DailyHabitDifficulty"
+                           Id="habit-difficulty"
+                           Label="@Localizer["DifficultyLabel"]"
+                           @bind-Value="Model.Difficulty"
+                           FieldCssClass="editor-modal__field">
+                @foreach (var option in Enum.GetValues<DailyHabitDifficulty>())
+                {
+                    <option value="@option">@FormatDifficulty(option)</option>
+                }
+            </BeeDaySelect>
+            <BeeDaySelect TValue="DailyHabitResetCounter"
+                           Id="habit-reset-counter"
+                           Label="@Localizer["ResetCounterLabel"]"
+                           @bind-Value="Model.ResetCounter"
+                           FieldCssClass="editor-modal__field">
+                @foreach (var option in Enum.GetValues<DailyHabitResetCounter>())
+                {
+                    <option value="@option">@FormatResetCounter(option)</option>
+                }
+            </BeeDaySelect>
+        </div>
+    </BodyContent>
+</EditorModalShell>
+
+<BeeDayConfirmDialog IsOpen="showDeleteConfirmation"
+                      Title="@Localizer["DeleteHabitTitle"]"
+                      Message="@Localizer["DeleteHabitMessage"]"
+                      ItemTitle="@Model.Title"
+                      Warning="@Localizer["DeleteWarning"]"
+                      WarningDetails="@Localizer["DeleteWarningDetails"]"
+                      ConfirmLabel="@Localizer["DeleteHabitTitle"]"
+                      OnConfirm="ConfirmDelete"
+                      OnCancel="CloseDeleteConfirmation" />
+
+</div>

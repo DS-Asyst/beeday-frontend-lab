@@ -1,0 +1,116 @@
+.dashboard-page {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    background: var(--beeday-color-surface);
+    box-sizing: border-box;
+}
+
+.dashboard-page__content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-width: 0;
+    padding: .55rem .9rem 1rem;
+    background: var(--beeday-color-surface);
+    box-sizing: border-box;
+    max-width: none;
+}
+
+.loading-state {
+    display: grid;
+    place-items: center;
+    min-height: 20rem;
+    padding: 3rem;
+    text-align: center;
+}
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(15rem, 1fr));
+    align-items: start;
+    gap: .65rem;
+    width: 100%;
+    min-width: 0;
+    margin-top: .55rem;
+    padding-bottom: .2rem;
+    overflow-x: auto;
+    /* `clip`, not `visible`: pairing an `overflow-x: auto` (kept for the
+       narrower-viewport horizontal scroll below) with `overflow-y: visible`
+       gets overflow-y silently promoted to `auto` by the UA (one axis
+       non-visible forces the other from visible to auto) — that previously
+       turned the board into an unintended internal vertical scroll
+       container. `clip` avoids the pairing; it has no clipping effect here
+       since this element has no height/max-height constraint of its own. */
+    overflow-y: clip;
+    background: transparent;
+    box-sizing: border-box;
+    scrollbar-width: thin;
+    scrollbar-color: var(--beeday-color-border-strong) transparent;
+    scroll-snap-type: x proximity;
+}
+
+.dashboard-grid > * {
+    min-width: 17rem;
+    min-height: 36rem;
+    height: auto;
+    scroll-snap-align: start;
+}
+
+.dashboard-grid::-webkit-scrollbar {
+    height: .65rem;
+}
+
+/* Align the Daily board transition with the authenticated shell's 1200px structural boundary. */
+@media (min-width: 1200px) {
+    .dashboard-grid {
+        overflow-x: hidden;
+    }
+}
+
+@media (max-width: 1199px) {
+    .dashboard-grid {
+        grid-template-columns: repeat(4, 17rem);
+    }
+}
+
+@media (max-width: 900px) {
+    .dashboard-grid {
+        grid-template-columns: repeat(2, minmax(16rem, 1fr));
+        overflow: visible;
+    }
+
+    .dashboard-grid > * {
+        min-height: 28rem;
+    }
+}
+
+@media (max-width: 700px) {
+    .dashboard-page__content {
+        padding-inline: .5rem;
+    }
+
+    .dashboard-grid {
+        gap: .5rem;
+    }
+}
+
+@media (max-width: 620px) {
+    .dashboard-page__content {
+        padding: var(--beeday-spacing-sm);
+    }
+
+    .dashboard-grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: var(--beeday-spacing-sm);
+        margin-top: var(--beeday-spacing-sm);
+    }
+
+    .dashboard-grid > * {
+        min-width: 0;
+        min-height: 24rem;
+    }
+}

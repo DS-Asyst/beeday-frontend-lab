@@ -1,0 +1,27 @@
+.product-home { width: 100%; max-width: 64rem; margin-inline: auto; padding: var(--beeday-spacing-2xl) var(--beeday-spacing-xl) var(--beeday-spacing-3xl); }
+/* EXP32-F009 (Sprint 32.20): text-secondary for AA normal-text contrast - confirmed by a live axe
+   scan against /profile that text-muted here failed color-contrast (serious). */
+.product-home__project p, .product-home__status p { margin: 0; color: var(--beeday-color-text-secondary); }
+.product-home__section-heading span { color: var(--beeday-color-brand-primary); font-size: var(--beeday-font-size-xs); font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+.product-home ::deep .beeday-card--padded { padding: var(--beeday-spacing-xl); }
+.product-home__progress { margin-top: var(--beeday-spacing-xl); }
+.product-home__section { display: grid; gap: var(--beeday-spacing-lg); margin-top: var(--beeday-spacing-2xl); }
+.product-home__section-heading { display: flex; align-items: end; justify-content: space-between; gap: var(--beeday-spacing-md); }
+.product-home__section-heading h2 { margin: .2rem 0 0; color: var(--beeday-color-text-primary); font-size: var(--beeday-font-size-xl); }
+.product-home__project { display: grid; gap: var(--beeday-spacing-lg); }
+.product-home__project-header { display: flex; align-items: flex-start; gap: var(--beeday-spacing-md); }
+.product-home__project h3 { margin: 0 0 var(--beeday-spacing-xs); color: var(--beeday-color-text-primary); font-size: var(--beeday-font-size-lg); }
+.product-home__project ::deep .beeday-button { justify-self: start; }
+.product-home__status { display: flex; align-items: center; gap: var(--beeday-spacing-md); margin-top: var(--beeday-spacing-xl); }
+.product-home__weekly-unavailable { display: flex; min-height: 8rem; align-items: center; gap: var(--beeday-spacing-lg); }
+.product-home__weekly-unavailable strong { color: var(--beeday-color-text-primary); font-size: var(--beeday-font-size-md); }
+/* EXP32-F009 (Sprint 32.20): text-secondary for AA normal-text contrast - confirmed by a live axe
+   scan against /profile that text-muted here failed color-contrast (serious). */
+.product-home__weekly-unavailable p { margin: .25rem 0 0; color: var(--beeday-color-text-secondary); }
+.product-home__skeleton { border-radius: var(--beeday-radius-lg); background: var(--beeday-color-surface-muted); animation: home-pulse 1.2s ease-in-out infinite alternate; }
+.product-home__skeleton--header { height: 7rem; }
+.product-home__skeleton--feature { height: 13rem; margin-top: var(--beeday-spacing-xl); }
+.product-home__skeleton--row { height: 9rem; margin-top: var(--beeday-spacing-md); }
+@keyframes home-pulse { from { opacity: .45; } to { opacity: .9; } }
+@media (max-width: 42rem) { .product-home { padding: var(--beeday-spacing-lg) var(--beeday-spacing-md) var(--beeday-spacing-2xl); } .product-home ::deep .beeday-card--padded { padding: var(--beeday-spacing-md); } .product-home__section { margin-top: var(--beeday-spacing-xl); } .product-home__section-heading { align-items: flex-start; } .product-home__status, .product-home__weekly-unavailable { align-items: flex-start; } .product-home__project ::deep .beeday-button { width: 100%; } }
+@media (prefers-reduced-motion: reduce) { .product-home__skeleton { animation: none; } }

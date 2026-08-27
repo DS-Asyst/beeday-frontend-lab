@@ -1,0 +1,61 @@
+@using BeeDayLab.Web.Scenarios
+@inject IStringLocalizer<TodoResources> Localizer
+<EditorModalShell Model="Model"
+                  Title="@(IsEditing ? Localizer["EditTodoTitle"] : Localizer["CreateTodoTitle"])"
+                  TitleId="todo-editor-title"
+                  SubmitLabel="@(IsEditing ? Localizer["SaveButtonLabel"] : Localizer["CreateButtonLabel"])"
+                  ShowDelete="IsEditing"
+                  FallbackFocusSelector="@FallbackFocusSelector"
+                  OnSubmit="Save"
+                  OnCancel="Cancel"
+                  OnDelete="RequestDelete">
+    <HeroContent>
+        <div class="editor-modal__hero">
+            <BeeDayInput Id="todo-title"
+                          Label="@Localizer["TitleFieldLabel"]"
+                          Required="true"
+                          @bind-Value="Model.Title"
+                          Placeholder="@Localizer["TitlePlaceholder"]"
+                          MaxLength="100"
+                          FieldCssClass="editor-modal__hero-field"
+                          LabelCssClass="editor-modal__label-line"
+                          autofocus />
+            <BeeDayTextArea Id="todo-notes"
+                             Label="@Localizer["NotesLabel"]"
+                             @bind-Value="Model.Description"
+                             Placeholder="@Localizer["NotesPlaceholder"]"
+                             MaxLength="500"
+                             ShowCounter="true"
+                             FieldCssClass="editor-modal__hero-field"
+                             LabelCssClass="editor-modal__label-line"
+                             CounterCssClass="editor-modal__counter" />
+        </div>
+    </HeroContent>
+    <BodyContent>
+        <div class="editor-modal__body">
+            <div class="editor-modal__type-summary"><BeeDayIcon Name="BeeDayIconName.Todo" Size="BeeDayIconSize.Large" Class="editor-modal__type-icon" Decorative="true" /><div><strong>@Localizer["TodoSummaryHeading"]</strong><p>@Localizer["TodoSummaryDescription"]</p></div></div>
+            <BeeDaySelect TValue="Guid?" Id="todo-project" Label="@Localizer["ProjectLabel"]" @bind-Value="Model.ProjectId" FieldCssClass="editor-modal__field">
+                <option value="">@Localizer["SelectProjectOption"]</option>
+                @foreach (var project in Projects.Where(project => !project.Archived))
+                {
+                    <option value="@project.Id">@project.Name</option>
+                }
+            </BeeDaySelect>
+            <BeeDayDateInput TValue="DateTime?"
+                              Id="todo-due-date"
+                              Label="@Localizer["DueDateLabel"]"
+                              @bind-Value="Model.DueDate"
+                              FieldCssClass="editor-modal__field" />
+        </div>
+    </BodyContent>
+</EditorModalShell>
+
+<BeeDayConfirmDialog IsOpen="showDeleteConfirmation"
+                      Title="@Localizer["DeleteTodoTitle"]"
+                      Message="@Localizer["DeleteTodoMessage"]"
+                      ItemTitle="@Model.Title"
+                      Warning="@Localizer["DeleteWarning"]"
+                      WarningDetails="@Localizer["DeleteWarningDetails"]"
+                      ConfirmLabel="@Localizer["DeleteTodoTitle"]"
+                      OnConfirm="ConfirmDelete"
+                      OnCancel="CloseDeleteConfirmation" />

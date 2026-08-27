@@ -1,0 +1,52 @@
+@using BeeDayLab.Web.Components.Pages.Daily
+
+<BeeDayCard Class="@CardCssClass">
+    <div class="habit-card__side">
+        @if (AllowsPositive)
+        {
+            <button type="button"
+                    class="habit-card__score-button"
+                    title="@Localizer["RegisterPositiveTitle"]"
+                    aria-label="@RegisterPositiveAriaLabel"
+                    @onclick="OnPositive">+</button>
+        }
+    </div>
+
+    <div class="habit-card__body habit-card__body--openable"
+         role="button"
+         tabindex="0"
+         aria-label="@EditAriaLabel"
+         @onclick="OnEdit"
+         @onkeydown="HandleBodyKeyDown">
+        <div class="habit-card__header">
+            <div class="habit-card__title">
+                @if (Featured)
+                {
+                    <BeeDayIcon Name="BeeDayIconName.Featured" Size="BeeDayIconSize.ExtraSmall" Class="habit-card__featured" Decorative="false" Label="@Localizer["FeaturedLabel"]" />
+                }
+                <h3><SearchHighlight Text="@Title" SearchTerm="@SearchTerm" /></h3>
+            </div>
+        </div>
+
+        @if (!string.IsNullOrWhiteSpace(Description))
+        {
+            <p><SearchHighlight Text="@Description" SearchTerm="@SearchTerm" /></p>
+        }
+    </div>
+
+    <div class="habit-card__metrics" aria-label="@DirectionText">
+        <BeeDayIcon Name="BeeDayIconName.Progress" Size="BeeDayIconSize.Small" Class="habit-card__metrics-icon" Decorative="true" />
+        <span class="habit-card__balance">@FormattedBalance</span>
+    </div>
+
+    <div class="habit-card__side">
+        @if (AllowsNegative)
+        {
+            <button type="button"
+                    class="habit-card__score-button"
+                    title="@Localizer["RegisterNegativeTitle"]"
+                    aria-label="@RegisterNegativeAriaLabel"
+                    @onclick="OnNegative">−</button>
+        }
+    </div>
+</BeeDayCard>

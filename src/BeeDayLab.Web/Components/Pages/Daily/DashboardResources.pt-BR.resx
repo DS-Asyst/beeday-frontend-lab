@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="DailyPageTitle" xml:space="preserve"><value>Diário | beeday</value></data>
+  <data name="DailyHeading" xml:space="preserve"><value>Diário</value></data>
+  <data name="ProfilePageTitle" xml:space="preserve"><value>Perfil | beeday</value></data>
+  <data name="LoadingDashboardAriaLabel" xml:space="preserve"><value>Carregando painel</value></data>
+  <data name="DashboardControlsAriaLabel" xml:space="preserve"><value>Controles do painel</value></data>
+  <data name="SearchActivitiesAriaLabel" xml:space="preserve"><value>Buscar atividades</value></data>
+  <data name="SearchPlaceholder" xml:space="preserve"><value>Buscar</value></data>
+  <data name="CreateActivityButtonLabel" xml:space="preserve"><value>Atividade</value></data>
+  <data name="ChooseActivityTypeAriaLabel" xml:space="preserve"><value>Escolher tipo de atividade</value></data>
+  <data name="CreateMenuHabitLabel" xml:space="preserve"><value>Hábito</value></data>
+  <data name="CreateMenuTaskLabel" xml:space="preserve"><value>Tarefa</value></data>
+  <data name="CreateMenuTodoLabel" xml:space="preserve"><value>Pendência</value></data>
+  <data name="CreateMenuProjectLabel" xml:space="preserve"><value>Projeto</value></data>
+  <data name="DashboardAddItemAriaLabel" xml:space="preserve"><value>Adicionar {0}</value></data>
+  <data name="FeaturedLabel" xml:space="preserve"><value>Em destaque</value></data>
+  <data name="HabitsColumnTitle" xml:space="preserve"><value>Hábitos</value></data>
+  <data name="HabitSingular" xml:space="preserve"><value>Hábito</value></data>
+  <data name="HabitsEmptyTitle" xml:space="preserve"><value>Nenhum hábito ainda</value></data>
+  <data name="HabitsEmptyDescription" xml:space="preserve"><value>Crie um hábito para construir rotinas e acompanhar sua consistência diária.</value></data>
+  <data name="NoFilterResultsTitle" xml:space="preserve"><value>Nenhum resultado</value></data>
+  <data name="NoFilterResultsDescription" xml:space="preserve"><value>Nada aqui corresponde à busca ou ao filtro atual. Tente outro termo ou limpe-o para ver tudo.</value></data>
+  <data name="ClearFilterButton" xml:space="preserve"><value>Limpar filtro</value></data>
+  <data name="HabitsActiveStateLabel" xml:space="preserve"><value>hábitos ativos</value></data>
+  <data name="ReorderHabitsAriaLabel" xml:space="preserve"><value>Reordenar hábitos</value></data>
+  <data name="TasksColumnTitle" xml:space="preserve"><value>Tarefas</value></data>
+  <data name="TaskSingular" xml:space="preserve"><value>Tarefa</value></data>
+  <data name="TasksEmptyTitle" xml:space="preserve"><value>Nenhuma tarefa ainda</value></data>
+  <data name="TasksEmptyDescription" xml:space="preserve"><value>Crie uma tarefa recorrente para organizar trabalho que se repete ao longo do tempo.</value></data>
+  <data name="TasksActiveStateLabel" xml:space="preserve"><value>tarefas ativas</value></data>
+  <data name="TasksCompletedStateLabel" xml:space="preserve"><value>tarefas concluídas</value></data>
+  <data name="TasksShowActiveAriaLabel" xml:space="preserve"><value>Mostrar tarefas ativas</value></data>
+  <data name="TasksShowCompletedAriaLabel" xml:space="preserve"><value>Mostrar tarefas concluídas</value></data>
+  <data name="TasksCompletedEmptyTitle" xml:space="preserve"><value>Nenhuma tarefa concluída</value></data>
+  <data name="TasksCompletedEmptyDescription" xml:space="preserve"><value>Tarefas concluídas aparecerão aqui.</value></data>
+  <data name="ReorderActiveTasksAriaLabel" xml:space="preserve"><value>Reordenar tarefas ativas</value></data>
+  <data name="TodosColumnTitle" xml:space="preserve"><value>Pendências</value></data>
+  <data name="TodoSingular" xml:space="preserve"><value>Pendência</value></data>
+  <data name="TodosEmptyTitle" xml:space="preserve"><value>Nenhuma pendência ainda</value></data>
+  <data name="TodosEmptyDescription" xml:space="preserve"><value>Pendências são criadas dentro de projetos e aparecem aqui para acesso rápido.</value></data>
+  <data name="TodosActiveStateLabel" xml:space="preserve"><value>pendências ativas</value></data>
+  <data name="TodosCompletedStateLabel" xml:space="preserve"><value>pendências concluídas</value></data>
+  <data name="TodosShowActiveAriaLabel" xml:space="preserve"><value>Mostrar pendências ativas</value></data>
+  <data name="TodosShowCompletedAriaLabel" xml:space="preserve"><value>Mostrar pendências concluídas</value></data>
+  <data name="TodosCompletedEmptyTitle" xml:space="preserve"><value>Nenhuma pendência concluída</value></data>
+  <data name="TodosCompletedEmptyDescription" xml:space="preserve"><value>Pendências concluídas aparecerão aqui.</value></data>
+  <data name="ReorderActiveTodosAriaLabel" xml:space="preserve"><value>Reordenar pendências ativas</value></data>
+  <data name="ProjectsColumnTitle" xml:space="preserve"><value>Projetos</value></data>
+  <data name="ProjectSingular" xml:space="preserve"><value>Projeto</value></data>
+  <data name="ProjectsEmptyTitle" xml:space="preserve"><value>Nenhum projeto ainda</value></data>
+  <data name="ProjectsEmptyDescription" xml:space="preserve"><value>Crie um projeto para agrupar pendências relacionadas e acompanhar seu progresso.</value></data>
+  <data name="ProjectsActiveStateLabel" xml:space="preserve"><value>projetos ativos</value></data>
+  <data name="ProjectsCompletedStateLabel" xml:space="preserve"><value>projetos concluídos</value></data>
+  <data name="ProjectsShowActiveAriaLabel" xml:space="preserve"><value>Mostrar projetos ativos</value></data>
+  <data name="ProjectsShowCompletedAriaLabel" xml:space="preserve"><value>Mostrar projetos concluídos</value></data>
+  <data name="ProjectsCompletedEmptyTitle" xml:space="preserve"><value>Nenhum projeto concluído</value></data>
+  <data name="ProjectsCompletedEmptyDescription" xml:space="preserve"><value>Projetos concluídos aparecerão aqui.</value></data>
+  <data name="ReorderActiveProjectsAriaLabel" xml:space="preserve"><value>Reordenar projetos ativos</value></data>
+  <data name="ReorderItemAriaLabel" xml:space="preserve"><value>Segure e arraste este cartão para reordená-lo. Use as setas do teclado quando estiver em foco.</value></data>
+  <data name="ActivityCardMarkIncompleteAriaLabel" xml:space="preserve"><value>Marcar {0} como não concluído</value></data>
+  <data name="ActivityCardCompleteAriaLabel" xml:space="preserve"><value>Concluir {0}</value></data>
+  <data name="ProjectProgressAutoLabel" xml:space="preserve"><value>O progresso do projeto é calculado automaticamente</value></data>
+  <data name="ActivityCardEditAriaLabel" xml:space="preserve"><value>Editar {0}: {1}</value></data>
+  <data name="RegisterPositiveTitle" xml:space="preserve"><value>Registrar comportamento positivo</value></data>
+  <data name="RegisterPositiveAriaLabel" xml:space="preserve"><value>Registrar positivo para {0}</value></data>
+  <data name="RegisterNegativeTitle" xml:space="preserve"><value>Registrar comportamento negativo</value></data>
+  <data name="RegisterNegativeAriaLabel" xml:space="preserve"><value>Registrar negativo para {0}</value></data>
+  <data name="HabitEditAriaLabel" xml:space="preserve"><value>Editar hábito: {0}</value></data>
+  <data name="DirectionPositive" xml:space="preserve"><value>Hábito positivo</value></data>
+  <data name="DirectionNegative" xml:space="preserve"><value>Hábito negativo</value></data>
+  <data name="DirectionBoth" xml:space="preserve"><value>Hábito positivo e negativo</value></data>
+  <data name="FilterProjectsAriaLabel" xml:space="preserve"><value>Filtrar projetos</value></data>
+  <data name="ProjectsListAriaLabel" xml:space="preserve"><value>Projetos</value></data>
+  <data name="AllProjectsOption" xml:space="preserve"><value>Todos os projetos</value></data>
+  <data name="LoadingProfileAriaLabel" xml:space="preserve"><value>Carregando perfil</value></data>
+  <data name="ProfileUnavailableHeading" xml:space="preserve"><value>Resumo do perfil indisponível</value></data>
+  <data name="ProfileUnavailableDescription" xml:space="preserve"><value>Atualize a página para tentar carregar seu espaço de trabalho novamente.</value></data>
+  <data name="WelcomeBackHeading" xml:space="preserve"><value>Bem-vindo(a) de volta, {0}</value></data>
+  <data name="ChooseNextStepDescription" xml:space="preserve"><value>Escolha um próximo passo e continue seu dia em movimento.</value></data>
+  <data name="OpenDailyButtonLabel" xml:space="preserve"><value>Abrir Diário</value></data>
+  <data name="YourProgressAriaLabel" xml:space="preserve"><value>Seu progresso</value></data>
+  <data name="ThisWeekEyebrow" xml:space="preserve"><value>ESTA SEMANA</value></data>
+  <data name="WeeklyActivityHeading" xml:space="preserve"><value>Atividade semanal</value></data>
+  <data name="WeeklyHistoryUnavailableHeading" xml:space="preserve"><value>Histórico semanal ainda não disponível</value></data>
+  <data name="WeeklyHistoryUnavailableDescription" xml:space="preserve"><value>O beeday não registra datas de conclusão no momento, portanto nenhum total semanal é exibido.</value></data>
+  <data name="InProgressEyebrow" xml:space="preserve"><value>EM ANDAMENTO</value></data>
+  <data name="ContinueProjectHeading" xml:space="preserve"><value>Continue seu projeto</value></data>
+  <data name="ProjectProgressLabel" xml:space="preserve"><value>Progresso de {0}</value></data>
+  <data name="ProjectProgressValueText" xml:space="preserve"><value>{0}% concluído</value></data>
+  <data name="ContinueInDailyButtonLabel" xml:space="preserve"><value>Continuar no Diário</value></data>
+  <data name="DashboardLoadErrorMessage" xml:space="preserve"><value>Não foi possível carregar os dados do painel. Tente atualizar a página.</value></data>
+  <data name="HabitUpdatedMessage" xml:space="preserve"><value>Hábito atualizado com sucesso.</value></data>
+  <data name="HabitCreatedMessage" xml:space="preserve"><value>Hábito criado com sucesso.</value></data>
+  <data name="TaskUpdatedMessage" xml:space="preserve"><value>Tarefa atualizada com sucesso.</value></data>
+  <data name="TaskCreatedMessage" xml:space="preserve"><value>Tarefa criada com sucesso.</value></data>
+  <data name="TodoUpdatedMessage" xml:space="preserve"><value>Pendência atualizada com sucesso.</value></data>
+  <data name="TodoCreatedMessage" xml:space="preserve"><value>Pendência criada com sucesso.</value></data>
+  <data name="TodoCreateFromProjectErrorMessage" xml:space="preserve"><value>Não foi possível criar a pendência.</value></data>
+  <data name="ProjectUpdatedMessage" xml:space="preserve"><value>Projeto atualizado com sucesso.</value></data>
+  <data name="ProjectCreatedMessage" xml:space="preserve"><value>Projeto criado com sucesso.</value></data>
+  <data name="HabitDeletedMessage" xml:space="preserve"><value>Hábito excluído com sucesso.</value></data>
+  <data name="TaskDeletedMessage" xml:space="preserve"><value>Tarefa excluída com sucesso.</value></data>
+  <data name="TodoDeletedMessage" xml:space="preserve"><value>Pendência excluída com sucesso.</value></data>
+  <data name="ProjectDeletedMessage" xml:space="preserve"><value>Projeto excluído com sucesso.</value></data>
+  <data name="ReorderErrorMessage" xml:space="preserve"><value>Não foi possível salvar a nova ordem dos cartões.</value></data>
+  <data name="SaveErrorMessage" xml:space="preserve"><value>Suas alterações não puderam ser salvas.</value></data>
+  <data name="DeleteErrorMessage" xml:space="preserve"><value>Não foi possível excluir o item.</value></data>
+  <data name="GenericOperationErrorMessage" xml:space="preserve"><value>Não foi possível concluir a operação.</value></data>
+  <data name="NoRepeatLabel" xml:space="preserve"><value>Sem repetição</value></data>
+  <data name="TaskRepeatDaily" xml:space="preserve"><value>Diariamente</value></data>
+  <data name="TaskRepeatWeekly" xml:space="preserve"><value>Semanalmente</value></data>
+  <data name="TaskRepeatMonthly" xml:space="preserve"><value>Mensalmente</value></data>
+  <data name="NoDueDateLabel" xml:space="preserve"><value>Sem data de vencimento</value></data>
+  <data name="ProjectStatusPlanned" xml:space="preserve"><value>Planejado</value></data>
+  <data name="ProjectInProgressLabel" xml:space="preserve"><value>Em andamento</value></data>
+  <data name="ProjectStatusCompleted" xml:space="preserve"><value>Concluído</value></data>
+</root>

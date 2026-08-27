@@ -1,0 +1,51 @@
+@using BeeDayLab.Web.Components.Pages.Daily
+
+<BeeDayCard Class="@CardCssClass">
+    <div class="activity-card__rail">
+        @if (OnToggle.HasDelegate)
+        {
+            <button class="activity-card__checkbox"
+                    type="button"
+                    title="@ToggleAriaLabel"
+                    aria-label="@ToggleAriaLabel"
+                    @onclick="OnToggle">
+                <span class="activity-card__checkbox-glyph">
+                    <BeeDayIcon Name="BeeDayIconName.Complete" Size="BeeDayIconSize.Small" Decorative="true" />
+                </span>
+            </button>
+        }
+        else
+        {
+            <img class="activity-card__project-status" src="/assets/dashboard/project-bee.png" alt="@Localizer["ProjectProgressAutoLabel"]" width="192" height="181" loading="lazy" decoding="async" />
+        }
+    </div>
+
+    <div class="activity-card__body activity-card__body--openable"
+         role="button"
+         tabindex="0"
+         aria-label="@EditAriaLabel"
+         @onclick="OnEdit"
+         @onkeydown="HandleBodyKeyDown">
+        <div class="activity-card__content">
+            <div class="activity-card__title-row">
+                @if (Featured)
+                {
+                    <BeeDayIcon Name="BeeDayIconName.Featured" Size="BeeDayIconSize.ExtraSmall" Class="activity-card__star" Decorative="false" Label="@Localizer["FeaturedLabel"]" />
+                }
+                <h3><SearchHighlight Text="@Title" SearchTerm="@SearchTerm" /></h3>
+            </div>
+
+            @if (!string.IsNullOrWhiteSpace(Description))
+            {
+                <p><SearchHighlight Text="@Description" SearchTerm="@SearchTerm" /></p>
+            }
+        </div>
+
+        @if (!string.IsNullOrWhiteSpace(Meta))
+        {
+            <div class="activity-card__details">
+                <span class="activity-card__meta">@Meta</span>
+            </div>
+        }
+    </div>
+</BeeDayCard>

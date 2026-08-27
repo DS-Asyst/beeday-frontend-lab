@@ -1,0 +1,67 @@
+@using BeeDayLab.Web.Scenarios
+@inject IStringLocalizer<ProjectResources> Localizer
+
+<EditorModalShell Model="Model"
+                  Title="@(IsEditing ? Localizer["EditProjectTitle"] : Localizer["CreateProjectTitle"])"
+                  TitleId="project-editor-title"
+                  SubmitLabel="@(IsEditing ? Localizer["SaveButtonLabel"] : Localizer["CreateButtonLabel"])"
+                  ShowDelete="IsEditing"
+                  FallbackFocusSelector="@FallbackFocusSelector"
+                  OnSubmit="Save"
+                  OnCancel="Cancel"
+                  OnDelete="RequestDelete">
+    <HeroContent>
+        <div class="editor-modal__hero">
+            <BeeDayInput Id="project-title"
+                          Label="@Localizer["TitleFieldLabel"]"
+                          Required="true"
+                          @bind-Value="Model.Title"
+                          Placeholder="@Localizer["TitlePlaceholder"]"
+                          MaxLength="100"
+                          FieldCssClass="editor-modal__hero-field"
+                          LabelCssClass="editor-modal__label-line"
+                          autofocus />
+            <BeeDayTextArea Id="project-notes"
+                             Label="@Localizer["NotesLabel"]"
+                             @bind-Value="Model.Description"
+                             Placeholder="@Localizer["NotesPlaceholder"]"
+                             MaxLength="500"
+                             ShowCounter="true"
+                             FieldCssClass="editor-modal__hero-field"
+                             LabelCssClass="editor-modal__label-line"
+                             CounterCssClass="editor-modal__counter" />
+        </div>
+    </HeroContent>
+    <BodyContent>
+        <div class="editor-modal__body">
+            <div class="editor-modal__type-summary"><BeeDayIcon Name="BeeDayIconName.Project" Size="BeeDayIconSize.Large" Class="editor-modal__type-icon" Decorative="true" /><div><strong>@Localizer["ProjectLabel"]</strong><p>@Localizer["ProjectSummaryDescription"]</p></div></div>
+            <BeeDayDateInput TValue="DateTime?"
+                              Id="project-expected-date"
+                              Label="@Localizer["ExpectedDateLabel"]"
+                              @bind-Value="Model.ExpectedDate"
+                              FieldCssClass="editor-modal__field" />
+        </div>
+    </BodyContent>
+    <SecondaryAction>
+        @if (IsEditing)
+        {
+            @* Sprint 29.3: Compact="true" made this button 2.25rem tall with a smaller font-size
+               instead of the shared 2.75rem the sibling Cancel/Delete buttons in the same
+               .editor-modal__footer-actions row use (EditorModalShell.razor) — the only footer
+               action in any editor to opt into Compact. Removed; width still varies with the
+               label, only height/typography now match every other footer action. *@
+            <BeeDayButton Variant="BeeDayButtonVariant.Secondary"
+                           OnClick="OpenProject">@Localizer["OpenProjectButton"]</BeeDayButton>
+        }
+    </SecondaryAction>
+</EditorModalShell>
+
+<BeeDayConfirmDialog IsOpen="showDeleteConfirmation"
+                      Title="@Localizer["DeleteProjectTitle"]"
+                      Message="@Localizer["DeleteProjectMessage"]"
+                      ItemTitle="@Model.Title"
+                      Warning="@Localizer["DeleteProjectWarning"]"
+                      WarningDetails="@Localizer["DeleteProjectWarningDetails"]"
+                      ConfirmLabel="@Localizer["DeleteProjectTitle"]"
+                      OnConfirm="ConfirmDelete"
+                      OnCancel="CloseDeleteConfirmation" />

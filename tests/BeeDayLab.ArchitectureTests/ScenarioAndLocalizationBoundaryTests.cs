@@ -102,6 +102,174 @@ public sealed class ScenarioAndLocalizationBoundaryTests
                 + string.Join(Environment.NewLine, violations));
     }
 
+    /// <summary>
+    /// Sprint 33.13 (Issue #374) guard, and the widest one in this file: proves that nothing in the
+    /// whole Daily/productivity surface — the two pages, the five dashboard components, the four
+    /// editor dialogs, the project workspace, the experience bar, the ported feedback store/modal, all
+    /// four editor models, <c>HabitVisualState</c>, <c>DashboardModalState</c> and
+    /// <c>LabDashboardState</c> — references a real Domain/Application/Infrastructure type, a MediatR
+    /// pipeline, or the production service facade.
+    ///
+    /// <para>The MediatR terms matter specifically here: production feeds its level-up modal from
+    /// <c>BeeDayFeedbackEventHandler : INotificationHandler&lt;DomainEventNotification&gt;</c>, which
+    /// this Sprint deliberately did NOT port (<c>LabDashboardState</c> calls
+    /// <c>BeeDayFeedbackStore.Add(...)</c> directly with synthetic data instead). This test is what
+    /// stops a future Sprint quietly reintroducing that pipeline to "make the modal real".</para>
+    /// </summary>
+    [Fact]
+    public void NoDailySurfaceFileReferencesTheProductionBackendOrAnyDomainEventPipeline()
+    {
+        var dailyDirectory = Path.Combine(
+            FindRepositoryRoot(), "src", "BeeDayLab.Web", "Components", "Pages", "Daily");
+        Assert.True(Directory.Exists(dailyDirectory), $"Expected directory not found: {dailyDirectory}");
+
+        var sourceFiles = Directory.EnumerateFiles(dailyDirectory, "*.cs", SearchOption.AllDirectories)
+            .Concat(Directory.EnumerateFiles(dailyDirectory, "*.razor", SearchOption.AllDirectories))
+            .ToList();
+        Assert.NotEmpty(sourceFiles);
+
+        var forbidden = ForbiddenSubstrings
+            .Concat([
+                "MediatR",
+                "INotificationHandler",
+                "DomainEventNotification",
+                "UserLeveledUpDomainEvent",
+                "BeeDayFeedbackEventHandler",
+                "AuthenticatedUserInitializer",
+                "InvalidDomainStateException",
+            ])
+            .ToArray();
+
+        var violations = new List<string>();
+
+        foreach (var file in sourceFiles)
+        {
+            var content = StripComments(File.ReadAllText(file));
+
+            foreach (var term in forbidden)
+            {
+                if (content.Contains(term, StringComparison.Ordinal))
+                {
+                    violations.Add($"{Path.GetFileName(file)} references '{term}'");
+                }
+            }
+        }
+
+        Assert.True(
+            violations.Count == 0,
+            "Daily surface boundary violated (Sprint 33.13, Issue #374):" + Environment.NewLine
+                + string.Join(Environment.NewLine, violations));
+    }
+
+    /// <summary>
+    /// Sprint 33.13 (Issue #374): the Daily surface's Lab-local presentation contract must be exactly
+    /// one translation layer living in <c>Scenarios/</c> — not per-page reinventions. Every
+    /// <c>Daily*</c> record/enum this Sprint introduced is therefore required to be declared under
+    /// <c>Scenarios/</c>, and no file under <c>Components/Pages/Daily/</c> may declare its own
+    /// stand-in for a Domain enum or an Application response DTO.
+    /// </summary>
+    [Fact]
+    public void TheDailyPresentationContractIsDeclaredOnlyOnceUnderScenarios()
+    {
+        var root = FindRepositoryRoot();
+        var scenariosDirectory = Path.Combine(root, "src", "BeeDayLab.Web", "Scenarios");
+        var dailyDirectory = Path.Combine(root, "src", "BeeDayLab.Web", "Components", "Pages", "Daily");
+
+        var expectedTypes = new[]
+        {
+            "DailyActivityType", "DailyTaskRepeat", "DailyProjectStatus", "DailyExperienceSource",
+            "DailyActivityAttribute", "DailyHabitDirection", "DailyHabitDifficulty", "DailyHabitResetCounter",
+            "DailyUserProfileSummary", "DailyHabitSummary", "DailyTaskSummary", "DailyTodoSummary",
+            "DailyProjectSummary", "DailyDashboardScenarioData",
+        };
+
+        var scenarioSource = string.Concat(
+            Directory.EnumerateFiles(scenariosDirectory, "*.cs", SearchOption.AllDirectories)
+                .Select(File.ReadAllText));
+
+        foreach (var type in expectedTypes)
+        {
+            Assert.True(
+                Regex.IsMatch(scenarioSource, $@"\b(record|enum)\s+{type}\b"),
+                $"'{type}' must be declared under Scenarios/ — it is the Sprint's single translation layer.");
+        }
+
+        // ...and nothing under Components/Pages/Daily/ redeclares any of them, or invents its own
+        // copy of the Domain enums / Application DTOs they replace.
+        var forbiddenDeclarations = expectedTypes
+            .Concat(["ActivityType", "TaskRepeat", "ProjectStatus", "ExperienceSourceType",
+                     "ActivityAttribute", "HabitDirection", "HabitDifficulty", "HabitResetCounter",
+                     "UserProfileSummary", "HabitSummary", "TaskSummary", "TodoSummary",
+                     "ProjectSummary", "DashboardResponse"])
+            .ToArray();
+
+        var violations = new List<string>();
+
+        foreach (var file in Directory.EnumerateFiles(dailyDirectory, "*.cs", SearchOption.AllDirectories))
+        {
+            var content = StripComments(File.ReadAllText(file));
+
+            foreach (var type in forbiddenDeclarations)
+            {
+                if (Regex.IsMatch(content, $@"\b(record|enum|class)\s+{type}\b"))
+                {
+                    violations.Add($"{Path.GetFileName(file)} declares its own '{type}'");
+                }
+            }
+        }
+
+        Assert.True(
+            violations.Count == 0,
+            "The Daily presentation contract must not be reinvented per page:" + Environment.NewLine
+                + string.Join(Environment.NewLine, violations));
+    }
+
+    /// <summary>
+    /// Sprint 33.13 (Issue #374 item 5, ADR-008 "não recriar cálculo de regra de negócio (XP...)"):
+    /// the Lab must never reproduce the real XP/leveling rule. The one XP number in the whole surface
+    /// is <c>DailyDashboardScenarioData.XpGainPerAction</c>, a fixed scenario-supplied constant, and
+    /// the only thing done with it is addition into a running display total.
+    /// </summary>
+    [Fact]
+    public void NoDailySurfaceFileReproducesTheExperienceOrLevelingCalculation()
+    {
+        var dailyDirectory = Path.Combine(
+            FindRepositoryRoot(), "src", "BeeDayLab.Web", "Components", "Pages", "Daily");
+
+        // Names production's own reward/leveling machinery carries. None of it may appear in the Lab.
+        var forbidden = new[]
+        {
+            "ExperienceCalculator",
+            "LevelCurve",
+            "ExperienceForNextLevel",
+            "CalculateLevel",
+            "UserExperience",
+            "RewardEngine",
+            "LevelUpData",
+        };
+
+        var violations = new List<string>();
+
+        foreach (var file in Directory.EnumerateFiles(dailyDirectory, "*.cs", SearchOption.AllDirectories)
+            .Concat(Directory.EnumerateFiles(dailyDirectory, "*.razor", SearchOption.AllDirectories)))
+        {
+            var content = StripComments(File.ReadAllText(file));
+
+            foreach (var term in forbidden)
+            {
+                if (content.Contains(term, StringComparison.Ordinal))
+                {
+                    violations.Add($"{Path.GetFileName(file)} references '{term}'");
+                }
+            }
+        }
+
+        Assert.True(
+            violations.Count == 0,
+            "The Lab must never recreate the XP/leveling rule (ADR-008):" + Environment.NewLine
+                + string.Join(Environment.NewLine, violations));
+    }
+
     [Fact]
     public void ScenarioEngineUsesOnlyDeterministicPrimitivesNoRandomOrWallClock()
     {

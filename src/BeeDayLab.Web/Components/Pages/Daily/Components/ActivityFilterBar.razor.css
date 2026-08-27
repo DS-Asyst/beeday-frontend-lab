@@ -1,0 +1,90 @@
+.filter-bar {
+    padding: .7rem 1rem;
+    border-bottom: 1px solid var(--beeday-color-border);
+    background: var(--beeday-color-surface);
+    box-shadow: var(--beeday-shadow-sm);
+}
+
+.filter-bar__main {
+    display: grid;
+    grid-template-columns: minmax(18rem, 1fr) auto;
+    align-items: center;
+    gap: .8rem;
+    width: min(100%, 62rem);
+    margin: 0 auto;
+}
+
+.filter-bar__search {
+    width: 100%;
+    min-width: 0;
+}
+
+.filter-bar__search ::deep .filter-bar__search-field {
+    width: 100%;
+    min-width: 0;
+}
+
+.filter-bar__create { position: relative; }
+
+.filter-bar__create ::deep .filter-bar__create-button {
+    min-width: 8.2rem;
+    min-height: 2.75rem;
+}
+
+.filter-bar__menu {
+    position: absolute;
+    z-index: 850;
+    top: calc(100% + .55rem);
+    right: 0;
+    display: grid;
+    width: 10.8rem;
+    padding: .32rem;
+    border: 1px solid var(--beeday-color-border);
+    border-radius: var(--beeday-radius-xs);
+    background: var(--beeday-color-surface);
+    box-shadow: var(--beeday-shadow-md);
+    transform-origin: top right;
+    animation: beeday-fade-in var(--beeday-duration-fast) var(--beeday-easing-emphasized) both;
+}
+
+.filter-bar__menu button {
+    display: grid;
+    grid-template-columns: 1.1rem minmax(0, 1fr);
+    align-items: center;
+    gap: .5rem;
+    width: 100%;
+    min-height: 2.1rem;
+    padding: .45rem .6rem;
+    border: 0;
+    border-radius: var(--beeday-radius-xs);
+    color: var(--beeday-color-text-primary);
+    background: transparent;
+    text-align: left;
+    font: var(--beeday-type-button);
+    cursor: pointer;
+    transition: background-color var(--beeday-transition-fast);
+}
+
+.filter-bar__menu button:hover,
+.filter-bar__menu button:focus-visible {
+    background: var(--beeday-color-surface-muted);
+    outline: none;
+}
+
+@media (max-width: 520px) {
+    .filter-bar { padding: var(--beeday-spacing-sm); }
+    .filter-bar__main { grid-template-columns: 1fr; width: 100%; }
+    .filter-bar__create,
+    .filter-bar__create ::deep .filter-bar__create-button { width: 100%; }
+    .filter-bar__menu { right: auto; left: 0; width: 100%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .filter-bar__menu button {
+        transition: none;
+    }
+
+    .filter-bar__menu {
+        animation: none;
+    }
+}
