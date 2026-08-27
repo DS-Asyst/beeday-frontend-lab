@@ -1,0 +1,83 @@
+.beeday-container {
+    width: min(100% - 2rem, 1440px);
+    margin-inline: auto;
+}
+
+.beeday-surface {
+    background: var(--beeday-color-surface);
+    border: var(--beeday-border-width-subtle) solid var(--beeday-color-border);
+    border-radius: var(--beeday-radius-md);
+    box-shadow: var(--beeday-shadow-sm);
+}
+
+.beeday-text-muted { color: var(--beeday-color-text-muted); }
+.beeday-text-danger { color: var(--beeday-color-danger); }
+.beeday-stack-sm { display: grid; gap: var(--beeday-spacing-sm); }
+.beeday-stack-md { display: grid; gap: var(--beeday-spacing-md); }
+.beeday-cluster { display: flex; flex-wrap: wrap; align-items: center; gap: var(--beeday-spacing-sm); }
+.beeday-visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* EXP32-F008 (Sprint 32.13): hidden the same way as .beeday-visually-hidden until focused - a
+   skip link only needs to exist for keyboard users, who reveal it by tabbing to it first. */
+.skip-to-content-link {
+    position: absolute;
+    top: -3rem;
+    left: var(--beeday-spacing-md);
+    z-index: var(--beeday-z-modal-raised);
+    padding: var(--beeday-spacing-sm) var(--beeday-spacing-smd);
+    border-radius: var(--beeday-radius-md);
+    background: var(--beeday-color-brand-primary);
+    color: var(--beeday-color-text-inverse);
+    font-weight: var(--beeday-font-weight-bold);
+    text-decoration: none;
+    transition: top var(--beeday-transition-fast);
+}
+
+.skip-to-content-link:focus-visible {
+    top: var(--beeday-spacing-md);
+}
+
+/* EXP32-F010 (Sprint 32.15): local fallback - the global safety net only shortens duration, it
+   does not remove the position transition itself (the link still becomes visible on focus). */
+@media (prefers-reduced-motion: reduce) {
+    .skip-to-content-link {
+        transition: none;
+    }
+}
+
+/* Link foundation — no underline by default (03_DESIGN_DECISIONS.md §6); states stay identifiable
+   through color/weight and a visible focus-visible outline instead of text-decoration. */
+.beeday-link {
+    color: var(--beeday-color-brand-primary);
+    font-weight: var(--beeday-font-weight-bold);
+    text-decoration: none;
+}
+
+.beeday-link:hover { color: var(--beeday-color-brand-primary-hover); text-decoration: none; }
+.beeday-link:active { color: var(--beeday-color-brand-primary-active); }
+.beeday-link:visited { color: var(--beeday-color-brand-primary); }
+.beeday-link:focus-visible { outline: var(--beeday-border-width) solid var(--beeday-color-brand-primary); outline-offset: 2px; border-radius: var(--beeday-radius-xs); }
+
+/* Palette surface pairings — background + WCAG-checked foreground from the same COR0-COR9 slot in
+   one class, so hero-surface (27.3) and Tag-color (27.11) consumers share one attribution instead
+   of picking a foreground ad hoc. */
+.beeday-surface-cor0 { background: var(--beeday-palette-cor0); color: var(--beeday-palette-cor0-foreground); }
+.beeday-surface-cor1 { background: var(--beeday-palette-cor1); color: var(--beeday-palette-cor1-foreground); }
+.beeday-surface-cor2 { background: var(--beeday-palette-cor2); color: var(--beeday-palette-cor2-foreground); }
+.beeday-surface-cor3 { background: var(--beeday-palette-cor3); color: var(--beeday-palette-cor3-foreground); }
+.beeday-surface-cor4 { background: var(--beeday-palette-cor4); color: var(--beeday-palette-cor4-foreground); }
+.beeday-surface-cor5 { background: var(--beeday-palette-cor5); color: var(--beeday-palette-cor5-foreground); }
+.beeday-surface-cor6 { background: var(--beeday-palette-cor6); color: var(--beeday-palette-cor6-foreground); }
+.beeday-surface-cor7 { background: var(--beeday-palette-cor7); color: var(--beeday-palette-cor7-foreground); }
+.beeday-surface-cor8 { background: var(--beeday-palette-cor8); color: var(--beeday-palette-cor8-foreground); }
+.beeday-surface-cor9 { background: var(--beeday-palette-cor9); color: var(--beeday-palette-cor9-foreground); }
