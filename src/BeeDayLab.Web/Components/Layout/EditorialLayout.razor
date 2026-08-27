@@ -1,0 +1,13 @@
+@inherits LayoutComponentBase
+
+@* Sprint 29.4: the public editorial microsite's own layout — used only by the footer's editorial
+   page families (About us, Products, Apps, Help, Privacy and terms). Unlike PublicLayout, there is
+   no separate PublicHeader: brand + contextual navigation render as part of the page's own colored
+   BeeDayHero (InstitutionalPageShell), so header and hero are one surface (§6). AppFooter is
+   replaced by the minimal white EditorialFooter (§26). Home, Login, and other PublicLayout
+   consumers are unaffected — they keep PublicLayout. *@
+<div class="editorial-layout">
+    <main class="editorial-layout__main"><BeeDayErrorBoundary>@Body</BeeDayErrorBoundary></main>
+    <EditorialFooter />
+    <BeeDayToastHost />
+</div>

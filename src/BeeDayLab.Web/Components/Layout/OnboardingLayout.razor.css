@@ -1,0 +1,25 @@
+/* Sprint 20.8 (EPIC 20): the galaxy background image (wwwroot/images/onboarding/auth-galaxy.png,
+   removed) was a leftover of the pre-EPIC-20 visual direction. Login/Identity/Onboarding/
+   ProfileCreation/Tutorial — every consumer of this layout — now sit on the same canonical page
+   background as the rest of the authenticated product, not a bespoke image. */
+.onboarding-layout {
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: grid;
+    place-items: center;
+    padding: var(--beeday-spacing-xl);
+    overflow-x: hidden;
+    overflow-y: auto;
+    background: var(--beeday-color-background);
+}
+
+.onboarding-layout main {
+    width: min(72rem, 100%);
+    min-height: 0;
+}
+
+@media (max-width: 40rem) {
+    .onboarding-layout {
+        padding: var(--beeday-spacing-md);
+    }
+}

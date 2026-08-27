@@ -1,0 +1,182 @@
+/* EPIC 27 Sprint 27.4: the footer becomes a full institutional surface on the official brand
+   token (COR0 by default, 03_DESIGN_DECISIONS.md §9). Single declaration point for this element —
+   no cross-file specificity concern like BeeDayHero's configurable Surface, since the footer's
+   brand surface is a fixed design decision, not a per-consumer parameter. */
+.app-footer {
+    width: 100%;
+    background: var(--beeday-palette-cor0);
+    color: var(--beeday-palette-cor0-foreground);
+}
+
+/* ============================================================================
+   FooterArtwork — the white-to-brand-surface transition. Sizes independently
+   of FooterNavigation below: it never scales the rest of the footer, and the
+   rest of the footer never scales it. See §"FooterNavigation" further down
+   for the same independence from the artwork's side.
+
+   Sprint 29.1 built this as an inline vector path (flat sides, symmetric
+   dip). Sprint 29.3 replaced it with an official SVG asset
+   (assets/footer/footer-wave.svg, viewBox 0 0 1920x1060). Sprint 29.5
+   replaced that asset's content in place with a second, final official
+   artwork (imgDefaultFooterHome.svg) — same path, same viewBox, same "no
+   opaque background of its own" contract, so no markup change was needed;
+   only the file's bytes changed (still true — the SVG itself is not touched
+   again here).
+
+   Sprint 29.6 first capped the render by max-height instead of the
+   width:100%/height:auto Sprint 29.5 shipped (which stretched the asset's
+   own ~1.81:1 viewBox across the full page width — ~795px tall on a 1440px
+   viewport, reading as an independent giant section). Sprint 29.7 tightens
+   that further: a smaller, more conservative clamp ceiling (11rem, was
+   14rem) and a gentler vw coefficient (9vw, was 14vw) so growth on wide
+   viewports stays proportional to a transition mark, never to a page
+   section; max-width matches FooterNavigation's own 1440px container
+   (`.beeday-container`, utilities.css) so neither element outgrows the
+   other's reference frame on ultra-wide viewports — this wrapper spans the
+   full page width (the purple dip still needs to reach both edges to meet
+   FooterNavigation's own full-bleed background), but the artwork inside it
+   never does. */
+.app-footer__wave {
+    --app-footer-wave-width: min(100%, clamp(30rem, 40vw, 44rem));
+    position: relative;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    overflow: hidden;
+    background: var(--beeday-color-background);
+}
+
+    /*
+ * The SVG is centered. Its purple surface reaches the left/right edges
+ * at roughly 57.4% of its 1920x1060 viewBox height.
+ *
+ * These pseudo-elements continue that purple surface to both viewport
+ * edges without painting behind the white central notch.
+ */
+    .app-footer__wave::before,
+    .app-footer__wave::after {
+        position: absolute;
+        top: 57.4%;
+        bottom: 0;
+        z-index: 0;
+        width: max( 0px, calc((100% - var(--app-footer-wave-width)) / 2 + 1px) );
+        background: var(--beeday-palette-cor0);
+        content: "";
+        pointer-events: none;
+    }
+
+    .app-footer__wave::before {
+        left: 0;
+    }
+
+    .app-footer__wave::after {
+        right: 0;
+    }
+
+    .app-footer__wave img {
+        position: relative;
+        z-index: 1;
+        display: block;
+        width: var(--app-footer-wave-width);
+        max-width: none;
+        height: auto;
+    }
+
+/* ============================================================================
+   FooterNavigation — identity, groups, and links. Canonical typography and
+   spacing tokens throughout (no vw-scaled font-size anywhere in this
+   section) so it never shrinks in step with FooterArtwork above; only the
+   grid reflows (see the breakpoints below), never the type scale.
+   Sprint 29.7: this top padding is NOT the "excess purple gap" — reducing it
+   was tried and reverted. Home.razor.css's own .home-brand-closure (the
+   character illustration between the "how it works" section and AppFooter,
+   outside this Sprint's scope) pulls itself down with a large intentional
+   negative margin-bottom (clamp(-14rem, -12vw, -5rem)) so it visually
+   overlaps into the footer's white/purple transition by design; this
+   padding is the clearance that keeps the identity block below that
+   overlap. Reducing it collided the wordmark with the illustration. The
+   real fix for the "too much empty purple" complaint was FooterArtwork's
+   own oversized render above, already addressed there. */
+.app-footer__content {
+    display: grid;
+    gap: var(--beeday-spacing-2xl);
+    padding-block: clamp(2.5rem, 5vw, 3.5rem) var(--beeday-spacing-xl);
+}
+
+.app-footer__identity { display: grid; gap: var(--beeday-spacing-sm); }
+/* Full white, not dimmed via opacity — white at .82 opacity over COR0 measures ~4.42:1, under
+   WCAG AA's 4.5:1 (caught by the repo's axe-core E2E scan). Hierarchy comes from size/weight
+   instead of reducing the already brand-primary-paired foreground's contrast. */
+.app-footer__identity p { margin: 0; color: inherit; }
+
+/* Inverse lockup — BeeDayBrand's OnDarkSurface renders real white here (fixed in Sprint 27.1). */
+.app-footer__brand-mark { --beeday-brand-height: 2.25rem; }
+
+/* Six explicit tracks so all six groups share one row on desktop, per 03_DESIGN_DECISIONS.md §9
+   ("Desktop pode usar 6 grupos na mesma linha; Privacy and terms pode receber largura maior") — a
+   spanning column (e.g. legal taking 2 of 6 tracks in a repeat(6, 1fr) grid) would leave only 4
+   tracks for the other 5 groups and push one to a second row instead of just widening it. */
+.app-footer__groups {
+    display: grid;
+    gap: var(--beeday-spacing-xl);
+    grid-template-columns: 1fr 1fr 1fr 1fr 1.4fr 1fr;
+}
+
+.app-footer__group h2 {
+    margin: 0 0 var(--beeday-spacing-md);
+    color: inherit;
+    font-size: var(--beeday-font-size-sm);
+    font-weight: var(--beeday-font-weight-black);
+    letter-spacing: var(--beeday-letter-spacing-label);
+    text-transform: uppercase;
+}
+
+.app-footer__group ul { display: grid; margin: 0; padding: 0; gap: var(--beeday-spacing-sm); list-style: none; }
+
+.app-footer__group a {
+    color: inherit;
+    font-weight: var(--beeday-font-weight-bold);
+    text-decoration: none;
+    transition: opacity var(--beeday-transition-fast);
+}
+
+.app-footer__group a:hover { opacity: .78; }
+.app-footer__group a:focus-visible { border-radius: 2px; outline: var(--beeday-border-width) solid var(--beeday-color-text-inverse); outline-offset: 3px; }
+
+/* .app-footer__group ul.app-footer__social-list (not the single class alone) is required to beat
+   the base ".app-footer__group ul { display: grid; }" rule's specificity (class+type vs. class). */
+.app-footer__group ul.app-footer__social-list { display: flex; flex-direction: row; align-items: center; gap: var(--beeday-spacing-md); }
+.app-footer__social-list a,
+.app-footer__social-unavailable { display: inline-grid; width: 2.25rem; height: 2.25rem; place-items: center; color: inherit; }
+.app-footer__social-unavailable { opacity: .45; }
+
+/* ============================================================================
+   FooterLegal — divider + copyright. Part of FooterNavigation's own document
+   flow (`.app-footer__content`'s grid, gap var(--beeday-spacing-2xl)), not a
+   separately-scaled element; canonical small-text token, untouched. */
+.app-footer__copyright {
+    margin: 0;
+    padding-top: var(--beeday-spacing-md);
+    border-top: var(--beeday-border-width-subtle) solid rgb(255 255 255 / 25%);
+    color: inherit;
+    font-size: var(--beeday-font-size-sm);
+}
+
+@media (max-width: 60rem) {
+    .app-footer__groups { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .app-footer__group--legal { grid-column: span 3; }
+}
+
+@media (max-width: 40rem) {
+    .app-footer__groups { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .app-footer__group--legal { grid-column: span 2; }
+}
+
+@media (max-width: 26rem) {
+    .app-footer__groups { grid-template-columns: 1fr; }
+    .app-footer__group--legal { grid-column: span 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .app-footer__group a { transition: none; }
+}

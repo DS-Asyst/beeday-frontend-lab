@@ -1,0 +1,38 @@
+@* Lab adaptation (Sprint 33.9, FE33-046): the BeeDay source injects IStringLocalizer<LayoutResources>
+   for the nav aria-label and every item's Label/AriaLabel below. The Lab has no localization
+   pipeline (Program.cs has no AddLocalization), so these are plain hardcoded English strings
+   instead, taken verbatim from LayoutResources.en-US.resx at extraction time ("Main navigation",
+   "Profile", "Daily", "Wallet", "Account", "Logout", "Log out of beeday"). The logout
+   <form method="post" action="/auth/logout"><AntiforgeryToken /></form> is kept exactly as-is —
+   the Lab's Program.cs already calls app.UseAntiforgery(), so AntiforgeryToken is a stock ASP.NET
+   Core component that renders fine standalone. It posts to a route that simply does not exist in
+   the Lab, which is fine — presentation parity, not functional wiring. No /auth/logout endpoint or
+   real logout behavior is fabricated. *@
+<nav class="navigation-items" aria-label="Main navigation">
+    <NavigationItem Icon="BeeDayIconName.Profile" Label="Profile" Href="/profile" OnNavigate="OnNavigate" />
+    <NavigationItem Icon="BeeDayIconName.Daily" Label="Daily" Href="/daily" OnNavigate="OnNavigate" />
+    <NavigationItem Icon="BeeDayIconName.Wallet" Label="Wallet" Href="/wallet" OnNavigate="OnNavigate" />
+</nav>
+
+<div class="navigation-items navigation-items--actions">
+    <div class="navigation-items__account">
+        <NavigationItem Icon="BeeDayIconName.Account"
+                         Label="Account"
+                         Href="/settings"
+                         AlternateHref="/account"
+                         OnNavigate="OnNavigate" />
+    </div>
+
+    <form method="post" action="/auth/logout" class="navigation-items__logout-form">
+        <AntiforgeryToken />
+        <NavigationItem Icon="BeeDayIconName.Logout"
+                        Label="Logout"
+                        AriaLabel="Log out of beeday"
+                        ButtonType="submit" />
+    </form>
+</div>
+
+@code {
+    /// <summary>Invoked after route navigation; closes the mobile drawer and is a no-op on desktop.</summary>
+    [Parameter] public EventCallback OnNavigate { get; set; }
+}

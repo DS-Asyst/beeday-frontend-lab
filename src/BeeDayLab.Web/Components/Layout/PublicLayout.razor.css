@@ -1,0 +1,13 @@
+.public-layout {
+    --beeday-top-navigation-height: 4.25rem;
+
+    display: flex;
+    flex-direction: column;
+    min-height: 100dvh;
+    padding-top: var(--beeday-top-navigation-height);
+}
+
+.public-layout__main {
+    flex: 1 0 auto;
+    padding-block: 0;
+}

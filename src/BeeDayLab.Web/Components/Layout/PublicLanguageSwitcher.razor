@@ -1,0 +1,48 @@
+@using System.Globalization
+@inject NavigationManager Navigation
+
+@* Lab adaptation (Sprint 33.9, FE33-047 dependency): the BeeDay source injects
+   IStringLocalizer<SharedResources> for the group aria-label — dropped for a plain hardcoded
+   English string ("Language") taken verbatim from SharedResources.en-US.resx at extraction time.
+
+   The BeeDay source also references BeeDay.Web.Localization.BeeDayCultures, which itself
+   references BeeDay.Domain.Enums.UserLanguage (FromUserLanguage/ToUserLanguage) — a Domain
+   dependency ADR-008 forbids in the Lab. Reclassified COPY -> ADAPT for this reason as well: the
+   two culture-code literals it actually needs here ("pt-BR" / "en-US") are inlined locally instead
+   of pulling in that Domain-coupled helper. The form still posts to "/culture/set" and reads the
+   ambient CultureInfo.CurrentUICulture verbatim — a route/mechanism that simply does not exist in
+   the Lab (no request localization pipeline is registered), the same "keep the destination
+   verbatim, don't fabricate a backend for it" pattern used for the logout form and DesktopSidebar's
+   authenticated-route hrefs. *@
+<form method="post" action="/culture/set" class="public-language-switcher" aria-label="Language">
+    <AntiforgeryToken />
+    <input type="hidden" name="returnUrl" value="@ReturnUrl" />
+    <button type="submit"
+            name="culture"
+            value="@PortugueseCulture"
+            class="public-language-switcher__option @(IsActive(PortugueseCulture) ? "public-language-switcher__option--active" : null)"
+            aria-pressed="@AriaPressed(PortugueseCulture)"
+            aria-label="Português (Brasil)">
+        <img class="public-language-switcher__flag" src="/assets/flags/brazil.png" alt="" width="612" height="408" />
+    </button>
+    <button type="submit"
+            name="culture"
+            value="@EnglishCulture"
+            class="public-language-switcher__option @(IsActive(EnglishCulture) ? "public-language-switcher__option--active" : null)"
+            aria-pressed="@AriaPressed(EnglishCulture)"
+            aria-label="English (United States)">
+        <img class="public-language-switcher__flag" src="/assets/flags/united-states.png" alt="" width="612" height="408" />
+    </button>
+</form>
+
+@code {
+    private const string PortugueseCulture = "pt-BR";
+    private const string EnglishCulture = "en-US";
+
+    private string ReturnUrl => "/" + Navigation.ToBaseRelativePath(Navigation.Uri);
+
+    private static bool IsActive(string culture) =>
+        string.Equals(CultureInfo.CurrentUICulture.Name, culture, StringComparison.OrdinalIgnoreCase);
+
+    private static string AriaPressed(string culture) => IsActive(culture) ? "true" : "false";
+}

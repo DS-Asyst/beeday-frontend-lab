@@ -1,0 +1,10 @@
+.mobile-header { position: fixed; inset: 0 0 auto; z-index: var(--beeday-z-navigation); display: flex; min-height: var(--beeday-top-navigation-height); align-items: center; justify-content: space-between; padding-inline: var(--beeday-spacing-md); background: var(--beeday-color-surface); border-bottom: 2px solid var(--beeday-color-border); }
+/* EPIC 27 Sprint 27.12: NavLink is a child component, not markup literally written in this
+   file, so its rendered <a> never receives this file's own scope attribute — ::deep is required
+   to reach it (same fix as DesktopSidebar's brand link, Sprint 27.9). Without it the wordmark
+   rendered with the browser's default underline instead of beeday-brand's own styling. */
+.mobile-header ::deep .mobile-header__brand { display: flex; align-items: center; text-decoration: none; }
+.mobile-header__menu-button { display: grid; width: 2.75rem; height: 2.75rem; place-items: center; color: var(--beeday-color-brand-primary); background: transparent; border: 2px solid transparent; border-radius: var(--beeday-radius-md); cursor: pointer; }
+.mobile-header__menu-button:hover { background: var(--beeday-color-brand-primary-soft); }
+.mobile-header__menu-button:focus-visible { outline: var(--beeday-border-width) solid var(--beeday-color-brand-primary); outline-offset: 2px; box-shadow: var(--beeday-focus-ring); }
+@media (min-width: 1200px) { .mobile-header { display: none; } }

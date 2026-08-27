@@ -1,10 +1,36 @@
 @inherits LayoutComponentBase
 
-<div class="lab-shell">
-    <header class="lab-shell__header">
-        <span class="lab-shell__brand">beeday Frontend Lab</span>
-    </header>
-    <main class="lab-shell__body">
-        @Body
-    </main>
+@* Lab adaptation (Sprint 33.9, FE33-039): the BeeDay source injects AuthenticatedUserInitializer
+   (a real backend service that hydrates the signed-in user from BeeDay.Application/Infrastructure
+   on every authenticated page load) and calls EnsureInitializedAsync() in OnInitializedAsync. The
+   Lab has no real user/auth backend to initialize against (ADR-008 forbids real authentication
+   infrastructure), so both the injection and the override are dropped entirely. Everything else —
+   the beeday-app/beeday-shell/beeday-workspace structure, SkipToContentLink, MobileHeader,
+   DesktopSidebar, MobileSidebar, BeeDayErrorBoundary, BeeDayToastHost, and the mobile-nav-open
+   toggle state — is presentation-only and copied as-is. *@
+<div class="beeday-app">
+    <SkipToContentLink />
+    <MobileHeader IsNavOpen="@_isMobileNavOpen" OnToggleNav="ToggleMobileNav" />
+
+    <div class="beeday-shell">
+        <DesktopSidebar />
+
+        <div class="beeday-workspace">
+            <main id="main-content" class="beeday-main beeday-main--authenticated">
+                <BeeDayErrorBoundary>@Body</BeeDayErrorBoundary>
+            </main>
+        </div>
+    </div>
+
+    <MobileSidebar IsOpen="@_isMobileNavOpen"
+                   OnClose="CloseMobileNav" />
+
+    <BeeDayToastHost />
 </div>
+
+@code {
+    private bool _isMobileNavOpen;
+    private void ToggleMobileNav() => _isMobileNavOpen = !_isMobileNavOpen;
+
+    private void CloseMobileNav() => _isMobileNavOpen = false;
+}
