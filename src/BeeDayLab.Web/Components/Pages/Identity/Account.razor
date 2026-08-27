@@ -1,0 +1,233 @@
+@page "/account"
+@page "/settings"
+@rendermode InteractiveServer
+@implements IDisposable
+@using BeeDayLab.Web.Components.Pages.Identity.Models
+@using BeeDayLab.Web.Localization
+@using Microsoft.JSInterop
+@inject ScenarioSelection ScenarioSelection
+@inject AccountScenarioProvider ScenarioProvider
+@inject ToastService Toast
+@inject NavigationManager Navigation
+@inject IStringLocalizer<AccountResources> Localizer
+@inject IStringLocalizer<BeeDayLab.Web.Resources.SharedResources> SharedLocalizer
+@inject IJSRuntime JS
+
+@* Lab adaptation (Sprint 33.12, FE33-086) of BeeDay.Web's
+   Components/Features/Account/Pages/Account.razor — the biggest single item in this Sprint.
+
+   @attribute [Authorize] dropped entirely — no authorization pipeline exists in the Lab.
+   AuthenticatedUserInitializer + the real Store.GetCurrentUserAsync load in OnInitializedAsync are
+   replaced with AccountScenarioProvider.GetScenario(ScenarioSelection.Context), which hands back a
+   realistic synthetic profile (see Scenarios/AccountScenarioData.cs) instead of a real backend call.
+
+   Each section's own save action (SaveProfileAsync/ChangePasswordAsync/SavePreferencesAsync) keeps
+   its own independent busy/toast state exactly as production structures it — three independent save
+   flows, not one — but each now replaces its real Store.XxxAsync call with a fixed busy-delay
+   followed by the same AccountScenarioProvider lookup to decide success/failure
+   (AccountScenarioData.OperationSucceeds). Every DomainErrorLocalizer.Translate(ex, SharedLocalizer)
+   call (real Domain/Application exception classification — EXCLUDE) is replaced with
+   SharedLocalizer["DomainErrorGeneric"], the same already-real, already-localized SharedResources
+   string every other adapted page in this Sprint reuses instead of the excluded translator.
+
+   The SyncCultureAndReloadAsync flow is kept REAL and working: the hidden culture-sync-form + the
+   verbatim-copied wwwroot/js/beeday-culture-sync.js still post to the Lab's real POST /culture/set
+   endpoint (Sprint 33.10). Only BeeDayCultures.FromUserLanguage(language) (Domain-coupled) is
+   replaced with a direct AccountLanguage -> literal culture-code mapping, the same inlining
+   PublicLanguageSwitcher.razor (Sprint 33.9) already used for the same reason. The "?v=..."
+   cache-busting suffix on the JS import path is dropped per the Sprint 33.8 convention
+   ("./js/beeday-culture-sync.js", no query string). *@
+
+<PageTitle>@Localizer["PageTitle"]</PageTitle>
+
+<main class="account-page" aria-busy="@IsAnyBusy.ToString().ToLowerInvariant()">
+    <BeeDayPageHeader Eyebrow="@Localizer["HeaderEyebrow"]"
+                       Title="@Localizer["HeaderTitle"]"
+                       Description="@Localizer["HeaderDescription"]" />
+
+    @if (_isLoading)
+    {
+        <div class="account-page__loading">
+            <BeeDaySkeleton Lines="2" />
+            <BeeDaySkeleton Lines="5" />
+            <BeeDaySkeleton Lines="4" />
+        </div>
+    }
+    else
+    {
+        <div class="account-page__content">
+            <ProfileSection Model="_profile" IsBusy="_profileBusy" OnSave="SaveProfileAsync" />
+            <SecuritySection Model="_security" IsBusy="_securityBusy" OnSave="ChangePasswordAsync" />
+            <PreferencesSection Model="_preferences" IsBusy="_preferencesBusy" OnSave="SavePreferencesAsync" />
+        </div>
+    }
+</main>
+
+<BeeDayLoading IsVisible="@IsAnyBusy" Label="@Localizer["SavingLabel"]" />
+
+<form id="culture-sync-form" method="post" action="/culture/set" hidden>
+    <AntiforgeryToken />
+    <input type="hidden" name="culture" value="" />
+    <input type="hidden" name="returnUrl" value="" />
+</form>
+
+@code {
+    private readonly ProfileFormModel _profile = new();
+    private readonly SecurityFormModel _security = new();
+    private readonly PreferencesFormModel _preferences = new();
+    private readonly CancellationTokenSource _cts = new();
+    private AccountLanguage _initialLanguage;
+    private string _initialEmail = string.Empty;
+    private bool _isLoading = true;
+    private bool _profileBusy;
+    private bool _securityBusy;
+    private bool _preferencesBusy;
+    private bool IsAnyBusy => _profileBusy || _securityBusy || _preferencesBusy;
+
+    public void Dispose()
+    {
+        _cts.Cancel();
+        _cts.Dispose();
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            await Task.Delay(400, _cts.Token);
+            var scenario = ScenarioProvider.GetScenario(ScenarioSelection.Context);
+
+            _profile.Name = scenario.Name;
+            _profile.Email = scenario.Email;
+            _profile.Nickname = scenario.Nickname;
+            _initialEmail = scenario.Email;
+            _preferences.Language = scenario.Language;
+            _preferences.Theme = scenario.Theme;
+            _initialLanguage = scenario.Language;
+        }
+        catch (OperationCanceledException) when (_cts.IsCancellationRequested)
+        {
+        }
+        finally
+        {
+            _isLoading = false;
+        }
+    }
+
+    private async Task SaveProfileAsync()
+    {
+        if (IsAnyBusy) return;
+
+        var trimmedEmail = _profile.Email.Trim();
+        var emailChanged = !string.Equals(trimmedEmail, _initialEmail, StringComparison.OrdinalIgnoreCase);
+        if (emailChanged && string.IsNullOrWhiteSpace(_profile.CurrentPassword))
+        {
+            // BD30-F044 (carried over): caught here so the field reads "required", not a misleading
+            // "incorrect password" the real backend would otherwise return for an empty CurrentPassword.
+            Toast.ShowError(Localizer["ToastProfileCurrentPasswordRequiredMessage"], Localizer["ToastProfileErrorTitle"]);
+            return;
+        }
+
+        _profileBusy = true;
+        try
+        {
+            await Task.Delay(400, _cts.Token);
+            var scenario = ScenarioProvider.GetScenario(ScenarioSelection.Context);
+
+            if (!scenario.OperationSucceeds)
+            {
+                Toast.ShowError(SharedLocalizer["DomainErrorGeneric"], Localizer["ToastProfileErrorTitle"]);
+                return;
+            }
+
+            _profile.CurrentPassword = string.Empty;
+
+            if (emailChanged)
+            {
+                _initialEmail = trimmedEmail;
+                Toast.ShowSuccess(Localizer["ToastProfileEmailChangedMessage"], Localizer["ToastProfileSavedTitle"]);
+            }
+            else
+            {
+                Toast.ShowSuccess(Localizer["ToastProfileSavedMessage"], Localizer["ToastProfileSavedTitle"]);
+            }
+        }
+        catch (OperationCanceledException) when (_cts.IsCancellationRequested)
+        {
+        }
+        finally
+        {
+            _profileBusy = false;
+        }
+    }
+
+    private async Task ChangePasswordAsync()
+    {
+        if (IsAnyBusy) return;
+        _securityBusy = true;
+        try
+        {
+            await Task.Delay(400, _cts.Token);
+            var scenario = ScenarioProvider.GetScenario(ScenarioSelection.Context);
+
+            if (!scenario.OperationSucceeds)
+            {
+                Toast.ShowError(SharedLocalizer["DomainErrorGeneric"], Localizer["ToastPasswordErrorTitle"]);
+                return;
+            }
+
+            _security.Clear();
+            Toast.ShowSuccess(Localizer["ToastPasswordChangedMessage"], Localizer["ToastPasswordChangedTitle"]);
+        }
+        catch (OperationCanceledException) when (_cts.IsCancellationRequested)
+        {
+        }
+        finally
+        {
+            _securityBusy = false;
+        }
+    }
+
+    private async Task SavePreferencesAsync()
+    {
+        if (IsAnyBusy) return;
+        _preferencesBusy = true;
+        try
+        {
+            await Task.Delay(400, _cts.Token);
+            var scenario = ScenarioProvider.GetScenario(ScenarioSelection.Context);
+
+            if (!scenario.OperationSucceeds)
+            {
+                Toast.ShowError(SharedLocalizer["DomainErrorGeneric"], Localizer["ToastPreferencesErrorTitle"]);
+                return;
+            }
+
+            if (_preferences.Language != _initialLanguage)
+            {
+                // The language just changed: reload through the same real /culture/set mechanism the
+                // Home switcher uses, so the rendered UI stays in sync with what was just "persisted"
+                // — a toast here would never be seen, since the page is about to navigate away.
+                await SyncCultureAndReloadAsync(_preferences.Language);
+                return;
+            }
+
+            Toast.ShowSuccess(Localizer["ToastPreferencesSavedMessage"], Localizer["ToastPreferencesSavedTitle"]);
+        }
+        catch (OperationCanceledException) when (_cts.IsCancellationRequested)
+        {
+        }
+        finally
+        {
+            _preferencesBusy = false;
+        }
+    }
+
+    private async Task SyncCultureAndReloadAsync(AccountLanguage language)
+    {
+        var culture = language == AccountLanguage.Portuguese ? LabCultures.Portuguese : LabCultures.English;
+        var returnUrl = "/" + Navigation.ToBaseRelativePath(Navigation.Uri);
+        var module = await JS.InvokeAsync<IJSObjectReference>("import", "./js/beeday-culture-sync.js");
+        await module.InvokeVoidAsync("submitCultureSync", "culture-sync-form", culture, returnUrl);
+    }
+}

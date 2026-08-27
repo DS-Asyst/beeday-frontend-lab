@@ -1,0 +1,29 @@
+@using BeeDayLab.Web.Components.Pages.Identity.Models
+@inject IStringLocalizer<AccountResources> Localizer
+
+@* Lab COPY (Sprint 33.12, FE33-086) of BeeDay.Web's
+   Components/Features/Account/Components/SecuritySection.razor — purely presentational, zero changes
+   beyond the namespace move. *@
+
+<BeeDaySettingsSection Eyebrow="@Localizer["SecurityEyebrow"]"
+                        Title="@Localizer["SecurityTitle"]"
+                        Description="@Localizer["SecurityDescription"]">
+    <BeeDaySettingsForm TModel="SecurityFormModel" Model="Model" OnValidSubmit="OnSave"
+                         FormName="account-security" SubmitLabel="@Localizer["SecuritySubmitLabel"]" IsBusy="IsBusy">
+        <BeeDayInput Id="current-password" Label="@Localizer["CurrentPasswordLabel"]" Required="true"
+                      @bind-Value="Model.CurrentPassword" type="password" autocomplete="current-password" />
+        <div class="beeday-settings-form__grid">
+            <BeeDayInput Id="new-password" Label="@Localizer["NewPasswordLabel"]" Required="true"
+                          @bind-Value="Model.NewPassword" type="password" autocomplete="new-password" />
+            <BeeDayInput Id="confirm-password" Label="@Localizer["ConfirmNewPasswordLabel"]" Required="true"
+                          @bind-Value="Model.ConfirmNewPassword" type="password" autocomplete="new-password" />
+        </div>
+        <p class="beeday-settings-form__hint">@Localizer["SecurityHint"]</p>
+    </BeeDaySettingsForm>
+</BeeDaySettingsSection>
+
+@code {
+    [Parameter, EditorRequired] public SecurityFormModel Model { get; set; } = default!;
+    [Parameter] public bool IsBusy { get; set; }
+    [Parameter] public EventCallback OnSave { get; set; }
+}

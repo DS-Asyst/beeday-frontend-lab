@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="BackToSignIn" xml:space="preserve">
+    <value>VOLTAR PARA O LOGIN</value>
+  </data>
+  <data name="SignIn" xml:space="preserve">
+    <value>ENTRAR</value>
+  </data>
+  <data name="RequestNewLink" xml:space="preserve">
+    <value>SOLICITAR NOVO LINK</value>
+  </data>
+  <data name="EmailLabel" xml:space="preserve">
+    <value>E-mail</value>
+  </data>
+  <data name="ForgotPasswordPageTitle" xml:space="preserve">
+    <value>Esqueci minha senha | beeday</value>
+  </data>
+  <data name="ForgotPasswordHeading" xml:space="preserve">
+    <value>Esqueci minha senha</value>
+  </data>
+  <data name="ForgotPasswordIntro" xml:space="preserve">
+    <value>Informe seu e-mail para gerar as instruções de recuperação de senha.</value>
+  </data>
+  <data name="ForgotPasswordSubmittedMessage" xml:space="preserve">
+    <value>Se existir uma conta para este e-mail, as instruções de recuperação foram geradas.</value>
+  </data>
+  <data name="ForgotPasswordSameResponseNote" xml:space="preserve">
+    <value>Por segurança, esta resposta é a mesma para qualquer endereço de e-mail.</value>
+  </data>
+  <data name="RequestFailedGeneric" xml:space="preserve">
+    <value>Não foi possível processar a solicitação. Tente novamente.</value>
+  </data>
+  <data name="SendRecoveryLink" xml:space="preserve">
+    <value>Enviar Link de Recuperação</value>
+  </data>
+  <data name="ResetPasswordPageTitle" xml:space="preserve">
+    <value>Redefinir senha | beeday</value>
+  </data>
+  <data name="PasswordUpdatedHeading" xml:space="preserve">
+    <value>Senha atualizada</value>
+  </data>
+  <data name="PasswordUpdatedIntro" xml:space="preserve">
+    <value>Sua nova senha está ativa.</value>
+  </data>
+  <data name="PasswordResetCompletedMessage" xml:space="preserve">
+    <value>Redefinição de senha concluída com sucesso.</value>
+  </data>
+  <data name="ResetPasswordHeading" xml:space="preserve">
+    <value>Redefinir senha</value>
+  </data>
+  <data name="ResetPasswordIntro" xml:space="preserve">
+    <value>Escolha uma nova senha para sua conta.</value>
+  </data>
+  <data name="NewPasswordLabel" xml:space="preserve">
+    <value>Nova senha</value>
+  </data>
+  <data name="ConfirmPasswordLabel" xml:space="preserve">
+    <value>Confirmar senha</value>
+  </data>
+  <data name="ResetPasswordButton" xml:space="preserve">
+    <value>Redefinir senha</value>
+  </data>
+  <data name="ResetTokenMissingError" xml:space="preserve">
+    <value>O token de redefinição de senha está ausente.</value>
+  </data>
+  <data name="ConfirmEmailPageTitle" xml:space="preserve">
+    <value>Confirmação de e-mail | beeday</value>
+  </data>
+  <data name="ConfirmingEmailHeading" xml:space="preserve">
+    <value>Confirmando e-mail</value>
+  </data>
+  <data name="ValidatingLinkIntro" xml:space="preserve">
+    <value>Validando seu link de confirmação...</value>
+  </data>
+  <data name="EmailConfirmedHeading" xml:space="preserve">
+    <value>E-mail confirmado</value>
+  </data>
+  <data name="AccountReadyIntro" xml:space="preserve">
+    <value>Sua conta está pronta. Entre para começar sua jornada.</value>
+  </data>
+  <data name="ConfirmationCompletedMessage" xml:space="preserve">
+    <value>Confirmação concluída com sucesso.</value>
+  </data>
+  <data name="AlreadyConfirmedHeading" xml:space="preserve">
+    <value>E-mail já confirmado</value>
+  </data>
+  <data name="AlreadyConfirmedIntro" xml:space="preserve">
+    <value>Este link de confirmação já foi utilizado. Sua conta permanece ativa.</value>
+  </data>
+  <data name="CanSignInNormallyMessage" xml:space="preserve">
+    <value>Você pode entrar normalmente.</value>
+  </data>
+  <data name="LinkExpiredHeading" xml:space="preserve">
+    <value>Link de confirmação expirado</value>
+  </data>
+  <data name="LinkExpiredIntro" xml:space="preserve">
+    <value>Este link não é mais válido. Solicite um novo e-mail de confirmação.</value>
+  </data>
+  <data name="LinkReplacedHeading" xml:space="preserve">
+    <value>Link de confirmação substituído</value>
+  </data>
+  <data name="LinkReplacedIntro" xml:space="preserve">
+    <value>Um link de confirmação mais recente foi gerado para esta conta.</value>
+  </data>
+  <data name="UseMostRecentLinkMessage" xml:space="preserve">
+    <value>Use o e-mail mais recente ou solicite outro link de confirmação.</value>
+  </data>
+  <data name="InvalidLinkHeading" xml:space="preserve">
+    <value>Link de confirmação inválido</value>
+  </data>
+  <data name="InvalidLinkIntro" xml:space="preserve">
+    <value>Este link está incompleto ou não pertence a uma solicitação de confirmação válida.</value>
+  </data>
+  <data name="LinkExpiredMessage" xml:space="preserve">
+    <value>Links de confirmação expiram após um período por motivos de segurança.</value>
+  </data>
+  <data name="InvalidLinkMessage" xml:space="preserve">
+    <value>Verifique o link do seu e-mail ou solicite um novo.</value>
+  </data>
+  <data name="DefaultConfirmationError" xml:space="preserve">
+    <value>Não foi possível confirmar este e-mail.</value>
+  </data>
+  <data name="ConfirmationTokenMissingError" xml:space="preserve">
+    <value>O token de confirmação está ausente.</value>
+  </data>
+  <data name="ResendConfirmationPageTitle" xml:space="preserve">
+    <value>Reenviar confirmação | beeday</value>
+  </data>
+  <data name="ResendConfirmationHeading" xml:space="preserve">
+    <value>Reenviar confirmação</value>
+  </data>
+  <data name="ResendConfirmationIntro" xml:space="preserve">
+    <value>Informe o e-mail usado para criar sua conta.</value>
+  </data>
+  <data name="ResendSubmittedMessage" xml:space="preserve">
+    <value>Se a conta for elegível, uma nova mensagem de confirmação foi gerada.</value>
+  </data>
+  <data name="SendingButton" xml:space="preserve">
+    <value>Enviando...</value>
+  </data>
+  <data name="ResendAvailableInSeconds" xml:space="preserve">
+    <value>Reenvio disponível em {0}s</value>
+  </data>
+  <data name="ResendEmailButton" xml:space="preserve">
+    <value>Reenviar E-mail</value>
+  </data>
+  <data name="EmailConfirmationSentPageTitle" xml:space="preserve">
+    <value>Confirme seu e-mail | beeday</value>
+  </data>
+  <data name="CheckYourEmailHeading" xml:space="preserve">
+    <value>Verifique seu e-mail</value>
+  </data>
+  <data name="CheckYourEmailIntro" xml:space="preserve">
+    <value>Criamos sua conta, mas você precisa confirmar seu e-mail antes de entrar.</value>
+  </data>
+  <data name="YourEmailAddressFallback" xml:space="preserve">
+    <value>seu endereço de e-mail</value>
+  </data>
+  <data name="ConfirmationNote" xml:space="preserve">
+    <value>Use o e-mail de confirmação mais recente. Os links expiram após 24 horas.</value>
+  </data>
+  <data name="ResendConfirmationButton" xml:space="preserve">
+    <value>Reenviar Confirmação</value>
+  </data>
+</root>

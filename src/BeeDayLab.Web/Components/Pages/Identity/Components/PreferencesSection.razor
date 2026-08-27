@@ -1,0 +1,36 @@
+@using BeeDayLab.Web.Components.Pages.Identity.Models
+@using BeeDayLab.Web.Scenarios
+@inject IStringLocalizer<AccountResources> Localizer
+
+@* Lab adaptation (Sprint 33.12, FE33-086) of BeeDay.Web's
+   Components/Features/Account/Components/PreferencesSection.razor. Production's
+   @using BeeDay.Domain.Enums import and UserLanguage/UserTheme option values are replaced with the
+   Lab-local AccountLanguage/AccountTheme enums (see Models/PreferencesFormModel.cs) — otherwise
+   identical markup. *@
+
+<BeeDaySettingsSection Eyebrow="@Localizer["PreferencesEyebrow"]"
+                        Title="@Localizer["PreferencesTitle"]"
+                        Description="@Localizer["PreferencesDescription"]">
+    <BeeDaySettingsForm TModel="PreferencesFormModel" Model="Model" OnValidSubmit="OnSave"
+                         FormName="account-preferences" SubmitLabel="@Localizer["PreferencesSubmitLabel"]" IsBusy="IsBusy">
+        <div class="beeday-settings-form__grid">
+            <BeeDaySelect TValue="AccountLanguage" Id="account-language" Label="@Localizer["LanguageLabel"]"
+                           @bind-Value="Model.Language">
+                <option value="@AccountLanguage.English">@Localizer["LanguageEnglishOption"]</option>
+                <option value="@AccountLanguage.Portuguese">@Localizer["LanguagePortugueseOption"]</option>
+            </BeeDaySelect>
+            <BeeDaySelect TValue="AccountTheme" Id="account-theme" Label="@Localizer["ThemeLabel"]"
+                           @bind-Value="Model.Theme">
+                <option value="@AccountTheme.System">@Localizer["ThemeSystemOption"]</option>
+                <option value="@AccountTheme.Light">@Localizer["ThemeLightOption"]</option>
+                <option value="@AccountTheme.Dark">@Localizer["ThemeDarkOption"]</option>
+            </BeeDaySelect>
+        </div>
+    </BeeDaySettingsForm>
+</BeeDaySettingsSection>
+
+@code {
+    [Parameter, EditorRequired] public PreferencesFormModel Model { get; set; } = default!;
+    [Parameter] public bool IsBusy { get; set; }
+    [Parameter] public EventCallback OnSave { get; set; }
+}

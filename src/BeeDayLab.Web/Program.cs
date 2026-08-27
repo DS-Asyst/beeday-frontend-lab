@@ -1,5 +1,6 @@
 using BeeDayLab.Web.Components;
 using BeeDayLab.Web.Components.DesignSystem.Feedback;
+using BeeDayLab.Web.Components.Pages.Identity.State;
 using BeeDayLab.Web.Localization;
 using BeeDayLab.Web.Scenarios;
 using Microsoft.AspNetCore.Localization;
@@ -24,6 +25,21 @@ builder.Services.AddScoped<ScenarioSelection>();
 // is correct, unlike ScenarioSelection above. A later Sprint's own feature provider (e.g.
 // WalletScenarioProvider) should follow the same Singleton registration for the same reason.
 builder.Services.AddSingleton<DemoCardListScenarioProvider>();
+
+// Sprint 33.12 (FE33-077..087): the Identity & Account surface's own scenario providers — every one
+// is stateless/pure (a switch over ScenarioContext.State returning static synthetic data), same
+// Singleton reasoning as DemoCardListScenarioProvider above.
+builder.Services.AddSingleton<ForgotPasswordScenarioProvider>();
+builder.Services.AddSingleton<ResendConfirmationScenarioProvider>();
+builder.Services.AddSingleton<ResetPasswordScenarioProvider>();
+builder.Services.AddSingleton<ConfirmEmailScenarioProvider>();
+builder.Services.AddSingleton<ProfileCreationScenarioProvider>();
+builder.Services.AddSingleton<AccountScenarioProvider>();
+
+// ProfileCreationState mirrors production's own AddScoped registration: it is per-circuit form/step
+// state (Model, Step, IsBusy, ValidationError), the same lifetime reasoning as ToastService/
+// ScenarioSelection above.
+builder.Services.AddScoped<ProfileCreationState>();
 
 // Sprint 33.10 (FE33-104): a real but minimal request-localization pipeline — CookieRequestCultureProvider
 // only. No Accept-Language header sniffing, no query-string provider: culture here is always
@@ -77,6 +93,35 @@ app.MapPost("/culture/set", (HttpContext httpContext, [FromForm] string culture,
         LabCultures.CreateCookieOptions(app.Environment.IsDevelopment()));
 
     var destination = IsLocalPath(returnUrl) ? returnUrl! : "/";
+    return Results.LocalRedirect(destination);
+});
+
+// Sprint 33.12 (FE33-077): Login.razor posts here (production posts to a real POST /auth/login
+// minimal API that sets a real session cookie via BeeDay.Infrastructure identity handlers — EXCLUDE,
+// same reasoning as everywhere else in the Lab). This Lab-local endpoint is deterministic and
+// synthetic: it sets NO cookie and creates NO session (the Sprint boundary forbids both), and checks
+// the submitted credentials against exactly one fixed, obviously-synthetic demo pair
+// ("demo@beeday.app" / "BeeDayLab!2026") documented here as the only combination that "succeeds".
+// On a match it redirects to the submitted returnUrl (open-redirect-guarded by the same IsLocalPath
+// local function /culture/set already uses), falling back to "/profile/create" — there is no real
+// authenticated landing page in the Lab yet (a later Sprint's concern) — on no match it redirects to
+// "/login?error=invalid", the same query-string-driven feedback branch production's Login.razor
+// already renders.
+app.MapPost("/auth/login", (HttpContext _, [FromForm] string? email, [FromForm] string? password, [FromForm] string? returnUrl) =>
+{
+    const string DemoEmail = "demo@beeday.app";
+    const string DemoPassword = "BeeDayLab!2026";
+
+    var isDemoCredential =
+        string.Equals(email?.Trim(), DemoEmail, StringComparison.OrdinalIgnoreCase) &&
+        string.Equals(password, DemoPassword, StringComparison.Ordinal);
+
+    if (!isDemoCredential)
+    {
+        return Results.LocalRedirect("/login?error=invalid");
+    }
+
+    var destination = IsLocalPath(returnUrl) ? returnUrl! : "/profile/create";
     return Results.LocalRedirect(destination);
 });
 
