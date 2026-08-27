@@ -1,0 +1,107 @@
+:root {
+    --beeday-grid: var(--beeday-spacing-sm);
+    --beeday-control-height-sm: 2.5rem;
+    --beeday-control-height-md: 3rem;
+    --beeday-control-height-lg: 3.5rem;
+    --beeday-page-gutter: clamp(1rem, 2.5vw, 2rem);
+    --beeday-section-gap: clamp(1.5rem, 3vw, 2.5rem);
+    --beeday-reading-width: 72rem;
+}
+
+html { scroll-padding-top: calc(var(--beeday-top-navigation-height, 4.25rem) + var(--beeday-grid)); }
+body { min-width: 20rem; }
+
+/* Consistent page rhythm */
+.beeday-main > :where(section, article, .beeday-page, .page-content) {
+    width: min(100%, var(--beeday-reading-width));
+    margin-inline: auto;
+}
+
+.beeday-page-header { margin-bottom: var(--beeday-section-gap); }
+.beeday-section-header { margin-bottom: calc(var(--beeday-grid) * 2); }
+.beeday-hero { margin-bottom: var(--beeday-section-gap); }
+.beeday-page-header,
+.beeday-section-header,
+.beeday-hero__row { align-items: center; }
+
+.beeday-page-header__actions,
+.beeday-section-header__actions,
+.beeday-hero__primary-action { align-items: center; }
+
+/* Eight-pixel spacing and uniform control sizing */
+.beeday-button:has(.beeday-icon):not(.beeday-button--full-width) { padding-inline-start: calc(var(--beeday-grid) * 1.5); }
+
+.beeday-field { gap: var(--beeday-grid); }
+/* Sprint 29.3: the textarea min-height/line-height rule that used to be here moved to forms.css,
+   the actual owner of control-height contracts (see forms.css for the full note) — it was silently
+   overriding forms.css's own, different value for this exact selector. */
+
+/* Unified surfaces */
+.beeday-card--padded { padding: clamp(1rem, 2.5vw, 1.5rem); }
+
+/* Keyboard navigation and readable targets */
+:where(a, button, input, select, textarea, [tabindex]):focus-visible { scroll-margin: 5rem; }
+:where(button, a, [role="button"]) { touch-action: manipulation; }
+:where(button, a, input, select, textarea)[aria-disabled="true"] { pointer-events: none; }
+
+/* Public pages retain the established gutter; authenticated pages own their width and gutters. */
+.beeday-main { padding-inline: var(--beeday-page-gutter); padding-block: calc(var(--beeday-grid) * 3); }
+.beeday-main--authenticated { padding: 0; }
+.beeday-main--authenticated > :where(section, article, .beeday-page, .page-content) { width: 100%; max-width: none; }
+
+
+
+/* Avoid animation-driven layout shift */
+.beeday-button,
+.beeday-card--interactive,
+.top-navigation__menu-button { will-change: transform; }
+
+@media (max-width: 60rem) {
+    :root { --beeday-reading-width: 100%; }
+    .beeday-main { padding-block: calc(var(--beeday-grid) * 2); }
+    .beeday-main--authenticated { padding-block: 0; }
+    .editorial-layout__main { padding-block: calc(var(--beeday-grid) * 2); }
+}
+
+@media (max-width: 42rem) {
+    .beeday-page-header,
+    .beeday-section-header,
+    .beeday-hero__row { align-items: stretch; }
+    .beeday-page-header__actions,
+    .beeday-section-header__actions,
+    .beeday-hero__primary-action { display: grid; grid-template-columns: 1fr; }
+    .beeday-page-header__actions > *,
+    .beeday-section-header__actions > *,
+    .beeday-hero__primary-action > * { width: 100%; }
+    .beeday-card--padded { padding: calc(var(--beeday-grid) * 2); }
+    /* The illustration steps aside on narrow viewports so the CTA and
+       supporting content stay reachable without excess scrolling. */
+    .beeday-hero__illustration { display: none; }
+}
+
+@media (max-width: 30rem) {
+    :root { --beeday-page-gutter: .75rem; }
+    .beeday-page-header h1,
+    .beeday-hero__content h1 { font-size: clamp(2rem, 12vw, 2.6rem); }
+    .beeday-section-header h2 { font-size: 1.35rem; }
+}
+
+@media (pointer: coarse) {
+    .beeday-button,
+    .top-navigation__menu-button,
+    .beeday-checkbox { min-height: 3rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .beeday-button,
+    .beeday-card--interactive,
+    .top-navigation__menu-button { will-change: auto; }
+}
+
+@media (forced-colors: active) {
+    .beeday-field__control,
+    .beeday-input,
+    .beeday-select,
+    .beeday-card { border-color: CanvasText; }
+}

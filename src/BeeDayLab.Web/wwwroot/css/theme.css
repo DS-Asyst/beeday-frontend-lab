@@ -1,0 +1,89 @@
+html {
+    min-height: 100%;
+    background: var(--beeday-color-background);
+}
+
+body {
+    min-height: 100vh;
+    margin: 0;
+    background: var(--beeday-color-background);
+    color: var(--beeday-color-text-primary);
+    font-family: var(--beeday-font-family);
+    font-size: 16px;
+    line-height: var(--beeday-line-height-normal);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+button,
+input,
+select,
+textarea,
+option,
+optgroup {
+    font-family: var(--beeday-font-family);
+    font-size: inherit;
+    font-weight: inherit;
+    line-height: inherit;
+}
+
+a {
+    color: inherit;
+}
+
+h1,
+h2,
+h3,
+h4,
+p {
+    margin-top: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+.page-title,
+.section-title,
+.modal-title {
+    font-family: var(--beeday-font-body);
+    font-weight: 400;
+}
+
+.brand,
+.logo {
+    font-family: var(--beeday-font-body);
+    font-weight: 400;
+}
+
+.loading-title {
+    font-family: var(--beeday-font-body);
+    font-weight: 400;
+}
+
+.beeday-app {
+    min-height: 100vh;
+    background: var(--beeday-color-background);
+}
+
+.beeday-main {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+:where(button, a, input, select, textarea, [tabindex]):focus-visible {
+    outline: none;
+    box-shadow: var(--beeday-focus-ring);
+}
+
+::selection {
+    background: var(--beeday-color-brand-primary-soft);
+    color: var(--beeday-color-text-primary);
+}

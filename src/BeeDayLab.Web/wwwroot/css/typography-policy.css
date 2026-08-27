@@ -1,0 +1,103 @@
+/* Nunito is the single Product/UI family. Coiny is the qualified Brand/Display family and is only
+   applied by an explicit semantic role; hierarchy within product UI remains Nunito-based. */
+html,
+body,
+button,
+input,
+select,
+textarea,
+option,
+optgroup,
+label,
+table,
+th,
+td,
+.dialog,
+.modal,
+[role="dialog"],
+.validation-message,
+.alert,
+.toast,
+.feedback,
+.message {
+    font-family: var(--beeday-font-body);
+}
+
+body {
+    font-size: var(--beeday-font-size-base);
+    line-height: var(--beeday-line-height-normal);
+}
+
+.beeday-button {
+    font-family: var(--beeday-font-body);
+    font-weight: var(--beeday-font-weight-bold);
+}
+
+.beeday-brand,
+.brand-display {
+    font-family: var(--beeday-font-display);
+    font-weight: var(--beeday-font-weight-regular);
+}
+
+.beeday-logo,
+.tutorial-brand,
+.tutorial-icon,
+.display-title,
+.special-card-title,
+h1,
+.page-title,
+.hero-title {
+    font-family: var(--beeday-font-body);
+    font-weight: var(--beeday-font-weight-extrabold);
+}
+
+h2.title,
+h3.title,
+.card-title,
+.card-title--special,
+.section-title--display,
+.wallet-panel-header h2,
+.dashboard-column__heading h2 {
+    font-family: var(--beeday-font-body);
+    font-weight: var(--beeday-font-weight-bold);
+}
+
+.stat-value,
+.metric-value,
+.wallet-balance,
+[data-display="number"] {
+    font-family: var(--beeday-font-body);
+    font-variant-numeric: tabular-nums;
+}
+
+small,
+.text-small,
+.helper-text,
+.muted-text {
+    font-size: var(--beeday-font-size-sm);
+}
+
+.activity-card h3,
+.habit-card__title h3,
+.activity-card p,
+.habit-card__body p,
+.activity-card__meta,
+.habit-card__footer {
+    font-family: var(--beeday-font-body);
+}
+
+.activity-card h3,
+.habit-card__title h3 {
+    font-size: .88rem;
+    font-weight: var(--beeday-font-weight-medium);
+    line-height: var(--beeday-line-height-tight);
+    letter-spacing: 0;
+}
+
+.activity-card p,
+.habit-card__body p {
+    margin-top: .12rem;
+    font-size: .78rem;
+    font-weight: var(--beeday-font-weight-regular);
+    line-height: 1.3;
+}

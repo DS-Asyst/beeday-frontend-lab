@@ -5,7 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>beeday Frontend Lab</title>
     <base href="/" />
-    <link rel="stylesheet" href="css/app.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Coiny&family=Nunito:wght@400;500;600;700;800;900&display=swap"
+      rel="stylesheet" />
+
+    <link rel="stylesheet" href="app.css" />
+
+    <!-- Foundation layer (Sprint 33.6, FE33-001..008) — copied verbatim from DS-Asyst/BeeDay,
+         same relative cascade order as production App.razor. Component/Feature-scoped sheets
+         (design-system.css, cards.css, wallet.css, etc.) are not loaded yet — later Sprints. -->
+    <link rel="stylesheet" href="css/variables.css" />
+    <link rel="stylesheet" href="css/typography.css" />
+    <link rel="stylesheet" href="css/theme.css" />
+    <link rel="stylesheet" href="css/utilities.css" />
+    <link rel="stylesheet" href="css/animations.css" />
+    <link rel="stylesheet" href="css/polish.css" />
+    <link rel="stylesheet" href="css/typography-policy.css" />
+
+    <link rel="stylesheet" href="css/lab-shell.css" />
+
     <HeadOutlet />
 </head>
 

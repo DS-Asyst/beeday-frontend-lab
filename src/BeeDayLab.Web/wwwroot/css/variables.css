@@ -1,0 +1,303 @@
+:root {
+    /* Brand — #5247F9 is the only officially approved brand color. Hover/active/light/soft are
+       interaction and surface states derived from the same primary family, not additional brand colors. */
+    --beeday-color-brand-primary: #5247f9;
+    --beeday-color-brand-primary-hover: #3f33f1;
+    --beeday-color-brand-primary-active: #1c0ef2;
+    --beeday-color-brand-primary-light: #827afc;
+    --beeday-color-brand-primary-soft: #f8f7ff;
+
+    /* Palette — COR0-COR9 (EPIC 27, Design & Experience; official HEX values and page-header
+       eligibility rule formally documented in docs/brand/03-color-palette.md as of Sprint 29.2). The
+       only authorized source for new hero surfaces and Tag colors going forward. COR0 aliases the
+       existing Brand Primary value instead of repeating the literal, so the two never drift; COR1-
+       COR9 are net-new physical values scoped to hero-surface/tag usage, not additional brand
+       colors. Foreground pairings are WCAG-checked and centralized here so hero/tag consumers never
+       pick an ad hoc foreground. */
+    --beeday-palette-cor0: var(--beeday-color-brand-primary);
+    --beeday-palette-cor1: #ce82ff;
+    --beeday-palette-cor2: #58cc02;
+    --beeday-palette-cor3: #1cb0f6;
+    --beeday-palette-cor4: #ffb100;
+    --beeday-palette-cor5: #ff7878;
+    --beeday-palette-cor6: #ffffff;
+    --beeday-palette-cor7: #ececed;
+    --beeday-palette-cor8: #100f3e;
+    --beeday-palette-cor9: #defff7;
+
+    --beeday-palette-cor0-foreground: #ffffff;
+    --beeday-palette-cor1-foreground: var(--beeday-palette-cor8);
+    --beeday-palette-cor2-foreground: var(--beeday-palette-cor8);
+    --beeday-palette-cor3-foreground: var(--beeday-palette-cor8);
+    --beeday-palette-cor4-foreground: var(--beeday-palette-cor8);
+    --beeday-palette-cor5-foreground: var(--beeday-palette-cor8);
+    --beeday-palette-cor6-foreground: var(--beeday-palette-cor8);
+    --beeday-palette-cor7-foreground: var(--beeday-palette-cor8);
+    --beeday-palette-cor8-foreground: #ffffff;
+    --beeday-palette-cor9-foreground: var(--beeday-palette-cor8);
+
+    /* Accent secondary — COR3/#1CB0F6. Approved roles only (03_DESIGN_DECISIONS.md §4): important-
+       white button text, the authenticated sidebar Account item, and moderate marketing highlights.
+       Not a second brand color. */
+    --beeday-color-accent-secondary: var(--beeday-palette-cor3);
+
+    /* Accent secondary, text-safe — the same hue/identity as COR3, darkened for use as TEXT on a
+       light/white surface. Raw COR3 (#1CB0F6) measures ~2.44:1 against white, failing WCAG AA's
+       4.5:1 normal-text minimum (confirmed by the repo's automated axe-core scan); this token
+       measures ~5.29:1. Use this for text/icons on light surfaces; raw --beeday-color-accent-
+       secondary remains correct for non-text uses (borders, depth, surfaces) where the stricter
+       text-contrast ratio does not apply.
+       Sprint 29.3: the important-white CTA's requested design reference moved to #2CBAFF, a
+       marginally brighter/more saturated blue in the same ~200° hue family as COR3/#1CB0F6 (verified
+       by HSL conversion: #2CBAFF is H199.6° S100% L58.6%, #1CB0F6 is H199.3° S92% L53.7%, this token
+       is H200.1° S88% L34.7% — same hue, just darker). #2CBAFF itself measures ~2.19:1 against
+       white, also failing WCAG AA as text — this token remains the correct accessible representative
+       of that same blue family for TEXT use; no new literal or token was introduced. */
+    --beeday-color-accent-secondary-on-light: #0b72a6;
+
+    /* Dark/content-strong — COR8/#100F3E. A stronger dark than --beeday-color-text-primary, used as
+       the foreground paired with light/mid palette surfaces (see the palette foreground pairings
+       above) and wherever the Epic 27 brand surfaces need the strong-dark role. */
+    --beeday-color-content-strong: var(--beeday-palette-cor8);
+
+    /* Hero surface — the centralized default for institutional/marketing solid-color heroes when a
+       page does not select one of COR0-COR9 explicitly (docs/brand/03-color-palette.md). */
+    --beeday-hero-surface-default: var(--beeday-palette-cor0);
+    --beeday-hero-surface-default-foreground: var(--beeday-palette-cor0-foreground);
+
+    /* Surfaces */
+    --beeday-color-background: #ffffff;
+    --beeday-color-surface: #ffffff;
+    --beeday-color-surface-muted: #f7f7f7;
+    --beeday-color-surface-subtle: #eeeeee;
+    --beeday-color-overlay: rgb(23 27 48 / 64%);
+
+    /* Content */
+    --beeday-color-text-primary: #2f2737;
+    --beeday-color-text-secondary: #514858;
+    --beeday-color-text-muted: #817789;
+    --beeday-color-text-inverse: #ffffff;
+    --beeday-color-border: #e5e5e5;
+    --beeday-color-border-strong: #cecece;
+    --beeday-color-border-interactive: var(--beeday-color-brand-primary);
+
+    /* Semantic feedback */
+    --beeday-color-success: #287d4d;
+    --beeday-color-success-soft: #e8f7ee;
+    --beeday-color-warning: #d89b22;
+    --beeday-color-warning-soft: #fff5dc;
+    --beeday-color-danger: #d33b46;
+    --beeday-color-danger-hover: #b32121;
+    --beeday-color-danger-soft: #fff0f1;
+    --beeday-color-info: #335f71;
+    --beeday-color-info-soft: #e7f0f4;
+
+    /* Product semantics — reward/XP. Yellow is not an approved secondary brand color. */
+    --beeday-color-reward: #ffd326;
+    --beeday-color-reward-hover: #e8bd00;
+    --beeday-color-reward-active: #cda600;
+    --beeday-color-reward-foreground: var(--beeday-color-text-primary);
+
+    /* Legacy public names kept for backward compatibility. New consumers use the reward family. */
+    --beeday-color-brand-yellow: var(--beeday-color-reward);
+    --beeday-color-brand-yellow-hover: var(--beeday-color-reward-hover);
+    --beeday-color-brand-yellow-active: var(--beeday-color-reward-active);
+    --beeday-color-brand-yellow-foreground: var(--beeday-color-reward-foreground);
+
+    /* Product semantics — activity accents */
+    --beeday-color-task: #335f71;
+    --beeday-color-task-dark: #244554;
+    --beeday-color-todo: #bf2ec7;
+    --beeday-color-todo-dark: #92239a;
+    --beeday-color-project: #8056c7;
+    --beeday-color-project-dark: #613ca2;
+
+    /* Product semantics — activity attributes, distinct from feedback and brand tokens */
+    --beeday-color-attribute-strength: #b3432f;
+    --beeday-color-attribute-dexterity: #1f8a99;
+    --beeday-color-attribute-intelligence: #4456c9;
+    --beeday-color-attribute-vitality: #b23a86;
+
+    /* Product semantics — Wallet */
+    --beeday-color-tag-default: #7a4fcb;
+
+    /* BeeDayButton semantic palettes. Depth is a physical bottom border, not a shadow. */
+    --beeday-color-button-focus-default: var(--beeday-focus-color);
+
+    --beeday-color-button-primary-bg: var(--beeday-color-brand-primary);
+    --beeday-color-button-primary-bg-hover: var(--beeday-color-brand-primary-hover);
+    --beeday-color-button-primary-fg: var(--beeday-color-text-inverse);
+    --beeday-color-button-primary-outline: var(--beeday-color-brand-primary-active);
+    --beeday-color-button-primary-depth: var(--beeday-color-brand-primary-active);
+    --beeday-color-button-primary-shadow: var(--beeday-color-brand-primary-active);
+
+    --beeday-color-button-secondary-bg: var(--beeday-color-surface);
+    --beeday-color-button-secondary-bg-hover: var(--beeday-color-surface-muted);
+    --beeday-color-button-secondary-fg: var(--beeday-color-brand-primary);
+    --beeday-color-button-secondary-outline: var(--beeday-color-border-strong);
+    --beeday-color-button-secondary-depth: var(--beeday-color-border-strong);
+    --beeday-color-button-secondary-shadow: var(--beeday-color-border-strong);
+
+    --beeday-color-button-success-bg: var(--beeday-color-success);
+    --beeday-color-button-success-bg-hover: #237a45;
+    --beeday-color-button-success-fg: var(--beeday-color-text-inverse);
+    --beeday-color-button-success-outline: #1a6139;
+    --beeday-color-button-success-depth: #1a6139;
+    --beeday-color-button-success-shadow: #174a2d;
+
+    --beeday-color-button-warning-bg: #f5b942;
+    --beeday-color-button-warning-bg-hover: #ffc85d;
+    --beeday-color-button-warning-fg: #171321;
+    --beeday-color-button-warning-outline: #9b6508;
+    --beeday-color-button-warning-depth: #c9820d;
+    --beeday-color-button-warning-shadow: #5f410d;
+
+    /* Important White — a plain white-surface button (neutral border/depth, same family as
+       --secondary and --back below) whose TEXT is Accent Secondary (COR3, text-safe variant), for
+       the explicit "important white button" cases (e.g. I ALREADY HAVE AN ACCOUNT, CREATE ACCOUNT).
+       Sprint 29.1: EPIC 27 Sprint 27.1 originally colored outline/depth/shadow with raw Accent
+       Secondary too, which painted the button's border and pressed edge in blue and read as a
+       colored surface rather than a white one — the requested change was the text color only. */
+    --beeday-color-button-important-white-bg: var(--beeday-color-surface);
+    --beeday-color-button-important-white-bg-hover: var(--beeday-color-surface-muted);
+    --beeday-color-button-important-white-fg: var(--beeday-color-accent-secondary-on-light);
+    --beeday-color-button-important-white-outline: var(--beeday-color-border-strong);
+    --beeday-color-button-important-white-depth: var(--beeday-color-border-strong);
+    --beeday-color-button-important-white-shadow: var(--beeday-color-border-strong);
+
+    --beeday-color-button-back-bg: var(--beeday-color-surface);
+    --beeday-color-button-back-bg-hover: var(--beeday-color-surface-muted);
+    --beeday-color-button-back-fg: var(--beeday-color-text-secondary);
+    --beeday-color-button-back-outline: var(--beeday-color-border-strong);
+    --beeday-color-button-back-depth: var(--beeday-color-border-strong);
+    --beeday-color-button-back-shadow: var(--beeday-color-border-strong);
+
+    --beeday-color-button-danger-bg: var(--beeday-color-danger);
+    --beeday-color-button-danger-bg-hover: #d94c57;
+    --beeday-color-button-danger-fg: var(--beeday-color-text-inverse);
+    --beeday-color-button-danger-outline: #691a20;
+    --beeday-color-button-danger-depth: #9f2a32;
+    --beeday-color-button-danger-shadow: #57151a;
+
+    --beeday-color-button-confirmation-cancel-bg: var(--beeday-color-surface);
+    --beeday-color-button-confirmation-cancel-bg-hover: #f1f1f1;
+    --beeday-color-button-confirmation-cancel-fg: #171321;
+    --beeday-color-button-confirmation-cancel-outline: #444047;
+    --beeday-color-button-confirmation-cancel-depth: #d7d5d8;
+    --beeday-color-button-confirmation-cancel-shadow: #5a565d;
+    --beeday-color-button-confirmation-cancel-focus: rgb(68 64 71 / 28%);
+
+    --beeday-color-button-reference-blue-bg: #20b4f4;
+    --beeday-color-button-reference-blue-bg-hover: #2dbcf8;
+    --beeday-color-button-reference-blue-fg: var(--beeday-color-text-inverse);
+    --beeday-color-button-reference-blue-outline: #075b8f;
+    --beeday-color-button-reference-blue-depth: #087fbe;
+    --beeday-color-button-reference-blue-shadow: #064b78;
+    --beeday-color-button-reference-blue-focus: rgb(32 180 244 / 30%);
+
+    /* Card title/description/star text colors — shared by every activity and
+       habit card (see cards.css), so a single change here updates every card. */
+    --beeday-color-card-title: #302638;
+    --beeday-color-card-description: #786f80;
+    --beeday-color-card-star: #f3b82f;
+    --beeday-color-card-meta-text: #665d70;
+    --beeday-color-card-meta-bg: #f0edf2;
+
+    /* Dashboard chrome — icon-only toggle buttons (filter, view-toggle, add) and
+       the Daily board surface, shared across ActivityFilterBar/DashboardColumn. */
+    --beeday-color-chrome-icon: #4f3b5b;
+    --beeday-color-chrome-icon-surface: #f8f7f9;
+    --beeday-color-filter-surface-tint: #f2eef7;
+    --beeday-color-board-surface: #ebe9ec;
+
+    /* Product semantics — Habit colors. Single source for the Habit card side rail/score button and
+       the matching Habit editor accent, so both surfaces of the same chosen
+       color never drift apart. */
+    --beeday-habit-color-white: #f7f6f8;
+    --beeday-habit-color-white-dark: #8b8491;
+    --beeday-habit-color-yellow: #ffc15a;
+    --beeday-habit-color-yellow-dark: #dfa234;
+    --beeday-habit-color-green: #24cc8f;
+    --beeday-habit-color-green-dark: #159d6c;
+    --beeday-habit-color-sky: #39c5d7;
+    --beeday-habit-color-sky-dark: #2297a8;
+    --beeday-habit-color-red-light: #ffb3b8;
+    --beeday-habit-color-red-light-dark: #e98189;
+    --beeday-habit-color-red-medium: #ff5a62;
+    --beeday-habit-color-red-medium-dark: #d93640;
+    --beeday-habit-color-red-strong: #d71920;
+    --beeday-habit-color-red-strong-dark: #a90f15;
+
+    /* Spacing scale */
+    --beeday-spacing-2xs: .125rem;
+    --beeday-spacing-xs: .25rem;
+    --beeday-spacing-sm: .5rem;
+    --beeday-spacing-smd: .75rem;
+    --beeday-spacing-md: 1rem;
+    --beeday-spacing-lg: 1.5rem;
+    --beeday-spacing-xl: 2rem;
+    --beeday-spacing-2xl: 3rem;
+    --beeday-spacing-3xl: 4rem;
+
+    /* Shape */
+    --beeday-radius-xs: .2rem;
+    --beeday-radius-sm: .375rem;
+    --beeday-radius-md: .625rem;
+    --beeday-radius-lg: .75rem;
+    --beeday-radius-xl: 1rem;
+    /* Generous surface radius for large marketing/showcase cards; the scale needs a rounded,
+       non-pill step above xl (1rem). */
+    --beeday-radius-2xl: 1.5rem;
+    --beeday-radius-pill: 999px;
+
+    /* Borders and physical depth. Subtle separates structural dividers/surfaces from the existing
+       2px interactive-control contract; --beeday-border-width remains stable for compatibility. */
+    --beeday-border-width-subtle: 1px;
+    --beeday-border-width: 2px;
+    --beeday-depth-sm: 2px;
+    --beeday-depth-md: 4px;
+    --beeday-depth-lg: 8px;
+
+    /* Elevation — brand-tinted shadow, rgb() literal because CSS cannot extract channels from a hex
+       custom property; kept in sync with --beeday-color-brand-primary (#5247F9 as of Epic 22). */
+    --beeday-shadow-xs: 0 1px 2px rgb(82 71 249 / 6%);
+    --beeday-shadow-sm: 0 2px 6px rgb(82 71 249 / 8%);
+    --beeday-shadow-md: 0 4px 12px rgb(82 71 249 / 10%);
+    --beeday-shadow-lg: 0 12px 28px rgb(82 71 249 / 16%);
+
+    /* Focus — migrated to the canonical brand blue in Sprint 20.7 (EPIC 20); channel values kept in
+       sync with --beeday-color-brand-primary through the Epic 22 remigration to #5247F9. This token
+       has a single, well-defined role (the default focus-visible ring color) rather than the broad,
+       overloaded surface/text role of --beeday-color-primary, so migrating it directly — instead of
+       keeping a legacy alias — does not risk the same product-wide background/text regression; it
+       only recolors a transient interaction indicator, consistently, everywhere. */
+    --beeday-focus-color: rgb(82 71 249 / 32%);
+    --beeday-focus-ring: 0 0 0 3px var(--beeday-focus-color);
+    /* The inverse focus color intentionally shares reward yellow's physical value but owns a
+       separate interaction responsibility. */
+    --beeday-focus-color-inverse: #ffd326;
+    --beeday-focus-ring-inverse: 0 0 0 3px rgb(255 211 38 / 45%);
+
+    /* Motion */
+    --beeday-duration-fast: 120ms;
+    --beeday-duration-normal: 180ms;
+    --beeday-duration-slow: 260ms;
+    --beeday-easing-standard: cubic-bezier(.2, 0, 0, 1);
+    --beeday-easing-emphasized: cubic-bezier(.2, .8, .2, 1);
+    --beeday-transition-fast: var(--beeday-duration-fast) var(--beeday-easing-standard);
+    --beeday-transition-normal: var(--beeday-duration-normal) var(--beeday-easing-standard);
+    --beeday-transition-emphasized: var(--beeday-duration-slow) var(--beeday-easing-emphasized);
+    --beeday-transition-visibility: visibility 0s linear var(--beeday-duration-slow);
+
+    /* Layout and layers. Page-local stacking contexts may use small local values; these tokens
+       own only overlays that must participate in the shared application hierarchy. */
+    --beeday-z-navigation: 100;
+    --beeday-z-drawer-backdrop: 140;
+    --beeday-z-drawer: 150;
+    --beeday-z-dropdown: 300;
+    --beeday-z-modal: 900;
+    --beeday-z-modal-raised: 1200;
+    --beeday-z-confirmation: 1400;
+    --beeday-z-loading: 1500;
+    --beeday-z-toast: 1700;
+}
