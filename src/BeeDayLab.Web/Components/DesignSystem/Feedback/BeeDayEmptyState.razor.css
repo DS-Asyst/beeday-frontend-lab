@@ -1,0 +1,51 @@
+/* The single shared Empty State implementation, used everywhere (Daily
+   columns, Wallet Tags/Transactions, and every other empty list). Icon,
+   title, and description only — centered with whitespace, no placeholder
+   box: no dashed/dotted border, no background container, no nested box. */
+.beeday-empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--beeday-spacing-sm);
+    width: 100%;
+    padding: var(--beeday-spacing-xl) var(--beeday-spacing-lg);
+    color: var(--beeday-color-text-primary);
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.beeday-empty-state__icon {
+    display: grid;
+    place-items: center;
+    width: 4.75rem;
+    height: 4.75rem;
+}
+
+.beeday-empty-state__content {
+    display: grid;
+    gap: var(--beeday-spacing-2xs);
+    max-width: 17rem;
+}
+
+.beeday-empty-state__title {
+    margin: 0;
+    color: var(--beeday-color-text-primary);
+    font-family: var(--beeday-font-body);
+    font-size: 1.12rem;
+    font-weight: 700;
+    line-height: 1.25;
+}
+
+.beeday-empty-state__description {
+    margin: 0;
+    color: var(--beeday-color-text-secondary);
+    font-size: .78rem;
+    line-height: 1.65;
+}
+
+@media (max-width: 47.99rem) {
+    .beeday-empty-state {
+        padding: var(--beeday-spacing-lg) var(--beeday-spacing-md);
+    }
+}

@@ -1,0 +1,18 @@
+@* Lab adaptation (Sprint 33.8, FE33-018): the BeeDay source injects IStringLocalizer<DesignSystemResources>
+   for the default label. Dropped for the same reason as BeeDayErrorBoundary — no localization
+   pipeline in the Lab — using the verified English default ("Saving changes...") as a plain
+   string literal instead. *@
+@if (IsVisible)
+{
+    <div class="beeday-loading-overlay" role="status" aria-live="polite" aria-label="@EffectiveLabel">
+        <BeeDayIcon Name="BeeDayIconName.Loading" Size="BeeDayIconSize.Small" Color="BeeDayIconColor.Primary" Class="beeday-loading-spinner" />
+        <span class="beeday-loading-label">@EffectiveLabel</span>
+    </div>
+}
+
+@code {
+    [Parameter] public bool IsVisible { get; set; }
+    [Parameter] public string? Label { get; set; }
+
+    private string EffectiveLabel => Label ?? "Saving changes...";
+}

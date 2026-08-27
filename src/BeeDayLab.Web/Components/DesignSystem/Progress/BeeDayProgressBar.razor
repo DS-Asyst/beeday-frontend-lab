@@ -1,0 +1,47 @@
+@using System.Globalization
+
+@* Lab adaptation (Sprint 33.8, FE33-023): the BeeDay source injects IStringLocalizer<DesignSystemResources>
+   for AccessibleValueText/ProgressUnavailable. Dropped for the same reason as the other Design
+   System components — no localization pipeline in the Lab — using the verified English defaults
+   as plain string literals/interpolation instead. *@
+<div class="beeday-progress" data-state="@State" data-tone="@Tone.ToString().ToLowerInvariant()">
+    <div class="beeday-progress__heading">
+        <span>@Label</span>
+        @if (!string.IsNullOrWhiteSpace(ValueText))
+        {
+            <span class="beeday-progress__value">@ValueText</span>
+        }
+    </div>
+    <div class="beeday-progress__track"
+         role="progressbar"
+         aria-label="@AccessibleLabel"
+         aria-valuemin="0"
+         aria-valuemax="@AccessibleMaximum"
+         aria-valuenow="@AccessibleValue"
+         aria-valuetext="@AccessibleValueText">
+        <div class="beeday-progress__fill" style="@FillStyle">
+            <span class="beeday-progress__marker" aria-hidden="true"></span>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter, EditorRequired] public string Label { get; set; } = string.Empty;
+    [Parameter] public double Value { get; set; }
+    [Parameter] public double Maximum { get; set; } = 100d;
+    [Parameter] public string? ValueText { get; set; }
+    [Parameter] public string? AriaLabel { get; set; }
+    [Parameter] public BeeDayProgressTone Tone { get; set; } = BeeDayProgressTone.Primary;
+
+    private bool HasValidMaximum => double.IsFinite(Maximum) && Maximum > 0d;
+    private double SafeValue => double.IsFinite(Value) ? Value : 0d;
+    private double AccessibleMaximum => HasValidMaximum ? Maximum : 1d;
+    private double AccessibleValue => HasValidMaximum ? Math.Clamp(SafeValue, 0d, Maximum) : 0d;
+    private double Percentage => AccessibleValue * 100d / AccessibleMaximum;
+    private string State => !HasValidMaximum ? "unavailable" : Percentage >= 100d ? "complete" : Percentage <= 0d ? "empty" : "partial";
+    private string AccessibleValueText => HasValidMaximum
+        ? ValueText ?? $"{AccessibleValue.ToString("0.##", CultureInfo.InvariantCulture)} of {Maximum.ToString("0.##", CultureInfo.InvariantCulture)}"
+        : "Progress unavailable";
+    private string AccessibleLabel => string.IsNullOrWhiteSpace(AriaLabel) ? Label : AriaLabel;
+    private string FillStyle => $"width: {Percentage.ToString("0.##", CultureInfo.InvariantCulture)}%";
+}

@@ -1,0 +1,28 @@
+@* AriaLabel is intentionally NOT resolved against a Design System catalog default: its text is
+   owned by whichever feature renders this skeleton (Dashboard's "Loading dashboard" today, via
+   DashboardResources), not by the Design System itself. A caller that doesn't supply one keeps
+   the original literal, unchanged, so other current consumers (e.g. Wallet) are unaffected. *@
+<section class="dashboard-skeleton" aria-label="@(AriaLabel ?? "Loading dashboard")" aria-busy="true">
+    <div class="dashboard-skeleton__summary">
+        <BeeDaySkeleton Lines="3" />
+    </div>
+    <div class="dashboard-skeleton__toolbar"></div>
+    <div class="dashboard-skeleton__grid">
+        @for (var column = 0; column < 4; column++)
+        {
+            <div class="dashboard-skeleton__column">
+                <div class="dashboard-skeleton__heading"></div>
+                @for (var card = 0; card < 3; card++)
+                {
+                    <div class="dashboard-skeleton__card">
+                        <BeeDaySkeleton Lines="3" />
+                    </div>
+                }
+            </div>
+        }
+    </div>
+</section>
+
+@code {
+    [Parameter] public string? AriaLabel { get; set; }
+}

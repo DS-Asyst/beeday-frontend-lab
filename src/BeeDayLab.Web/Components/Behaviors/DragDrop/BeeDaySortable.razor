@@ -1,0 +1,34 @@
+@implements IAsyncDisposable
+@inject IJSRuntime JS
+
+<div @ref="container"
+     class="beeday-sortable @Class @(UseVirtualization ? "beeday-sortable--virtualized" : string.Empty)"
+     data-sortable-key="@CollectionKey"
+     role="list"
+     aria-label="@AriaLabel">
+    @if (UseVirtualization)
+    {
+        <Virtualize TItem="Guid" Items="@VirtualizedItemIds" Context="itemId" ItemSize="@ItemSize" OverscanCount="@OverscanCount" SpacerElement="div">
+            <div class="beeday-sortable__item beeday-card-enter @(RemovingItemId == itemId ? "beeday-card-leave" : string.Empty)"
+                 data-sortable-item="@itemId"
+                 role="listitem"
+                 aria-label="@ItemAriaLabel"
+                 @key="itemId">
+                @ItemTemplate(itemId)
+            </div>
+        </Virtualize>
+    }
+    else
+    {
+        @foreach (var itemId in ItemIds)
+        {
+            <div class="beeday-sortable__item beeday-card-enter @(RemovingItemId == itemId ? "beeday-card-leave" : string.Empty)"
+                 data-sortable-item="@itemId"
+                 role="listitem"
+                 aria-label="@ItemAriaLabel"
+                 @key="itemId">
+                @ItemTemplate(itemId)
+            </div>
+        }
+    }
+</div>

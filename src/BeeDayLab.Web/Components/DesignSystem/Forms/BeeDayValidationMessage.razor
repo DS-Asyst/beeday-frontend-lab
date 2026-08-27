@@ -1,0 +1,13 @@
+@typeparam TValue
+@if (_messages.Count > 0)
+{
+    <div id="@Id">
+        @foreach (var message in _messages)
+        {
+            <div class="beeday-validation-message" role="alert">
+                <BeeDayIcon Name="BeeDayIconName.ValidationError" Size="BeeDayIconSize.ExtraSmall" Color="BeeDayIconColor.Danger" />
+                <span>@message</span>
+            </div>
+        }
+    </div>
+}

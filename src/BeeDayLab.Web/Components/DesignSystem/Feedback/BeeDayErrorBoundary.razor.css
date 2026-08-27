@@ -1,0 +1,10 @@
+/* BeeDayEmptyState already brings its own centered padding — this wrapper only needs to also
+   center the Reload button below it in the same column. */
+.beeday-error-boundary {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--beeday-spacing-md);
+    width: 100%;
+    box-sizing: border-box;
+}

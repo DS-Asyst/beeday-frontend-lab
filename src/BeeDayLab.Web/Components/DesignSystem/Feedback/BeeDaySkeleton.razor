@@ -1,0 +1,18 @@
+<div class="beeday-skeleton @Class" aria-hidden="true">
+    @for (var index = 0; index < Lines; index++)
+    {
+        <span class="beeday-skeleton__line beeday-skeleton__line--@LineSize(index)"></span>
+    }
+</div>
+
+@code {
+    [Parameter] public int Lines { get; set; } = 3;
+    [Parameter] public string? Class { get; set; }
+
+    private static string LineSize(int index) => index switch
+    {
+        0 => "title",
+        1 => "wide",
+        _ => "medium"
+    };
+}
