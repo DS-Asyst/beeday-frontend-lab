@@ -1,0 +1,18 @@
+@if (Segments.Count == 0)
+{
+    @Text
+}
+else
+{
+    @foreach (var segment in Segments)
+    {
+        if (segment.IsMatch)
+        {
+            <mark class="beeday-search-highlight">@segment.Value</mark>
+        }
+        else
+        {
+            @segment.Value
+        }
+    }
+}

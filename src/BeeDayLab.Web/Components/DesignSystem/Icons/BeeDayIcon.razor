@@ -1,0 +1,13 @@
+<svg class="@CssClasses"
+     width="@PixelSize"
+     height="@PixelSize"
+     xmlns="http://www.w3.org/2000/svg"
+     aria-hidden="@(Decorative ? "true" : null)"
+     aria-label="@(!Decorative ? Label : null)"
+     role="@(!Decorative ? "img" : null)"
+     focusable="false"
+     data-icon="@Definition.SemanticName"
+     data-icon-category="@Definition.Category.ToString().ToLowerInvariant()"
+     @attributes="AdditionalAttributes">
+    <use href="@SpriteReference"></use>
+</svg>

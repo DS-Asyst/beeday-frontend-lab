@@ -1,0 +1,21 @@
+@using System.Linq.Expressions
+
+<label class="@FieldCssClass" for="@Id">
+    <InputCheckbox id="@Id"
+                   class="@InputCssClass"
+                   Value="Value"
+                   ValueChanged="ValueChanged"
+                   ValueExpression="ValueExpression"
+                   disabled="@Disabled"
+                   aria-describedby="@(ShowValidationMessage ? ValidationMessageId : null)"
+                   @attributes="AdditionalAttributes" />
+    <span class="beeday-checkbox__visual" aria-hidden="true">
+        <BeeDayIcon Name="BeeDayIconName.CheckboxUnchecked" Size="BeeDayIconSize.Small" Class="beeday-checkbox__unchecked" />
+        <BeeDayIcon Name="BeeDayIconName.CheckboxChecked" Size="BeeDayIconSize.Small" Color="BeeDayIconColor.Primary" Class="beeday-checkbox__checked" />
+    </span>
+    <span class="@LabelCssClass">@Label</span>
+</label>
+@if (ShowValidationMessage)
+{
+    <BeeDayValidationMessage For="ValueExpression" Id="@ValidationMessageId" />
+}

@@ -1,0 +1,16 @@
+<button type="@Type"
+        class="@CssClasses"
+        disabled="@IsDisabled"
+        aria-busy="@IsLoading.ToString().ToLowerInvariant()"
+        @onclick="HandleClickAsync"
+        @attributes="AdditionalAttributes">
+    @if (IsLoading)
+    {
+        <BeeDayIcon Name="BeeDayIconName.Loading" Size="@IconSize" Class="beeday-button__loader" />
+    }
+    else if (Icon is not null)
+    {
+        <BeeDayIcon Name="@Icon.Value" Size="@IconSize" />
+    }
+    <span class="beeday-button__label">@ChildContent</span>
+</button>

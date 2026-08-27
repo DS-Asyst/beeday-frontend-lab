@@ -1,0 +1,16 @@
+@if (HostsLiveRegionRole)
+{
+    @* EXP32-F020 (Sprint 32.13): role="status"/"alert" is not an ARIA-allowed role on <article> -
+       its own implicit "self-contained content" semantics conflict with a live-region role. A
+       consumer passing one of those roles genuinely wants a live-region announcement, not article
+       semantics, so the host element itself switches to a plain <div> instead. *@
+    <div class="@CssClass" @attributes="AdditionalAttributes">
+        @ChildContent
+    </div>
+}
+else
+{
+    <article class="@CssClass" @attributes="AdditionalAttributes">
+        @ChildContent
+    </article>
+}

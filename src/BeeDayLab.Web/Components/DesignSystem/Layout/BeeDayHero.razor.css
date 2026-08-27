@@ -1,0 +1,194 @@
+/* First real styling for BeeDayHero (previously scaffolded, unstyled, with no production consumer —
+   see HeroCatalog.razor). EPIC 27 Sprint 27.3 is its first real consumer: the institutional page
+   shell. Surface is optional so non-solid consumers (onboarding, and any future neutral use) keep a
+   sensible baseline instead of opting into a colored background.
+   Sprint 29.3 (reapplied in Sprint 29.4 since hmg had not merged it yet at branch time):
+   --beeday-hero-bleed-inset lets the hero cancel out its ancestor's own inline padding (negative
+   margin-inline equal to that padding) so a colored Surface reaches the true edges of its layout
+   region. Defaults to 0 (no-op) for contexts that never set it (e.g. Wallet's compact hero); opted
+   in per-container by polish.css. No explicit width: block-level auto-width absorbs the negative
+   margin symmetrically, unlike width:100%, which only shifts the box instead of widening it.
+   Sprint 29.5: min-height (plus position:relative/overflow:hidden, ready for a future absolutely-
+   positioned illustration) gives the surface real "editorial cover" presence instead of reading as a
+   colored strip with text — applying the reference's structural principle (a tall hero with strong
+   vertical presence) through beeday's own token scale, not a literal copy of its CSS.
+   Sprint 29.6: switched grid -> an explicit flex column with justify-content:flex-start. display:grid
+   with an implicit single auto-sized row left the block-axis distribution of the extra free space
+   (introduced by min-height) to the grid's own normal/default align-content behavior — which packed
+   .beeday-hero__row away from the block-start instead of anchoring it there, pushing brand+nav down
+   and opening a large empty gap above them instead of below. flex-start on an explicit flex container
+   is unambiguous: children (the row, and the optional SupportingContent slot) pack at the top, and
+   any leftover space from min-height lands after the last child instead, never before the first. */
+.beeday-hero {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    position: relative;
+    gap: var(--beeday-spacing-lg);
+    overflow: hidden;
+    min-height: clamp(22rem, 32vw, 36rem);
+    margin-inline: calc(-1 * var(--beeday-hero-bleed-inset, 0px));
+    padding: clamp(3rem, 7vw, 5.5rem) var(--beeday-page-gutter);
+    background: var(--beeday-hero-surface-bg, var(--beeday-color-surface));
+    color: var(--beeday-hero-surface-fg, inherit);
+}
+
+.beeday-hero--compact {
+    min-height: 0;
+    padding: clamp(1.5rem, 3.2vw, 2.4rem) var(--beeday-page-gutter);
+}
+
+/* Surface pairings, defined here (not relying on the plain .beeday-surface-corN utility) because
+   Blazor CSS isolation adds a scope attribute to .beeday-hero, which structurally outranks a plain
+   global class selector regardless of stylesheet load order — a same-specificity utility class on
+   this element would silently lose to the base background/color declarations above. Setting the
+   custom properties here, read by the base rule's var() fallback, sidesteps that entirely. */
+.beeday-hero.beeday-surface-cor0 { --beeday-hero-surface-bg: var(--beeday-palette-cor0); --beeday-hero-surface-fg: var(--beeday-palette-cor0-foreground); }
+.beeday-hero.beeday-surface-cor1 { --beeday-hero-surface-bg: var(--beeday-palette-cor1); --beeday-hero-surface-fg: var(--beeday-palette-cor1-foreground); }
+.beeday-hero.beeday-surface-cor2 { --beeday-hero-surface-bg: var(--beeday-palette-cor2); --beeday-hero-surface-fg: var(--beeday-palette-cor2-foreground); }
+.beeday-hero.beeday-surface-cor3 { --beeday-hero-surface-bg: var(--beeday-palette-cor3); --beeday-hero-surface-fg: var(--beeday-palette-cor3-foreground); }
+.beeday-hero.beeday-surface-cor4 { --beeday-hero-surface-bg: var(--beeday-palette-cor4); --beeday-hero-surface-fg: var(--beeday-palette-cor4-foreground); }
+.beeday-hero.beeday-surface-cor5 { --beeday-hero-surface-bg: var(--beeday-palette-cor5); --beeday-hero-surface-fg: var(--beeday-palette-cor5-foreground); }
+.beeday-hero.beeday-surface-cor6 { --beeday-hero-surface-bg: var(--beeday-palette-cor6); --beeday-hero-surface-fg: var(--beeday-palette-cor6-foreground); }
+.beeday-hero.beeday-surface-cor7 { --beeday-hero-surface-bg: var(--beeday-palette-cor7); --beeday-hero-surface-fg: var(--beeday-palette-cor7-foreground); }
+.beeday-hero.beeday-surface-cor8 { --beeday-hero-surface-bg: var(--beeday-palette-cor8); --beeday-hero-surface-fg: var(--beeday-palette-cor8-foreground); }
+.beeday-hero.beeday-surface-cor9 { --beeday-hero-surface-bg: var(--beeday-palette-cor9); --beeday-hero-surface-fg: var(--beeday-palette-cor9-foreground); }
+
+.beeday-hero__row {
+    display: flex;
+    width: min(100%, 72rem);
+    margin-inline: auto;
+    align-items: center;
+    gap: clamp(1.5rem, 4vw, 3rem);
+}
+
+.beeday-hero__illustration {
+    display: grid;
+    flex: none;
+    width: min(28vw, 14rem);
+    place-items: center;
+}
+
+.beeday-hero__content { flex: 1 1 auto; min-width: 0; }
+
+/* Sprint 29.4: also the row for HeaderNav (contextual section navigation), pushed to the opposite
+   end via space-between. Font-weight/opacity moved onto __brand-context-start only, so HeaderNav's
+   own link styling (EditorialSectionNav.razor.css) isn't doubly dimmed by this row's own opacity.
+   Sprint 29.5: the generous margin-bottom (increased again) is what gives the now-taller surface its
+   "large, airy header before the title" proportion — brand+nav sit near the top edge, then open
+   space (scaling with the hero's own min-height via vw), then eyebrow/title/subtitle — instead of
+   the title crowding the nav row directly beneath it. */
+.beeday-hero__brand-context {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: clamp(2.5rem, 9vw, 6.5rem);
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--beeday-spacing-sm) var(--beeday-spacing-lg);
+}
+
+.beeday-hero__brand-context-start {
+    display: flex;
+    align-items: center;
+    gap: var(--beeday-spacing-sm);
+    font-weight: var(--beeday-font-weight-bold);
+    opacity: .92;
+}
+
+/* Slot content is a child component (e.g. BeeDayBrand) — ::deep is required to size it here. */
+.beeday-hero__brand-context ::deep .beeday-brand {
+    --beeday-brand-height: clamp(1.5rem, 1.8vw, 1.7rem);
+}
+/* Force the lockup text to inherit the hero's own paired foreground (white on COR0/COR8, dark COR8
+   everywhere else) instead of BeeDayBrand's own default/inverse colors. BeeDayBrand only models two
+   fixed colors (brand-primary purple or white); neither reliably contrasts against every COR0-COR9
+   surface (e.g. brand-primary purple text failed WCAG color-contrast against COR3/COR4 — caught by
+   the repo's axe-core E2E scan). Inheriting the surface's own computed foreground is correct for
+   all ten surfaces by construction.
+   Sprint 29.1: InstitutionalPageShell now passes OnDarkSurface="true" here so BeeDayBrand selects
+   its non-white-background bee icon (every institutional hero surface is non-white) — that also
+   applies BeeDayBrand's own .beeday-brand--inverse (fixed white text), which is NOT correct for
+   every surface (e.g. white text on COR3/COR4/COR7/COR9 fails contrast, caught by the same
+   axe-core scan). The plain 2-class-selector rule below only outranks BeeDayBrand's own *default*
+   text-color rule (0,2,0); it does not outrank --inverse's own scoped rule (0,4,0), because ::deep
+   forfeits this file's own scope-attribute boost on everything past it. The second, more specific
+   selector pair exists solely to also outrank --inverse (0,5,0 > 0,4,0), regardless of the two
+   scoped files' relative bundling order. */
+.beeday-hero__brand-context ::deep .beeday-brand__bee,
+.beeday-hero__brand-context ::deep .beeday-brand__day,
+.beeday-hero__brand-context ::deep .beeday-brand.beeday-brand--inverse .beeday-brand__bee,
+.beeday-hero__brand-context ::deep .beeday-brand.beeday-brand--inverse .beeday-brand__day { color: inherit; }
+
+/* Sprint 29.4: Eyebrow went unused by every real institutional page before this Sprint wired it up
+   (InstitutionalPageShell), so this class's actual rendered color was never exercised until now.
+   design-system.css (global, unscoped) used to have a legacy rule hardcoding .beeday-hero__eyebrow
+   to --beeday-color-brand-primary — wrong for a multi-surface COR0-COR9 hero, and never overridden
+   here before because this file never declared its own `color`. axe-core caught it failing WCAG AA
+   against Cor8 (#100F3E): brand-primary purple text on very dark navy. `color: inherit` fixed it at
+   the time by outranking the global rule via Blazor's scope-attribute specificity boost (same
+   mechanism `.beeday-hero h1`'s own `color: inherit` already used) — correct for every COR0-COR9
+   surface by construction, matching every other hero text element.
+   Sprint 30.26 (BD30-F076): the global rule (and its onboarding-specific override, which only ever
+   set `color` and was already fully shadowed by this file) removed from design-system.css entirely
+   — this scoped rule already supplied every property the global rule did, so there is no cascade
+   race left to reason about; `color: inherit` remains the deliberate WCAG fix, now the only source
+   of truth instead of one side of a fragile specificity contest. */
+.beeday-hero__eyebrow {
+    display: inline-block;
+    margin-bottom: var(--beeday-spacing-sm);
+    color: inherit;
+    font-size: var(--beeday-font-size-sm);
+    font-weight: var(--beeday-font-weight-black);
+    letter-spacing: var(--beeday-letter-spacing-label);
+    text-transform: uppercase;
+}
+
+/* Sprint 29.5: larger ceiling (3.4rem -> 4rem) gives the H1 more presence on wide viewports, matching
+   the taller surface above — the floor is untouched so small viewports are unaffected. */
+.beeday-hero h1 {
+    margin: 0;
+    color: inherit;
+    font-family: var(--beeday-font-display);
+    font-size: clamp(2rem, 5.2vw, 4rem);
+    font-weight: var(--beeday-font-weight-regular);
+    line-height: 1.12;
+}
+
+.beeday-hero--compact h1 { font-size: clamp(1.7rem, 3.4vw, 2.4rem); }
+
+/* Sprint 29.5: narrower ceiling (46rem -> 36rem) keeps the lead a true editorial column instead of
+   spanning nearly the full row width now that the row itself has more room to work with. */
+.beeday-hero__subtitle {
+    margin: var(--beeday-spacing-md) 0 0;
+    max-width: 36rem;
+    color: inherit;
+    opacity: .88;
+    font-size: var(--beeday-font-size-lg);
+    line-height: var(--beeday-line-height-relaxed);
+}
+
+.beeday-hero--compact .beeday-hero__subtitle { margin-top: var(--beeday-spacing-sm); font-size: var(--beeday-font-size-md); }
+
+.beeday-hero__primary-action { flex: none; }
+
+.beeday-hero__supporting {
+    width: min(100%, 72rem);
+    margin-inline: auto;
+    color: inherit;
+    opacity: .88;
+}
+
+@media (max-width: 46rem) {
+    /* Sprint 29.5: the desktop min-height clamp would otherwise floor at 22rem here too — taller
+       than this stacked, centered mobile layout needs. Content (padding + the brand-context gap
+       above) still gives the surface real presence without forcing empty space underneath. */
+    .beeday-hero { min-height: 0; }
+    .beeday-hero__row { flex-direction: column; text-align: center; }
+    .beeday-hero__illustration { width: min(48vw, 12rem); }
+    .beeday-hero__brand-context { justify-content: center; }
+    .beeday-hero__subtitle { margin-inline: auto; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .beeday-hero { transition: none; }
+}
