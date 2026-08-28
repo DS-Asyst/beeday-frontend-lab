@@ -1,0 +1,165 @@
+.dashboard-column {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-width: 0;
+    min-height: 30rem;
+    height: auto;
+    overflow: visible;
+    border: 1px solid var(--beeday-color-border);
+    background: var(--beeday-color-board-surface);
+    box-sizing: border-box;
+}
+
+.dashboard-column__header {
+    display: flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.6rem;
+    min-height: 3.15rem;
+    padding: 0.5rem 0.55rem;
+    border-bottom: 1px solid var(--beeday-color-border);
+    background: var(--beeday-color-surface);
+    box-sizing: border-box;
+    z-index: 2;
+}
+
+.dashboard-column__heading {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    min-width: 0;
+}
+
+.dashboard-column__heading h2 {
+    margin: 0;
+    overflow: hidden;
+    color: var(--beeday-color-text-primary);
+    font-family: var(--beeday-font-body);
+    font-size: 1.42rem;
+    font-weight: 700;
+    letter-spacing: -.035em;
+    line-height: 1.1;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* EXP32-F009 (Sprint 32.20): text-secondary for AA normal-text contrast (text-muted over this
+   badge's brand-primary-soft background is ~4.0:1, below 4.5:1). */
+.dashboard-column__count {
+    display: grid;
+    place-items: center;
+    min-width: 1.65rem;
+    height: 1.65rem;
+    padding: 0 .42rem;
+    border-radius: var(--beeday-radius-sm);
+    color: var(--beeday-color-text-secondary);
+    background: var(--beeday-color-brand-primary-soft);
+    font-size: .75rem;
+    font-weight: 700;
+    box-sizing: border-box;
+}
+
+.dashboard-column__viewport {
+    flex: 0 0 auto;
+    min-height: 0;
+    overflow: visible;
+}
+
+.dashboard-column__content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.22rem;
+    min-height: calc(30rem - 3.65rem);
+    margin: 0;
+    padding: 0.35rem;
+    background: var(--beeday-color-board-surface);
+    box-sizing: border-box;
+}
+
+.dashboard-column__empty {
+    margin: .75rem;
+}
+
+.dashboard-column__clear-filter {
+    margin: 0 auto .75rem;
+}
+
+.dashboard-column__actions {
+    display: flex;
+    align-items: center;
+    gap: .45rem;
+    flex: 0 0 auto;
+}
+
+.dashboard-column__header {
+    padding: var(--beeday-spacing-sm) var(--beeday-spacing-smd);
+}
+
+/* Dashboard hierarchy and readability pass — 2026-07-25 */
+.dashboard-column__header {
+    min-height: 3.65rem;
+    padding: .65rem .75rem;
+}
+
+.dashboard-column__heading h2 {
+    font-family: var(--beeday-font-body);
+    font-size: 1.65rem;
+    font-weight: var(--beeday-font-weight-regular);
+    letter-spacing: -.015em;
+    line-height: 1;
+}
+
+.dashboard-column__count {
+    min-width: 1.85rem;
+    height: 1.85rem;
+    padding: 0 .5rem;
+    font-family: var(--beeday-font-body);
+    font-size: .95rem;
+    font-weight: var(--beeday-font-weight-regular);
+}
+
+.dashboard-column__content {
+    gap: .4rem;
+    padding: .5rem;
+}
+
+
+.dashboard-column__empty {
+    font-size: .9rem;
+    line-height: 1.4;
+}
+
+
+/* Refined column depth — approved visual pass */
+.dashboard-column {
+    border: 1px solid var(--beeday-color-border-strong) !important;
+    border-radius: var(--beeday-radius-sm) !important;
+    box-shadow: 0 1px 2px rgb(47 36 56 / 8%), 0 4px 12px rgb(47 36 56 / 7%) !important;
+}
+
+.dashboard-column__header {
+    border-bottom-color: var(--beeday-color-border);
+}
+
+
+
+/* Sprint 9 — optional contextual controls in column headers */
+.dashboard-column__heading-group {
+    display: flex;
+    flex-direction: column;
+    gap: .35rem;
+    min-width: 0;
+}
+
+.dashboard-column__header-content {
+    min-width: 0;
+}
+
+.dashboard-column__heading h2 {
+    font-family: var(--beeday-font-body);
+    font-size: 1.48rem;
+    font-weight: var(--beeday-font-weight-semibold);
+    letter-spacing: 0;
+}

@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!--
+    Microsoft ResX Schema
+
+    Version 2.0
+
+    The primary goals of this format is to allow a simple XML format
+    that is mostly human readable. The generation and parsing of the
+    various data types are done through the TypeConverter classes
+    associated with the data types.
+
+    Example:
+
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+      <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+      <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+      <comment>This is a comment</comment>
+    </data>
+
+    There are any number of "resheader" rows that contain simple
+    name/value pairs.
+
+    Each data row contains a name, and value. The row also contains a
+    type or mimetype. Type corresponds to a .NET class that support
+    text/value conversion through the TypeConverter architecture.
+    Classes that don't support this are serialized and stored with the
+    mimetype set.
+
+    The mimetype is used for serialized objects, and tells the
+    ResXResourceReader how to depersist the object. This is currently not
+    extensible. For a given mimetype the value must be set accordingly:
+
+    Note - application/x-microsoft.net.object.binary.base64 is the format
+    that the ResXResourceWriter will generate, however the reader can
+    read any of the formats listed below.
+
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="FooterTagline" xml:space="preserve">
+    <value>Seja melhor a cada dia</value>
+  </data>
+  <data name="ContinueToBeeDay" xml:space="preserve">
+    <value>Continuar no beeday</value>
+  </data>
+  <data name="FooterLinksAriaLabel" xml:space="preserve">
+    <value>Links do beeday</value>
+  </data>
+  <data name="FooterCopyright" xml:space="preserve">
+    <value>© 2026 beeday. Todos os direitos reservados.</value>
+  </data>
+  <data name="FooterAboutUsGroup" xml:space="preserve">
+    <value>Sobre nós</value>
+  </data>
+  <data name="FooterMissionLink" xml:space="preserve">
+    <value>Missão</value>
+  </data>
+  <data name="FooterEfficacyLink" xml:space="preserve">
+    <value>Eficácia</value>
+  </data>
+  <data name="FooterBrandGuidelinesLink" xml:space="preserve">
+    <value>Diretrizes de marca</value>
+  </data>
+  <data name="FooterContactLink" xml:space="preserve">
+    <value>Fale conosco</value>
+  </data>
+  <data name="FooterProductsGroup" xml:space="preserve">
+    <value>Produtos</value>
+  </data>
+  <data name="FooterProductLink" xml:space="preserve">
+    <value>beeday</value>
+  </data>
+  <data name="FooterProductPlusLink" xml:space="preserve">
+    <value>beeday Plus</value>
+  </data>
+  <data name="FooterAppsGroup" xml:space="preserve">
+    <value>Aplicativos</value>
+  </data>
+  <data name="FooterAndroidLink" xml:space="preserve">
+    <value>beeday para Android</value>
+  </data>
+  <data name="FooterIosLink" xml:space="preserve">
+    <value>beeday para iOS</value>
+  </data>
+  <data name="FooterHelpGroup" xml:space="preserve">
+    <value>Ajuda e suporte</value>
+  </data>
+  <data name="FooterFaqsLink" xml:space="preserve">
+    <value>Perguntas frequentes</value>
+  </data>
+  <data name="FooterLegalGroup" xml:space="preserve">
+    <value>Privacidade e termos</value>
+  </data>
+  <data name="FooterCommunityGuidelinesLink" xml:space="preserve">
+    <value>Diretrizes da comunidade</value>
+  </data>
+  <data name="FooterTermsLink" xml:space="preserve">
+    <value>Termos</value>
+  </data>
+  <data name="FooterPrivacyLink" xml:space="preserve">
+    <value>Privacidade</value>
+  </data>
+  <data name="FooterSocialGroup" xml:space="preserve">
+    <value>Social</value>
+  </data>
+  <data name="FooterLinkedInLabel" xml:space="preserve">
+    <value>LinkedIn</value>
+  </data>
+  <data name="FooterInstagramComingSoon" xml:space="preserve">
+    <value>Instagram (em breve)</value>
+  </data>
+  <data name="FooterXComingSoon" xml:space="preserve">
+    <value>X (em breve)</value>
+  </data>
+  <data name="PublicHeaderHomeAriaLabel" xml:space="preserve">
+    <value>Página inicial do beeday</value>
+  </data>
+  <data name="LanguageSwitcherGroupAriaLabel" xml:space="preserve">
+    <value>Idioma</value>
+  </data>
+  <data name="NotFoundTitle" xml:space="preserve">
+    <value>Não encontrado</value>
+  </data>
+  <data name="NotFoundMessage" xml:space="preserve">
+    <value>O conteúdo que você está procurando não existe.</value>
+  </data>
+  <data name="ErrorTitle" xml:space="preserve">
+    <value>Erro</value>
+  </data>
+  <data name="ErrorMessage" xml:space="preserve">
+    <value>Ocorreu um erro ao processar sua solicitação.</value>
+  </data>
+  <data name="ErrorRequestIdLabel" xml:space="preserve">
+    <value>ID da solicitação:</value>
+  </data>
+  <data name="ErrorDevelopmentModeTitle" xml:space="preserve">
+    <value>Modo de desenvolvimento</value>
+  </data>
+  <data name="ErrorDevelopmentModeDescription" xml:space="preserve">
+    <value>O ambiente Development exibe informações mais detalhadas sobre o erro.</value>
+  </data>
+  <data name="ErrorDevelopmentModeWarning" xml:space="preserve">
+    <value>Não habilite o ambiente Development em aplicações publicadas. Ele pode expor informações sensíveis de exceções aos usuários.</value>
+  </data>
+  <data name="ErrorDevelopmentModeInstructions" xml:space="preserve">
+    <value>Para depuração local, defina {0} como {1} e reinicie o aplicativo.</value>
+  </data>
+  <data name="ToastDefaultSuccessTitle" xml:space="preserve">
+    <value>Sucesso</value>
+  </data>
+  <data name="ToastDefaultErrorTitle" xml:space="preserve">
+    <value>Algo deu errado</value>
+  </data>
+  <data name="ToastDefaultInfoTitle" xml:space="preserve">
+    <value>Informação</value>
+  </data>
+  <data name="ToastRegionAriaLabel" xml:space="preserve">
+    <value>Notificações</value>
+  </data>
+  <data name="ToastDismissAriaLabel" xml:space="preserve">
+    <value>Dispensar notificação</value>
+  </data>
+  <data name="DomainErrorEmailAlreadyRegistered" xml:space="preserve">
+    <value>Este e-mail já está cadastrado.</value>
+  </data>
+  <data name="DomainErrorNicknameAlreadyInUse" xml:space="preserve">
+    <value>Este apelido já está em uso.</value>
+  </data>
+  <data name="DomainErrorCurrentPasswordIncorrect" xml:space="preserve">
+    <value>A senha atual está incorreta.</value>
+  </data>
+  <data name="DomainErrorNewPasswordSameAsCurrent" xml:space="preserve">
+    <value>A nova senha deve ser diferente da senha atual.</value>
+  </data>
+  <data name="DomainErrorPasswordResetTokenInvalid" xml:space="preserve">
+    <value>Este link de redefinição de senha é inválido ou expirou.</value>
+  </data>
+  <data name="DomainErrorProfileAlreadyCompleted" xml:space="preserve">
+    <value>Seu perfil já foi concluído.</value>
+  </data>
+  <data name="DomainErrorWaitBeforeResend" xml:space="preserve">
+    <value>Aguarde {0} segundos antes de solicitar outro e-mail.</value>
+  </data>
+  <data name="DomainErrorInvalidEmail" xml:space="preserve">
+    <value>Informe um endereço de e-mail válido.</value>
+  </data>
+  <data name="DomainErrorInvalidNickname" xml:space="preserve">
+    <value>Escolha um apelido diferente.</value>
+  </data>
+  <data name="DomainErrorInvalidName" xml:space="preserve">
+    <value>Informe um nome válido.</value>
+  </data>
+  <data name="DomainErrorGenericValidation" xml:space="preserve">
+    <value>Verifique as informações destacadas e tente novamente.</value>
+  </data>
+  <data name="DomainErrorGeneric" xml:space="preserve">
+    <value>Algo deu errado. Tente novamente em instantes.</value>
+  </data>
+  <data name="EditorialSectionNavAriaLabel" xml:space="preserve">
+    <value>Páginas da seção</value>
+  </data>
+  <data name="EditorialFooterBackToTopLabel" xml:space="preserve">
+    <value>Voltar ao topo</value>
+  </data>
+  <data name="EditorialFooterBuyMeACoffee" xml:space="preserve">
+    <value>BUY ME A COFFEE</value>
+  </data>
+</root>

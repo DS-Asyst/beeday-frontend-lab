@@ -1,0 +1,59 @@
+@using System.Globalization
+@using BeeDayLab.Web.Components.Pages.Daily.Experience.Models
+@using BeeDayLab.Web.Components.Pages.Daily.Experience
+@inject IStringLocalizer<ExperienceResources> Localizer
+
+@if (IsLoading)
+{
+    <BeeDayCard Padded="true" Class="experience-card experience-card--loading"
+                aria-label="@Localizer["LoadingExperienceAriaLabel"]"
+                aria-busy="true">
+        <div class="experience-card__skeleton experience-card__skeleton--label"></div>
+        <div class="experience-card__skeleton experience-card__skeleton--bar"></div>
+        <div class="experience-card__skeleton experience-card__skeleton--value"></div>
+    </BeeDayCard>
+}
+else if (Model is not null)
+{
+    <BeeDayCard Padded="true" Class="experience-card" aria-label="@Localizer["ExperienceCardAriaLabel"]">
+        <div class="experience-card__header">
+            <BeeDayIcon Name="BeeDayIconName.Level" Size="BeeDayIconSize.Large" Color="BeeDayIconColor.Primary" />
+            <div class="experience-card__level">
+                <span class="experience-card__label">@Localizer["LevelLabel"]</span>
+                <strong>@Model.Level</strong>
+            </div>
+        </div>
+
+        <BeeDayProgressBar Label="@Localizer["ExperienceProgressLabel"]"
+                           Tone="BeeDayProgressTone.Reward"
+                           Value="@Model.CurrentExperience"
+                           Maximum="@Model.RequiredExperience"
+                           ValueText="@ExperienceText" />
+
+        <div class="experience-card__values">
+            <span><BeeDayIcon Name="BeeDayIconName.Experience" Size="BeeDayIconSize.ExtraSmall" /> @Localizer["TotalExperienceLabel", Model.TotalExperience]</span>
+            <span>@Localizer["CurrentOverRequiredLabel", Model.CurrentExperience, Model.RequiredExperience]</span>
+            <span><BeeDayIcon Name="BeeDayIconName.TrendUp" Size="BeeDayIconSize.ExtraSmall" /> @Localizer["RemainingToNextLevelLabel", Model.RemainingExperience]</span>
+        </div>
+
+        @if (ExperienceGain > 0)
+        {
+            <output @key="FeedbackKey"
+                    class="experience-card__gain"
+                    aria-live="polite">
+                <BeeDayIcon Name="BeeDayIconName.Experience" Size="BeeDayIconSize.ExtraSmall" /> @Localizer["ExperienceGainAnnouncement", ExperienceGain]
+            </output>
+        }
+    </BeeDayCard>
+}
+
+@code {
+    [Parameter] public ExperienceViewModel? Model { get; set; }
+    [Parameter] public bool IsLoading { get; set; }
+    [Parameter] public long ExperienceGain { get; set; }
+    [Parameter] public long FeedbackKey { get; set; }
+
+    private string ExperienceText => Model is null
+        ? string.Empty
+        : Localizer["ExperiencePointsValueText", Model.CurrentExperience, Model.RequiredExperience];
+}

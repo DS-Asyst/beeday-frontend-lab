@@ -1,0 +1,29 @@
+<div class="navigation-item-shell">
+    @if (Href is not null)
+    {
+        <NavLink href="@Href"
+                 Match="Match"
+                 class="@("navigation-item " + ActiveClassValue)"
+                 ActiveClass="is-active"
+                 aria-current="@AriaCurrentValue"
+                 @onclick="HandleNavigate">
+            <span class="navigation-item__icon" aria-hidden="true">
+                <BeeDayIcon Name="@Icon" Size="BeeDayIconSize.ExtraLarge" />
+            </span>
+            <span class="navigation-item__label">@Label</span>
+        </NavLink>
+    }
+    else
+    {
+        <button type="@ButtonType"
+                class="navigation-item @(AriaExpanded == true ? "is-active" : null)"
+                aria-label="@AriaLabel"
+                aria-expanded="@AriaExpandedValue"
+                @onclick="OnClick">
+            <span class="navigation-item__icon" aria-hidden="true">
+                <BeeDayIcon Name="@Icon" Size="BeeDayIconSize.ExtraLarge" />
+            </span>
+            <span class="navigation-item__label">@Label</span>
+        </button>
+    }
+</div>

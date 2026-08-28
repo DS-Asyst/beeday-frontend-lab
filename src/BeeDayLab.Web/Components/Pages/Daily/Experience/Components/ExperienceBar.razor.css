@@ -1,0 +1,151 @@
+.experience-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: var(--beeday-spacing-lg);
+    color: var(--beeday-color-text-primary);
+}
+
+.experience-card__header {
+    display: flex;
+    align-items: center;
+    gap: var(--beeday-spacing-smd);
+}
+
+.experience-card__level {
+    display: flex;
+    align-items: baseline;
+    gap: var(--beeday-spacing-sm);
+}
+
+/* EXP32-F009 (Sprint 32.20): text-secondary for AA normal-text contrast - confirmed by a live axe
+   scan against /profile that the "Level" label failed color-contrast (serious). */
+.experience-card__label {
+    color: var(--beeday-color-text-secondary);
+    font-size: .72rem;
+    font-weight: 800;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+}
+
+.experience-card__header strong {
+    color: var(--beeday-color-text-primary);
+    font-size: clamp(2rem, 5vw, 3rem);
+    line-height: 1;
+}
+
+.experience-card ::deep .beeday-progress__track {
+    height: 1rem;
+}
+
+.experience-card__values {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--beeday-spacing-md);
+    color: var(--beeday-color-text-primary);
+    font-weight: 700;
+    line-height: 1.3;
+}
+
+.experience-card__values span:first-child {
+    font-size: var(--beeday-font-size-sm);
+}
+
+/* EXP32-F009 (Sprint 32.20): text-secondary for AA normal-text contrast - confirmed by a live axe
+   scan against /profile that the "X of 100 experience points" value failed color-contrast (serious). */
+.experience-card__values span:last-child {
+    color: var(--beeday-color-text-secondary);
+    font-size: var(--beeday-font-size-xs);
+}
+
+@media (max-width: 36rem) {
+    .experience-card__values { grid-template-columns: 1fr; }
+    .experience-card { gap: var(--beeday-spacing-md); }
+}
+
+.experience-card__gain {
+    position: absolute;
+    top: -.7rem;
+    right: .65rem;
+    padding: .2rem .38rem;
+    color: var(--beeday-color-reward-foreground);
+    background: var(--beeday-color-reward);
+    border: 1px solid var(--beeday-color-reward-active);
+    box-shadow: var(--beeday-shadow-xs);
+    font-size: .8rem;
+    font-weight: 800;
+    pointer-events: none;
+    animation: experience-card-gain 700ms ease-out both;
+}
+
+.experience-card--loading {
+    min-height: 5.7rem;
+    justify-content: center;
+}
+
+.experience-card__skeleton {
+    overflow: hidden;
+    background: #ded8e7;
+    border: 1px solid rgb(23 19 33 / 25%);
+    border-radius: 0;
+    animation: experience-card-pulse 1.2s ease-in-out infinite alternate;
+}
+
+.experience-card__skeleton--label {
+    width: 35%;
+    height: .65rem;
+}
+
+.experience-card__skeleton--bar {
+    width: 100%;
+    height: .78rem;
+}
+
+.experience-card__skeleton--value {
+    width: 62%;
+    height: .55rem;
+}
+
+@keyframes experience-card-gain {
+    0% {
+        opacity: 0;
+        transform: translateY(.35rem);
+    }
+
+    20% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateY(-.65rem);
+    }
+}
+
+@keyframes experience-card-pulse {
+    from { opacity: .45; }
+    to { opacity: .9; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .experience-card,
+    .experience-card__gain,
+    .experience-card__skeleton {
+        transition: none;
+        animation: none;
+    }
+}
+
+.experience-card__label,
+.experience-card__values span,
+.experience-card__gain {
+    display: flex;
+    align-items: center;
+    gap: .3rem;
+}
+
+.experience-card__label ::deep .beeday-icon,
+.experience-card__values ::deep .beeday-icon,
+.experience-card__gain ::deep .beeday-icon {
+    flex: 0 0 auto;
+}

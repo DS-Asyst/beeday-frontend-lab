@@ -1,0 +1,36 @@
+@page "/experience-system/ux/accessibility"
+@layout PublicLayout
+@inject IStringLocalizer<ExperienceSystemResources> Localizer
+
+<PageTitle>@Localizer["UxAccessibilityPageTitle"]</PageTitle>
+
+@* Ported from BeeDay.Web's Components/Features/ExperienceSystem/Pages/Ux/UxAccessibility.razor
+   (Sprint 33.11, FE33-075). *@
+<ExperienceSystemPage Eyebrow="@Localizer["PillarNavUx"]" Title="@Localizer["UxAccessibilityTitle"]" Description="@Localizer["UxAccessibilityIntro"]" Pillar="ExperienceSystemPillar.Ux" CurrentHref="/experience-system/ux/accessibility">
+    <section class="experience-system-section" aria-labelledby="a11y-aria-heading">
+        <h2 id="a11y-aria-heading">@Localizer["UxAccessibilityAriaTitle"]</h2>
+        <p>@Localizer["UxAccessibilityAriaText"]</p>
+    </section>
+
+    <section class="experience-system-section" aria-labelledby="a11y-focus-heading">
+        <h2 id="a11y-focus-heading">@Localizer["UxAccessibilityFocusTitle"]</h2>
+        <p>@Localizer["UxAccessibilityFocusText"]</p>
+    </section>
+
+    <section class="experience-system-section" aria-labelledby="a11y-motion-heading">
+        <h2 id="a11y-motion-heading">@Localizer["UxAccessibilityMotionTitle"]</h2>
+        <p>@Localizer["UxAccessibilityMotionText"]</p>
+    </section>
+
+    <section class="experience-system-section" aria-labelledby="a11y-contrast-heading">
+        <h2 id="a11y-contrast-heading">@Localizer["UxAccessibilityContrastTitle"]</h2>
+        <p>@Localizer["UxAccessibilityContrastText"]</p>
+    </section>
+
+    <section class="experience-system-callouts" aria-label="@Localizer["UxAccessibilityDisclaimerTitle"]">
+        <div class="experience-system-callout experience-system-callout--info">
+            <h3>@Localizer["UxAccessibilityDisclaimerTitle"]</h3>
+            <p>@Localizer["UxAccessibilityDisclaimerText"]</p>
+        </div>
+    </section>
+</ExperienceSystemPage>

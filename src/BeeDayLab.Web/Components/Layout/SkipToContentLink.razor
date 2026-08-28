@@ -1,0 +1,11 @@
+@* Lab adaptation (Sprint 33.9, FE33-039 dependency): the BeeDay source injects
+   IStringLocalizer<LayoutResources> for the single label below. The Lab has no localization
+   pipeline (Program.cs has no AddLocalization), so this is a plain hardcoded English string
+   instead, taken verbatim from LayoutResources.en-US.resx ("SkipToContentLabel") at extraction
+   time — same rule Sprint 33.8 established for every localizer-injecting file it touched. *@
+
+@* EXP32-F008 (Sprint 32.13): the first focusable element on every authenticated/public page,
+   letting a keyboard user jump straight to the main content region instead of tabbing through the
+   full sidebar/header navigation on every page load. Hidden until it receives focus (`.beeday-visually-hidden`
+   would hide it permanently, which defeats the purpose of a skip link). *@
+<a href="#main-content" class="skip-to-content-link">Skip to content</a>

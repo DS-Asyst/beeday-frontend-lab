@@ -1,0 +1,55 @@
+@using BeeDayLab.Web.Components.Pages.Wallet.Services
+@using BeeDayLab.Web.Scenarios
+@inject IStringLocalizer<WalletResources> Localizer
+
+<BeeDayCard Class="wallet-transaction-card"
+             Interactive="true"
+             role="button"
+             tabindex="0"
+             aria-label="@Localizer["EditTransactionAriaLabel", Transaction.Description, SignedAmount]"
+             @onclick="EditAsync"
+             @onkeydown="HandleBodyKeyDown">
+    <div class="wallet-transaction-card__marker wallet-transaction-card__marker--@TypeClass" aria-hidden="true"></div>
+    <div class="wallet-transaction-card__content">
+        <div class="wallet-transaction-card__heading">
+            <div class="wallet-transaction-card__title-wrap">
+                <strong title="@Transaction.Description">@Transaction.Description</strong>
+                @if (!string.IsNullOrWhiteSpace(Transaction.Notes))
+                {
+                    <small title="@Transaction.Notes">@Transaction.Notes</small>
+                }
+            </div>
+            <span class="wallet-transaction-card__amount wallet-amount--@TypeClass">@SignedAmount</span>
+        </div>
+        <div class="wallet-transaction-card__meta">
+            @if (Transaction.WalletTagId is not null)
+            {
+                <span class="wallet-tag-badge wallet-tag-badge--solid"
+                      style="background:@TagColor;color:@TagTextColor;border-color:@TagColor">
+                    @Transaction.WalletTagName
+                </span>
+            }
+            else
+            {
+                <span class="wallet-muted">@Localizer["NoTagLabel"]</span>
+            }
+            <time datetime="@Transaction.TransactionDate.ToString("yyyy-MM-dd")">@Transaction.TransactionDate.ToString("d")</time>
+            <span class="wallet-transaction-card__type"><BeeDayIcon Name="@TransactionTypeIcon" Size="BeeDayIconSize.ExtraSmall" Color="@TransactionTypeColor" /> @(Transaction.Type == WalletTransactionType.Income ? Localizer["TransactionTypeIncomeLabel"] : Localizer["TransactionTypeExpenseLabel"])</span>
+        </div>
+    </div>
+</BeeDayCard>
+
+@code {
+    [Parameter, EditorRequired] public WalletTransactionData Transaction { get; set; } = default!;
+    [Parameter] public EventCallback<WalletTransactionData> OnEdit { get; set; }
+
+    private BeeDayIconName TransactionTypeIcon => Transaction.Type == WalletTransactionType.Income ? BeeDayIconName.Income : BeeDayIconName.Expense;
+    private BeeDayIconColor TransactionTypeColor => Transaction.Type == WalletTransactionType.Income ? BeeDayIconColor.Success : BeeDayIconColor.Danger;
+    private string TypeClass => Transaction.Type == WalletTransactionType.Income ? "income" : "expense";
+    private string SignedAmount => WalletCurrencyFormatter.FormatSigned(Transaction.Amount, Transaction.Type == WalletTransactionType.Income);
+    private string TagColor => string.IsNullOrWhiteSpace(Transaction.WalletTagColor) ? "#7A4FCB" : Transaction.WalletTagColor;
+    private string TagTextColor => TagContrastCalculator.GetTextColor(TagColor);
+    private Task EditAsync() => OnEdit.InvokeAsync(Transaction);
+    private Task HandleBodyKeyDown(Microsoft.AspNetCore.Components.Web.KeyboardEventArgs args) =>
+        args.Key is "Enter" or " " ? OnEdit.InvokeAsync(Transaction) : Task.CompletedTask;
+}

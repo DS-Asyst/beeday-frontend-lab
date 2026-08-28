@@ -1,0 +1,24 @@
+@page "/experience-system/brand"
+@layout PublicLayout
+@inject IStringLocalizer<ExperienceSystemResources> Localizer
+
+<PageTitle>@Localizer["BrandOverviewPageTitle"]</PageTitle>
+
+@* Ported from BeeDay.Web's Components/Features/ExperienceSystem/Pages/Brand/BrandOverview.razor
+   (Sprint 33.11, FE33-070). *@
+<ExperienceSystemPage Eyebrow="@Localizer["BrandOverviewEyebrow"]" Title="@Localizer["BrandOverviewTitle"]" Description="@Localizer["BrandOverviewIntro"]" Pillar="ExperienceSystemPillar.Brand" ShowTopicNav="false">
+    <ExperienceSystemTopicGrid AriaLabel="@Localizer["BrandOverviewGridAriaLabel"]" Items="TopicLinks" />
+</ExperienceSystemPage>
+
+@code {
+    private IReadOnlyList<ExperienceSystemLink> TopicLinks =>
+    [
+        new(Localizer["BrandNavIdentity"], Localizer["BrandIdentityCardDescription"], "/experience-system/brand/identity"),
+        new(Localizer["BrandNavWordmark"], Localizer["BrandWordmarkCardDescription"], "/experience-system/brand/wordmark"),
+        new(Localizer["BrandNavColor"], Localizer["BrandColorCardDescription"], "/experience-system/brand/color"),
+        new(Localizer["BrandNavTypography"], Localizer["BrandTypographyCardDescription"], "/experience-system/brand/typography"),
+        new(Localizer["BrandNavIllustration"], Localizer["BrandIllustrationCardDescription"], "/experience-system/brand/illustration"),
+        new(Localizer["BrandNavCharacters"], Localizer["BrandCharactersCardDescription"], "/experience-system/brand/characters"),
+        new(Localizer["BrandNavWriting"], Localizer["BrandWritingCardDescription"], "/experience-system/brand/writing")
+    ];
+}

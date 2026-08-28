@@ -1,0 +1,78 @@
+@inject IStringLocalizer<ExperienceSystemResources> Localizer
+
+@* Ported verbatim from BeeDay.Web's
+   Components/Features/ExperienceSystem/Components/ExperienceSystemPage.razor (Sprint 33.11,
+   FE33-076) — the shared shell every /experience-system/* page composes through. No
+   NavigationManager dependency (see ExperienceSystemPillarNav.razor's comment for the correction
+   vs. the Ledger note). Uses BeeDayPageHeader/BeeDayHero/BeeDayBrand/BeeDayIcon, all already
+   extracted in Sprint 33.6/33.7/33.8. *@
+@if (ShowBrandGuidelinesHero)
+{
+    <BeeDayHero Surface="BeeDayPaletteToken.Cor8" Title="@Title" Subtitle="@Description">
+        <BrandContext>
+            <BeeDayBrand />
+            <span class="institutional-hero__context-label">@Localizer["RootEyebrow"]</span>
+        </BrandContext>
+    </BeeDayHero>
+}
+
+<article class="experience-system-page">
+    @if (!ShowBrandGuidelinesHero)
+    {
+        <BeeDayPageHeader Eyebrow="@Eyebrow" Title="@Title" />
+        @if (!string.IsNullOrWhiteSpace(Description))
+        {
+            <p class="experience-system-page__intro">@Description</p>
+        }
+    }
+
+    <div class="experience-system-page__layout">
+        @if (Pillar is not null)
+        {
+            <details class="experience-system-sidebar" open>
+                <summary class="experience-system-sidebar__toggle">
+                    <BeeDayIcon Name="BeeDayIconName.Menu" Decorative="true" />
+                    @Localizer["SidebarToggleLabel"]
+                </summary>
+                <div class="experience-system-sidebar__content">
+                    <ExperienceSystemPillarNav Current="@Pillar.Value" />
+                    @if (ShowTopicNav)
+                    {
+                        <ExperienceSystemTopicNav Pillar="@Pillar.Value" CurrentHref="@CurrentHref" />
+                    }
+                </div>
+            </details>
+        }
+
+        <div class="experience-system-page__body">
+            @ChildContent
+        </div>
+    </div>
+</article>
+
+@code {
+    [Parameter, EditorRequired]
+    public string Eyebrow { get; set; } = "";
+
+    [Parameter, EditorRequired]
+    public string Title { get; set; } = "";
+
+    [Parameter]
+    public string? Description { get; set; }
+
+    [Parameter]
+    public ExperienceSystemPillar? Pillar { get; set; }
+
+    [Parameter]
+    public bool ShowTopicNav { get; set; } = true;
+
+    [Parameter]
+    public string? CurrentHref { get; set; }
+
+    /// <summary>Set only by the root/overview page — see the hero-vs-header comment above.</summary>
+    [Parameter]
+    public bool ShowBrandGuidelinesHero { get; set; }
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+}

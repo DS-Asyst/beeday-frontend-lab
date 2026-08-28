@@ -1,0 +1,113 @@
+html,
+body {
+    width: 100%;
+    min-height: 100%;
+    margin: 0;
+    font-family: var(--beeday-font-family);
+    color: var(--beeday-color-text-primary);
+    background: var(--beeday-color-background);
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+a {
+    color: inherit;
+}
+
+button,
+input,
+select,
+textarea,
+option,
+optgroup {
+    font-family: var(--beeday-font-family);
+    font-size: inherit;
+    font-weight: inherit;
+    line-height: inherit;
+}
+
+h1:focus {
+    outline: none;
+}
+
+.valid.modified:not([type="checkbox"]) {
+    outline: 1px solid #26b050;
+}
+
+.invalid {
+    outline: 1px solid #e50000;
+}
+
+.validation-message {
+    color: var(--beeday-color-danger-hover);
+}
+
+.blazor-error-boundary {
+    padding: 1rem;
+    color: var(--beeday-color-surface);
+    background: var(--beeday-color-danger-hover);
+}
+
+.blazor-error-boundary::after {
+    content: "An error has occurred.";
+}
+
+html {
+    scroll-behavior: smooth;
+    scrollbar-color: #aea5b5 transparent;
+    scrollbar-width: thin;
+}
+
+body {
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+    color: var(--beeday-color-text-primary);
+    background: var(--beeday-color-brand-primary-soft);
+}
+
+:where(button, a, input, select, textarea, [role="button"]):focus-visible {
+    outline: 2px solid var(--beeday-color-brand-primary);
+    outline-offset: 2px;
+    box-shadow: var(--beeday-focus-ring);
+}
+
+:where(button, [role="button"]):not(:disabled) {
+    -webkit-tap-highlight-color: transparent;
+}
+
+:where(button):disabled {
+    cursor: not-allowed;
+    opacity: .58;
+}
+
+*::-webkit-scrollbar {
+    width: .6rem;
+    height: .6rem;
+}
+
+*::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+    border: .14rem solid transparent;
+    border-radius: var(--beeday-radius-pill);
+    background: #aea5b5;
+    background-clip: padding-box;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+    background: var(--beeday-color-brand-primary-light);
+    background-clip: padding-box;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+}

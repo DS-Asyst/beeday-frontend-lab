@@ -1,0 +1,23 @@
+/* Sprint 10.7 — the section/form chrome previously duplicated here now
+   lives in the shared BeeDaySettingsSection/BeeDaySettingsForm components
+   (wwwroot/css/settings.css), reusable by any future settings-style page.
+   Only genuine page-level layout (container width, section stacking)
+   remains here. */
+
+.account-page {
+    width: min(76rem, 100%);
+    margin: 0 auto;
+    padding: 2rem clamp(1rem, 3vw, 2.5rem) 4rem;
+}
+
+.account-page__content,
+.account-page__loading {
+    display: grid;
+    gap: var(--beeday-spacing-lg);
+}
+
+@media (max-width: 720px) {
+    .account-page {
+        padding-top: var(--beeday-spacing-md);
+    }
+}

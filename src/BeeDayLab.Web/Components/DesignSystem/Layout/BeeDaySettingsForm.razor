@@ -1,0 +1,13 @@
+@typeparam TModel
+
+<EditForm Model="Model" OnValidSubmit="HandleValidSubmitAsync" FormName="@FormName">
+    <DataAnnotationsValidator />
+    <fieldset class="beeday-settings-form" disabled="@IsBusy">
+        @ChildContent
+        <div class="beeday-settings-form__actions">
+            <BeeDayButton Type="submit" IsLoading="@IsBusy" Disabled="@IsBusy" Class="@SubmitButtonClass">
+                @SubmitLabel
+            </BeeDayButton>
+        </div>
+    </fieldset>
+</EditForm>

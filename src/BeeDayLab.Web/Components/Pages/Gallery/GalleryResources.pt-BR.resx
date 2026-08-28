@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="PageTitle" xml:space="preserve"><value>Catálogo de Componentes | beeday</value></data>
+  <data name="Eyebrow" xml:space="preserve"><value>Design System</value></data>
+  <data name="Heading" xml:space="preserve"><value>Catálogo de componentes</value></data>
+  <data name="Description" xml:space="preserve"><value>Cada componente reutilizável do Lab, renderizado ao vivo com suas variantes e estados mapeados.</value></data>
+  <data name="NavAriaLabel" xml:space="preserve"><value>Ir para família de componentes</value></data>
+  <data name="ButtonsHeading" xml:space="preserve"><value>Botões</value></data>
+  <data name="CardsHeading" xml:space="preserve"><value>Cartões</value></data>
+  <data name="FeedbackHeading" xml:space="preserve"><value>Feedback</value></data>
+  <data name="FormsHeading" xml:space="preserve"><value>Formulários</value></data>
+  <data name="IconsHeading" xml:space="preserve"><value>Ícones</value></data>
+  <data name="LayoutHeading" xml:space="preserve"><value>Layout</value></data>
+  <data name="ModalsHeading" xml:space="preserve"><value>Modais</value></data>
+  <data name="ProgressHeading" xml:space="preserve"><value>Progresso</value></data>
+  <data name="TextHeading" xml:space="preserve"><value>Texto</value></data>
+  <data name="BehaviorsHeading" xml:space="preserve"><value>Comportamentos</value></data>
+  <data name="DisabledToggleLabel" xml:space="preserve"><value>Desabilitado</value></data>
+  <data name="LoadingToggleLabel" xml:space="preserve"><value>Carregando</value></data>
+  <data name="OpenConfirmDialogButton" xml:space="preserve"><value>Abrir diálogo de confirmação</value></data>
+  <data name="OpenConfirmDialogBusyButton" xml:space="preserve"><value>Abrir diálogo (ocupado)</value></data>
+  <data name="OpenConfirmDialogErrorButton" xml:space="preserve"><value>Abrir diálogo (erro)</value></data>
+  <data name="ConfirmDialogTitle" xml:space="preserve"><value>Excluir item de demonstração</value></data>
+  <data name="ConfirmDialogMessage" xml:space="preserve"><value>Tem certeza de que deseja excluir este item de demonstração?</value></data>
+  <data name="ConfirmDialogWarning" xml:space="preserve"><value>Esta ação não pode ser desfeita.</value></data>
+  <data name="ConfirmDialogErrorMessage" xml:space="preserve"><value>Não foi possível excluir o item. Tente novamente.</value></data>
+  <data name="ShowLoadingOverlayLabel" xml:space="preserve"><value>Mostrar sobreposição de carregamento</value></data>
+  <data name="TriggerSuccessToastButton" xml:space="preserve"><value>Disparar toast de sucesso</value></data>
+  <data name="TriggerErrorToastButton" xml:space="preserve"><value>Disparar toast de erro</value></data>
+  <data name="TriggerInfoToastButton" xml:space="preserve"><value>Disparar toast informativo</value></data>
+  <data name="ToastSuccessMessage" xml:space="preserve"><value>Item de demonstração salvo com sucesso.</value></data>
+  <data name="ToastErrorMessage" xml:space="preserve"><value>Não foi possível salvar o item de demonstração.</value></data>
+  <data name="ToastInfoMessage" xml:space="preserve"><value>Este é um toast informativo de demonstração.</value></data>
+  <data name="TriggerErrorBoundaryButton" xml:space="preserve"><value>Disparar um erro de renderização</value></data>
+  <data name="OpenEditorModalButton" xml:space="preserve"><value>Abrir modal de edição</value></data>
+  <data name="EditorModalTitle" xml:space="preserve"><value>Editar item de demonstração</value></data>
+  <data name="EditorModalFieldLabel" xml:space="preserve"><value>Nome do item</value></data>
+  <data name="EditorModalBodyText" xml:space="preserve"><value>Este modal demonstra o EditorModalShell com um campo de destaque, conteúdo do corpo e uma ação de exclusão.</value></data>
+  <data name="EditorModalDeletedToast" xml:space="preserve"><value>Item de demonstração excluído.</value></data>
+  <data name="EditorModalSavedToast" xml:space="preserve"><value>Item de demonstração salvo.</value></data>
+  <data name="SaveDemoFormButton" xml:space="preserve"><value>Salvar formulário de demonstração</value></data>
+  <data name="DemoFormNameLabel" xml:space="preserve"><value>Nome</value></data>
+  <data name="DemoFormAgreeLabel" xml:space="preserve"><value>Concordo com os termos de demonstração</value></data>
+  <data name="DemoFormStartDateLabel" xml:space="preserve"><value>Data de início</value></data>
+  <data name="DemoFormPlanLabel" xml:space="preserve"><value>Plano</value></data>
+  <data name="DemoFormNotesLabel" xml:space="preserve"><value>Notas</value></data>
+  <data name="DemoFormSavedToast" xml:space="preserve"><value>Formulário de demonstração salvo com sucesso.</value></data>
+  <data name="HighlightSearchLabel" xml:space="preserve"><value>Termo de busca</value></data>
+  <data name="HighlightSampleText" xml:space="preserve"><value>Acompanhe sua carteira, organize transações e entenda para onde vai seu dinheiro.</value></data>
+</root>

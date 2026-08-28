@@ -1,0 +1,89 @@
+@using BeeDayLab.Web.Scenarios
+@inject IStringLocalizer<WalletResources> Localizer
+
+<section class="wallet-main-panel beeday-card @(Transactions.Items.Count == 0 ? "wallet-main-panel--empty" : null)" aria-labelledby="wallet-transactions-title">
+    <header class="wallet-panel-header wallet-panel-header--transactions">
+        <div>
+            <span class="wallet-eyebrow">@Localizer["HistoryEyebrow"]</span>
+            <h2 id="wallet-transactions-title">@Localizer["TransactionsHeading"]</h2>
+        </div>
+        <span class="wallet-result-count">@(Transactions.TotalCount == 1 ? Localizer["ResultCountSingular", Transactions.TotalCount] : Localizer["ResultCountPlural", Transactions.TotalCount])</span>
+    </header>
+
+    <WalletFilters IsDisabled="@(IsBusy || IsDisabled)"
+                      Search="@Search"
+                      TypeFilter="@TypeFilter"
+                      TagFilter="@TagFilter"
+                      StartDate="StartDate"
+                      EndDate="EndDate"
+                      Sort="@Sort"
+                      ActiveFilterCount="ActiveFilterCount"
+                      Tags="Tags"
+                      SearchChanged="SearchChanged"
+                      TypeFilterChanged="TypeFilterChanged"
+                      TagFilterChanged="TagFilterChanged"
+                      StartDateChanged="StartDateChanged"
+                      EndDateChanged="EndDateChanged"
+                      SortChanged="SortChanged"
+                      OnClearFilters="OnClearFilters" />
+
+    @if (Transactions.Items.Count == 0)
+    {
+        <WalletEmptyState HasFilters="HasFilters"
+                             IsDisabled="@(IsBusy || IsDisabled)"
+                             OnCreateTransaction="OnCreateTransaction"
+                             OnClearFilters="OnClearFilters" />
+    }
+    else
+    {
+        <div class="wallet-transaction-list" aria-busy="@IsRefreshing.ToString().ToLowerInvariant()">
+            @foreach (var transaction in Transactions.Items)
+            {
+                <TransactionCard @key="transaction.Id" Transaction="transaction" OnEdit="OnEdit" />
+            }
+        </div>
+
+        @if (Transactions.TotalPages > 1)
+        {
+            <nav class="wallet-pagination" aria-label="@Localizer["TransactionPagesAriaLabel"]">
+                <BeeDayButton Variant="BeeDayButtonVariant.Secondary" Compact="true" Disabled="@(IsBusy || IsDisabled || Transactions.Page <= 1)" OnClick="OnPreviousPage">@Localizer["PreviousButton"]</BeeDayButton>
+                <span>@PaginationSummary · @Localizer["PageOfTotalPages", Transactions.Page, Transactions.TotalPages]</span>
+                <BeeDayButton Variant="BeeDayButtonVariant.Secondary" Compact="true" Disabled="@(IsBusy || IsDisabled || Transactions.Page >= Transactions.TotalPages)" OnClick="OnNextPage">@Localizer["NextButton"]</BeeDayButton>
+            </nav>
+        }
+    }
+</section>
+
+@code {
+    [Parameter, EditorRequired] public WalletPagedTransactionsData Transactions { get; set; } = default!;
+    [Parameter] public IReadOnlyList<WalletTagData> Tags { get; set; } = [];
+    [Parameter] public bool IsRefreshing { get; set; }
+    [Parameter] public bool IsBusy { get; set; }
+    [Parameter] public bool IsDisabled { get; set; }
+    [Parameter] public bool HasFilters { get; set; }
+    [Parameter] public string Search { get; set; } = string.Empty;
+    [Parameter] public string TypeFilter { get; set; } = string.Empty;
+    [Parameter] public string TagFilter { get; set; } = string.Empty;
+    [Parameter] public DateOnly? StartDate { get; set; }
+    [Parameter] public DateOnly? EndDate { get; set; }
+    [Parameter] public string Sort { get; set; } = "date-desc";
+    [Parameter] public EventCallback<string> SearchChanged { get; set; }
+    [Parameter] public EventCallback<string> TypeFilterChanged { get; set; }
+    [Parameter] public int ActiveFilterCount { get; set; }
+    [Parameter] public EventCallback<string> TagFilterChanged { get; set; }
+    [Parameter] public EventCallback<DateOnly?> StartDateChanged { get; set; }
+    [Parameter] public EventCallback<DateOnly?> EndDateChanged { get; set; }
+    [Parameter] public EventCallback<string> SortChanged { get; set; }
+    [Parameter] public EventCallback OnCreateTransaction { get; set; }
+    [Parameter] public EventCallback OnClearFilters { get; set; }
+    [Parameter] public EventCallback OnPreviousPage { get; set; }
+    [Parameter] public EventCallback OnNextPage { get; set; }
+    [Parameter] public EventCallback<WalletTransactionData> OnEdit { get; set; }
+
+    private string PaginationSummary => Transactions.TotalCount == 0
+        ? Localizer["NoResultsLabel"]
+        : Localizer["PaginationSummary",
+            ((Transactions.Page - 1) * Transactions.PageSize) + 1,
+            Math.Min(Transactions.Page * Transactions.PageSize, Transactions.TotalCount),
+            Transactions.TotalCount];
+}

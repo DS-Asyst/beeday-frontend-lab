@@ -1,0 +1,71 @@
+@page "/experience-system/brand/writing"
+@layout PublicLayout
+@inject IStringLocalizer<ExperienceSystemResources> Localizer
+
+<PageTitle>@Localizer["BrandWritingPageTitle"]</PageTitle>
+
+@* Ported from BeeDay.Web's Components/Features/ExperienceSystem/Pages/Brand/BrandWriting.razor
+   (Sprint 33.11, FE33-071). *@
+<ExperienceSystemPage Eyebrow="@Localizer["PillarNavBrand"]" Title="@Localizer["BrandWritingTitle"]" Description="@Localizer["BrandWritingIntro"]" Pillar="ExperienceSystemPillar.Brand" CurrentHref="/experience-system/brand/writing">
+    <section class="experience-system-section" aria-labelledby="writing-voice-heading">
+        <h2 id="writing-voice-heading">@Localizer["BrandWritingVoiceTitle"]</h2>
+        <ul>
+            <li>@Localizer["BrandWritingVoice1"]</li>
+            <li>@Localizer["BrandWritingVoice2"]</li>
+            <li>@Localizer["BrandWritingVoice3"]</li>
+            <li>@Localizer["BrandWritingVoice4"]</li>
+            <li>@Localizer["BrandWritingVoice5"]</li>
+        </ul>
+    </section>
+
+    <section class="experience-system-section" aria-labelledby="writing-tone-heading">
+        <h2 id="writing-tone-heading">@Localizer["BrandWritingToneTitle"]</h2>
+        <div class="experience-system-table-wrap">
+            <table class="experience-system-table">
+                <thead>
+                    <tr><th scope="col">@Localizer["BrandWritingToneContextHeader"]</th><th scope="col">@Localizer["BrandWritingToneHeader"]</th></tr>
+                </thead>
+                <tbody>
+                    <tr><th scope="row">@Localizer["BrandWritingToneNeutral"]</th><td>@Localizer["BrandWritingToneNeutralValue"]</td></tr>
+                    <tr><th scope="row">@Localizer["BrandWritingToneOnboarding"]</th><td>@Localizer["BrandWritingToneOnboardingValue"]</td></tr>
+                    <tr><th scope="row">@Localizer["BrandWritingToneError"]</th><td>@Localizer["BrandWritingToneErrorValue"]</td></tr>
+                    <tr><th scope="row">@Localizer["BrandWritingToneDestructive"]</th><td>@Localizer["BrandWritingToneDestructiveValue"]</td></tr>
+                    <tr><th scope="row">@Localizer["BrandWritingToneWallet"]</th><td>@Localizer["BrandWritingToneWalletValue"]</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section class="experience-system-section" aria-labelledby="writing-style-heading">
+        <h2 id="writing-style-heading">@Localizer["BrandWritingStyleTitle"]</h2>
+        <ul>
+            <li>@Localizer["BrandWritingStyle1"]</li>
+            <li>@Localizer["BrandWritingStyle2"]</li>
+            <li>@Localizer["BrandWritingStyle3"]</li>
+            <li>@Localizer["BrandWritingStyle4"]</li>
+            <li>@Localizer["BrandWritingStyle5"]</li>
+            <li>@Localizer["BrandWritingStyle6"]</li>
+        </ul>
+    </section>
+
+    <section class="experience-system-section" aria-labelledby="writing-glossary-heading">
+        <h2 id="writing-glossary-heading">@Localizer["BrandWritingGlossaryTitle"]</h2>
+        <div class="experience-system-table-wrap">
+            <table class="experience-system-table">
+                <thead>
+                    <tr><th scope="col">@Localizer["BrandWritingGlossaryConceptHeader"]</th><th scope="col">@Localizer["BrandWritingGlossaryMeaningHeader"]</th></tr>
+                </thead>
+                <tbody>
+                    <tr><th scope="row">Activity</th><td>@Localizer["BrandWritingGlossaryActivityMeaning"]</td></tr>
+                    <tr><th scope="row">Habit</th><td>@Localizer["BrandWritingGlossaryHabitMeaning"]</td></tr>
+                    <tr><th scope="row">Task</th><td>@Localizer["BrandWritingGlossaryTaskMeaning"]</td></tr>
+                    <tr><th scope="row">To-Do</th><td>@Localizer["BrandWritingGlossaryTodoMeaning"]</td></tr>
+                    <tr><th scope="row">Project</th><td>@Localizer["BrandWritingGlossaryProjectMeaning"]</td></tr>
+                    <tr><th scope="row">Daily</th><td>@Localizer["BrandWritingGlossaryDailyMeaning"]</td></tr>
+                    <tr><th scope="row">Wallet</th><td>@Localizer["BrandWritingGlossaryWalletMeaning"]</td></tr>
+                    <tr><th scope="row">XP</th><td>@Localizer["BrandWritingGlossaryXpMeaning"]</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+</ExperienceSystemPage>

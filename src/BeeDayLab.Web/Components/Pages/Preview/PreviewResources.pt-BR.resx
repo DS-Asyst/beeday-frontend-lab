@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="PageTitle" xml:space="preserve"><value>Catálogo de Páginas e E-mails | beeday</value></data>
+  <data name="Eyebrow" xml:space="preserve"><value>Frontend Lab</value></data>
+  <data name="Heading" xml:space="preserve"><value>Catálogo de páginas e e-mails</value></data>
+  <data name="Description" xml:space="preserve"><value>Uma superfície de revisão para cada página e modelo de e-mail extraído, com seletor compartilhado de cenário/idioma e pré-visualizações responsivas.</value></data>
+  <data name="ToolbarAriaLabel" xml:space="preserve"><value>Seletores compartilhados de cenário, viewport e idioma</value></data>
+  <data name="StateLabel" xml:space="preserve"><value>Estado do cenário</value></data>
+  <data name="ViewportLabel" xml:space="preserve"><value>Predefinição de viewport</value></data>
+  <data name="ViewportNoneOption" xml:space="preserve"><value>(nenhuma)</value></data>
+  <data name="LanguageLabel" xml:space="preserve"><value>Idioma</value></data>
+  <data name="ToolbarNote" xml:space="preserve"><value>As seleções aqui se aplicam a qualquer página que você abrir em seguida nesta aba, pois ambas vivem nesta sessão do Lab.</value></data>
+  <data name="PublicAreaHeading" xml:space="preserve"><value>Público</value></data>
+  <data name="IdentityAreaHeading" xml:space="preserve"><value>Identidade</value></data>
+  <data name="AccountAreaHeading" xml:space="preserve"><value>Conta</value></data>
+  <data name="DailyAreaHeading" xml:space="preserve"><value>Diário</value></data>
+  <data name="WalletAreaHeading" xml:space="preserve"><value>Carteira</value></data>
+  <data name="EmailAreaHeading" xml:space="preserve"><value>E-mail</value></data>
+  <data name="SystemAreaHeading" xml:space="preserve"><value>Sistema</value></data>
+  <data name="ResponsivePreviewHeading" xml:space="preserve"><value>Pré-visualização responsiva</value></data>
+  <data name="ResponsivePreviewDescription" xml:space="preserve"><value>Escolha uma página para pré-visualizá-la ao vivo em 3 larguras representativas, alinhadas aos breakpoints do próprio Design System.</value></data>
+  <data name="ChoosePageLabel" xml:space="preserve"><value>Página</value></data>
+  <data name="MobilePresetLabel" xml:space="preserve"><value>Celular (375px)</value></data>
+  <data name="TabletPresetLabel" xml:space="preserve"><value>Tablet (768px)</value></data>
+  <data name="DesktopPresetLabel" xml:space="preserve"><value>Desktop (1280px)</value></data>
+</root>

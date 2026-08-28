@@ -1,0 +1,42 @@
+@page "/brand-guidelines"
+@layout EditorialLayout
+@inject IStringLocalizer<InstitutionalResources> Localizer
+@inject IStringLocalizer<ExperienceSystemResources> ExperienceSystemLocalizer
+
+<PageTitle>@Localizer["BrandGuidelinesPageTitle"]</PageTitle>
+
+@* Ported from BeeDay.Web's Components/Features/Institutional/Pages/BrandGuidelines.razor (Sprint
+   33.11, FE33-056). Depends on FE33-076's shared ExperienceSystemPillarNav/TopicNav — extracted
+   first in this Sprint. The left sidebar reuses those two components exactly as already built for
+   every /experience-system/brand/* page — the real beeday Brand System taxonomy, not an invented
+   one; those pages remain the full documentation, still reachable from here and from their own
+   routes. *@
+<EditorialPageTemplate PageContext="@Localizer["BrandGuidelinesPageContext"]" Title="@Localizer["BrandGuidelinesTitle"]" Description="@Localizer["BrandGuidelinesIntro"]">
+    <div class="brand-guidelines-layout">
+        <aside class="brand-guidelines-layout__nav" aria-label="@ExperienceSystemLocalizer["PillarNavAriaLabel"]">
+            <ExperienceSystemPillarNav Current="ExperienceSystemPillar.Brand" />
+            <ExperienceSystemTopicNav Pillar="ExperienceSystemPillar.Brand" />
+        </aside>
+        <div class="brand-guidelines-layout__body">
+            <section aria-labelledby="brand-guidelines-identity-heading">
+                <h2 id="brand-guidelines-identity-heading">@ExperienceSystemLocalizer["BrandNavIdentity"]</h2>
+                <p>@Localizer["BrandGuidelinesIdentityBody"]</p>
+
+                <ul class="brand-guidelines-swatches" aria-label="@ExperienceSystemLocalizer["PillarNavBrand"]">
+                    <li><span class="brand-guidelines-swatch" style="background:#5247F9"></span><code>COR0</code> #5247F9</li>
+                    <li><span class="brand-guidelines-swatch" style="background:#CE82FF"></span><code>COR1</code> #CE82FF</li>
+                    <li><span class="brand-guidelines-swatch" style="background:#58CC02"></span><code>COR2</code> #58CC02</li>
+                    <li><span class="brand-guidelines-swatch" style="background:#1CB0F6"></span><code>COR3</code> #1CB0F6</li>
+                    <li><span class="brand-guidelines-swatch" style="background:#FFB100"></span><code>COR4</code> #FFB100</li>
+                    <li><span class="brand-guidelines-swatch" style="background:#FF7878"></span><code>COR5</code> #FF7878</li>
+                    <li><span class="brand-guidelines-swatch brand-guidelines-swatch--bordered" style="background:#FFFFFF"></span><code>COR6</code> #FFFFFF</li>
+                    <li><span class="brand-guidelines-swatch" style="background:#ECECED"></span><code>COR7</code> #ECECED</li>
+                    <li><span class="brand-guidelines-swatch" style="background:#100F3E"></span><code>COR8</code> #100F3E</li>
+                    <li><span class="brand-guidelines-swatch" style="background:#DEFFF7"></span><code>COR9</code> #DEFFF7</li>
+                </ul>
+
+                <p>@Localizer["BrandGuidelinesMoreBody"]</p>
+            </section>
+        </div>
+    </div>
+</EditorialPageTemplate>

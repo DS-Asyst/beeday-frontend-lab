@@ -1,0 +1,27 @@
+@using BeeDayLab.Web.Components.Pages.Wallet.Services
+@using BeeDayLab.Web.Scenarios
+@inject IStringLocalizer<WalletResources> Localizer
+
+<section class="wallet-summary" aria-label="@Localizer["SummaryAriaLabel"]">
+    <BeeDayCard Padded="true" Class="@($"wallet-summary__card wallet-summary__card--balance {(HighlightBalance ? "wallet-summary__card--updated" : string.Empty)}")">
+        <span class="wallet-summary__label"><BeeDayIcon Name="BeeDayIconName.Wallet" Size="BeeDayIconSize.Small" /> @Localizer["CurrentBalanceLabel"]</span>
+        <strong>@FormatMoney(Summary?.Balance ?? 0)</strong>
+        <small>@Localizer["TransactionCountLabel", Summary?.TransactionCount ?? 0]</small>
+    </BeeDayCard>
+    <BeeDayCard Padded="true" Class="wallet-summary__card wallet-summary__card--income">
+        <span class="wallet-summary__label"><BeeDayIcon Name="BeeDayIconName.Income" Size="BeeDayIconSize.Small" Color="BeeDayIconColor.Success" /> @Localizer["TotalIncomeLabel"]</span>
+        <strong>@FormatMoney(Summary?.TotalIncome ?? 0)</strong>
+        <small>@Localizer["MoneyAddedLabel"]</small>
+    </BeeDayCard>
+    <BeeDayCard Padded="true" Class="wallet-summary__card wallet-summary__card--expense">
+        <span class="wallet-summary__label"><BeeDayIcon Name="BeeDayIconName.Expense" Size="BeeDayIconSize.Small" Color="BeeDayIconColor.Danger" /> @Localizer["TotalExpensesLabel"]</span>
+        <strong>@FormatMoney(Summary?.TotalExpenses ?? 0)</strong>
+        <small>@Localizer["MoneySpentLabel"]</small>
+    </BeeDayCard>
+</section>
+
+@code {
+    [Parameter] public WalletSummaryData? Summary { get; set; }
+    [Parameter] public bool HighlightBalance { get; set; }
+    private static string FormatMoney(decimal value) => WalletCurrencyFormatter.Format(value);
+}

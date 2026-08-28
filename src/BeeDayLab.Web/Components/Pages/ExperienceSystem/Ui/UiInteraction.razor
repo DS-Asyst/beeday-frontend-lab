@@ -1,0 +1,42 @@
+@page "/experience-system/ui/interaction"
+@layout PublicLayout
+@inject IStringLocalizer<ExperienceSystemResources> Localizer
+
+<PageTitle>@Localizer["UiInteractionPageTitle"]</PageTitle>
+
+@* Ported from BeeDay.Web's Components/Features/ExperienceSystem/Pages/Ui/UiInteraction.razor
+   (Sprint 33.11, FE33-073). *@
+<ExperienceSystemPage Eyebrow="@Localizer["PillarNavUi"]" Title="@Localizer["UiInteractionTitle"]" Description="@Localizer["UiInteractionIntro"]" Pillar="ExperienceSystemPillar.Ui" CurrentHref="/experience-system/ui/interaction">
+    <section class="experience-system-section" aria-labelledby="interaction-rules-heading">
+        <h2 id="interaction-rules-heading">@Localizer["UiInteractionRulesTitle"]</h2>
+        <ul>
+            <li>@Localizer["UiInteractionRule1"]</li>
+            <li>@Localizer["UiInteractionRule2"]</li>
+            <li>@Localizer["UiInteractionRule3"]</li>
+            <li>@Localizer["UiInteractionRule4"]</li>
+            <li>@Localizer["UiInteractionRule5"]</li>
+        </ul>
+    </section>
+
+    <section class="experience-system-section" aria-labelledby="interaction-micro-heading">
+        <h2 id="interaction-micro-heading">@Localizer["UiInteractionMicroTitle"]</h2>
+        <div class="experience-system-table-wrap">
+            <table class="experience-system-table">
+                <thead>
+                    <tr><th scope="col">@Localizer["UiInteractionMicroHeader"]</th><th scope="col">@Localizer["UiInteractionMicroEffectHeader"]</th></tr>
+                </thead>
+                <tbody>
+                    <tr><th scope="row">@Localizer["UiInteractionMicroHover"]</th><td>@Localizer["UiInteractionMicroHoverText"]</td></tr>
+                    <tr><th scope="row">@Localizer["UiInteractionMicroPress"]</th><td>@Localizer["UiInteractionMicroPressText"]</td></tr>
+                    <tr><th scope="row">@Localizer["UiInteractionMicroEnter"]</th><td>@Localizer["UiInteractionMicroEnterText"]</td></tr>
+                    <tr><th scope="row">@Localizer["UiInteractionMicroReorder"]</th><td>@Localizer["UiInteractionMicroReorderText"]</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section class="experience-system-section" aria-labelledby="interaction-dialog-heading">
+        <h2 id="interaction-dialog-heading">@Localizer["UiInteractionDialogTitle"]</h2>
+        <p>@Localizer["UiInteractionDialogText"]</p>
+    </section>
+</ExperienceSystemPage>

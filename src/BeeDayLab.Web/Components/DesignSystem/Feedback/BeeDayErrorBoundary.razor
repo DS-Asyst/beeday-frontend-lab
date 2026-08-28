@@ -1,0 +1,37 @@
+@inject NavigationManager Navigation
+
+@* EPIC 30 Sprint 30.23 (BD30-F065): before this component existed, an unhandled exception thrown
+   from any page's render tree or event handler tore down the entire SignalR circuit — the user saw
+   the exact same generic "connection lost, trying to reconnect" experience as a real network blip,
+   with no distinguishable "something in the app broke" message and no recovery beyond a full page
+   reload the user had to think to try themselves. Wrapping @Body in this component (via
+   LoggingErrorBoundary, the stock ErrorBoundary with server-side logging added) keeps the circuit
+   alive and renders this branded fallback instead.
+
+   Lab adaptation (Sprint 33.8, FE33-016): the BeeDay source injects IStringLocalizer<DesignSystemResources>
+   for the three fallback strings below. The Lab has no localization pipeline (Program.cs has no
+   AddLocalization, confirmed against the already-copied BeeDayIcon which also has no localizer
+   dependency), so introducing one now would be scope creep — these are plain hardcoded English
+   strings instead, taken verbatim from DesignSystemResources.en-US.resx at extraction time. *@
+<LoggingErrorBoundary>
+    <ChildContent>
+        @ChildContent
+    </ChildContent>
+    <ErrorContent>
+        <div class="beeday-error-boundary" role="alert">
+            <BeeDayEmptyState Title="Something went wrong"
+                              Description="This page ran into an unexpected problem. Reloading usually fixes it."
+                              Icon="BeeDayIconName.ValidationError" />
+            <BeeDayButton Variant="BeeDayButtonVariant.Primary" OnClick="Reload">Reload page</BeeDayButton>
+        </div>
+    </ErrorContent>
+</LoggingErrorBoundary>
+
+@code {
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+
+    // A full reload establishes a brand new circuit rather than calling ErrorBoundary.Recover() to
+    // resume the same one — the component tree state that led to the exception is not known to be
+    // safe to resume, so starting clean is the predictable, safe default recovery action.
+    private void Reload() => Navigation.NavigateTo(Navigation.Uri, forceLoad: true);
+}

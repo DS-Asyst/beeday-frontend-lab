@@ -1,0 +1,86 @@
+.experience-system-page { display: grid; width: min(100%, 72rem); margin-inline: auto; gap: var(--beeday-spacing-xl); padding-block: clamp(2rem, 5vw, 4rem); }
+.experience-system-page ::deep .beeday-page-header { margin-bottom: 0; }
+.experience-system-page__intro { max-width: 52rem; margin: 0; color: var(--beeday-color-text-secondary); line-height: 1.55; }
+
+/* Sprint 27.8 — documentation layout: a hierarchical sidebar (existing ExperienceSystemPillarNav +
+   ExperienceSystemTopicNav, unchanged internally — only their container/position changed here) next
+   to the page body, instead of the two horizontal nav bars this used to stack above the content. */
+.experience-system-page__layout { display: grid; gap: var(--beeday-spacing-2xl); align-items: start; }
+.experience-system-page__body { display: grid; gap: clamp(2.5rem, 5vw, 4rem); min-width: 0; }
+
+.experience-system-sidebar {
+    border: var(--beeday-border-width-subtle) solid var(--beeday-color-border);
+    border-radius: var(--beeday-radius-lg);
+    background: var(--beeday-color-surface);
+}
+
+.experience-system-sidebar__toggle {
+    display: flex;
+    align-items: center;
+    gap: var(--beeday-spacing-sm);
+    padding: var(--beeday-spacing-md);
+    color: var(--beeday-color-text-primary);
+    font-weight: var(--beeday-font-weight-bold);
+    cursor: pointer;
+    list-style: none;
+}
+
+.experience-system-sidebar__toggle::-webkit-details-marker { display: none; }
+.experience-system-sidebar__toggle:focus-visible { outline: var(--beeday-border-width) solid var(--beeday-color-brand-primary); outline-offset: -2px; border-radius: var(--beeday-radius-lg); }
+
+.experience-system-sidebar__content { padding: 0 var(--beeday-spacing-md) var(--beeday-spacing-md); }
+.experience-system-sidebar__content ::deep .experience-system-pillar-nav { flex-direction: column; align-items: stretch; gap: var(--beeday-spacing-sm); padding-block: 0 var(--beeday-spacing-md); border-block: none; border-bottom: var(--beeday-border-width-subtle) solid var(--beeday-color-border); }
+.experience-system-sidebar__content ::deep .experience-system-pillar-nav__list { flex-direction: column; align-items: stretch; }
+.experience-system-sidebar__content ::deep .experience-system-topic-nav ul { flex-direction: column; align-items: stretch; }
+.experience-system-sidebar__content ::deep .experience-system-topic-nav a,
+.experience-system-sidebar__content ::deep .experience-system-pillar-nav__list a { width: 100%; text-align: left; }
+
+/* Desktop: a real sticky sidebar column. The toggle is hidden (nothing to collapse at this width)
+   and the content is forced visible regardless of the <details> open attribute, so a sidebar closed
+   on a narrow viewport still shows correctly if the window is then widened past this breakpoint. */
+@media (min-width: 64rem) {
+    .experience-system-page__layout { grid-template-columns: 16rem minmax(0, 1fr); }
+    .experience-system-sidebar { position: sticky; top: calc(var(--beeday-top-navigation-height, 4.25rem) + var(--beeday-spacing-lg)); align-self: start; max-height: calc(100dvh - var(--beeday-top-navigation-height, 4.25rem) - 2 * var(--beeday-spacing-lg)); overflow-y: auto; }
+    .experience-system-sidebar__toggle { display: none; }
+    .experience-system-sidebar > .experience-system-sidebar__content { display: block !important; }
+}
+
+/* Below the desktop breakpoint the sidebar is a normal in-flow, collapsible block — never fixed or
+   sticky, so it cannot occupy the viewport permanently on mobile/tablet. */
+@media (max-width: 63.9375rem) {
+    .experience-system-sidebar[open] { padding-bottom: var(--beeday-spacing-sm); }
+}
+
+::deep .experience-system-section { display: grid; gap: var(--beeday-spacing-md); min-width: 0; }
+::deep .experience-system-section h2 { margin: 0; color: var(--beeday-color-text-primary); font: var(--beeday-type-section-title); }
+::deep .experience-system-section h3 { margin: 0; color: var(--beeday-color-text-primary); font: var(--beeday-type-card-title); }
+::deep .experience-system-section > p { max-width: 60rem; margin: 0; color: var(--beeday-color-text-secondary); font-size: var(--beeday-font-size-lg); line-height: var(--beeday-line-height-relaxed); }
+::deep .experience-system-section ul, ::deep .experience-system-section ol { margin: 0; padding-left: var(--beeday-spacing-lg); color: var(--beeday-color-text-secondary); line-height: var(--beeday-line-height-relaxed); }
+::deep .experience-system-section li + li { margin-top: var(--beeday-spacing-xs); }
+
+::deep .experience-system-table-wrap { overflow-x: auto; border: var(--beeday-border-width-subtle) solid var(--beeday-color-border); border-radius: var(--beeday-radius-lg); }
+::deep .experience-system-table { width: 100%; border-collapse: collapse; font-size: var(--beeday-font-size-sm); }
+::deep .experience-system-table caption { padding: var(--beeday-spacing-sm) var(--beeday-spacing-md); color: var(--beeday-color-text-secondary); text-align: left; }
+::deep .experience-system-table th, ::deep .experience-system-table td { padding: var(--beeday-spacing-sm) var(--beeday-spacing-md); border-bottom: var(--beeday-border-width-subtle) solid var(--beeday-color-border); text-align: left; vertical-align: top; }
+::deep .experience-system-table th { background: var(--beeday-color-surface-muted); color: var(--beeday-color-text-primary); font-weight: var(--beeday-font-weight-bold); }
+::deep .experience-system-table tbody tr:last-child td { border-bottom: none; }
+::deep .experience-system-table code { font-size: .9em; }
+
+::deep .experience-system-callouts { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: var(--beeday-spacing-lg); }
+::deep .experience-system-callout { padding: var(--beeday-spacing-lg); border: var(--beeday-border-width) solid var(--beeday-color-border); border-radius: var(--beeday-radius-2xl); }
+::deep .experience-system-callout h3 { margin: 0 0 var(--beeday-spacing-md); }
+::deep .experience-system-callout ul { padding-left: var(--beeday-spacing-lg); }
+::deep .experience-system-callout--do { background: var(--beeday-color-success-soft); }
+::deep .experience-system-callout--avoid { background: var(--beeday-color-danger-soft); }
+::deep .experience-system-callout--info { background: var(--beeday-color-brand-primary-soft); }
+
+::deep .experience-system-swatches { display: flex; flex-wrap: wrap; gap: var(--beeday-spacing-lg); }
+::deep .experience-system-swatch { display: grid; gap: var(--beeday-spacing-xs); width: 9rem; }
+::deep .experience-system-swatch__chip { height: 4rem; border: var(--beeday-border-width-subtle) solid var(--beeday-color-border); border-radius: var(--beeday-radius-lg); }
+::deep .experience-system-swatch__name { color: var(--beeday-color-text-primary); font-weight: var(--beeday-font-weight-bold); font-size: var(--beeday-font-size-sm); }
+/* EXP32-F009 (Sprint 32.20): text-secondary for AA normal-text contrast (text-muted is ~4.26:1, below 4.5:1). */
+::deep .experience-system-swatch__value { color: var(--beeday-color-text-secondary); font-size: var(--beeday-font-size-xs); }
+
+@media (max-width: 40rem) {
+    ::deep .experience-system-callouts { grid-template-columns: 1fr; }
+}

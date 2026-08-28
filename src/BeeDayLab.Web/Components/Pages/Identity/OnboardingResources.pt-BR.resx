@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="PageTitle" xml:space="preserve"><value>Primeiros passos | beeday</value></data>
+  <data name="StepProgress" xml:space="preserve"><value>PASSO {0} DE {1}</value></data>
+  <data name="BackButton" xml:space="preserve"><value>VOLTAR</value></data>
+  <data name="NextButton" xml:space="preserve"><value>PRÓXIMO</value></data>
+  <data name="EnterBeeDayButton" xml:space="preserve"><value>ENTRAR NO beeday</value></data>
+  <data name="ToastCompleteErrorTitle" xml:space="preserve"><value>Não foi possível concluir o onboarding</value></data>
+  <data name="Slide1Eyebrow" xml:space="preserve"><value>01 — DIÁRIO</value></data>
+  <data name="Slide1Title" xml:space="preserve"><value>Seu centro de comando</value></data>
+  <data name="Slide1IconLabel" xml:space="preserve"><value>Diário</value></data>
+  <data name="Slide1Description" xml:space="preserve"><value>O Diário reúne em um só lugar as ações que fazem sua vida avançar.</value></data>
+  <data name="Slide1Item1" xml:space="preserve"><value>Revise o dia antes de começar</value></data>
+  <data name="Slide1Item2" xml:space="preserve"><value>Mantenha cada item pequeno e prático</value></data>
+  <data name="Slide1Item3" xml:space="preserve"><value>Volte ao longo do dia</value></data>
+  <data name="Slide2Eyebrow" xml:space="preserve"><value>02 — HÁBITOS</value></data>
+  <data name="Slide2Title" xml:space="preserve"><value>Construa seu ritmo</value></data>
+  <data name="Slide2IconLabel" xml:space="preserve"><value>Hábitos</value></data>
+  <data name="Slide2Description" xml:space="preserve"><value>Hábitos são comportamentos recorrentes. Registre o progresso com consistência e veja o impulso crescer.</value></data>
+  <data name="Slide2Item1" xml:space="preserve"><value>Use hábitos positivos para reforçar o progresso</value></data>
+  <data name="Slide2Item2" xml:space="preserve"><value>Use ações negativas quando a responsabilização ajudar</value></data>
+  <data name="Slide2Item3" xml:space="preserve"><value>Deixe as sequências revelarem a consistência</value></data>
+  <data name="Slide3Eyebrow" xml:space="preserve"><value>03 — TAREFAS</value></data>
+  <data name="Slide3Title" xml:space="preserve"><value>Cuide do trabalho recorrente</value></data>
+  <data name="Slide3IconLabel" xml:space="preserve"><value>Tarefas</value></data>
+  <data name="Slide3Description" xml:space="preserve"><value>Tarefas podem se repetir diária, semanal ou mensalmente e são concluídas manualmente.</value></data>
+  <data name="Slide3Item1" xml:space="preserve"><value>Escolha uma recorrência condizente com a realidade</value></data>
+  <data name="Slide3Item2" xml:space="preserve"><value>Conclua a tarefa quando o ciclo terminar</value></data>
+  <data name="Slide3Item3" xml:space="preserve"><value>Mantenha as tarefas independentes dos projetos</value></data>
+  <data name="Slide4Eyebrow" xml:space="preserve"><value>04 — PROJETOS</value></data>
+  <data name="Slide4Title" xml:space="preserve"><value>Transforme metas em progresso</value></data>
+  <data name="Slide4IconLabel" xml:space="preserve"><value>Projetos</value></data>
+  <data name="Slide4Description" xml:space="preserve"><value>Projetos representam objetivos. Suas pendências definem o trabalho e calculam a conclusão.</value></data>
+  <data name="Slide4Item1" xml:space="preserve"><value>Crie o projeto primeiro</value></data>
+  <data name="Slide4Item2" xml:space="preserve"><value>Adicione pendências específicas</value></data>
+  <data name="Slide4Item3" xml:space="preserve"><value>Conclua todas as pendências para finalizar o projeto</value></data>
+  <data name="Slide5Eyebrow" xml:space="preserve"><value>05 — PRONTO</value></data>
+  <data name="Slide5Title" xml:space="preserve"><value>Está tudo pronto</value></data>
+  <data name="Slide5IconLabel" xml:space="preserve"><value>Perfil pronto</value></data>
+  <data name="Slide5Description" xml:space="preserve"><value>Sua conta e seu perfil estão prontos. O Diário agora é seu.</value></data>
+  <data name="Slide5Item1" xml:space="preserve"><value>Comece com um hábito</value></data>
+  <data name="Slide5Item2" xml:space="preserve"><value>Adicione uma tarefa significativa</value></data>
+  <data name="Slide5Item3" xml:space="preserve"><value>Crie um projeto que seja importante para você</value></data>
+</root>

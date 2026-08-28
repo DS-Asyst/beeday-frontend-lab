@@ -1,0 +1,20 @@
+@page "/ios"
+@layout EditorialLayout
+@inject IStringLocalizer<InstitutionalResources> Localizer
+
+<PageTitle>@Localizer["IosPageTitle"]</PageTitle>
+
+@* Ported from BeeDay.Web's Components/Features/Institutional/Pages/Ios.razor (Sprint 33.11,
+   FE33-061). No App Store URL exists yet — an honest "coming soon" status page, not a placeholder
+   link. *@
+<ProductPageTemplate PageContext="@Localizer["IosPageContext"]" Title="@Localizer["IosTitle"]" Description="@Localizer["IosIntro"]" Section="EditorialSection.Apps">
+    <PrimaryAction>
+        <a class="beeday-button beeday-button--important-white" href="/profile/create">@Localizer["TryBeedayToday"]</a>
+    </PrimaryAction>
+    <ChildContent>
+        <section aria-label="@Localizer["IosTitle"]">
+            <span class="institutional-product__status">@Localizer["IosStatus"]</span>
+            <p>@Localizer["IosBody"]</p>
+        </section>
+    </ChildContent>
+</ProductPageTemplate>

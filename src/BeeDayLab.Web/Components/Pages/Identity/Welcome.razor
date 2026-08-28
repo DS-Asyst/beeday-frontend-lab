@@ -1,0 +1,26 @@
+@page "/welcome"
+@layout OnboardingLayout
+@inject NavigationManager Navigation
+@inject IStringLocalizer<ProfileCreationResources> Localizer
+
+@* Lab COPY (Sprint 33.12, FE33-078) of BeeDay.Web's
+   Components/Features/ProfileCreation/Pages/Welcome.razor — an unlinked compatibility route that
+   simply force-redirects to /login, no service dependency. @attribute [AllowAnonymous] dropped, same
+   reasoning as every other Lab page. *@
+
+<PageTitle>@Localizer["RedirectingToLoginTitle"]</PageTitle>
+
+<div class="entry-loading" role="status" aria-live="polite">
+    <span>beeday</span>
+    <p>@Localizer["RedirectingToLoginMessage"]</p>
+</div>
+
+@code {
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (firstRender)
+        {
+            Navigation.NavigateTo("/login", forceLoad: true, replace: true);
+        }
+    }
+}

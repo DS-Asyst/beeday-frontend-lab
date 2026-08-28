@@ -1,0 +1,85 @@
+@using BeeDayLab.Web.Components.Pages.Wallet.Models
+@inject IStringLocalizer<WalletResources> Localizer
+
+@if (IsOpen)
+{
+    <EditorModalShell Model="Model"
+                      Title="@(IsEditing ? Localizer["EditTagTitle"] : Localizer["CreateTagTitle"])"
+                      TitleId="tag-editor-title"
+                      SubmitLabel="@(IsEditing ? Localizer["SaveButtonLabel"] : Localizer["CreateButtonLabel"])"
+                      ShowDelete="IsEditing"
+                      IsBusy="IsBusy"
+                      ErrorMessage="@ErrorMessage"
+                      OnSubmit="SaveAsync"
+                      OnCancel="CancelAsync"
+                      OnDelete="DeleteAsync">
+        <HeroContent>
+            <div class="editor-modal__hero">
+                <BeeDayInput Id="tag-name"
+                              Label="@Localizer["NameLabel"]"
+                              Required="true"
+                              @bind-Value="Model.Name"
+                              Placeholder="@Localizer["NamePlaceholder"]"
+                              MaxLength="40"
+                              FieldCssClass="editor-modal__hero-field"
+                              LabelCssClass="editor-modal__label-line"
+                              autofocus />
+            </div>
+        </HeroContent>
+        <BodyContent>
+            <div class="editor-modal__body">
+                <div class="editor-modal__type-summary">
+                    <BeeDayIcon Name="BeeDayIconName.Tag" Size="BeeDayIconSize.Large" Class="editor-modal__type-icon" Decorative="true" />
+                    <div>
+                        <strong>@Localizer["TagSummaryHeading"]</strong>
+                        <p>@Localizer["TagSummaryDescription"]</p>
+                    </div>
+                </div>
+                <fieldset class="editor-modal__field wallet-color-field">
+                    <legend>@Localizer["ColorLabel"]</legend>
+                    <div class="wallet-color-swatches" role="radiogroup" aria-label="@Localizer["ColorLabel"]">
+                        @foreach (var swatch in ColorSwatches)
+                        {
+                            var isSelected = string.Equals(Model.Color, swatch.Hex, StringComparison.OrdinalIgnoreCase);
+                            <button type="button"
+                                    class="wallet-color-swatch @(isSelected ? "wallet-color-swatch--selected" : null) @(swatch.Token.IsWhiteForeground() ? "wallet-color-swatch--white-check" : "wallet-color-swatch--dark-check")"
+                                    style="background:@swatch.Hex"
+                                    role="radio"
+                                    aria-checked="@(isSelected ? "true" : "false")"
+                                    aria-label="@Localizer["TagColorSwatchLabel", swatch.Index]"
+                                    disabled="@IsBusy"
+                                    @onclick="() => SelectColor(swatch.Hex)">
+                                @if (isSelected)
+                                {
+                                    <BeeDayIcon Name="BeeDayIconName.Complete" Size="BeeDayIconSize.Small" Class="wallet-color-swatch__check" Decorative="false" Label="@Localizer["TagColorSelectedLabel"]" />
+                                }
+                            </button>
+                        }
+                    </div>
+                    <BeeDayValidationMessage For="@(() => Model.Color)" />
+                </fieldset>
+            </div>
+        </BodyContent>
+    </EditorModalShell>
+}
+
+@code {
+    [Parameter] public bool IsOpen { get; set; }
+    [Parameter] public bool IsEditing { get; set; }
+    [Parameter] public bool IsBusy { get; set; }
+    [Parameter] public string? ErrorMessage { get; set; }
+    [Parameter, EditorRequired] public WalletTagFormModel Model { get; set; } = new();
+    [Parameter] public EventCallback OnSave { get; set; }
+    [Parameter] public EventCallback OnCancel { get; set; }
+    [Parameter] public EventCallback OnDeleteRequested { get; set; }
+
+    private static readonly IReadOnlyList<(BeeDayPaletteToken Token, string Hex, int Index)> ColorSwatches =
+        Enum.GetValues<BeeDayPaletteToken>()
+            .Select((token, position) => (token, token.ToHexColor(), position + 1))
+            .ToArray();
+
+    private Task SaveAsync() => IsBusy ? Task.CompletedTask : OnSave.InvokeAsync();
+    private Task CancelAsync() => IsBusy ? Task.CompletedTask : OnCancel.InvokeAsync();
+    private Task DeleteAsync() => IsBusy ? Task.CompletedTask : OnDeleteRequested.InvokeAsync();
+    private void SelectColor(string hex) { if (!IsBusy) Model.Color = hex; }
+}

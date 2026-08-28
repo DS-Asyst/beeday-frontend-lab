@@ -1,0 +1,243 @@
+@page "/daily"
+@rendermode InteractiveServer
+@using BeeDayLab.Web.Scenarios
+@using BeeDayLab.Web.Components.Pages.Daily.Components
+@using BeeDayLab.Web.Components.Pages.Daily.State
+@using BeeDayLab.Web.Components.Pages.Daily.Habits.Components
+@using BeeDayLab.Web.Components.Pages.Daily.Tasks.Components
+@using BeeDayLab.Web.Components.Pages.Daily.Todos.Components
+@using BeeDayLab.Web.Components.Pages.Daily.Projects.Components
+@using BeeDayLab.Web.Components.Pages.Daily.Experience.Feedback
+@inject LabDashboardState State
+@inject IStringLocalizer<DashboardResources> Localizer
+
+@* Lab adaptation (Sprint 33.13, FE33-090) of BeeDay.Web's
+   Components/Features/Dashboard/Pages/Home.razor(.cs) — the densest page in this Sprint.
+
+   Renamed from Home to DailyHome: the Lab already routes a Pages/Public/Home.razor (Sprint 33.11),
+   and two Razor components named Home would collide the moment both namespaces are in scope. The
+   route itself is unchanged ("/daily"), which is what parity actually depends on.
+
+   Dropped entirely (EXCLUDE, real auth/Domain infrastructure with no Lab equivalent):
+   @attribute [Authorize]; the AuthenticatedUserInitializer injection and its
+   EnsureInitializedAsync() call; and the whole !State.HasProfile branch in Home.razor.cs, which
+   probed GetDataAsync() and redirected to /profile/create or /login depending on whether a real
+   InvalidDomainStateException came back. The Lab has no account, so there is nothing to probe.
+
+   State comes from LabDashboardState (Scoped), which seeds itself once from
+   DailyDashboardScenarioProvider instead of BeeDayWebService.LoadDashboardAsync. Everything the
+   markup below reads — the four filtered collections, the counts, the filtered-to-zero flags, the
+   formatters — is the ported, verbatim client-side logic from production's DashboardState.
+
+   Lab addition: the IsUnavailable branch. Production's /daily has no error surface of its own
+   (DashboardState's catch-block sets IsUnavailable but only /profile renders it), yet Issue #374
+   item 2 requires this surface to demonstrate an error state. It reuses the exact warning-card
+   markup DashboardHome.razor already uses for the same condition, so nothing is redesigned. *@
+
+<PageTitle>@Localizer["DailyPageTitle"]</PageTitle>
+
+@if (State.IsLoading)
+{
+    <BeeDayDashboardSkeleton AriaLabel="@Localizer["LoadingDashboardAriaLabel"]" />
+}
+else if (State.IsUnavailable)
+{
+    <section class="dashboard-page" aria-labelledby="daily-unavailable-heading">
+        <BeeDayCard Padded="true" Class="product-home__status" role="status">
+            <BeeDayIcon Name="BeeDayIconName.Warning" Size="BeeDayIconSize.Large" Color="BeeDayIconColor.Warning" />
+            <div>
+                <strong id="daily-unavailable-heading">@Localizer["ProfileUnavailableHeading"]</strong>
+                <p>@Localizer["ProfileUnavailableDescription"]</p>
+            </div>
+        </BeeDayCard>
+    </section>
+}
+else if (State.HasProfile)
+{
+    <section class="dashboard-page beeday-fade-in">
+        <h1 class="beeday-visually-hidden">@Localizer["DailyHeading"]</h1>
+        <div class="dashboard-page__content">
+            <ActivityFilterBar Value="@State.Search"
+                               ValueChanged="@(value => State.Search = value)"
+                               OnCreate="State.OpenCreate" />
+            <div class="dashboard-grid">
+                @{ var habits = State.FilteredHabits.ToList(); }
+                <DashboardColumn Title="@Localizer["HabitsColumnTitle"]"
+                                 EmptyTitle="@(State.HabitsFilteredToZero ? Localizer["NoFilterResultsTitle"] : Localizer["HabitsEmptyTitle"])"
+                                 EmptyDescription="@(State.HabitsFilteredToZero ? Localizer["NoFilterResultsDescription"] : Localizer["HabitsEmptyDescription"])"
+                                 ShowClearFilterAction="@State.HabitsFilteredToZero"
+                                 OnClearFilter="State.ClearFilters"
+                                 EmptyIcon="BeeDayIconName.Habit"
+                                 SingularLabel="@Localizer["HabitSingular"]"
+                                 ActiveStateLabel="@Localizer["HabitsActiveStateLabel"]"
+                                 ActiveCount="@habits.Count"
+                                 ShowCompletedSection="false"
+                                 ShowCreateButton="false"
+                                 OnCreate="@(() => State.OpenCreate(DailyActivityType.Habit))">
+                    <ActiveContent>
+                        <BeeDaySortable ItemIds="@habits.Select(item => item.Id).ToList()"
+                                        CollectionKey="habits"
+                                        AriaLabel="@Localizer["ReorderHabitsAriaLabel"]"
+                                        ItemAriaLabel="@Localizer["ReorderItemAriaLabel"]"
+                                        RemovingItemId="@State.RemovingItemId"
+                                        OnReorder="State.ReorderHabitsAsync">
+                            <ItemTemplate Context="itemId">
+                                @{ var item = habits.First(candidate => candidate.Id == itemId); }
+                                <HabitCard Title="@item.Title" Description="@item.Description" Direction="@item.Direction" PositiveCount="@item.PositiveCount" NegativeCount="@item.NegativeCount" Featured="@item.Featured" SearchTerm="@State.Search" OnPositive="@(() => State.RegisterPositiveAsync(item.Id))" OnNegative="@(() => State.RegisterNegativeAsync(item.Id))" OnEdit="@(() => State.OpenHabitEditor(item))" />
+                            </ItemTemplate>
+                        </BeeDaySortable>
+                    </ActiveContent>
+                </DashboardColumn>
+
+                @{
+                    var filteredTasks = State.FilteredTasks.ToList();
+                    var activeTasks = filteredTasks.Where(item => !item.Completed).ToList();
+                    var completedTasks = filteredTasks.Where(item => item.Completed).ToList();
+                }
+                <DashboardColumn Title="@Localizer["TasksColumnTitle"]"
+                                 EmptyTitle="@(State.ActiveTasksFilteredToZero ? Localizer["NoFilterResultsTitle"] : Localizer["TasksEmptyTitle"])"
+                                 EmptyDescription="@(State.ActiveTasksFilteredToZero ? Localizer["NoFilterResultsDescription"] : Localizer["TasksEmptyDescription"])"
+                                 ShowClearFilterAction="@State.ActiveTasksFilteredToZero"
+                                 OnClearFilter="State.ClearFilters"
+                                 EmptyIcon="BeeDayIconName.RecurringTask"
+                                 SingularLabel="@Localizer["TaskSingular"]"
+                                 ActiveStateLabel="@Localizer["TasksActiveStateLabel"]"
+                                 CompletedStateLabel="@Localizer["TasksCompletedStateLabel"]"
+                                 ShowActiveAriaLabel="@Localizer["TasksShowActiveAriaLabel"]"
+                                 ShowCompletedAriaLabel="@Localizer["TasksShowCompletedAriaLabel"]"
+                                 CompletedEmptyTitle="@Localizer["TasksCompletedEmptyTitle"]"
+                                 CompletedEmptyDescription="@Localizer["TasksCompletedEmptyDescription"]"
+                                 ActiveCount="@activeTasks.Count"
+                                 CompletedCount="@completedTasks.Count"
+                                 ShowCreateButton="false"
+                                 OnCreate="@(() => State.OpenCreate(DailyActivityType.Task))">
+                    <ActiveContent>
+                        <BeeDaySortable ItemIds="@activeTasks.Select(item => item.Id).ToList()"
+                                        CollectionKey="tasks"
+                                        AriaLabel="@Localizer["ReorderActiveTasksAriaLabel"]"
+                                        ItemAriaLabel="@Localizer["ReorderItemAriaLabel"]"
+                                        RemovingItemId="@State.RemovingItemId"
+                                        OnReorder="State.ReorderTasksAsync">
+                            <ItemTemplate Context="itemId">
+                                @{ var item = activeTasks.First(candidate => candidate.Id == itemId); }
+                                <ActivityCard Title="@item.Title" Description="@item.Description" Meta="@State.FormatRepeat(item.Repeat)" Variant="task" Completed="false" Featured="@item.Featured" SearchTerm="@State.Search" OnToggle="@(() => State.ToggleTaskAsync(item.Id))" OnEdit="@(() => State.OpenTaskEditor(item))" />
+                            </ItemTemplate>
+                        </BeeDaySortable>
+                    </ActiveContent>
+                    <CompletedContent>
+                        @foreach (var item in completedTasks)
+                        {
+                            <ActivityCard @key="item.Id" Title="@item.Title" Description="@item.Description" Meta="@State.FormatRepeat(item.Repeat)" Variant="task" Completed="true" Featured="@item.Featured" SearchTerm="@State.Search" OnToggle="@(() => State.ToggleTaskAsync(item.Id))" OnEdit="@(() => State.OpenTaskEditor(item))" />
+                        }
+                    </CompletedContent>
+                </DashboardColumn>
+
+                @{
+                    var filteredTodos = State.FilteredTodos.ToList();
+                    var activeTodos = filteredTodos.Where(item => !item.Completed).ToList();
+                    var completedTodos = filteredTodos.Where(item => item.Completed).ToList();
+                }
+                <DashboardColumn Title="@Localizer["TodosColumnTitle"]"
+                                 EmptyTitle="@(State.ActiveTodosFilteredToZero ? Localizer["NoFilterResultsTitle"] : Localizer["TodosEmptyTitle"])"
+                                 EmptyDescription="@(State.ActiveTodosFilteredToZero ? Localizer["NoFilterResultsDescription"] : Localizer["TodosEmptyDescription"])"
+                                 ShowClearFilterAction="@State.ActiveTodosFilteredToZero"
+                                 OnClearFilter="State.ClearFilters"
+                                 EmptyIcon="BeeDayIconName.Todo"
+                                 SingularLabel="@Localizer["TodoSingular"]"
+                                 ActiveStateLabel="@Localizer["TodosActiveStateLabel"]"
+                                 CompletedStateLabel="@Localizer["TodosCompletedStateLabel"]"
+                                 ShowActiveAriaLabel="@Localizer["TodosShowActiveAriaLabel"]"
+                                 ShowCompletedAriaLabel="@Localizer["TodosShowCompletedAriaLabel"]"
+                                 CompletedEmptyTitle="@Localizer["TodosCompletedEmptyTitle"]"
+                                 CompletedEmptyDescription="@Localizer["TodosCompletedEmptyDescription"]"
+                                 ActiveCount="@activeTodos.Count"
+                                 CompletedCount="@completedTodos.Count"
+                                 ShowCreateButton="false">
+                    <ActiveContent>
+                        <BeeDaySortable ItemIds="@activeTodos.Select(item => item.Id).ToList()"
+                                        CollectionKey="todos"
+                                        AriaLabel="@Localizer["ReorderActiveTodosAriaLabel"]"
+                                        ItemAriaLabel="@Localizer["ReorderItemAriaLabel"]"
+                                        RemovingItemId="@State.RemovingItemId"
+                                        OnReorder="State.ReorderTodosAsync">
+                            <ItemTemplate Context="itemId">
+                                @{ var item = activeTodos.First(candidate => candidate.Id == itemId); }
+                                <ActivityCard Title="@item.Title" Description="@item.Description" Meta="@State.FormatDueDate(item.DueDate)" Variant="todo" Completed="false" Featured="@item.Featured" SearchTerm="@State.Search" OnToggle="@(() => State.ToggleTodoAsync(item.Id))" OnEdit="@(() => State.OpenTodoEditor(item))" />
+                            </ItemTemplate>
+                        </BeeDaySortable>
+                    </ActiveContent>
+                    <CompletedContent>
+                        @foreach (var item in completedTodos)
+                        {
+                            <ActivityCard @key="item.Id" Title="@item.Title" Description="@item.Description" Meta="@State.FormatDueDate(item.DueDate)" Variant="todo" Completed="true" Featured="@item.Featured" SearchTerm="@State.Search" OnToggle="@(() => State.ToggleTodoAsync(item.Id))" OnEdit="@(() => State.OpenTodoEditor(item))" />
+                        }
+                    </CompletedContent>
+                </DashboardColumn>
+
+                @{
+                    var filteredProjects = State.FilteredProjects.ToList();
+                    var activeProjects = filteredProjects.Where(item => !item.Completed).ToList();
+                    var completedProjects = filteredProjects.Where(item => item.Completed).ToList();
+                }
+                <DashboardColumn Title="@Localizer["ProjectsColumnTitle"]"
+                                 EmptyTitle="@(State.ActiveProjectsFilteredToZero ? Localizer["NoFilterResultsTitle"] : Localizer["ProjectsEmptyTitle"])"
+                                 EmptyDescription="@(State.ActiveProjectsFilteredToZero ? Localizer["NoFilterResultsDescription"] : Localizer["ProjectsEmptyDescription"])"
+                                 ShowClearFilterAction="@State.ActiveProjectsFilteredToZero"
+                                 OnClearFilter="State.ClearFilters"
+                                 EmptyIcon="BeeDayIconName.Project"
+                                 SingularLabel="@Localizer["ProjectSingular"]"
+                                 ActiveStateLabel="@Localizer["ProjectsActiveStateLabel"]"
+                                 CompletedStateLabel="@Localizer["ProjectsCompletedStateLabel"]"
+                                 ShowActiveAriaLabel="@Localizer["ProjectsShowActiveAriaLabel"]"
+                                 ShowCompletedAriaLabel="@Localizer["ProjectsShowCompletedAriaLabel"]"
+                                 CompletedEmptyTitle="@Localizer["ProjectsCompletedEmptyTitle"]"
+                                 CompletedEmptyDescription="@Localizer["ProjectsCompletedEmptyDescription"]"
+                                 ActiveCount="@activeProjects.Count"
+                                 CompletedCount="@completedProjects.Count"
+                                 ShowCreateButton="false"
+                                 OnCreate="@(() => State.OpenCreate(DailyActivityType.Project))">
+                    <HeaderContent>
+                        <ProjectContextFilter Projects="@State.ProjectContextOptions"
+                                              SelectedProjectId="@State.SelectedProjectId"
+                                              SelectedProjectIdChanged="State.SelectProjectContext" />
+                    </HeaderContent>
+                    <ActiveContent>
+                        <BeeDaySortable ItemIds="@activeProjects.Select(item => item.Id).ToList()"
+                                        CollectionKey="projects"
+                                        AriaLabel="@Localizer["ReorderActiveProjectsAriaLabel"]"
+                                        ItemAriaLabel="@Localizer["ReorderItemAriaLabel"]"
+                                        RemovingItemId="@State.RemovingItemId"
+                                        OnReorder="State.ReorderProjectsAsync">
+                            <ItemTemplate Context="itemId">
+                                @{ var item = activeProjects.First(candidate => candidate.Id == itemId); }
+                                <ActivityCard Title="@item.Name" Description="@item.Description" Meta="@($"{State.FormatProjectStatus(item.Status)} · {item.ProgressPercentage:0.##}%")" Variant="project" Completed="false" Featured="@item.Featured" SearchTerm="@State.Search" OnEdit="@(() => State.OpenProjectEditor(item))" />
+                            </ItemTemplate>
+                        </BeeDaySortable>
+                    </ActiveContent>
+                    <CompletedContent>
+                        @foreach (var item in completedProjects)
+                        {
+                            <ActivityCard @key="item.Id" Title="@item.Name" Description="@item.Description" Meta="@($"{State.FormatProjectStatus(item.Status)} · {item.ProgressPercentage:0.##}%")" Variant="project" Completed="true" Featured="@item.Featured" SearchTerm="@State.Search" OnEdit="@(() => State.OpenProjectEditor(item))" />
+                        }
+                    </CompletedContent>
+                </DashboardColumn>
+            </div>
+        </div>
+    </section>
+
+    @if (State.OpenProject is not null)
+    {
+        <ProjectWorkspace Project="State.OpenProject"
+                          OnClose="State.CloseProjectWorkspace"
+                          OnAddTodo="State.OpenTodoForProject"
+                          OnToggleTodo="@(todo => State.ToggleTodoAsync(todo.Id))" />
+    }
+
+    @if (State.Modals.IsHabitEditorOpen) { <HabitEditorModal Model="State.Modals.HabitForm" IsEditing="State.Modals.IsEditing" FallbackFocusSelector=".filter-bar__create-button" OnSave="State.SaveHabitAsync" OnCancel="State.CloseEditor" OnDelete="State.DeleteCurrentHabitAsync" /> }
+    @if (State.Modals.IsTaskEditorOpen) { <TaskEditorModal Model="State.Modals.TaskForm" IsEditing="State.Modals.IsEditing" FallbackFocusSelector=".filter-bar__create-button" OnSave="State.SaveTaskAsync" OnCancel="State.CloseEditor" OnDelete="State.DeleteCurrentTaskAsync" /> }
+    @if (State.Modals.IsTodoEditorOpen) { <TodoEditorModal Model="State.Modals.TodoForm" Projects="@State.Projects" IsEditing="State.Modals.IsEditing" FallbackFocusSelector=".filter-bar__create-button" OnSave="State.SaveTodoAsync" OnCancel="State.CloseEditor" OnDelete="State.DeleteCurrentTodoAsync" /> }
+    @if (State.Modals.IsProjectEditorOpen) { <ProjectEditorModal Model="State.Modals.ProjectForm" IsEditing="State.Modals.IsEditing" FallbackFocusSelector=".filter-bar__create-button" OnSave="State.SaveProjectAsync" OnCancel="State.CloseEditor" OnDelete="State.DeleteCurrentProjectAsync" OnOpenProject="State.OpenProjectFromEditor" /> }
+
+    <BeeDayLoading IsVisible="State.IsBusy" />
+    <BeeDayFeedbackHost />
+}

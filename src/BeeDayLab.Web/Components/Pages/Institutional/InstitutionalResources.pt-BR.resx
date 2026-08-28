@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+
+  <data name="AboutUsEyebrow" xml:space="preserve"><value>SOBRE NÓS</value></data>
+  <data name="ProductsEyebrow" xml:space="preserve"><value>PRODUTOS</value></data>
+  <data name="AppsEyebrow" xml:space="preserve"><value>APLICATIVOS</value></data>
+  <data name="HelpEyebrow" xml:space="preserve"><value>AJUDA E SUPORTE</value></data>
+  <data name="LegalEyebrow" xml:space="preserve"><value>PRIVACIDADE E TERMOS</value></data>
+
+  <data name="MissionPageContext" xml:space="preserve"><value>Missão</value></data>
+  <data name="MissionPageTitle" xml:space="preserve"><value>Nossa missão — beeday</value></data>
+  <data name="MissionTitle" xml:space="preserve"><value>Nossa missão</value></data>
+  <data name="MissionIntro" xml:space="preserve"><value>Seja melhor a cada dia. O beeday existe para ajudar pessoas a transformar intenção em progresso — um pequeno passo de cada vez.</value></data>
+  <data name="MissionStory1Headline" xml:space="preserve"><value>consistência. não perfeição.</value></data>
+  <data name="MissionStory1Body" xml:space="preserve"><value>Acreditamos que mudanças duradouras não nascem da intensidade de um único dia, mas da continuidade de pequenas ações ao longo do tempo.</value></data>
+  <data name="MissionStory2Headline" xml:space="preserve"><value>progresso que você consegue ver.</value></data>
+  <data name="MissionStory2Body" xml:space="preserve"><value>Hábitos, tarefas, projetos e finanças pessoais ficam juntos para que o seu desenvolvimento continue visível, organizado e possível de acompanhar.</value></data>
+  <data name="MissionStory3Headline" xml:space="preserve"><value>tudo em um só lugar.</value></data>
+  <data name="MissionStory3Body" xml:space="preserve"><value>O beeday conecta rotina, objetivos e organização pessoal em uma experiência simples, para que você gaste menos energia tentando controlar tudo e mais energia avançando.</value></data>
+  <data name="MissionStory4Headline" xml:space="preserve"><value>o controle continua com você.</value></data>
+  <data name="MissionStory4Body" xml:space="preserve"><value>O beeday não existe para decidir por você. Ele existe para apoiar suas escolhas, dar clareza ao seu progresso e tornar o próximo passo mais fácil de enxergar.</value></data>
+  <data name="MissionClosingStatement" xml:space="preserve"><value>não se trata de fazer tudo. trata-se de continuar avançando.</value></data>
+
+  <data name="EfficacyPageContext" xml:space="preserve"><value>Eficácia</value></data>
+  <data name="EfficacyPageTitle" xml:space="preserve"><value>Eficácia — beeday</value></data>
+  <data name="EfficacyTitle" xml:space="preserve"><value>Eficácia</value></data>
+  <data name="EfficacyIntro" xml:space="preserve"><value>Como o beeday busca ajudar as pessoas a construir hábitos melhores.</value></data>
+  <data name="EfficacyBodyTitle" xml:space="preserve"><value>Nossas evidências atuais</value></data>
+  <data name="EfficacyBody" xml:space="preserve"><value>O beeday é construído em torno de uma ideia simples: pequenas ações mensuráveis se acumulam em progresso real ao longo do tempo. Ainda não publicamos estudos independentes ou métricas de uso sobre a eficácia do beeday. Esta página será atualizada com evidências reais assim que estiverem disponíveis — não publicaremos resultados que não possamos sustentar.</value></data>
+  <data name="EfficacyPendingEvidenceTitle" xml:space="preserve"><value>O que vamos publicar aqui</value></data>
+  <data name="EfficacyPendingEvidenceBody" xml:space="preserve"><value>Nenhum estudo, pesquisa ou métrica de uso sobre a eficácia do beeday está publicado ainda. Esta seção está reservada para essas evidências quando existirem — não para afirmações que não possamos sustentar.</value></data>
+
+  <data name="ContactPageContext" xml:space="preserve"><value>Fale conosco</value></data>
+  <data name="ContactPageTitle" xml:space="preserve"><value>Fale conosco — beeday</value></data>
+  <data name="ContactTitle" xml:space="preserve"><value>Fale conosco</value></data>
+  <data name="ContactIntro" xml:space="preserve"><value>Entre em contato sobre o beeday — feedback de produto, relato de bugs ou qualquer outro assunto.</value></data>
+  <data name="ContactSupportTitle" xml:space="preserve"><value>Feedback e suporte de produto</value></data>
+  <data name="ContactSupportBody" xml:space="preserve"><value>A forma mais rápida de relatar um bug ou solicitar um recurso é pelo nosso repositório no GitHub.</value></data>
+  <data name="ContactSupportLinkLabel" xml:space="preserve"><value>Abrir uma issue no GitHub</value></data>
+  <data name="ContactDirectTitle" xml:space="preserve"><value>Fale diretamente conosco</value></data>
+  <data name="ContactDirectBody" xml:space="preserve"><value>Para qualquer outro assunto, você pode falar com a equipe pelo LinkedIn.</value></data>
+  <data name="ContactDirectLinkLabel" xml:space="preserve"><value>Conectar no LinkedIn</value></data>
+
+  <data name="ProductPageContext" xml:space="preserve"><value>beeday</value></data>
+  <data name="ProductPageTitle" xml:space="preserve"><value>beeday — hábitos, tarefas, projetos e dinheiro em um só lugar</value></data>
+  <data name="ProductTitle" xml:space="preserve"><value>beeday</value></data>
+  <data name="ProductIntro" xml:space="preserve"><value>Um companheiro de produtividade pessoal com gamificação leve e controle de finanças pessoais.</value></data>
+  <data name="ProductFeaturesTitle" xml:space="preserve"><value>O que você tem</value></data>
+  <data name="ProductFeatureDailyTitle" xml:space="preserve"><value>Daily</value></data>
+  <data name="ProductFeatureDailyBody" xml:space="preserve"><value>Organize Hábitos, Tarefas recorrentes, To-Dos e Projetos em uma única visão diária.</value></data>
+  <data name="ProductFeatureWalletTitle" xml:space="preserve"><value>Wallet</value></data>
+  <data name="ProductFeatureWalletBody" xml:space="preserve"><value>Acompanhe transações, tags e filtros das suas finanças pessoais junto com o seu dia.</value></data>
+  <data name="ProductFeatureProgressTitle" xml:space="preserve"><value>Progresso</value></data>
+  <data name="ProductFeatureProgressBody" xml:space="preserve"><value>Uma curva de experiência leve e feedback de level-up mantêm a consistência visível — sem mecânicas de RPG.</value></data>
+  <data name="ProductGetStarted" xml:space="preserve"><value>Comece agora</value></data>
+  <data name="TryBeedayToday" xml:space="preserve"><value>Experimente o beeday hoje</value></data>
+
+  <data name="ProductPlusPageContext" xml:space="preserve"><value>beeday Plus</value></data>
+  <data name="ProductPlusPageTitle" xml:space="preserve"><value>beeday Plus</value></data>
+  <data name="ProductPlusTitle" xml:space="preserve"><value>beeday Plus</value></data>
+  <data name="ProductPlusIntro" xml:space="preserve"><value>Um plano premium do beeday em breve.</value></data>
+  <data name="ProductPlusStatus" xml:space="preserve"><value>Em breve</value></data>
+  <data name="ProductPlusBody" xml:space="preserve"><value>O beeday Plus ainda não está disponível. Quando for lançado, esta página descreverá o que ele inclui, como funciona e como assiná-lo. O beeday continua totalmente utilizável hoje — o Plus será um complemento, não um requisito.</value></data>
+
+  <data name="AndroidPageContext" xml:space="preserve"><value>beeday para Android</value></data>
+  <data name="AndroidPageTitle" xml:space="preserve"><value>beeday para Android</value></data>
+  <data name="AndroidTitle" xml:space="preserve"><value>beeday para Android</value></data>
+  <data name="AndroidIntro" xml:space="preserve"><value>Um aplicativo nativo do beeday para Android.</value></data>
+  <data name="AndroidStatus" xml:space="preserve"><value>Em breve</value></data>
+  <data name="AndroidBody" xml:space="preserve"><value>O beeday para Android ainda não foi publicado. O beeday já é totalmente utilizável hoje pelo navegador do celular — vamos linkar aqui a página na Play Store assim que estiver disponível.</value></data>
+
+  <data name="IosPageContext" xml:space="preserve"><value>beeday para iOS</value></data>
+  <data name="IosPageTitle" xml:space="preserve"><value>beeday para iOS</value></data>
+  <data name="IosTitle" xml:space="preserve"><value>beeday para iOS</value></data>
+  <data name="IosIntro" xml:space="preserve"><value>Um aplicativo nativo do beeday para iOS.</value></data>
+  <data name="IosStatus" xml:space="preserve"><value>Em breve</value></data>
+  <data name="IosBody" xml:space="preserve"><value>O beeday para iOS ainda não foi publicado. O beeday já é totalmente utilizável hoje pelo navegador do celular — vamos linkar aqui a página na App Store assim que estiver disponível.</value></data>
+
+  <data name="FaqsPageContext" xml:space="preserve"><value>Perguntas frequentes</value></data>
+  <data name="FaqsPageTitle" xml:space="preserve"><value>Perguntas frequentes do beeday</value></data>
+  <data name="FaqsTitle" xml:space="preserve"><value>Perguntas frequentes do beeday</value></data>
+  <data name="FaqsIntro" xml:space="preserve"><value>Respostas para as perguntas mais comuns sobre o uso do beeday.</value></data>
+  <data name="FaqsQ1Question" xml:space="preserve"><value>O que é o beeday?</value></data>
+  <data name="FaqsQ1Answer" xml:space="preserve"><value>O beeday é um aplicativo de produtividade pessoal com gamificação leve e controle de finanças pessoais. Ele ajuda você a organizar hábitos, tarefas, projetos e dinheiro em uma única experiência.</value></data>
+  <data name="FaqsQ2Question" xml:space="preserve"><value>O que eu posso acompanhar no beeday?</value></data>
+  <data name="FaqsQ2Answer" xml:space="preserve"><value>Hábitos, tarefas recorrentes, to-dos, projetos e sua Wallet pessoal — transações, tags e filtros.</value></data>
+  <data name="FaqsQ3Question" xml:space="preserve"><value>O beeday está disponível no celular?</value></data>
+  <data name="FaqsQ3Answer" xml:space="preserve"><value>Sim. O aplicativo web do beeday é totalmente responsivo e já funciona pelo navegador do celular hoje; aplicativos nativos para Android e iOS estão a caminho.</value></data>
+  <data name="FaqsQ4Question" xml:space="preserve"><value>Onde posso obter ajuda ou relatar um problema?</value></data>
+  <data name="FaqsQ4AnswerLeadIn" xml:space="preserve"><value>Visite nossa página</value></data>
+  <data name="FaqsQ4ContactLinkLabel" xml:space="preserve"><value>Fale conosco</value></data>
+  <data name="FaqsQ4AnswerTrailer" xml:space="preserve"><value>para canais de suporte e feedback.</value></data>
+
+  <data name="CommunityGuidelinesPageContext" xml:space="preserve"><value>Diretrizes da comunidade</value></data>
+  <data name="CommunityGuidelinesPageTitle" xml:space="preserve"><value>Diretrizes da comunidade — beeday</value></data>
+  <data name="CommunityGuidelinesTitle" xml:space="preserve"><value>Diretrizes da comunidade</value></data>
+  <data name="CommunityGuidelinesIntro" xml:space="preserve"><value>Expectativas para qualquer pessoa que interage com o beeday e sua comunidade.</value></data>
+  <data name="CommunityGuidelinesTocTitle" xml:space="preserve"><value>Seções</value></data>
+  <data name="CommunityGuidelinesSection1" xml:space="preserve"><value>Conduta respeitosa</value></data>
+  <data name="CommunityGuidelinesSection2" xml:space="preserve"><value>Comportamento proibido</value></data>
+  <data name="CommunityGuidelinesSection3" xml:space="preserve"><value>Como relatar problemas</value></data>
+  <data name="CommunityGuidelinesSection4" xml:space="preserve"><value>Aplicação das diretrizes</value></data>
+
+  <data name="TermsPageContext" xml:space="preserve"><value>Termos</value></data>
+  <data name="TermsPageTitle" xml:space="preserve"><value>Termos — beeday</value></data>
+  <data name="TermsTitle" xml:space="preserve"><value>Termos de uso</value></data>
+  <data name="TermsIntro" xml:space="preserve"><value>Os termos que regem o uso do beeday.</value></data>
+  <data name="TermsTocTitle" xml:space="preserve"><value>Seções</value></data>
+  <data name="TermsSection1" xml:space="preserve"><value>Aceitação destes termos</value></data>
+  <data name="TermsSection2" xml:space="preserve"><value>Uso do beeday</value></data>
+  <data name="TermsSection3" xml:space="preserve"><value>Sua conta</value></data>
+  <data name="TermsSection4" xml:space="preserve"><value>Encerramento</value></data>
+  <data name="TermsSection5" xml:space="preserve"><value>Alterações a estes termos</value></data>
+
+  <data name="PrivacyPageContext" xml:space="preserve"><value>Privacidade</value></data>
+  <data name="PrivacyPageTitle" xml:space="preserve"><value>Privacidade — beeday</value></data>
+  <data name="PrivacyTitle" xml:space="preserve"><value>Política de privacidade</value></data>
+  <data name="PrivacyIntro" xml:space="preserve"><value>Como o beeday trata seus dados.</value></data>
+  <data name="PrivacyTocTitle" xml:space="preserve"><value>Seções</value></data>
+  <data name="PrivacySection1" xml:space="preserve"><value>Informações que coletamos</value></data>
+  <data name="PrivacySection2" xml:space="preserve"><value>Como usamos suas informações</value></data>
+  <data name="PrivacySection3" xml:space="preserve"><value>Armazenamento e segurança dos dados</value></data>
+  <data name="PrivacySection4" xml:space="preserve"><value>Suas escolhas e direitos</value></data>
+  <data name="PrivacySection5" xml:space="preserve"><value>Contato</value></data>
+
+  <data name="LegalPendingReview" xml:space="preserve"><value>O texto jurídico completo deste documento está em revisão e ainda não foi publicado. A estrutura abaixo reflete as seções que ele abordará.</value></data>
+
+  <data name="BrandGuidelinesPageContext" xml:space="preserve"><value>Diretrizes de marca</value></data>
+  <data name="BrandGuidelinesPageTitle" xml:space="preserve"><value>Diretrizes de marca — beeday</value></data>
+  <data name="BrandGuidelinesTitle" xml:space="preserve"><value>Diretrizes de marca</value></data>
+  <data name="BrandGuidelinesIntro" xml:space="preserve"><value>O nome, a cor e a voz do beeday — documentados em um só lugar, sempre sincronizados com o produto.</value></data>
+  <data name="BrandGuidelinesIdentityBody" xml:space="preserve"><value>beeday é escrito sempre em minúsculas. A cor de marca é #5247F9 (COR0), pareada com outros nove tons físicos que compõem a paleta completa abaixo — as mesmas dez cores usadas nas superfícies de hero do produto e nas tags da Wallet.</value></data>
+  <data name="BrandGuidelinesMoreBody" xml:space="preserve"><value>Wordmark, tipografia, ilustração, personagens e escrita têm cada um sua própria página no menu — os mesmos specimens reais já usados no produto, não peças de marketing separadas.</value></data>
+</root>

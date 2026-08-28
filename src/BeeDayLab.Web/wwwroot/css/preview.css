@@ -1,0 +1,16 @@
+.preview-page{display:flex;flex-direction:column;gap:1.25rem;padding-bottom:2rem}
+.preview-page__toolbar{display:flex;flex-wrap:wrap;align-items:center;gap:1.25rem;padding:1rem 1.25rem;border:1px solid var(--beeday-color-border);border-radius:var(--beeday-radius-lg);background:var(--beeday-color-surface);position:sticky;top:0;z-index:5}
+.preview-page__toolbar label{display:flex;flex-direction:column;gap:.25rem;font-size:.8rem;font-weight:600;color:var(--beeday-color-text-secondary)}
+.preview-page__toolbar select{padding:.4rem .5rem;border-radius:var(--beeday-radius-sm);border:1px solid var(--beeday-color-border)}
+.preview-page__language{display:flex;flex-direction:column;gap:.25rem;font-size:.8rem;font-weight:600;color:var(--beeday-color-text-secondary)}
+.preview-page__toolbar-note{flex-basis:100%;margin:0;font-size:.75rem;color:var(--beeday-color-text-muted)}
+.preview-page__section{scroll-margin-top:6rem}
+.preview-page__link-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:.4rem .75rem;list-style:none;margin:0;padding:0}
+.preview-page__link-list a{font-size:.85rem;color:var(--beeday-color-brand-primary);text-decoration:none}
+.preview-page__link-list a:hover,.preview-page__link-list a:focus-visible{text-decoration:underline}
+.preview-page__page-picker{display:flex;flex-direction:column;gap:.25rem;font-size:.8rem;font-weight:600;color:var(--beeday-color-text-secondary);margin-bottom:1rem;max-width:24rem}
+.preview-page__page-picker select{padding:.4rem .5rem;border-radius:var(--beeday-radius-sm);border:1px solid var(--beeday-color-border)}
+.preview-page__frames{display:flex;flex-wrap:wrap;gap:1rem;align-items:flex-start}
+.preview-page__frame-wrapper{flex:1 1 280px;border:1px solid var(--beeday-color-border);border-radius:var(--beeday-radius-md);overflow:hidden;background:var(--beeday-color-surface-muted)}
+.preview-page__frame-wrapper p{margin:0;padding:.4rem .6rem;font-size:.75rem;font-weight:600;color:var(--beeday-color-text-secondary);border-bottom:1px solid var(--beeday-color-border)}
+.preview-page__frame-wrapper iframe{display:block;width:100%;height:600px;border:0;background:#ffffff}

@@ -1,0 +1,99 @@
+@using BeeDayLab.Web.Scenarios
+@using BeeDayLab.Web.Components.Pages.Daily.Experience
+@inject IStringLocalizer<ExperienceResources> Localizer
+
+@if (Feedback is not null)
+{
+    <div class="beeday-feedback-backdrop"
+         role="presentation"
+         tabindex="-1"
+         @onclick="CloseAsync"
+         @onkeydown="HandleKeyDownAsync"
+         @onkeydown:stopPropagation="true">
+        <section class="beeday-feedback"
+                 id="@DialogId"
+                 role="dialog"
+                 aria-modal="true"
+                 aria-labelledby="beeday-feedback-title"
+                 aria-describedby="beeday-feedback-description"
+                 tabindex="-1"
+                 @onclick:stopPropagation>
+            <div class="beeday-feedback__accent" aria-hidden="true"></div>
+            <div class="beeday-feedback__content">
+                <p class="beeday-feedback__eyebrow" aria-hidden="true">@Localizer["FeedbackEyebrow"]</p>
+                <h2 id="beeday-feedback-title">@Localizer["FeedbackTitle"]</h2>
+                <p id="beeday-feedback-description" class="beeday-feedback__summary">
+                    @(Feedback.LevelsGained == 1 ? Localizer["LevelUpSingular"] : Localizer["LevelUpPlural", Feedback.LevelsGained])
+                </p>
+
+                <dl class="beeday-feedback__levels">
+                    <div>
+                        <dt>@Localizer["PreviousLevelLabel"]</dt>
+                        <dd data-testid="previous-level">@Feedback.PreviousLevel</dd>
+                    </div>
+                    <div class="beeday-feedback__new-level">
+                        <dt>@Localizer["NewLevelLabel"]</dt>
+                        <dd data-testid="new-level">@Feedback.NewLevel</dd>
+                    </div>
+                    <div>
+                        <dt>@Localizer["LevelsGainedLabel"]</dt>
+                        <dd data-testid="levels-gained">@Feedback.LevelsGained</dd>
+                    </div>
+                </dl>
+
+                <p class="beeday-feedback__xp" data-testid="experience-source">@ExperienceSummary(Feedback)</p>
+
+                <section class="beeday-feedback__history" aria-labelledby="beeday-history-title">
+                    <h3 id="beeday-history-title">@Localizer["RecentProgressHeading"]</h3>
+                    <ul>
+                        @foreach (var item in History.Take(3))
+                        {
+                            <li>
+                                <strong>@HistorySummary(item)</strong>
+                                <span>@ExperienceSummary(item)</span>
+                            </li>
+                        }
+                    </ul>
+                </section>
+
+                <BeeDayButton Variant="BeeDayButtonVariant.Primary" OnClick="CloseAsync">
+                    @Localizer["ContinueButtonLabel"]
+                </BeeDayButton>
+            </div>
+        </section>
+    </div>
+}
+
+<DialogFocusScope Active="@(Feedback is not null)"
+                  TargetId="@DialogId"
+                  InitialFocusSelector="self" />
+
+@code {
+    private readonly string _dialogId = $"beeday-feedback-dialog-{Guid.NewGuid():N}";
+
+    [Parameter] public BeeDayFeedback? Feedback { get; set; }
+    [Parameter] public IReadOnlyList<BeeDayFeedback> History { get; set; } = [];
+    [Parameter] public EventCallback OnClose { get; set; }
+
+    private string DialogId => _dialogId;
+
+    private Task CloseAsync() => OnClose.InvokeAsync();
+
+    private Task HandleKeyDownAsync(KeyboardEventArgs args) =>
+        args.Key == "Escape" ? CloseAsync() : Task.CompletedTask;
+
+    private string ExperienceSummary(BeeDayFeedback feedback) =>
+        Localizer["ExperienceGainSummary", feedback.ExperienceAmount, FormatSource(feedback.ExperienceSource)];
+
+    private string HistorySummary(BeeDayFeedback feedback) =>
+        Localizer["ReachedLevelSummary", feedback.NewLevel];
+
+    private string FormatSource(DailyExperienceSource source) => source switch
+    {
+        DailyExperienceSource.Habit => Localizer["SourceHabitCompleted"],
+        DailyExperienceSource.Task => Localizer["SourceTaskCompleted"],
+        DailyExperienceSource.Todo => Localizer["SourceTodoCompleted"],
+        DailyExperienceSource.Project => Localizer["SourceProjectCompleted"],
+        _ => source.ToString(),
+    };
+}

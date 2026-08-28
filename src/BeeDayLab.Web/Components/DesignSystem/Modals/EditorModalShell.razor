@@ -1,0 +1,77 @@
+@* Lab adaptation (Sprint 33.8, FE33-109 per the BeeDay ledger — note: that ledger cross-reference is
+   a documentation typo; the real dependency this component has is beeday-dialog-focus.js, not
+   FE33-109, which is an unrelated gallery page): the BeeDay source injects
+   IStringLocalizer<DesignSystemResources> for the submit/delete/cancel button default labels.
+   Dropped for the same reason as every other Design System component in this Sprint — no
+   localization pipeline in the Lab — using the verified English defaults as plain string literals
+   instead. *@
+
+<div class="editor-modal-backdrop" @onclick="Cancel" @onkeydown="HandleKeyDown" tabindex="-1">
+    <section class="editor-modal"
+             id="@DialogId"
+             role="dialog"
+             aria-modal="true"
+             aria-labelledby="@TitleId"
+             aria-busy="@IsBusy.ToString().ToLowerInvariant()"
+             tabindex="-1"
+             @onclick:stopPropagation>
+        @* Release Quality Gate remediation: a native HTML5-constrained input (e.g. <InputNumber
+           min="..."/>) makes the browser run its own constraint validation on submit-button click,
+           BEFORE the form's submit event (and therefore EditContext.Validate()/OnInvalidSubmit)
+           ever fires - the browser's native tooltip/focus wins instead of HandleInvalidSubmit's
+           focusFirstInvalid, silently bypassing the whole custom invalid-focus contract this shell
+           exists to guarantee. novalidate makes EditContext the sole validation authority for every
+           consumer of this shell, not just the one that first exposed the gap. *@
+        <EditForm Model="Model" OnValidSubmit="Submit" OnInvalidSubmit="HandleInvalidSubmit" novalidate>
+            <DataAnnotationsValidator />
+
+            <header class="editor-modal__header">
+                <h2 id="@TitleId">@Title</h2>
+                <BeeDayButton Type="submit"
+                               Variant="BeeDayButtonVariant.Primary"
+                               Icon="BeeDayIconName.Save"
+                               Disabled="IsBusy"
+                               IsLoading="IsBusy"
+                               Class="editor-modal__submit-action editor-modal__header-save">@(SubmitLabel ?? "SAVE")</BeeDayButton>
+            </header>
+
+            @if (!string.IsNullOrWhiteSpace(ErrorMessage))
+            {
+                <div class="editor-modal__error" role="alert">
+                    <BeeDayIcon Name="BeeDayIconName.Warning" Size="BeeDayIconSize.Small" Color="BeeDayIconColor.Danger" Decorative="true" />
+                    <span>@ErrorMessage</span>
+                </div>
+            }
+
+            <div class="editor-modal__content">
+                @HeroContent
+                @BodyContent
+            </div>
+
+            <footer class="editor-modal__footer">
+                <div class="editor-modal__footer-danger">
+                    @if (ShowDelete)
+                    {
+                        <BeeDayButton Variant="BeeDayButtonVariant.Danger"
+                                       Disabled="IsBusy"
+                                       Class="editor-modal__delete-action"
+                                       OnClick="OnDelete">Delete</BeeDayButton>
+                    }
+                </div>
+
+                <div class="editor-modal__footer-actions">
+                    @SecondaryAction
+                    <BeeDayButton Variant="BeeDayButtonVariant.ConfirmationCancel"
+                                   Disabled="IsBusy"
+                                   Class="editor-modal__cancel-action"
+                                   OnClick="Cancel">Cancel</BeeDayButton>
+                </div>
+            </footer>
+        </EditForm>
+    </section>
+</div>
+
+<DialogFocusScope Active="true"
+                  TargetId="@DialogId"
+                  InitialFocusSelector=".editor-modal__content input:not(:disabled), .editor-modal__content textarea:not(:disabled), .editor-modal__content select:not(:disabled), .editor-modal__cancel-action"
+                  FallbackFocusSelector="@FallbackFocusSelector" />

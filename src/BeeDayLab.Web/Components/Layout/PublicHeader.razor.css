@@ -1,0 +1,47 @@
+.public-header {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: var(--beeday-z-navigation);
+    width: 100%;
+    min-height: 4.25rem;
+    background: var(--beeday-color-surface);
+}
+
+.public-header__content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 4.25rem;
+    gap: var(--beeday-spacing-md);
+}
+
+.public-header__brand {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+/* EPIC 27 Sprint 27.2 grew the header lockup from the previous 2.93rem bitmap height so the
+   wordmark reads as a real brand mark instead of a small, timid icon; Sprint 29.1 found that height
+   oversized on the public Home and scaled it back down to 75% (3.4rem -> 2.55rem). ::deep is
+   required because BeeDayBrand renders its own scoped markup — a plain selector here would never
+   match it. */
+.public-header ::deep .public-header__brand-mark {
+    --beeday-brand-height: 2.55rem;
+}
+
+.public-header__actions { display: flex; align-items: center; gap: var(--beeday-spacing-md); }
+
+.public-header__brand:focus-visible { border-radius: var(--beeday-radius-sm); outline: var(--beeday-border-width) solid var(--beeday-color-brand-primary); outline-offset: 3px; box-shadow: var(--beeday-focus-ring); }
+
+@media (max-width: 42rem) {
+    .public-header,
+    .public-header__content {
+        min-height: 3.75rem;
+    }
+
+    .public-header__actions { gap: var(--beeday-spacing-xs); }
+    .public-header ::deep .public-header__brand-mark { --beeday-brand-height: 2.175rem; }
+}

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="LoadingExperienceAriaLabel" xml:space="preserve"><value>Carregando experiência</value></data>
+  <data name="ExperienceCardAriaLabel" xml:space="preserve"><value>Experiência</value></data>
+  <data name="LevelLabel" xml:space="preserve"><value>Nível</value></data>
+  <data name="ExperienceProgressLabel" xml:space="preserve"><value>Progresso de experiência</value></data>
+  <data name="TotalExperienceLabel" xml:space="preserve"><value>{0} XP no total</value></data>
+  <data name="CurrentOverRequiredLabel" xml:space="preserve"><value>{0} / {1} XP</value></data>
+  <data name="RemainingToNextLevelLabel" xml:space="preserve"><value>{0} XP para o próximo nível</value></data>
+  <data name="ExperienceGainAnnouncement" xml:space="preserve"><value>+{0} XP</value></data>
+  <data name="ExperiencePointsValueText" xml:space="preserve"><value>{0} de {1} pontos de experiência</value></data>
+  <data name="FeedbackEyebrow" xml:space="preserve"><value>Progresso</value></data>
+  <data name="FeedbackTitle" xml:space="preserve"><value>SEJA MELHOR A CADA DIA</value></data>
+  <data name="LevelUpSingular" xml:space="preserve"><value>Você avançou 1 nível.</value></data>
+  <data name="LevelUpPlural" xml:space="preserve"><value>Você avançou {0} níveis.</value></data>
+  <data name="PreviousLevelLabel" xml:space="preserve"><value>Nível Anterior</value></data>
+  <data name="NewLevelLabel" xml:space="preserve"><value>Novo Nível</value></data>
+  <data name="LevelsGainedLabel" xml:space="preserve"><value>Níveis Ganhos</value></data>
+  <data name="RecentProgressHeading" xml:space="preserve"><value>Progresso Recente</value></data>
+  <data name="ContinueButtonLabel" xml:space="preserve"><value>Continuar</value></data>
+  <data name="ExperienceGainSummary" xml:space="preserve"><value>+{0} XP de {1}</value></data>
+  <data name="ReachedLevelSummary" xml:space="preserve"><value>Alcançou o Nível {0}</value></data>
+  <data name="SourceHabitCompleted" xml:space="preserve"><value>Hábito Concluído</value></data>
+  <data name="SourceTaskCompleted" xml:space="preserve"><value>Tarefa Concluída</value></data>
+  <data name="SourceTodoCompleted" xml:space="preserve"><value>Pendência Concluída</value></data>
+  <data name="SourceProjectCompleted" xml:space="preserve"><value>Projeto Concluído</value></data>
+</root>

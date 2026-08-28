@@ -1,0 +1,13 @@
+<div class="beeday-empty-state @Class" role="status">
+    @if (Icon is not null)
+    {
+        <span class="beeday-empty-state__icon" aria-hidden="true">
+            <BeeDayIcon Name="@Icon.Value" Size="BeeDayIconSize.ExtraLarge" Color="BeeDayIconColor.Muted" Decorative="true" />
+        </span>
+    }
+
+    <div class="beeday-empty-state__content">
+        <h3 class="beeday-empty-state__title">@Title</h3>
+        <p class="beeday-empty-state__description">@Description</p>
+    </div>
+</div>

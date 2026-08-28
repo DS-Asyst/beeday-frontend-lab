@@ -1,0 +1,31 @@
+.navigation-item-shell { display: contents; }
+.navigation-item-shell ::deep .navigation-item {
+    display: flex;
+    width: 100%;
+    min-height: 3.25rem;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1.1rem;
+    padding: .55rem .85rem;
+    border: 2px solid transparent;
+    border-radius: var(--beeday-radius-md);
+    color: var(--beeday-color-text-secondary);
+    background: transparent;
+    font-family: var(--beeday-font-body);
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1;
+    text-align: left;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color var(--beeday-transition-normal), border-color var(--beeday-transition-normal), color var(--beeday-transition-normal), transform var(--beeday-transition-fast);
+}
+
+.navigation-item-shell ::deep .navigation-item__icon { display: grid; flex: 0 0 2rem; place-items: center; color: inherit; }
+.navigation-item-shell ::deep .navigation-item__label { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.navigation-item-shell ::deep .navigation-item:hover { color: var(--beeday-color-brand-primary); background: var(--beeday-color-brand-primary-soft); }
+.navigation-item-shell ::deep .navigation-item:active { transform: translateY(1px); }
+.navigation-item-shell ::deep .navigation-item:focus-visible { outline: var(--beeday-border-width) solid var(--beeday-color-brand-primary); outline-offset: 2px; box-shadow: var(--beeday-focus-ring); }
+.navigation-item-shell ::deep .navigation-item.is-active { color: var(--beeday-color-brand-primary-active); background: var(--beeday-color-brand-primary-soft); border-color: var(--beeday-color-brand-primary); font-weight: 800; }
+
+@media (prefers-reduced-motion: reduce) { .navigation-item-shell ::deep .navigation-item { transition: none; } .navigation-item-shell ::deep .navigation-item:active { transform: none; } }

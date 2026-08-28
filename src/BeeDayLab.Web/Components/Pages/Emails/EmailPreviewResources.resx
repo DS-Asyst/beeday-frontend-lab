@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="PageTitle" xml:space="preserve"><value>Transactional Emails | beeday</value></data>
+  <data name="Eyebrow" xml:space="preserve"><value>Transactional email</value></data>
+  <data name="Heading" xml:space="preserve"><value>Email templates</value></data>
+  <data name="Description" xml:space="preserve"><value>Preview the real transactional email templates, in every supported locale and width. No message is ever sent from this page.</value></data>
+  <data name="TemplateGroupLabel" xml:space="preserve"><value>Template</value></data>
+  <data name="TemplateLabel" xml:space="preserve"><value>Template:</value></data>
+  <data name="ConfirmationTemplateOption" xml:space="preserve"><value>Email confirmation</value></data>
+  <data name="PasswordResetTemplateOption" xml:space="preserve"><value>Password reset</value></data>
+  <data name="LocaleGroupLabel" xml:space="preserve"><value>Locale</value></data>
+  <data name="LocaleLabel" xml:space="preserve"><value>Locale:</value></data>
+  <data name="WidthGroupLabel" xml:space="preserve"><value>Preview width</value></data>
+  <data name="WidthLabel" xml:space="preserve"><value>Width:</value></data>
+  <data name="NarrowWidthOption" xml:space="preserve"><value>Narrow (375px)</value></data>
+  <data name="StandardWidthOption" xml:space="preserve"><value>Standard (640px)</value></data>
+  <data name="SubjectLabel" xml:space="preserve"><value>Subject</value></data>
+  <data name="PlainTextSummary" xml:space="preserve"><value>Plain-text alternative</value></data>
+</root>

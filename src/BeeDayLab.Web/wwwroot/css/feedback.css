@@ -1,0 +1,398 @@
+/* Sprint 29.3: canonical --beeday-color-overlay token, not a hardcoded purple literal — see the
+   matching comment on .editor-modal-backdrop in editor-modal.css for the full rationale. */
+.delete-confirmation-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: var(--beeday-z-confirmation);
+    display: grid;
+    place-items: center;
+    padding: var(--beeday-spacing-md);
+    background: var(--beeday-color-overlay);
+    backdrop-filter: blur(2px);
+}
+
+.delete-confirmation {
+    position: relative;
+    width: min(31rem, calc(100vw - 2rem));
+    /* Sprint 32.6 (EPIC 32): was `overflow: hidden` with no max-height at any breakpoint - a
+       Warning/WarningDetails-bearing confirmation (see HabitEditorModal's delete flow) could clip
+       the Cancel/Confirm actions below the fold on short viewports with no way to reach them.
+       Same overflow idiom as .editor-modal in editor-modal.css: hidden on x (keeps the rounded
+       corners clipping .delete-confirmation__top-border), auto on y. */
+    max-height: calc(100vh - 1.25rem);
+    overflow: hidden auto;
+    border: var(--beeday-border-width-subtle) solid var(--beeday-color-border);
+    border-radius: var(--beeday-radius-lg);
+    background: var(--beeday-color-surface);
+    box-shadow: var(--beeday-shadow-lg);
+    animation: delete-confirmation-enter var(--beeday-duration-normal) var(--beeday-easing-emphasized) both;
+    font-family: var(--beeday-font-family);
+}
+
+.delete-confirmation__top-border {
+    width: 100%;
+    height: .38rem;
+    background: var(--beeday-color-danger);
+}
+
+.delete-confirmation__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 1.8rem 1.65rem;
+    text-align: center;
+}
+
+.delete-confirmation__icon {
+    display: grid;
+    place-items: center;
+    width: 3.4rem;
+    height: 3.4rem;
+    margin-bottom: 1rem;
+    border: .25rem solid var(--beeday-color-danger);
+    border-radius: 50%;
+    color: var(--beeday-color-danger);
+}
+
+.delete-confirmation h2 {
+    margin: 0;
+    color: var(--beeday-color-text-primary);
+    font: var(--beeday-type-title);
+    font-size: clamp(1.25rem, 4vw, 1.5rem);
+    line-height: 1.2;
+}
+
+.delete-confirmation__question {
+    margin: 1rem 0 .35rem;
+    color: var(--beeday-color-text-secondary);
+    font: var(--beeday-type-body);
+    line-height: 1.5;
+}
+
+.delete-confirmation__item-title {
+    max-width: 100%;
+    margin: 0 0 1.25rem;
+    overflow: hidden;
+    color: var(--beeday-color-text-primary);
+    font: var(--beeday-type-label);
+    font-weight: var(--beeday-font-weight-bold);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Sprint 32.11: a delete-mutation failure must be visible/announced inside this dialog itself —
+   focus stays trapped here (DialogFocusScope) while the dialog remains open on failure. */
+.delete-confirmation__error {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 1.45rem;
+    padding: .95rem 1rem;
+    border: 1px solid color-mix(in srgb, var(--beeday-color-danger) 30%, white);
+    border-radius: var(--beeday-radius-sm);
+    background: color-mix(in srgb, var(--beeday-color-danger) 7%, white);
+    color: var(--beeday-color-danger);
+    font-weight: var(--beeday-font-weight-bold);
+    text-align: left;
+}
+
+.delete-confirmation__warning {
+    display: flex;
+    align-items: flex-start;
+    gap: .75rem;
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 1.45rem;
+    padding: .95rem 1rem;
+    border: 1px solid color-mix(in srgb, var(--beeday-color-danger) 30%, white);
+    border-radius: var(--beeday-radius-sm);
+    background: color-mix(in srgb, var(--beeday-color-danger) 7%, white);
+    color: var(--beeday-color-danger);
+    text-align: left;
+}
+
+.delete-confirmation__warning-icon {
+    display: grid;
+    place-items: center;
+    flex: 0 0 auto;
+    width: 1.25rem;
+    height: 1.25rem;
+    margin-top: .05rem;
+}
+
+.delete-confirmation__warning strong {
+    display: block;
+    margin-bottom: .18rem;
+    font: var(--beeday-type-label);
+    font-weight: var(--beeday-font-weight-bold);
+}
+
+.delete-confirmation__warning p {
+    margin: 0;
+    font: var(--beeday-type-small);
+    line-height: 1.45;
+}
+
+.delete-confirmation__actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    width: 100%;
+    margin-top: .25rem;
+}
+
+.delete-confirmation__actions .beeday-button {
+    width: min(12rem, 48%);
+    min-width: 0;
+    min-height: 2.9rem;
+}
+
+@keyframes delete-confirmation-enter {
+    from {
+        opacity: 0;
+        transform: translateY(-.75rem) scale(.97);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@media (max-width: 520px) {
+    .delete-confirmation-backdrop { padding: .65rem; }
+    .delete-confirmation { width: calc(100vw - 1.3rem); }
+    .delete-confirmation__content { padding: 1.65rem 1.1rem 1.35rem; }
+    .delete-confirmation__warning { padding: .85rem; }
+    .delete-confirmation__actions { gap: .65rem; }
+    .delete-confirmation__actions .beeday-button { width: 50%; font-size: .78rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .delete-confirmation {
+        animation: none;
+    }
+}
+
+/* Toast notifications */
+.beeday-toast-region {
+    position: fixed;
+    top: 5.25rem;
+    right: 1rem;
+    z-index: var(--beeday-z-toast);
+    display: grid;
+    gap: var(--beeday-spacing-smd);
+    width: min(24rem, calc(100vw - 2rem));
+    pointer-events: none;
+}
+
+.beeday-toast {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: start;
+    gap: var(--beeday-spacing-smd);
+    padding: var(--beeday-spacing-md);
+    border: var(--beeday-border-width-subtle) solid var(--beeday-color-border);
+    border-left-width: .2rem;
+    border-radius: var(--beeday-radius-md);
+    background: var(--beeday-color-surface);
+    box-shadow: var(--beeday-shadow-md);
+    pointer-events: auto;
+    animation: beeday-toast-enter var(--beeday-transition-normal);
+}
+
+.beeday-toast--success { border-left-color: var(--beeday-color-success); }
+.beeday-toast--error { border-left-color: var(--beeday-color-danger); }
+.beeday-toast--info { border-left-color: var(--beeday-color-brand-primary); }
+
+.beeday-toast__icon {
+    display: grid;
+    place-items: center;
+    width: 1.75rem;
+    height: 1.75rem;
+    border-radius: 50%;
+    background: var(--beeday-color-brand-primary-soft);
+    color: var(--beeday-color-brand-primary-hover);
+    font-weight: 700;
+}
+
+.beeday-toast--success .beeday-toast__icon { background: var(--beeday-color-success-soft); color: var(--beeday-color-success); }
+.beeday-toast--error .beeday-toast__icon { background: var(--beeday-color-danger-soft); color: var(--beeday-color-danger); }
+
+.beeday-toast__content strong {
+    display: block;
+    color: var(--beeday-color-text-primary);
+    font: var(--beeday-type-label);
+}
+
+.beeday-toast__content p {
+    margin: var(--beeday-spacing-xs) 0 0;
+    color: var(--beeday-color-text-secondary);
+    font: var(--beeday-type-small);
+}
+
+.beeday-toast__close {
+    display: grid;
+    place-items: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    padding: 0;
+    border: 0;
+    border-radius: var(--beeday-radius-xs);
+    background: transparent;
+    color: var(--beeday-color-text-muted);
+    cursor: pointer;
+    transition: background-color var(--beeday-transition-fast), color var(--beeday-transition-fast);
+}
+
+.beeday-toast__close:hover,
+.beeday-toast__close:focus-visible {
+    background: var(--beeday-color-surface-muted);
+    color: var(--beeday-color-text-primary);
+    outline: none;
+}
+
+/* Loading: compact, non-blocking and delayed to avoid flicker on fast operations. */
+.beeday-loading-overlay {
+    position: fixed;
+    left: 50%;
+    bottom: 1.25rem;
+    z-index: var(--beeday-z-loading);
+    display: inline-flex;
+    align-items: center;
+    gap: var(--beeday-spacing-sm);
+    padding: var(--beeday-spacing-sm) var(--beeday-spacing-smd);
+    border: var(--beeday-border-width-subtle) solid var(--beeday-color-border);
+    border-radius: var(--beeday-radius-pill);
+    background: rgb(255 255 255 / 92%);
+    color: var(--beeday-color-text-primary);
+    box-shadow: var(--beeday-shadow-sm);
+    pointer-events: none;
+    opacity: 0;
+    transform: translate(-50%, .5rem);
+    animation: beeday-loading-reveal .16s ease .35s forwards;
+}
+
+.beeday-loading-spinner {
+    flex: 0 0 auto;
+    animation: beeday-spin .75s steps(8, end) infinite;
+}
+
+.beeday-loading-label {
+    font-size: .75rem;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+/* Skeletons */
+.beeday-skeleton {
+    display: grid;
+    gap: .65rem;
+}
+
+.beeday-skeleton__line,
+.dashboard-skeleton__toolbar,
+.dashboard-skeleton__heading {
+    display: block;
+    height: .75rem;
+    border-radius: var(--beeday-radius-pill);
+    background: linear-gradient(90deg, #ebe7ef 25%, var(--beeday-color-surface-muted) 50%, #ebe7ef 75%);
+    background-size: 200% 100%;
+    animation: beeday-shimmer 1.35s infinite linear;
+}
+
+.beeday-skeleton__line--title { width: 55%; height: 1rem; }
+.beeday-skeleton__line--wide { width: 92%; }
+.beeday-skeleton__line--medium { width: 72%; }
+
+.dashboard-skeleton {
+    width: 100%;
+    padding: var(--beeday-spacing-md) var(--beeday-spacing-xl) var(--beeday-spacing-xl);
+}
+
+.dashboard-skeleton__summary,
+.dashboard-skeleton__card {
+    border: var(--beeday-border-width-subtle) solid var(--beeday-color-border);
+    border-radius: var(--beeday-radius-md);
+    background: var(--beeday-color-surface);
+    box-shadow: var(--beeday-shadow-sm);
+}
+
+.dashboard-skeleton__summary {
+    padding: var(--beeday-spacing-lg);
+}
+
+.dashboard-skeleton__toolbar {
+    width: 16rem;
+    height: 2.5rem;
+    margin: var(--beeday-spacing-lg) 0;
+}
+
+.dashboard-skeleton__grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--beeday-spacing-md);
+}
+
+.dashboard-skeleton__column {
+    display: grid;
+    align-content: start;
+    gap: .8rem;
+}
+
+.dashboard-skeleton__heading {
+    width: 45%;
+    height: 1rem;
+}
+
+.dashboard-skeleton__card {
+    padding: var(--beeday-spacing-md);
+}
+
+@keyframes beeday-toast-enter {
+    from { opacity: 0; transform: translateX(1rem); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+/* beeday-spin is defined once, in design-system.css — both stylesheets load on every page. */
+
+@keyframes beeday-shimmer {
+    from { background-position: 200% 0; }
+    to { background-position: -200% 0; }
+}
+
+@media (max-width: 900px) {
+    .dashboard-skeleton__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 560px) {
+    .beeday-toast-region { top: .75rem; right: .75rem; width: calc(100vw - 1.5rem); }
+    .dashboard-skeleton { padding: var(--beeday-spacing-md); }
+    .dashboard-skeleton__grid { grid-template-columns: 1fr; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .beeday-toast,
+    .beeday-loading-spinner,
+    .beeday-skeleton__line,
+    .dashboard-skeleton__toolbar,
+    .dashboard-skeleton__heading {
+        animation: none;
+    }
+
+    .beeday-toast__close {
+        transition: none;
+    }
+
+    .beeday-loading-overlay {
+        opacity: 1;
+        transform: translate(-50%, 0);
+        animation: none;
+    }
+}
+
+.beeday-toast__close { display: grid; place-items: center; padding: .2rem; }
+

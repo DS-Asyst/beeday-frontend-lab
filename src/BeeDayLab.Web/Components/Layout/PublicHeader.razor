@@ -1,0 +1,44 @@
+@* Lab adaptation (Sprint 33.9, FE33-047): the BeeDay source injects IStringLocalizer<SharedResources>
+   for the brand aria-label and CTA label — dropped for plain hardcoded English strings taken
+   verbatim from SharedResources.en-US.resx at extraction time ("beeday home", "Continue to
+   beeday"), same rule Sprint 33.8 established for every localizer-injecting file it touched.
+
+   The real <AuthorizeView><Authorized>...</Authorized></AuthorizeView> requires a real
+   AuthenticationStateProvider, which ADR-008 forbids the Lab from adding (no real authentication
+   infrastructure). It is replaced with a plain [Parameter] bool (IsAuthenticatedScenario) toggling
+   the same CTA block — Lab-local scenario state instead of real auth, exactly the pattern the
+   Sprint 33.9 issue calls for.
+
+   The real AuthenticatedEntryDestinationResolver injection and its NavigationManager-based
+   ContinueToBeeDay() (which resolves the signed-in user's real landing route via
+   BeeDay.Application) are dropped entirely — the Lab has no such resolver and must not fabricate
+   one. ContinueToBeeDay() instead navigates to a fixed local placeholder route ("/"): honestly
+   presentation-only, no destination-resolution algorithm invented. *@
+<header class="public-header">
+    <div class="public-header__content beeday-container">
+        <a class="public-header__brand" href="/" aria-label="beeday home">
+            <BeeDayBrand Class="public-header__brand-mark" />
+        </a>
+
+        <div class="public-header__actions">
+            <PublicLanguageSwitcher />
+            @if (IsAuthenticatedScenario)
+            {
+                <BeeDayButton Compact="true" OnClick="ContinueToBeeDay">Continue to beeday</BeeDayButton>
+            }
+        </div>
+    </div>
+</header>
+
+@code {
+    [Inject] private NavigationManager Navigation { get; set; } = default!;
+
+    /// <summary>
+    /// Lab-local scenario toggle standing in for the real &lt;AuthorizeView&gt; — set by a Lab
+    /// caller/demo to preview the header with or without the "Continue to beeday" CTA, with no real
+    /// AuthenticationStateProvider involved.
+    /// </summary>
+    [Parameter] public bool IsAuthenticatedScenario { get; set; }
+
+    private void ContinueToBeeDay() => Navigation.NavigateTo("/", forceLoad: true, replace: true);
+}

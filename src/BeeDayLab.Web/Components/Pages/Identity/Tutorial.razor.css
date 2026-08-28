@@ -1,0 +1,161 @@
+.tutorial-page {
+    display: grid;
+    width: 100%;
+    min-height: 0;
+    place-items: center;
+    color: var(--beeday-color-text-primary);
+}
+
+.tutorial-card {
+    display: grid;
+    width: min(48rem, 100%);
+    min-height: min(40rem, calc(100dvh - 4rem));
+    padding: clamp(1.25rem, 4vw, 2.25rem);
+    border: 1px solid var(--beeday-color-border);
+    border-radius: var(--beeday-radius-xl);
+    background: var(--beeday-color-surface);
+    box-shadow: var(--beeday-shadow-lg);
+    grid-template-rows: auto 1fr auto;
+}
+
+.tutorial-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 2px solid rgb(51 40 58 / 12%);
+}
+
+/* EXP32-F009 (Sprint 32.20): text-secondary for AA normal-text contrast (text-muted is ~4.26:1, below 4.5:1). */
+.tutorial-progress {
+    color: var(--beeday-color-text-secondary);
+    font-family: var(--beeday-font-family);
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: .12em;
+    white-space: nowrap;
+}
+
+.tutorial-content {
+    display: grid;
+    align-content: center;
+    padding: clamp(1.5rem, 5vw, 3rem) 0;
+    text-align: center;
+}
+
+.tutorial-icon {
+    display: grid;
+    width: 5rem;
+    height: 5rem;
+    margin: 0 auto 1.5rem;
+    place-items: center;
+    border: 1px solid var(--beeday-color-border);
+    border-radius: var(--beeday-radius-lg);
+    background: var(--beeday-color-brand-primary-soft);
+    box-shadow: var(--beeday-shadow-sm);
+}
+
+.tutorial-eyebrow {
+    margin: 0 0 .4rem;
+    color: var(--beeday-color-brand-primary);
+    font-family: var(--beeday-font-family);
+    font-size: .75rem;
+    font-weight: 700;
+    letter-spacing: .14em;
+}
+
+.tutorial-card h1 {
+    margin: 0;
+    font-family: var(--beeday-font-body);
+    font-size: clamp(2.8rem, 8vw, 4.7rem);
+    font-weight: 400;
+    line-height: .9;
+}
+
+/* EXP32-F009 (Sprint 32.20): text-secondary for AA normal-text contrast (text-muted is ~4.26:1, below 4.5:1). */
+.tutorial-copy {
+    max-width: 34rem;
+    margin: 1.25rem auto 1.75rem;
+    color: var(--beeday-color-text-secondary);
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+.tutorial-preview {
+    display: grid;
+    max-width: 32rem;
+    margin: auto;
+    gap: .7rem;
+    text-align: left;
+}
+
+.tutorial-preview__item {
+    display: flex;
+    align-items: flex-start;
+    padding: .85rem 1rem;
+    gap: .75rem;
+    border: 1px solid var(--beeday-color-border);
+    border-radius: .75rem;
+    background: #faf7fc;
+}
+
+.tutorial-preview__item ::deep .beeday-icon {
+    flex: 0 0 auto;
+    margin-top: .1rem;
+}
+
+.tutorial-preview__item p {
+    margin: 0;
+}
+
+.tutorial-actions {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 1.25rem;
+    gap: 1rem;
+    border-top: 2px solid rgb(51 40 58 / 12%);
+}
+
+@media (max-width: 600px) {
+    .tutorial-card {
+        min-height: auto;
+        padding: 1.25rem;
+    }
+
+    .tutorial-header {
+        align-items: flex-start;
+    }
+
+    .tutorial-content {
+        padding: 1.75rem 0;
+    }
+
+    .tutorial-actions {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+
+}
+
+@media (max-width: 380px) {
+    .tutorial-header {
+        flex-direction: column;
+    }
+
+    .tutorial-progress {
+        align-self: flex-end;
+    }
+}
+
+
+.tutorial-actions ::deep .beeday-button {
+    min-width: 9rem;
+}
+
+@media (max-width: 600px) {
+    .tutorial-actions ::deep .beeday-button {
+        min-width: 0;
+        width: 100%;
+    }
+}

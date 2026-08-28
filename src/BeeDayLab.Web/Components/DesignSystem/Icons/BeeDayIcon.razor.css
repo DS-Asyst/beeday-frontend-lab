@@ -1,0 +1,38 @@
+.beeday-icon {
+    display: inline-block;
+    flex: 0 0 auto;
+    overflow: visible;
+    vertical-align: middle;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    pointer-events: none;
+    transition: color 120ms ease, opacity 120ms ease, transform 120ms ease;
+}
+
+.beeday-icon[data-icon-category="social"] {
+    fill: currentColor;
+    stroke: none;
+}
+
+button:disabled .beeday-icon,
+[aria-disabled="true"] .beeday-icon {
+    opacity: 0.6;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .beeday-icon {
+        transition: none;
+    }
+}
+
+.beeday-icon--color-current { color: currentcolor; }
+.beeday-icon--color-primary { color: var(--beeday-color-brand-primary); }
+.beeday-icon--color-secondary { color: var(--beeday-color-text-secondary); }
+.beeday-icon--color-muted { color: var(--beeday-color-text-muted); }
+.beeday-icon--color-success { color: var(--beeday-color-success); }
+.beeday-icon--color-warning { color: var(--beeday-color-warning); }
+.beeday-icon--color-danger { color: var(--beeday-color-danger); }
+.beeday-icon--color-information { color: var(--beeday-color-info); }

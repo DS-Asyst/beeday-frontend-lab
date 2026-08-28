@@ -1,0 +1,70 @@
+@page "/brand/typography"
+@page "/experience-system/brand/typography"
+@layout PublicLayout
+@inject IStringLocalizer<BrandTypographyResources> Localizer
+
+<PageTitle>@Localizer["PageTitle"]</PageTitle>
+
+@* Ported from BeeDay.Web's Components/Features/Brand/Pages/TypographyGuidelines.razor (Sprint
+   33.11, FE33-068) — same component, two @page routes. Uses ExperienceSystemPillarNav/TopicNav
+   (FE33-076), extracted earlier in this Sprint. *@
+<ExperienceSystemPillarNav Current="ExperienceSystemPillar.Brand" />
+<ExperienceSystemTopicNav Pillar="ExperienceSystemPillar.Brand" CurrentHref="/experience-system/brand/typography" />
+
+<article class="brand-typography">
+    <header class="brand-typography__hero">
+        <span class="brand-typography__eyebrow">@Localizer["Eyebrow"]</span>
+        <h1>@Localizer["Title"]</h1>
+        <p>@Localizer["Introduction"]</p>
+    </header>
+
+    <section class="brand-typography__section" aria-labelledby="brand-display-heading">
+        <div class="brand-typography__section-intro">
+            <h2 id="brand-display-heading">@Localizer["BrandTitle"]</h2>
+            <p>@Localizer["BrandDescription"]</p>
+        </div>
+        <div class="brand-typography__display-panel">
+            <p class="brand-typography__display-sample brand-display">@Localizer["BrandSample"]</p>
+            <p class="brand-typography__accented-sample brand-display">@Localizer["BrandAccentedSample"]</p>
+        </div>
+    </section>
+
+    <section class="brand-typography__section" aria-labelledby="product-type-heading">
+        <div class="brand-typography__section-intro">
+            <h2 id="product-type-heading">@Localizer["ProductTitle"]</h2>
+            <p>@Localizer["ProductDescription"]</p>
+        </div>
+        <div class="brand-typography__role-intro">
+            <h3>@Localizer["RoleMatrixTitle"]</h3>
+            <p>@Localizer["RoleMatrixDescription"]</p>
+        </div>
+        <div class="brand-typography__roles">
+            <article class="brand-typography__role brand-typography__role--display"><span>@Localizer["RoleBrandDisplay"]</span><p class="brand-display">@Localizer["RoleBrandDisplayExample"]</p></article>
+            <article class="brand-typography__role brand-typography__role--page-title"><span>@Localizer["RolePageTitle"]</span><p>@Localizer["RolePageTitleExample"]</p></article>
+            <article class="brand-typography__role brand-typography__role--section-title"><span>@Localizer["RoleSectionTitle"]</span><p>@Localizer["RoleSectionTitleExample"]</p></article>
+            <article class="brand-typography__role brand-typography__role--card-title"><span>@Localizer["RoleCardTitle"]</span><p>@Localizer["RoleCardTitleExample"]</p></article>
+            <article class="brand-typography__role brand-typography__role--body"><span>@Localizer["RoleBody"]</span><p>@Localizer["RoleBodyExample"]</p></article>
+            <article class="brand-typography__role brand-typography__role--label"><span>@Localizer["RoleLabel"]</span><p>@Localizer["RoleLabelExample"]</p></article>
+            <article class="brand-typography__role brand-typography__role--caption"><span>@Localizer["RoleCaption"]</span><p>@Localizer["RoleCaptionExample"]</p></article>
+        </div>
+    </section>
+
+    <section class="brand-typography__guidance" aria-label="@Localizer["UseTitle"]">
+        <div class="brand-typography__guidance-card brand-typography__guidance-card--do">
+            <h2>@Localizer["UseTitle"]</h2>
+            <ul>
+                <li>@Localizer["UseBrandCasing"]</li>
+                <li>@Localizer["UseHierarchy"]</li>
+                <li>@Localizer["UseReadability"]</li>
+            </ul>
+        </div>
+        <div class="brand-typography__guidance-card brand-typography__guidance-card--avoid">
+            <h2>@Localizer["AvoidTitle"]</h2>
+            <ul>
+                <li>@Localizer["AvoidProductCoiny"]</li>
+                <li>@Localizer["AvoidCasing"]</li>
+                <li>@Localizer["AvoidDistortion"]</li>
+            </ul>
+        </div>
+    </section>
+</article>

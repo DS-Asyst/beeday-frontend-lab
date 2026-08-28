@@ -1,0 +1,45 @@
+@using System.Linq.Expressions
+
+<label class="@FieldCssClass" for="@Id">
+    @if (!string.IsNullOrWhiteSpace(Label))
+    {
+        <span class="@LabelCssClass">
+            @Label
+            @if (Required)
+            {
+                <span aria-hidden="true">*</span>
+            }
+        </span>
+    }
+    @if (UpdateOnInput)
+    {
+        <input id="@Id"
+               class="@InputCssClass"
+               value="@Value"
+               @oninput="HandleInputAsync"
+               placeholder="@Placeholder"
+               maxlength="@MaxLength"
+               disabled="@Disabled"
+               readonly="@ReadOnly"
+               aria-describedby="@(ShowValidationMessage ? ValidationMessageId : null)"
+               @attributes="AdditionalAttributes" />
+    }
+    else
+    {
+        <InputText id="@Id"
+                   class="@InputCssClass"
+                   Value="@Value"
+                   ValueChanged="ValueChanged"
+                   ValueExpression="ValueExpression"
+                   placeholder="@Placeholder"
+                   maxlength="@MaxLength"
+                   disabled="@Disabled"
+                   readonly="@ReadOnly"
+                   aria-describedby="@(ShowValidationMessage ? ValidationMessageId : null)"
+                   @attributes="AdditionalAttributes" />
+    }
+</label>
+@if (ShowValidationMessage)
+{
+    <BeeDayValidationMessage For="ValueExpression" Id="@ValidationMessageId" />
+}

@@ -1,0 +1,56 @@
+@page "/experience-system/brand/identity"
+@layout PublicLayout
+@inject IStringLocalizer<ExperienceSystemResources> Localizer
+
+<PageTitle>@Localizer["BrandIdentityPageTitle"]</PageTitle>
+
+@* Ported from BeeDay.Web's Components/Features/ExperienceSystem/Pages/Brand/BrandIdentity.razor
+   (Sprint 33.11, FE33-071). *@
+<ExperienceSystemPage Eyebrow="@Localizer["PillarNavBrand"]" Title="@Localizer["BrandIdentityTitle"]" Description="@Localizer["BrandIdentityIntro"]" Pillar="ExperienceSystemPillar.Brand" CurrentHref="/experience-system/brand/identity">
+    <section class="experience-system-section" aria-labelledby="identity-contract-heading">
+        <h2 id="identity-contract-heading">@Localizer["BrandIdentityContractTitle"]</h2>
+        <p>@Localizer["BrandIdentityContractText"]</p>
+        <div class="experience-system-table-wrap">
+            <table class="experience-system-table">
+                <thead>
+                    <tr><th scope="col">@Localizer["BrandIdentityContractElementHeader"]</th><th scope="col">@Localizer["BrandIdentityContractValueHeader"]</th></tr>
+                </thead>
+                <tbody>
+                    <tr><th scope="row">@Localizer["BrandIdentityContractNameLabel"]</th><td>beeday</td></tr>
+                    <tr><th scope="row">@Localizer["BrandIdentityContractCasingLabel"]</th><td>@Localizer["BrandIdentityContractCasingValue"]</td></tr>
+                    <tr><th scope="row">@Localizer["BrandIdentityContractColorLabel"]</th><td><code>#5247F9</code></td></tr>
+                </tbody>
+            </table>
+        </div>
+        <p><strong>@Localizer["BrandIdentityColorRuleTitle"]</strong> — @Localizer["BrandIdentityColorRuleText"]</p>
+    </section>
+
+    <section class="experience-system-section" aria-labelledby="identity-boundary-heading">
+        <h2 id="identity-boundary-heading">@Localizer["BrandIdentityBoundaryTitle"]</h2>
+        <p>@Localizer["BrandIdentityBoundaryText"]</p>
+        <h3>@Localizer["BrandIdentityBoundaryListTitle"]</h3>
+        <ul>
+            <li>@Localizer["BrandIdentityBoundaryItem1"]</li>
+            <li>@Localizer["BrandIdentityBoundaryItem2"]</li>
+            <li>@Localizer["BrandIdentityBoundaryItem3"]</li>
+            <li>@Localizer["BrandIdentityBoundaryItem4"]</li>
+        </ul>
+    </section>
+
+    <section class="experience-system-callouts" aria-label="@Localizer["BrandIdentityDoTitle"]">
+        <div class="experience-system-callout experience-system-callout--do">
+            <h3>@Localizer["BrandIdentityDoTitle"]</h3>
+            <ul>
+                <li>@Localizer["BrandIdentityDo1"]</li>
+                <li>@Localizer["BrandIdentityDo2"]</li>
+            </ul>
+        </div>
+        <div class="experience-system-callout experience-system-callout--avoid">
+            <h3>@Localizer["BrandIdentityAvoidTitle"]</h3>
+            <ul>
+                <li>@Localizer["BrandIdentityAvoid1"]</li>
+                <li>@Localizer["BrandIdentityAvoid2"]</li>
+            </ul>
+        </div>
+    </section>
+</ExperienceSystemPage>

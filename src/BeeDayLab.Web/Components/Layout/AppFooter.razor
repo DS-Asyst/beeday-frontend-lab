@@ -1,0 +1,94 @@
+@* Lab adaptation (Sprint 33.9, FE33-048): the BeeDay source injects IStringLocalizer<SharedResources>
+   for every string below — dropped for plain hardcoded English strings taken verbatim from
+   SharedResources.en-US.resx at extraction time.
+
+   Drift note: the BeeDay ledger's note for this item claims a GitHub support link points to the
+   real DS-Asyst/BeeDay repo and must be replaced with a non-functional placeholder in the Lab. No
+   GitHub link exists anywhere in this file as read at extraction time — the ledger note appears to
+   describe a link that actually lives on an Institutional Contact.razor page, out of this Sprint's
+   scope (extracted in a later Sprint). Nothing was invented here to "fix" that; the footer below is
+   copied faithfully and this discrepancy is documented as drift in the PR description.
+
+   The "no real Instagram/X URL exists yet" comment/placeholder pattern for the two social icons is
+   preserved verbatim — it is a deliberate non-link, not something to "fix". *@
+<footer class="app-footer">
+    <div class="app-footer__wave" aria-hidden="true">
+        <img src="/assets/footer/footer-wave.svg" alt="" width="1920" height="1060" loading="lazy" decoding="async" />
+    </div>
+    <div class="app-footer__content beeday-container">
+        <div class="app-footer__identity">
+            <BeeDayBrand OnDarkSurface="true" Class="app-footer__brand-mark" />
+            <p>Be Better Every Day</p>
+        </div>
+
+        <div class="app-footer__groups">
+            <nav class="app-footer__group" aria-labelledby="footer-about-heading">
+                <h2 id="footer-about-heading">About us</h2>
+                <ul>
+                    <li><a href="/mission">Mission</a></li>
+                    <li><a href="/efficacy">Efficacy</a></li>
+                    <li><a href="/brand-guidelines">Brand guidelines</a></li>
+                    <li><a href="/contact">Contact us</a></li>
+                </ul>
+            </nav>
+
+            <nav class="app-footer__group" aria-labelledby="footer-products-heading">
+                <h2 id="footer-products-heading">Products</h2>
+                <ul>
+                    <li><a href="/beeday">beeday</a></li>
+                    <li><a href="/beeday-plus">beeday Plus</a></li>
+                </ul>
+            </nav>
+
+            <nav class="app-footer__group" aria-labelledby="footer-apps-heading">
+                <h2 id="footer-apps-heading">Apps</h2>
+                <ul>
+                    <li><a href="/android">beeday for Android</a></li>
+                    <li><a href="/ios">beeday for iOS</a></li>
+                </ul>
+            </nav>
+
+            <nav class="app-footer__group" aria-labelledby="footer-help-heading">
+                <h2 id="footer-help-heading">Help and support</h2>
+                <ul>
+                    <li><a href="/faqs">beeday FAQs</a></li>
+                </ul>
+            </nav>
+
+            <nav class="app-footer__group app-footer__group--legal" aria-labelledby="footer-legal-heading">
+                <h2 id="footer-legal-heading">Privacy and terms</h2>
+                <ul>
+                    <li><a href="/community-guidelines">Community guidelines</a></li>
+                    <li><a href="/terms">Terms</a></li>
+                    <li><a href="/privacy">Privacy</a></li>
+                </ul>
+            </nav>
+
+            <nav class="app-footer__group app-footer__group--social" aria-labelledby="footer-social-heading">
+                <h2 id="footer-social-heading">Social</h2>
+                <ul class="app-footer__social-list">
+                    <li>
+                        <a href="https://www.linkedin.com/in/tiago-a-arrigoni-335b9413b/" aria-label="LinkedIn">
+                            <BeeDayIcon Name="BeeDayIconName.LinkedIn" Color="BeeDayIconColor.Current" Decorative="true" />
+                        </a>
+                    </li>
+                    <li>
+                        @* No real Instagram/X URL exists in the repository yet (06_ASSETS_AND_OPEN_ITEMS.md) —
+                           rendered as a non-interactive placeholder instead of a link to nowhere or an
+                           invented handle. *@
+                        <span class="app-footer__social-unavailable" role="img" aria-label="Instagram (coming soon)">
+                            <BeeDayIcon Name="BeeDayIconName.Instagram" Color="BeeDayIconColor.Current" Decorative="true" />
+                        </span>
+                    </li>
+                    <li>
+                        <span class="app-footer__social-unavailable" role="img" aria-label="X (coming soon)">
+                            <BeeDayIcon Name="BeeDayIconName.X" Color="BeeDayIconColor.Current" Decorative="true" />
+                        </span>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+        <p class="app-footer__copyright">© 2026 beeday. All rights reserved.</p>
+    </div>
+</footer>

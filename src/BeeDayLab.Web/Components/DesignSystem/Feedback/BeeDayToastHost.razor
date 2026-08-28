@@ -1,0 +1,60 @@
+@implements IDisposable
+@inject ToastService ToastService
+
+@* Lab adaptation (Sprint 33.8, FE33-105): the BeeDay source injects IStringLocalizer<SharedResources>
+   for the region's aria-label and the per-toast dismiss button's aria-label. Dropped for the same
+   reason as ToastService itself — no localization pipeline in the Lab — using the verified English
+   defaults ("Notifications" / "Dismiss notification") as plain string literals instead. *@
+<div class="beeday-toast-region"
+     role="region"
+     aria-live="polite"
+     aria-label="Notifications">
+    @foreach (var toast in ToastService.Messages)
+    {
+        <article class="beeday-toast beeday-toast--@VariantClass(toast.Variant)"
+                 role="@RoleFor(toast.Variant)">
+            <span class="beeday-toast__icon" aria-hidden="true"><BeeDayIcon Name="@IconFor(toast.Variant)" Size="BeeDayIconSize.Small" /></span>
+            <div class="beeday-toast__content">
+                <strong>@toast.Title</strong>
+                <p>@toast.Message</p>
+            </div>
+            <button class="beeday-toast__close"
+                    type="button"
+                    aria-label="Dismiss notification"
+                    @onclick="() => ToastService.Remove(toast.Id)">
+                <BeeDayIcon Name="BeeDayIconName.Close" Size="BeeDayIconSize.ExtraSmall" />
+            </button>
+        </article>
+    }
+</div>
+
+@code {
+    protected override void OnInitialized()
+    {
+        ToastService.Changed += HandleChanged;
+    }
+
+    public void Dispose()
+    {
+        ToastService.Changed -= HandleChanged;
+    }
+
+    private void HandleChanged() => _ = InvokeAsync(StateHasChanged);
+
+    private static string VariantClass(ToastVariant variant) => variant switch
+    {
+        ToastVariant.Success => "success",
+        ToastVariant.Error => "error",
+        _ => "info"
+    };
+
+    private static BeeDayIconName IconFor(ToastVariant variant) => variant switch
+    {
+        ToastVariant.Success => BeeDayIconName.Success,
+        ToastVariant.Error => BeeDayIconName.ValidationError,
+        _ => BeeDayIconName.Information
+    };
+
+    private static string RoleFor(ToastVariant variant) =>
+        variant == ToastVariant.Error ? "alert" : "status";
+}

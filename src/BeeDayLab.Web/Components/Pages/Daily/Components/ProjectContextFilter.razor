@@ -1,0 +1,37 @@
+@using BeeDayLab.Web.Components.Pages.Daily
+@inject IStringLocalizer<DashboardResources> Localizer
+
+<div class="project-context-filter">
+    <button type="button"
+            class="project-context-filter__trigger"
+            @onclick="ToggleMenu"
+            aria-haspopup="listbox"
+            aria-expanded="@isOpen.ToString().ToLowerInvariant()"
+            aria-label="@Localizer["FilterProjectsAriaLabel"]"
+            title="@Localizer["FilterProjectsAriaLabel"]">
+        <BeeDayIcon Name="BeeDayIconName.Project" Size="BeeDayIconSize.Small" Decorative="true" />
+    </button>
+
+    @if (isOpen)
+    {
+        <div class="project-context-filter__menu" role="listbox" aria-label="@Localizer["ProjectsListAriaLabel"]">
+            <button type="button"
+                    role="option"
+                    aria-selected="@(SelectedProjectId is null ? "true" : "false")"
+                    class="project-context-filter__option @(SelectedProjectId is null ? "project-context-filter__option--selected" : null)"
+                    @onclick="@(() => SelectAsync(null))">
+                @Localizer["AllProjectsOption"]
+            </button>
+            @foreach (var project in Projects)
+            {
+                <button type="button"
+                        role="option"
+                        aria-selected="@(SelectedProjectId == project.Id ? "true" : "false")"
+                        class="project-context-filter__option @(SelectedProjectId == project.Id ? "project-context-filter__option--selected" : null)"
+                        @onclick="@(() => SelectAsync(project.Id))">
+                    @project.Name
+                </button>
+            }
+        </div>
+    }
+</div>

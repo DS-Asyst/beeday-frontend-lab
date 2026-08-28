@@ -1,0 +1,41 @@
+@inject NavigationManager Navigation
+@inject IStringLocalizer<ProfileCreationResources> Localizer
+
+@* Lab MOCK (Sprint 33.12, FE33-087) of BeeDay.Web's
+   Components/Features/Authentication/Components/RedirectToLogin.razor. Production's only job is to
+   run inside the real Router's <NotAuthorized> cascading content and force-navigate to /login the
+   instant it renders — the Lab has no real Router auth-state pipeline for it to be wired into (no
+   AuthenticationStateProvider/AuthorizeRouteView exists, and ADR-008 forbids adding one).
+
+   Per the Sprint 33.12 Ledger note ("Lab representa a tela sem navegação forçada real" — the Lab
+   shows the screen without the real forced navigation), this is MOCK rather than ADAPT: the real
+   Navigation.NavigateTo(forceLoad:true) call is dropped entirely (firing it here would immediately
+   navigate a reviewer away from the very preview they opened, making the transitional moment
+   impossible to actually see). It is replaced with a static rendering reusing the exact "beeday"
+   wordmark + redirecting-message markup Welcome.razor (FE33-078) already uses for its own
+   redirect-in-progress moment — same ProfileCreationResources keys, no new hardcoded copy — plus the
+   computed returnUrl rendered as inert, visually-hidden text so a reviewer can still see what target
+   this screen would have carried. Reachable only via its own explicit demo route
+   (RedirectToLoginPreview.razor) — never wired to any real trigger. *@
+
+<div class="entry-loading" role="status" aria-live="polite">
+    <span>beeday</span>
+    <p>@Localizer["RedirectingToLoginMessage"]</p>
+</div>
+<p class="visually-hidden">Would redirect to: @ComputedReturnUrl</p>
+
+@code {
+    /// <summary>
+    /// Same target computation production's OnAfterRender used to build, kept here purely so a
+    /// reviewer can see what it would have been — never actually navigated to.
+    /// </summary>
+    private string ComputedReturnUrl
+    {
+        get
+        {
+            var relative = Navigation.ToBaseRelativePath(Navigation.Uri);
+            var returnUrl = string.IsNullOrWhiteSpace(relative) ? "/profile" : $"/{relative}";
+            return $"/login?returnUrl={Uri.EscapeDataString(returnUrl)}";
+        }
+    }
+}

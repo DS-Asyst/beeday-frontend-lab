@@ -1,0 +1,33 @@
+@typeparam TValue
+@using System.Linq.Expressions
+
+<label class="@FieldCssClass" for="@Id">
+    @if (!string.IsNullOrWhiteSpace(Label))
+    {
+        <span class="@LabelCssClass">
+            @Label
+            @if (Required)
+            {
+                <span aria-hidden="true">*</span>
+            }
+        </span>
+    }
+    <span class="beeday-field__control-shell">
+        <InputSelect TValue="TValue"
+                     id="@Id"
+                     class="@($"{InputCssClass} beeday-field__control--select")"
+                     Value="Value"
+                     ValueChanged="ValueChanged"
+                     ValueExpression="ValueExpression"
+                     disabled="@Disabled"
+                     aria-describedby="@(ShowValidationMessage ? ValidationMessageId : null)"
+                     @attributes="AdditionalAttributes">
+            @ChildContent
+        </InputSelect>
+        <BeeDayIcon Name="BeeDayIconName.Select" Size="BeeDayIconSize.Small" Color="BeeDayIconColor.Muted" Class="beeday-field__control-icon" />
+    </span>
+</label>
+@if (ShowValidationMessage)
+{
+    <BeeDayValidationMessage For="ValueExpression" Id="@ValidationMessageId" />
+}

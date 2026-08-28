@@ -1,0 +1,13 @@
+@* Help family: beeday FAQs. Ported verbatim from BeeDay.Web's
+   Components/Features/Institutional/Components/HelpPageTemplate.razor (Sprint 33.11, FE33-066). *@
+<InstitutionalPageShell PageContext="@PageContext" Title="@Title" Description="@Description" Surface="Surface" Section="EditorialSection.Help">
+    @ChildContent
+</InstitutionalPageShell>
+
+@code {
+    [Parameter, EditorRequired] public string PageContext { get; set; } = string.Empty;
+    [Parameter, EditorRequired] public string Title { get; set; } = string.Empty;
+    [Parameter] public string? Description { get; set; }
+    [Parameter] public BeeDayPaletteToken Surface { get; set; } = BeeDayPaletteToken.Cor0;
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+}

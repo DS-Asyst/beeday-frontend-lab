@@ -1,0 +1,28 @@
+.brand-typography { display: grid; width: min(100%, 72rem); margin-inline: auto; gap: clamp(3rem, 7vw, 6rem); padding-block: clamp(3rem, 7vw, 6rem); }
+.brand-typography__hero { width: min(100%, 52rem); }
+.brand-typography__eyebrow, .brand-typography__role > span { color: var(--beeday-color-brand-primary); font: var(--beeday-type-eyebrow); letter-spacing: .1em; text-transform: uppercase; }
+.brand-typography__hero h1 { max-width: 12ch; margin: var(--beeday-spacing-sm) 0 0; color: var(--beeday-color-text-primary); font: var(--beeday-type-hero); letter-spacing: -.035em; }
+.brand-typography__hero > p, .brand-typography__section-intro p, .brand-typography__role-intro p { max-width: 44rem; margin: var(--beeday-spacing-lg) 0 0; color: var(--beeday-color-text-secondary); font-size: var(--beeday-font-size-lg); line-height: var(--beeday-line-height-relaxed); }
+.brand-typography__section { display: grid; gap: var(--beeday-spacing-xl); }
+.brand-typography__section-intro h2, .brand-typography__guidance h2 { margin: 0; color: var(--beeday-color-text-primary); font: var(--beeday-type-page-title); }
+.brand-typography__display-panel { display: grid; min-width: 0; overflow: hidden; padding: clamp(2rem, 6vw, 5rem); border: var(--beeday-border-width) solid var(--beeday-color-border); border-radius: var(--beeday-radius-2xl); background: var(--beeday-color-brand-primary-soft); gap: var(--beeday-spacing-lg); }
+.brand-typography__display-sample { margin: 0; color: var(--beeday-color-brand-primary); font: var(--beeday-type-brand-display); letter-spacing: -.035em; overflow-wrap: anywhere; }
+.brand-typography__accented-sample { margin: 0; color: var(--beeday-color-text-primary); font-size: clamp(1.7rem, 5vw, 3rem); line-height: 1.15; overflow-wrap: anywhere; }
+.brand-typography__role-intro h3 { margin: 0; color: var(--beeday-color-text-primary); font: var(--beeday-type-section-title); }
+.brand-typography__roles { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--beeday-spacing-md); }
+.brand-typography__role { min-width: 0; padding: var(--beeday-spacing-lg); border: var(--beeday-border-width-subtle) solid var(--beeday-color-border); border-radius: var(--beeday-radius-lg); background: var(--beeday-color-surface); }
+.brand-typography__role p { margin: var(--beeday-spacing-md) 0 0; overflow-wrap: anywhere; }
+.brand-typography__role--display { grid-column: 1 / -1; }
+.brand-typography__role--display p { color: var(--beeday-color-brand-primary); font-size: clamp(2rem, 5vw, 3.5rem); line-height: 1.1; }
+.brand-typography__role--page-title p { font: var(--beeday-type-page-title); }
+.brand-typography__role--section-title p { font: var(--beeday-type-section-title); }
+.brand-typography__role--card-title p { font: var(--beeday-type-card-title); }
+.brand-typography__role--body p { font: var(--beeday-type-body); }
+.brand-typography__role--label p { font: var(--beeday-type-button); letter-spacing: var(--beeday-letter-spacing-label); text-transform: uppercase; }
+.brand-typography__role--caption p { font: var(--beeday-type-caption); }
+.brand-typography__guidance { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--beeday-spacing-lg); }
+.brand-typography__guidance-card { padding: var(--beeday-spacing-xl); border: var(--beeday-border-width) solid var(--beeday-color-border); border-radius: var(--beeday-radius-2xl); }
+.brand-typography__guidance-card--do { background: var(--beeday-color-success-soft); }
+.brand-typography__guidance-card--avoid { background: var(--beeday-color-danger-soft); }
+.brand-typography__guidance ul { display: grid; margin: var(--beeday-spacing-lg) 0 0; padding-left: var(--beeday-spacing-lg); gap: var(--beeday-spacing-md); color: var(--beeday-color-text-secondary); line-height: var(--beeday-line-height-relaxed); }
+@media (max-width: 40rem) { .brand-typography__roles, .brand-typography__guidance { grid-template-columns: 1fr; } .brand-typography__display-panel, .brand-typography__role, .brand-typography__guidance-card { padding: var(--beeday-spacing-lg); } }

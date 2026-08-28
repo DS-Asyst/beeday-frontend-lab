@@ -1,0 +1,17 @@
+<header class="@CssClass" @attributes="AdditionalAttributes">
+    <div>
+        @if (!string.IsNullOrWhiteSpace(Eyebrow))
+        {
+            <span class="beeday-section-header__eyebrow">@Eyebrow</span>
+        }
+        <h2>@Title</h2>
+        @if (!string.IsNullOrWhiteSpace(Description))
+        {
+            <p>@Description</p>
+        }
+    </div>
+    @if (Actions is not null)
+    {
+        <div class="beeday-section-header__actions">@Actions</div>
+    }
+</header>

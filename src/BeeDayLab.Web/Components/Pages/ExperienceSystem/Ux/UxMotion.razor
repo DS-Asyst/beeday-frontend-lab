@@ -1,0 +1,26 @@
+@page "/experience-system/ux/motion"
+@layout PublicLayout
+@inject IStringLocalizer<ExperienceSystemResources> Localizer
+
+<PageTitle>@Localizer["UxMotionPageTitle"]</PageTitle>
+
+@* Ported from BeeDay.Web's Components/Features/ExperienceSystem/Pages/Ux/UxMotion.razor (Sprint
+   33.11, FE33-075). *@
+<ExperienceSystemPage Eyebrow="@Localizer["PillarNavUx"]" Title="@Localizer["UxMotionTitle"]" Description="@Localizer["UxMotionIntro"]" Pillar="ExperienceSystemPillar.Ux" CurrentHref="/experience-system/ux/motion">
+    <section class="experience-system-section" aria-labelledby="motion-taxonomy-heading">
+        <h2 id="motion-taxonomy-heading">@Localizer["UxMotionTaxonomyTitle"]</h2>
+        <ul>
+            <li>@Localizer["UxMotionTaxonomy1"]</li>
+            <li>@Localizer["UxMotionTaxonomy2"]</li>
+            <li>@Localizer["UxMotionTaxonomy3"]</li>
+            <li>@Localizer["UxMotionTaxonomy4"]</li>
+            <li>@Localizer["UxMotionTaxonomy5"]</li>
+            <li>@Localizer["UxMotionTaxonomy6"]</li>
+        </ul>
+    </section>
+
+    <section class="experience-system-section" aria-labelledby="motion-reduced-heading">
+        <h2 id="motion-reduced-heading">@Localizer["UxMotionReducedTitle"]</h2>
+        <p>@Localizer["UxMotionReducedText"]</p>
+    </section>
+</ExperienceSystemPage>

@@ -1,0 +1,22 @@
+@* Ported verbatim from BeeDay.Web's
+   Components/Features/ExperienceSystem/Components/ExperienceSystemTopicGrid.razor (Sprint 33.11,
+   FE33-076). Pure presentational — no runtime dependency at all. *@
+<ul class="experience-system-topic-grid" aria-label="@AriaLabel">
+    @foreach (var item in Items)
+    {
+        <li>
+            <a class="experience-system-topic-grid__card" href="@item.Href">
+                <span class="experience-system-topic-grid__title">@item.Label</span>
+                <span class="experience-system-topic-grid__description">@item.Description</span>
+            </a>
+        </li>
+    }
+</ul>
+
+@code {
+    [Parameter, EditorRequired]
+    public IReadOnlyList<ExperienceSystemLink> Items { get; set; } = [];
+
+    [Parameter]
+    public string? AriaLabel { get; set; }
+}

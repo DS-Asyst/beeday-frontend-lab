@@ -1,0 +1,65 @@
+@page "/account/resend-confirmation"
+@layout OnboardingLayout
+@implements IDisposable
+@inject ScenarioSelection ScenarioSelection
+@inject ResendConfirmationScenarioProvider ScenarioProvider
+@inject IStringLocalizer<IdentityResources> Localizer
+@inject IStringLocalizer<BeeDayLab.Web.Resources.SharedResources> SharedLocalizer
+
+@* Lab adaptation (Sprint 33.12, FE33-081) of BeeDay.Web's
+   Components/Features/Identity/Pages/ResendConfirmation.razor. @attribute [AllowAnonymous] dropped.
+   The real ISender.Send(ResendEmailConfirmationCommand) call is replaced with a fixed Task.Delay
+   followed by ResendConfirmationScenarioProvider.GetScenario(ScenarioSelection.Context) to decide
+   success/failure. Production's DomainErrorLocalizer.Translate(ex, SharedLocalizer) call (real
+   Domain/Application exception classification — EXCLUDE, never ported, see
+   Localization/DomainErrorLocalizer.cs's own exclusion note) is replaced on failure with
+   SharedLocalizer["DomainErrorGeneric"] — an already-real, already-localized SharedResources string
+   (ported in an earlier Sprint alongside the other DomainError* keys, left unused until this Sprint
+   could finally consume it through the scenario engine instead of through the excluded translator).
+   ResendCooldownTimer.cs is a verbatim copy (zero BeeDay dependency), unchanged in shape here. *@
+
+<PageTitle>@Localizer["ResendConfirmationPageTitle"]</PageTitle>
+<section class="identity-page beeday-fade-in"><div class="identity-card"><div class="identity-card__content">
+<div class="identity-card__brand"><BeeDayBrand /></div>
+<header class="identity-header"><h1>@Localizer["ResendConfirmationHeading"]</h1><p>@Localizer["ResendConfirmationIntro"]</p></header>
+@if (_submitted) { <div class="identity-feedback identity-feedback--success" role="status">@Localizer["ResendSubmittedMessage"]</div> }
+@if (!string.IsNullOrWhiteSpace(_error)) { <div class="identity-feedback identity-feedback--error" role="alert">@_error</div> }
+<EditForm Model="_model" OnValidSubmit="SubmitAsync" class="identity-form">
+<DataAnnotationsValidator />
+<BeeDayInput Id="resend-confirmation-email" Label="@Localizer["EmailLabel"]" Required="true"
+             type="email" autocomplete="email" Disabled="@_busy" @bind-Value="_model.Email" />
+<BeeDayButton Type="submit" FullWidth="true" IsLoading="@_busy" Disabled="@(_busy || _cooldown.SecondsRemaining > 0)">@ButtonText</BeeDayButton>
+</EditForm>
+<a class="identity-navigation-link" href="/login">@Localizer["BackToSignIn"]</a>
+</div></div></section>
+@code {
+    [SupplyParameterFromQuery(Name = "email")] public string? Email { get; set; }
+    private readonly EmailForm _model = new(); private bool _busy; private bool _submitted; private string? _error;
+    private readonly ResendCooldownTimer _cooldown;
+    // Separate from _cooldown above (cancelled/recreated every Start call) — this one spans the
+    // page's whole lifetime and only cancels on Dispose, so the synthetic delay itself is cancelled
+    // if the user navigates away mid-request.
+    private readonly CancellationTokenSource _pageCts = new();
+    public ResendConfirmation() => _cooldown = new ResendCooldownTimer(() => InvokeAsync(StateHasChanged));
+    private string ButtonText => _busy
+        ? Localizer["SendingButton"]
+        : _cooldown.SecondsRemaining > 0
+            ? Localizer["ResendAvailableInSeconds", _cooldown.SecondsRemaining]
+            : Localizer["ResendEmailButton"];
+    protected override void OnParametersSet() { if (!string.IsNullOrWhiteSpace(Email) && string.IsNullOrWhiteSpace(_model.Email)) _model.Email = Email.Trim(); }
+    private async Task SubmitAsync()
+    {
+        if (_busy || _cooldown.SecondsRemaining > 0) return;
+        _busy = true; _error = null;
+        try
+        {
+            await Task.Delay(400, _pageCts.Token);
+            var scenario = ScenarioProvider.GetScenario(ScenarioSelection.Context);
+            if (scenario.Succeeds) { _submitted = true; _cooldown.Start(); } else { _error = SharedLocalizer["DomainErrorGeneric"]; }
+        }
+        catch (OperationCanceledException) when (_pageCts.IsCancellationRequested) { }
+        finally { _busy = false; }
+    }
+    public void Dispose() { _cooldown.Dispose(); _pageCts.Cancel(); _pageCts.Dispose(); }
+    private sealed class EmailForm { [System.ComponentModel.DataAnnotations.Required, System.ComponentModel.DataAnnotations.EmailAddress] public string Email { get; set; } = string.Empty; }
+}

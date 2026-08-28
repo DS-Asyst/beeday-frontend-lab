@@ -1,0 +1,33 @@
+@typeparam TValue
+@using System.Globalization
+@using System.Linq.Expressions
+
+<label class="@FieldCssClass" for="@Id">
+    @if (!string.IsNullOrWhiteSpace(Label))
+    {
+        <span class="@LabelCssClass">
+            @Label
+            @if (Required)
+            {
+                <span aria-hidden="true">*</span>
+            }
+        </span>
+    }
+    <span class="beeday-field__control-shell">
+        <InputDate TValue="TValue"
+                   id="@Id"
+                   class="@InputCssClass"
+                   Value="Value"
+                   ValueChanged="ValueChanged"
+                   ValueExpression="ValueExpression"
+                   disabled="@Disabled"
+                   lang="@CultureInfo.CurrentCulture.Name"
+                   aria-describedby="@(ShowValidationMessage ? ValidationMessageId : null)"
+                   @attributes="AdditionalAttributes" />
+        <BeeDayIcon Name="BeeDayIconName.Calendar" Size="BeeDayIconSize.Small" Color="BeeDayIconColor.Muted" Class="beeday-field__control-icon" />
+    </span>
+</label>
+@if (ShowValidationMessage)
+{
+    <BeeDayValidationMessage For="ValueExpression" Id="@ValidationMessageId" />
+}

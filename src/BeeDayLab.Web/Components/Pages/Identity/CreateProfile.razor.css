@@ -1,0 +1,75 @@
+.profile-page {
+    position: relative;
+    display: grid;
+    width: 100%;
+    min-height: calc(100dvh - 4rem);
+    place-items: center;
+    padding: clamp(5.5rem, 12vh, 7rem) var(--beeday-spacing-lg) var(--beeday-spacing-2xl);
+}
+
+.profile-panel { width: min(100%, 27rem); }
+.profile-panel__global-brand { margin-bottom: var(--beeday-spacing-xl); text-align: center; }
+.profile-panel__global-brand ::deep .beeday-brand { --beeday-brand-height: 2.25rem; }
+
+.profile-panel h1 {
+    margin: 0;
+    color: var(--beeday-color-text-primary);
+    font-size: clamp(2rem, 6vw, 2.6rem);
+    line-height: 1.05;
+    text-align: center;
+}
+
+/* EXP32-F009 (Sprint 32.20): text-secondary for AA normal-text contrast (text-muted is ~4.26:1, below 4.5:1). */
+.profile-panel__intro {
+    margin: var(--beeday-spacing-sm) 0 var(--beeday-spacing-xl);
+    color: var(--beeday-color-text-secondary);
+    line-height: 1.5;
+    text-align: center;
+}
+
+.profile-form { display: grid; gap: var(--beeday-spacing-md); }
+.profile-password-hint {
+    margin: calc(-1 * var(--beeday-spacing-sm)) 0 0;
+    color: var(--beeday-color-text-secondary);
+    font-size: var(--beeday-font-size-sm);
+    line-height: 1.45;
+}
+
+.profile-password-hint--valid { color: var(--beeday-color-success); font-weight: var(--beeday-font-weight-bold); }
+.profile-validation { margin: 0; color: var(--beeday-color-danger); font-size: var(--beeday-font-size-sm); font-weight: var(--beeday-font-weight-bold); line-height: 1.4; }
+
+.profile-nickname-field {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: center;
+    overflow: hidden;
+    border: var(--beeday-border-width) solid var(--beeday-color-border);
+    border-radius: var(--beeday-radius-lg);
+    background: var(--beeday-color-surface);
+    transition: border-color var(--beeday-transition-fast), box-shadow var(--beeday-transition-fast);
+}
+
+.profile-nickname-field:focus-within { border-color: var(--beeday-color-brand-primary); box-shadow: var(--beeday-focus-ring); }
+.profile-nickname-field__prefix { display: grid; align-self: stretch; min-width: 2.75rem; place-items: center; color: var(--beeday-color-brand-primary); background: var(--beeday-color-brand-primary-soft); }
+.profile-field .profile-nickname-field__input { min-width: 0; border: 0; border-radius: 0; box-shadow: none; }
+.profile-field .profile-nickname-field__input:focus { border-color: transparent; box-shadow: none; }
+
+.profile-form ::deep .beeday-button--primary { min-height: 3.25rem; margin-top: var(--beeday-spacing-xs); font-size: var(--beeday-font-size-md); }
+.profile-form ::deep .profile-form__back { justify-self: start; margin-bottom: var(--beeday-spacing-sm); }
+
+@media (max-width: 40rem) {
+    .profile-page { min-height: calc(100dvh - 2rem); padding: 5.25rem 0 var(--beeday-spacing-xl); }
+}
+
+@media (max-width: 28rem) {
+    .profile-panel__global-brand { margin-bottom: var(--beeday-spacing-lg); }
+    .profile-panel__intro { margin-bottom: var(--beeday-spacing-lg); }
+}
+
+/* EXP32-F010 (Sprint 32.20): local fallback - the global safety net only shortens duration, it
+   does not remove the border-color/box-shadow transition itself. */
+@media (prefers-reduced-motion: reduce) {
+    .profile-nickname-field {
+        transition: none;
+    }
+}

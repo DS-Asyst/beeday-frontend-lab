@@ -1,0 +1,101 @@
+@using System.Globalization
+@using BeeDayLab.Web.Components.Pages.Wallet.Models
+@using BeeDayLab.Web.Scenarios
+@inject IStringLocalizer<WalletResources> Localizer
+
+@if (IsOpen)
+{
+    <EditorModalShell Model="Model"
+                      Title="@(IsEditing ? Localizer["EditTransactionTitle"] : Localizer["CreateTransactionTitle"])"
+                      TitleId="transaction-editor-title"
+                      SubmitLabel="@(IsEditing ? Localizer["SaveButtonLabel"] : Localizer["CreateButtonLabel"])"
+                      ShowDelete="IsEditing"
+                      IsBusy="IsBusy"
+                      ErrorMessage="@ErrorMessage"
+                      OnSubmit="SaveAsync"
+                      OnCancel="CancelAsync"
+                      OnDelete="DeleteAsync">
+        <HeroContent>
+            <div class="editor-modal__hero">
+                <BeeDayInput Id="transaction-description"
+                              Label="@Localizer["DescriptionLabel"]"
+                              Required="true"
+                              @bind-Value="Model.Description"
+                              Placeholder="@Localizer["DescriptionPlaceholder"]"
+                              MaxLength="120"
+                              FieldCssClass="editor-modal__hero-field"
+                              LabelCssClass="editor-modal__label-line"
+                              autofocus />
+                <BeeDayTextArea Id="transaction-notes"
+                                 Label="@Localizer["NotesLabel"]"
+                                 @bind-Value="Model.Notes"
+                                 Placeholder="@Localizer["NotesPlaceholder"]"
+                                 MaxLength="500"
+                                 ShowCounter="true"
+                                 FieldCssClass="editor-modal__hero-field"
+                                 LabelCssClass="editor-modal__label-line"
+                                 CounterCssClass="editor-modal__counter" />
+            </div>
+        </HeroContent>
+        <BodyContent>
+            <div class="editor-modal__body wallet-editor-grid">
+                <div class="editor-modal__type-summary wallet-editor-grid__wide">
+                    <BeeDayIcon Name="BeeDayIconName.Wallet" Size="BeeDayIconSize.Large" Class="editor-modal__type-icon" Decorative="true" />
+                    <div>
+                        <strong>@Localizer["TransactionSummaryHeading"]</strong>
+                        <p>@Localizer["TransactionSummaryDescription"]</p>
+                    </div>
+                </div>
+
+                <BeeDaySelect TValue="WalletTransactionType"
+                               Id="transaction-type"
+                               Label="@Localizer["TypeLabel"]"
+                               @bind-Value="Model.Type"
+                               FieldCssClass="editor-modal__field">
+                    <option value="@WalletTransactionType.Income">@Localizer["TransactionTypeIncomeLabel"]</option>
+                    <option value="@WalletTransactionType.Expense">@Localizer["TransactionTypeExpenseLabel"]</option>
+                </BeeDaySelect>
+
+                <label class="editor-modal__field">
+                    <span>@Localizer["AmountLabel"]</span>
+                    <InputNumber @bind-Value="Model.Amount" step="0.01" min="0.01" lang="@CultureInfo.CurrentCulture.Name" />
+                    <BeeDayValidationMessage For="@(() => Model.Amount)" />
+                </label>
+
+                <BeeDayDateInput TValue="DateTime"
+                                  Id="transaction-date"
+                                  Label="@Localizer["DateLabel"]"
+                                  @bind-Value="Model.TransactionDate"
+                                  FieldCssClass="editor-modal__field" />
+
+                <BeeDaySelect TValue="Guid?"
+                               Id="transaction-tag"
+                               Label="@Localizer["TagLabel"]"
+                               @bind-Value="Model.WalletTagId"
+                               FieldCssClass="editor-modal__field">
+                    <option value="">@Localizer["NoTagLabel"]</option>
+                    @foreach (var tag in Tags)
+                    {
+                        <option value="@tag.Id">@tag.Name</option>
+                    }
+                </BeeDaySelect>
+            </div>
+        </BodyContent>
+    </EditorModalShell>
+}
+
+@code {
+    [Parameter] public bool IsOpen { get; set; }
+    [Parameter] public bool IsEditing { get; set; }
+    [Parameter] public bool IsBusy { get; set; }
+    [Parameter] public string? ErrorMessage { get; set; }
+    [Parameter, EditorRequired] public TransactionFormModel Model { get; set; } = new();
+    [Parameter] public IReadOnlyList<WalletTagData> Tags { get; set; } = [];
+    [Parameter] public EventCallback OnSave { get; set; }
+    [Parameter] public EventCallback OnCancel { get; set; }
+    [Parameter] public EventCallback OnDeleteRequested { get; set; }
+
+    private Task SaveAsync() => IsBusy ? Task.CompletedTask : OnSave.InvokeAsync();
+    private Task CancelAsync() => IsBusy ? Task.CompletedTask : OnCancel.InvokeAsync();
+    private Task DeleteAsync() => IsBusy ? Task.CompletedTask : OnDeleteRequested.InvokeAsync();
+}

@@ -1,0 +1,52 @@
+@using BeeDayLab.Web.Scenarios
+@inject IStringLocalizer<WalletResources> Localizer
+
+<section class="wallet-tags-panel beeday-card"
+         aria-labelledby="wallet-tags-title"
+         aria-busy="@IsBusy.ToString().ToLowerInvariant()"
+         aria-disabled="@IsDisabled.ToString().ToLowerInvariant()">
+    <header class="wallet-panel-header">
+        <div><span class="wallet-eyebrow">@Localizer["OrganizationEyebrow"]</span><h2 id="wallet-tags-title">@Localizer["TagsHeading"]</h2></div>
+        <BeeDayButton Variant="BeeDayButtonVariant.Primary" Compact="true" Disabled="@(IsBusy || IsDisabled)" OnClick="RaiseCreate">@Localizer["NewTagButton"]</BeeDayButton>
+    </header>
+
+    @if (Tags.Count == 0)
+    {
+        <BeeDayEmptyState Title="@Localizer["NoTagsYetTitle"]"
+                           Description="@Localizer["NoTagsYetDescription"]"
+                           Icon="BeeDayIconName.Tag" />
+    }
+    else
+    {
+        <div class="wallet-tag-list">
+            @foreach (var tag in Tags)
+            {
+                <BeeDayCard @key="tag.Id"
+                             Class="wallet-tag-item"
+                             Interactive="true"
+                             role="button"
+                             tabindex="@(IsDisabled ? -1 : 0)"
+                             aria-disabled="@IsDisabled.ToString().ToLowerInvariant()"
+                             aria-label="@Localizer["EditTagAriaLabel", tag.Name]"
+                             @onclick="() => RaiseEdit(tag)"
+                             @onkeydown="args => HandleRowKeyDown(args, tag)">
+                    <span class="wallet-tag-dot" style="background:@tag.Color"></span>
+                    <div><strong>@tag.Name</strong><small>@(tag.TransactionCount == 1 ? Localizer["TagTransactionCountSingular", tag.TransactionCount] : Localizer["TagTransactionCountPlural", tag.TransactionCount])</small></div>
+                </BeeDayCard>
+            }
+        </div>
+    }
+</section>
+
+@code {
+    [Parameter] public IReadOnlyList<WalletTagData> Tags { get; set; } = [];
+    [Parameter] public bool IsBusy { get; set; }
+    [Parameter] public bool IsDisabled { get; set; }
+    [Parameter] public EventCallback OnCreate { get; set; }
+    [Parameter] public EventCallback<WalletTagData> OnEdit { get; set; }
+
+    private Task RaiseCreate() => IsDisabled ? Task.CompletedTask : OnCreate.InvokeAsync();
+    private Task RaiseEdit(WalletTagData tag) => IsDisabled ? Task.CompletedTask : OnEdit.InvokeAsync(tag);
+    private Task HandleRowKeyDown(Microsoft.AspNetCore.Components.Web.KeyboardEventArgs args, WalletTagData tag) =>
+        args.Key is "Enter" or " " ? RaiseEdit(tag) : Task.CompletedTask;
+}

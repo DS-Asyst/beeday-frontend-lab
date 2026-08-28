@@ -1,0 +1,11 @@
+@* Ported verbatim from BeeDay.Web's Components/Features/Institutional/Components/EditorialStoryBlock.razor
+   (Sprint 33.11, FE33-067) — one editorial story block, a short headline plus short support copy.
+   No image slot, no runtime dependency. Centered is the closing-statement variant used once per
+   page, without support copy. *@
+<section class="editorial-story-block@(Centered ? " editorial-story-block--centered" : "")">
+    <p class="editorial-story-block__headline">@Headline</p>
+    @if (!string.IsNullOrWhiteSpace(Support))
+    {
+        <p class="editorial-story-block__support">@Support</p>
+    }
+</section>

@@ -1,0 +1,144 @@
+@page "/account/confirm-email"
+@layout OnboardingLayout
+@implements IDisposable
+@inject ScenarioSelection ScenarioSelection
+@inject ConfirmEmailScenarioProvider ScenarioProvider
+@inject IStringLocalizer<IdentityResources> Localizer
+
+@* Lab adaptation (Sprint 33.12, FE33-083) of BeeDay.Web's
+   Components/Features/Identity/Pages/ConfirmEmail.razor. @attribute [AllowAnonymous] dropped. The
+   @switch structure over the page's own 6-value outcome enum is kept verbatim — only the data source
+   changes: the real ISender.Send(ConfirmEmailCommand) call plus its local exception-message
+   Classify() helper are replaced by ConfirmEmailScenarioProvider.GetScenario(ScenarioSelection.Context),
+   which maps the 8 generic ScenarioState values onto the same 6-value outcome (see
+   Scenarios/ConfirmEmailScenarioProvider.cs for the documented mapping). The page's own richer enum
+   is kept as the scenario data's shape per the Sprint 33.12 issue's explicit guidance — it now lives
+   in Scenarios/ConfirmEmailScenarioData.cs as ConfirmEmailOutcome so the provider can return it
+   directly, rather than being duplicated locally here.
+
+   The [SupplyParameterFromQuery(Name="token")] missing-token branch is kept exactly as production
+   has it — pure input validation, not a backend dependency, per the issue's explicit guidance to keep
+   this mechanism alongside the scenario engine. The RendererInfo.IsInteractive prerender guard is
+   also kept: this page's scenario lookup is a pure, idempotent function (unlike production's
+   real, non-idempotent token-consuming mutation), so running it twice would be harmless either way,
+   but keeping the same guard preserves the exact same two-pass rendering behavior (Processing on the
+   static pass, resolved outcome only once interactive) production has today. *@
+
+<PageTitle>@Localizer["ConfirmEmailPageTitle"]</PageTitle>
+
+<section class="identity-page beeday-fade-in">
+    <div class="identity-card">
+        <div class="identity-card__content">
+            <div class="identity-card__brand"><BeeDayBrand /></div>
+
+            @switch (_state)
+            {
+                case ConfirmEmailOutcome.Processing:
+                    <header class="identity-header">
+                        <h1>@Localizer["ConfirmingEmailHeading"]</h1>
+                        <p>@Localizer["ValidatingLinkIntro"]</p>
+                    </header>
+                    break;
+
+                case ConfirmEmailOutcome.Confirmed:
+                    <header class="identity-header">
+                        <h1>@Localizer["EmailConfirmedHeading"]</h1>
+                        <p>@Localizer["AccountReadyIntro"]</p>
+                    </header>
+                    <div class="identity-feedback identity-feedback--success" role="status">
+                        @Localizer["ConfirmationCompletedMessage"]
+                    </div>
+                    <a class="identity-navigation-link identity-navigation-link--primary" href="/login?confirmed=true">@Localizer["SignIn"]</a>
+                    break;
+
+                case ConfirmEmailOutcome.AlreadyConfirmed:
+                    <header class="identity-header">
+                        <h1>@Localizer["AlreadyConfirmedHeading"]</h1>
+                        <p>@Localizer["AlreadyConfirmedIntro"]</p>
+                    </header>
+                    <div class="identity-feedback identity-feedback--success" role="status">
+                        @Localizer["CanSignInNormallyMessage"]
+                    </div>
+                    <a class="identity-navigation-link identity-navigation-link--primary" href="/login">@Localizer["SignIn"]</a>
+                    break;
+
+                case ConfirmEmailOutcome.Expired:
+                    <header class="identity-header">
+                        <h1>@Localizer["LinkExpiredHeading"]</h1>
+                        <p>@Localizer["LinkExpiredIntro"]</p>
+                    </header>
+                    <div class="identity-feedback identity-feedback--error" role="alert">@_error</div>
+                    <a class="identity-navigation-link" href="/account/resend-confirmation">@Localizer["RequestNewLink"]</a>
+                    break;
+
+                case ConfirmEmailOutcome.Replaced:
+                    <header class="identity-header">
+                        <h1>@Localizer["LinkReplacedHeading"]</h1>
+                        <p>@Localizer["LinkReplacedIntro"]</p>
+                    </header>
+                    <div class="identity-feedback identity-feedback--error" role="alert">
+                        @Localizer["UseMostRecentLinkMessage"]
+                    </div>
+                    <a class="identity-navigation-link" href="/account/resend-confirmation">@Localizer["RequestNewLink"]</a>
+                    break;
+
+                default:
+                    <header class="identity-header">
+                        <h1>@Localizer["InvalidLinkHeading"]</h1>
+                        <p>@Localizer["InvalidLinkIntro"]</p>
+                    </header>
+                    <div class="identity-feedback identity-feedback--error" role="alert">@_error</div>
+                    <a class="identity-navigation-link" href="/account/resend-confirmation">@Localizer["RequestNewLink"]</a>
+                    break;
+            }
+        </div>
+    </div>
+</section>
+
+@code {
+    [SupplyParameterFromQuery(Name = "token")]
+    public string? Token { get; set; }
+
+    private ConfirmEmailOutcome _state = ConfirmEmailOutcome.Processing;
+    private string _error = string.Empty;
+    private readonly CancellationTokenSource _cts = new();
+
+    public void Dispose()
+    {
+        _cts.Cancel();
+        _cts.Dispose();
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        _error = Localizer["DefaultConfirmationError"];
+
+        if (string.IsNullOrWhiteSpace(Token))
+        {
+            _state = ConfirmEmailOutcome.Invalid;
+            _error = Localizer["ConfirmationTokenMissingError"];
+            return;
+        }
+
+        if (!RendererInfo.IsInteractive)
+        {
+            return;
+        }
+
+        try
+        {
+            await Task.Delay(400, _cts.Token);
+            var scenario = ScenarioProvider.GetScenario(ScenarioSelection.Context);
+            _state = scenario.Outcome;
+            _error = _state switch
+            {
+                ConfirmEmailOutcome.Expired => Localizer["LinkExpiredMessage"],
+                ConfirmEmailOutcome.Invalid => Localizer["InvalidLinkMessage"],
+                _ => _error
+            };
+        }
+        catch (OperationCanceledException) when (_cts.IsCancellationRequested)
+        {
+        }
+    }
+}

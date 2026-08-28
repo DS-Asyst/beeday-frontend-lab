@@ -1,0 +1,15 @@
+@* Institutional/editorial family: Mission, Efficacy, Contact us, Brand guidelines — all "About us"
+   in AppFooter.razor. Ported verbatim from BeeDay.Web's
+   Components/Features/Institutional/Components/EditorialPageTemplate.razor (Sprint 33.11, FE33-066). *@
+<InstitutionalPageShell PageContext="@PageContext" Title="@Title" Description="@Description" Surface="Surface" Section="Section">
+    @ChildContent
+</InstitutionalPageShell>
+
+@code {
+    [Parameter, EditorRequired] public string PageContext { get; set; } = string.Empty;
+    [Parameter, EditorRequired] public string Title { get; set; } = string.Empty;
+    [Parameter] public string? Description { get; set; }
+    [Parameter] public BeeDayPaletteToken Surface { get; set; } = BeeDayPaletteToken.Cor0;
+    [Parameter] public EditorialSection Section { get; set; } = EditorialSection.AboutUs;
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+}

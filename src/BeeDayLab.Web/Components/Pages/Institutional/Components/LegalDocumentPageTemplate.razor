@@ -1,0 +1,17 @@
+@* Legal/document family: Community guidelines, Terms, Privacy — "Privacy and terms" in
+   AppFooter.razor. Reading width is prioritized over decoration; no fabricated legal content — see
+   each page's own remarks. Defaults to Cor8 (dark navy), not Cor0 — legal/document pages don't
+   share Editorial/Help/Product's brand-primary default. Ported verbatim from BeeDay.Web's
+   Components/Features/Institutional/Components/LegalDocumentPageTemplate.razor (Sprint 33.11,
+   FE33-066). *@
+<InstitutionalPageShell PageContext="@PageContext" Title="@Title" Description="@Description" Surface="Surface" Section="EditorialSection.Legal">
+    @ChildContent
+</InstitutionalPageShell>
+
+@code {
+    [Parameter, EditorRequired] public string PageContext { get; set; } = string.Empty;
+    [Parameter, EditorRequired] public string Title { get; set; } = string.Empty;
+    [Parameter] public string? Description { get; set; }
+    [Parameter] public BeeDayPaletteToken Surface { get; set; } = BeeDayPaletteToken.Cor8;
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+}

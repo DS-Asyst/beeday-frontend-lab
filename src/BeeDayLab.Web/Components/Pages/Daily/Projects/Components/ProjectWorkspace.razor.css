@@ -1,0 +1,380 @@
+/* Sprint 29.3: headings/labels/values below now use the shared --beeday-type-* role tokens
+   (docs/design-system/01-foundations.md §3) instead of one-off literal font-size/weight values —
+   Sprint 25.12 converged this component's color/surface/overlay/shadow onto foundations but left
+   typography as local literals, smaller than the equivalent roles used elsewhere (e.g. this panel's
+   own title matched editor-modal.css's h2 in size only, with no weight/family at all; the section
+   heading was ~1.05rem versus --beeday-type-card-title's 1.5rem used by comparable headings
+   elsewhere). Layout/spacing/grid rules below are unaffected — only font declarations changed. */
+.project-workspace {
+    position: fixed;
+    inset: 0;
+    z-index: var(--beeday-z-modal);
+    display: grid;
+    place-items: center;
+    padding: 1rem;
+    background: var(--beeday-color-overlay);
+    backdrop-filter: blur(3px);
+}
+
+.project-workspace__panel {
+    display: flex;
+    flex-direction: column;
+    width: min(58rem, 100%);
+    max-height: min(54rem, 94vh);
+    overflow: hidden;
+    border: 1px solid var(--beeday-color-border);
+    border-radius: var(--beeday-radius-md);
+    background: var(--beeday-color-surface-muted);
+    box-shadow: var(--beeday-shadow-lg);
+}
+
+.project-workspace__header {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.2rem 1.3rem 1rem;
+    border-bottom: 1px solid var(--beeday-color-border);
+    background: var(--beeday-color-surface);
+}
+
+.project-workspace__eyebrow {
+    color: var(--beeday-color-brand-primary);
+    font: var(--beeday-type-eyebrow);
+    text-transform: uppercase;
+}
+
+.project-workspace__header h2 {
+    margin: .2rem 0 0;
+    font: var(--beeday-type-title);
+    font-size: clamp(1.25rem, 4vw, 1.55rem);
+}
+
+/* EXP32-F009 (Sprint 32.20): text-secondary for AA normal-text contrast (text-muted is ~4.26:1, below 4.5:1). */
+.project-workspace__header p {
+    margin: .42rem 0 0;
+    color: var(--beeday-color-text-secondary);
+    font: var(--beeday-type-small);
+    line-height: 1.45;
+}
+
+.project-workspace__close {
+    flex: 0 0 auto;
+}
+
+.project-workspace__summary {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: .65rem;
+    padding: .9rem 1.3rem .55rem;
+}
+
+.project-workspace__summary div {
+    display: flex;
+    justify-content: space-between;
+    padding: .65rem .75rem;
+    border: 1px solid var(--beeday-color-border);
+    border-radius: var(--beeday-radius-sm);
+    background: var(--beeday-color-surface);
+}
+
+/* EXP32-F009 (Sprint 32.20): text-secondary for AA normal-text contrast (text-muted is ~4.26:1, below 4.5:1). */
+.project-workspace__summary span {
+    color: var(--beeday-color-text-secondary);
+    font: var(--beeday-type-label);
+}
+
+.project-workspace__summary strong {
+    font: var(--beeday-type-label);
+}
+
+.project-workspace__progress {
+    margin: 0 1.3rem .9rem;
+}
+
+.project-workspace__toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: .9rem 1.3rem;
+    border-top: 1px solid var(--beeday-color-border);
+    border-bottom: 1px solid var(--beeday-color-border);
+    background: var(--beeday-color-surface);
+}
+
+.project-workspace__toolbar h3 {
+    margin: 0;
+    font: var(--beeday-type-card-title);
+}
+
+/* EXP32-F009 (Sprint 32.20): text-secondary for AA normal-text contrast (text-muted is ~4.26:1, below 4.5:1). */
+.project-workspace__toolbar p {
+    margin: .2rem 0 0;
+    color: var(--beeday-color-text-secondary);
+    font: var(--beeday-type-small);
+}
+
+.project-workspace__add {
+    flex: 0 0 auto;
+}
+
+.project-workspace__body {
+    min-height: 0;
+    overflow-y: auto;
+    padding: 0 1.3rem 1.3rem;
+}
+
+.project-workspace__list-toggle-row {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-top: 1rem;
+}
+
+.project-workspace__list-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: .4rem;
+    min-height: var(--beeday-control-height-sm);
+    padding: .4rem .65rem;
+    border: 1px solid var(--beeday-color-border);
+    border-radius: var(--beeday-radius-sm);
+    color: var(--beeday-color-text-secondary);
+    background: var(--beeday-color-surface);
+    font: var(--beeday-type-button);
+    cursor: pointer;
+    transition: color .12s ease, border-color .12s ease, background-color .12s ease;
+}
+
+.project-workspace__list-toggle:hover {
+    border-color: var(--beeday-color-brand-primary);
+    color: var(--beeday-color-text-inverse);
+    background: var(--beeday-color-brand-primary);
+}
+
+.project-workspace__list-chevron {
+    font-size: .55rem;
+}
+
+.project-workspace__todos {
+    display: flex;
+    flex-direction: column;
+    gap: .45rem;
+    max-height: 18rem;
+    min-height: 0;
+    margin-top: .75rem;
+    overflow-y: auto;
+    padding-right: .2rem;
+    scrollbar-width: thin;
+    scrollbar-color: var(--beeday-color-border-strong) transparent;
+}
+
+.project-workspace__todos::-webkit-scrollbar {
+    width: .45rem;
+}
+
+.project-workspace__todos::-webkit-scrollbar-thumb {
+    border: .1rem solid transparent;
+    border-radius: var(--beeday-radius-pill);
+    background: var(--beeday-color-border-strong);
+    background-clip: padding-box;
+}
+
+/* EXP32-F009 (Sprint 32.20): text-secondary for AA normal-text contrast (text-muted is ~4.26:1, below 4.5:1) - inherited by the description span below. */
+.project-workspace__empty {
+    display: grid;
+    place-items: center;
+    gap: .35rem;
+    min-height: 8rem;
+    color: var(--beeday-color-text-secondary);
+    text-align: center;
+}
+
+.project-workspace__empty strong {
+    color: var(--beeday-color-text-primary);
+}
+
+.project-workspace__empty span {
+    max-width: 24rem;
+    font: var(--beeday-type-small);
+}
+
+.project-workspace__todo {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: stretch;
+    min-height: 3rem;
+    border: 1px solid var(--beeday-color-border);
+    border-left: 4px solid var(--beeday-color-todo);
+    border-radius: var(--beeday-radius-sm);
+    background: var(--beeday-color-surface);
+}
+
+.project-workspace__todo-body {
+    display: flex;
+    align-items: center;
+    min-width: 0;
+    padding: .72rem .85rem;
+    border: 0;
+    background: transparent;
+    text-align: left;
+    cursor: pointer;
+}
+
+.project-workspace__todo-body strong {
+    overflow: hidden;
+    font: var(--beeday-type-label);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.project-workspace__todo--done {
+    opacity: .72;
+}
+
+.project-workspace__todo--done strong {
+    text-decoration: line-through;
+}
+
+.project-workspace__todo-toggle {
+    position: absolute;
+    top: 50%;
+    right: .6rem;
+    transform: translateY(-50%);
+}
+
+.project-workspace__todo--done .project-workspace__todo-toggle {
+    color: var(--beeday-color-success);
+    background: transparent;
+}
+
+.project-workspace__todo--done .project-workspace__todo-toggle .activity-card__checkbox-glyph {
+    opacity: 1;
+    transform: scale(1);
+}
+
+
+
+@media (max-width: 700px) {
+    .project-workspace {
+        padding: .35rem;
+    }
+
+    .project-workspace__panel {
+        max-height: 96vh;
+    }
+
+    .project-workspace__summary {
+        grid-template-columns: 1fr;
+    }
+
+    .project-workspace__body {
+        padding: 0 .65rem 1rem;
+    }
+
+    .project-workspace__todos {
+        max-height: 14rem;
+    }
+}
+
+.project-workspace__todo {
+    position: relative;
+    grid-template-columns: minmax(0, 1fr) auto;
+    overflow: visible;
+}
+
+.project-workspace__todo-body {
+    display: flex;
+    align-items: center;
+    min-width: 0;
+    padding: .72rem .85rem;
+}
+
+.project-workspace__panel {
+    width: min(30rem, 100%);
+    max-height: min(36rem, 94vh);
+}
+
+.project-workspace__header {
+    padding: 1.05rem 1.1rem .9rem;
+}
+
+.project-workspace__summary {
+    gap: .55rem;
+    padding: .8rem 1.1rem .5rem;
+}
+
+.project-workspace__progress {
+    margin: 0 1.1rem .8rem;
+}
+
+.project-workspace__toolbar {
+    padding: .8rem 1.1rem;
+}
+
+.project-workspace__body {
+    padding: 0 1.1rem 1.1rem;
+}
+
+.project-workspace__todos {
+    max-height: 16rem;
+}
+
+.project-workspace__todo {
+    display: block;
+    min-height: 2.85rem;
+    overflow: hidden;
+}
+
+.project-workspace__todo-body {
+    min-height: 2.85rem;
+    padding: .72rem .82rem;
+    cursor: default;
+}
+
+@media (max-width: 520px) {
+    .project-workspace__panel {
+        width: 100%;
+    }
+
+    .project-workspace__summary {
+        grid-template-columns: 1fr;
+    }
+}
+
+.project-workspace__body {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    min-height: 0;
+    overflow: hidden;
+}
+
+.project-workspace__list-toggle-row {
+    flex: 0 0 auto;
+}
+
+.project-workspace__todos {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+@media (pointer: coarse) {
+    .project-workspace__list-toggle {
+        min-height: var(--beeday-control-height-md);
+    }
+}
+
+.project-workspace__todo-body {
+    padding-right: 2.6rem;
+}
+
+/* EXP32-F010 (Sprint 32.15): local fallback - the global safety net only shortens duration, it
+   does not remove the color/border transition itself. */
+@media (prefers-reduced-motion: reduce) {
+    .project-workspace__list-toggle {
+        transition: none;
+    }
+}

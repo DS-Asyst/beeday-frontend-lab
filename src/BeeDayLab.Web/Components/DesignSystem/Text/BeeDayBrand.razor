@@ -1,0 +1,28 @@
+<span class="beeday-brand @(OnDarkSurface ? "beeday-brand--inverse" : null) @Class"
+      role="img"
+      aria-label="beeday"
+      @attributes="AdditionalAttributes">
+    @if (ShowIcon)
+    {
+        @* OnDarkSurface swaps to the official non-white-background bee variant (bee-color-neutral.png,
+           a 1254x1254 square) instead of the brand-purple icon (279x287), which is approved for white
+           surfaces only. Width/height stay paired with the active src so the reserved layout box
+           matches each asset's real intrinsic ratio. *@
+        @if (OnDarkSurface)
+        {
+            <img class="beeday-brand__icon" src="/assets/brand/bee-color-neutral.png" alt="" aria-hidden="true" width="1254" height="1254" loading="lazy" decoding="async" />
+        }
+        else
+        {
+            <img class="beeday-brand__icon" src="/assets/brand/bee.png" alt="" aria-hidden="true" width="279" height="287" loading="lazy" decoding="async" />
+        }
+    }
+    <span class="beeday-brand__bee" aria-hidden="true">bee</span><span class="beeday-brand__day" aria-hidden="true">day</span>
+</span>
+
+@code {
+    [Parameter] public bool OnDarkSurface { get; set; }
+    [Parameter] public bool ShowIcon { get; set; } = true;
+    [Parameter] public string? Class { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)] public IReadOnlyDictionary<string, object>? AdditionalAttributes { get; set; }
+}

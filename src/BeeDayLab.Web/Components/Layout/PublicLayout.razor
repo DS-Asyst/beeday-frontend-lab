@@ -1,0 +1,14 @@
+@inherits LayoutComponentBase
+
+<div class="public-layout">
+    <SkipToContentLink />
+    <PublicHeader />
+
+    <main id="main-content" class="beeday-main public-layout__main">
+        <BeeDayErrorBoundary>@Body</BeeDayErrorBoundary>
+    </main>
+
+    <AppFooter />
+
+    <BeeDayToastHost />
+</div>

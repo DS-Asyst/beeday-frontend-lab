@@ -1,0 +1,17 @@
+@inject IStringLocalizer<GalleryResources> Localizer
+
+<BeeDayButton Variant="BeeDayButtonVariant.Danger" Compact="true" OnClick="@(() => _throw = true)">@Localizer["TriggerErrorBoundaryButton"]</BeeDayButton>
+@if (_throw)
+{
+    @ThrowDemoError()
+}
+
+@code {
+    private bool _throw;
+
+    // Renders inside the caller's BeeDayErrorBoundary — throwing here (not in an OnClick handler)
+    // is what actually reaches the ErrorBoundary's fallback content, since ErrorBoundary only
+    // catches exceptions raised during rendering of its ChildContent.
+    private string ThrowDemoError() =>
+        throw new InvalidOperationException("Component Gallery demo: intentional error to preview BeeDayErrorBoundary's fallback UI.");
+}

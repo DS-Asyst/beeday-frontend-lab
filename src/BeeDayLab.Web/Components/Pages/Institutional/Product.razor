@@ -1,0 +1,32 @@
+@page "/beeday"
+@layout EditorialLayout
+@inject IStringLocalizer<InstitutionalResources> Localizer
+
+<PageTitle>@Localizer["ProductPageTitle"]</PageTitle>
+
+@* Ported from BeeDay.Web's Components/Features/Institutional/Pages/Product.razor (Sprint 33.11,
+   FE33-058). *@
+<ProductPageTemplate PageContext="@Localizer["ProductPageContext"]" Title="@Localizer["ProductTitle"]" Description="@Localizer["ProductIntro"]" Section="EditorialSection.Products">
+    <PrimaryAction>
+        <a class="beeday-button beeday-button--important-white" href="/profile/create">@Localizer["ProductGetStarted"]</a>
+    </PrimaryAction>
+    <ChildContent>
+        <section aria-labelledby="product-features-heading">
+            <h2 id="product-features-heading">@Localizer["ProductFeaturesTitle"]</h2>
+            <div class="institutional-product__features">
+                <article class="institutional-product__feature">
+                    <h3>@Localizer["ProductFeatureDailyTitle"]</h3>
+                    <p>@Localizer["ProductFeatureDailyBody"]</p>
+                </article>
+                <article class="institutional-product__feature">
+                    <h3>@Localizer["ProductFeatureWalletTitle"]</h3>
+                    <p>@Localizer["ProductFeatureWalletBody"]</p>
+                </article>
+                <article class="institutional-product__feature">
+                    <h3>@Localizer["ProductFeatureProgressTitle"]</h3>
+                    <p>@Localizer["ProductFeatureProgressBody"]</p>
+                </article>
+            </div>
+        </section>
+    </ChildContent>
+</ProductPageTemplate>

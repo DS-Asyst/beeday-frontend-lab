@@ -1,0 +1,40 @@
+<header class="@CssClass" @attributes="AdditionalAttributes">
+    <div class="beeday-hero__row">
+        @if (Illustration is not null)
+        {
+            <div class="beeday-hero__illustration">@Illustration</div>
+        }
+        <div class="beeday-hero__content">
+            @if (BrandContext is not null || HeaderNav is not null)
+            {
+                <div class="beeday-hero__brand-context">
+                    @if (BrandContext is not null)
+                    {
+                        <div class="beeday-hero__brand-context-start">@BrandContext</div>
+                    }
+                    @if (HeaderNav is not null)
+                    {
+                        <div class="beeday-hero__brand-context-nav">@HeaderNav</div>
+                    }
+                </div>
+            }
+            @if (!string.IsNullOrWhiteSpace(Eyebrow))
+            {
+                <span class="beeday-hero__eyebrow">@Eyebrow</span>
+            }
+            <h1>@Title</h1>
+            @if (!string.IsNullOrWhiteSpace(Subtitle))
+            {
+                <p class="beeday-hero__subtitle">@Subtitle</p>
+            }
+        </div>
+        @if (PrimaryAction is not null)
+        {
+            <div class="beeday-hero__primary-action">@PrimaryAction</div>
+        }
+    </div>
+    @if (SupportingContent is not null)
+    {
+        <div class="beeday-hero__supporting">@SupportingContent</div>
+    }
+</header>

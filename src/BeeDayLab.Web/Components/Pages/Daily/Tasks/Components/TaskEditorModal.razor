@@ -1,0 +1,58 @@
+@using BeeDayLab.Web.Scenarios
+<EditorModalShell Model="Model"
+                  Title="@(IsEditing ? Localizer["EditTaskTitle"] : Localizer["CreateTaskTitle"])"
+                  TitleId="task-editor-title"
+                  SubmitLabel="@(IsEditing ? Localizer["SaveButtonLabel"] : Localizer["CreateButtonLabel"])"
+                  ShowDelete="IsEditing"
+                  FallbackFocusSelector="@FallbackFocusSelector"
+                  OnSubmit="Save"
+                  OnCancel="Cancel"
+                  OnDelete="RequestDelete">
+    <HeroContent>
+        <div class="editor-modal__hero">
+            <BeeDayInput Id="task-title"
+                          Label="@Localizer["TitleFieldLabel"]"
+                          Required="true"
+                          @bind-Value="Model.Title"
+                          Placeholder="@Localizer["TitlePlaceholder"]"
+                          MaxLength="100"
+                          FieldCssClass="editor-modal__hero-field"
+                          LabelCssClass="editor-modal__label-line"
+                          autofocus />
+            <BeeDayTextArea Id="task-notes"
+                             Label="@Localizer["NotesLabel"]"
+                             @bind-Value="Model.Description"
+                             Placeholder="@Localizer["NotesPlaceholder"]"
+                             MaxLength="500"
+                             ShowCounter="true"
+                             FieldCssClass="editor-modal__hero-field"
+                             LabelCssClass="editor-modal__label-line"
+                             CounterCssClass="editor-modal__counter" />
+        </div>
+    </HeroContent>
+    <BodyContent>
+        <div class="editor-modal__body">
+            <div class="editor-modal__type-summary"><BeeDayIcon Name="BeeDayIconName.RecurringTask" Size="BeeDayIconSize.Large" Class="editor-modal__type-icon" Decorative="true" /><div><strong>@Localizer["TaskSummaryHeading"]</strong><p>@Localizer["TaskSummaryDescription"]</p></div></div>
+            <BeeDaySelect TValue="DailyTaskRepeat"
+                           Id="task-repeat"
+                           Label="@Localizer["RepeatLabel"]"
+                           @bind-Value="Model.Repeat"
+                           FieldCssClass="editor-modal__field">
+                @foreach (var option in Enum.GetValues<DailyTaskRepeat>())
+                {
+                    <option value="@option">@FormatRepeat(option)</option>
+                }
+            </BeeDaySelect>
+        </div>
+    </BodyContent>
+</EditorModalShell>
+
+<BeeDayConfirmDialog IsOpen="showDeleteConfirmation"
+                      Title="@Localizer["DeleteTaskTitle"]"
+                      Message="@Localizer["DeleteTaskMessage"]"
+                      ItemTitle="@Model.Title"
+                      Warning="@Localizer["DeleteWarning"]"
+                      WarningDetails="@Localizer["DeleteWarningDetails"]"
+                      ConfirmLabel="@Localizer["DeleteTaskTitle"]"
+                      OnConfirm="ConfirmDelete"
+                      OnCancel="CloseDeleteConfirmation" />
