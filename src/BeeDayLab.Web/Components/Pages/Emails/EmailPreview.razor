@@ -1,0 +1,98 @@
+@page "/emails"
+@rendermode InteractiveServer
+@using BeeDayLab.Web.Emails
+@inject IStringLocalizer<EmailPreviewResources> Localizer
+@inject NavigationManager Navigation
+
+<PageTitle>@Localizer["PageTitle"]</PageTitle>
+
+<div class="email-preview-page beeday-fade-in">
+    <BeeDayPageHeader Eyebrow="@Localizer["Eyebrow"]"
+                       Title="@Localizer["Heading"]"
+                       Description="@Localizer["Description"]" />
+
+    <div class="email-preview-page__controls" role="group" aria-label="@Localizer["TemplateGroupLabel"]">
+        <span class="email-preview-page__control-label">@Localizer["TemplateLabel"]</span>
+        <BeeDayButton Variant="@(Kind == TransactionalEmailKind.Confirmation ? BeeDayButtonVariant.Primary : BeeDayButtonVariant.Secondary)"
+                      Compact="true"
+                      OnClick="@(() => Apply(TransactionalEmailKind.Confirmation, Culture, Width))">@Localizer["ConfirmationTemplateOption"]</BeeDayButton>
+        <BeeDayButton Variant="@(Kind == TransactionalEmailKind.PasswordReset ? BeeDayButtonVariant.Primary : BeeDayButtonVariant.Secondary)"
+                      Compact="true"
+                      OnClick="@(() => Apply(TransactionalEmailKind.PasswordReset, Culture, Width))">@Localizer["PasswordResetTemplateOption"]</BeeDayButton>
+    </div>
+
+    <div class="email-preview-page__controls" role="group" aria-label="@Localizer["LocaleGroupLabel"]">
+        <span class="email-preview-page__control-label">@Localizer["LocaleLabel"]</span>
+        <BeeDayButton Variant="@(Culture == "en-US" ? BeeDayButtonVariant.Primary : BeeDayButtonVariant.Secondary)"
+                      Compact="true"
+                      OnClick="@(() => Apply(Kind, "en-US", Width))">English (en-US)</BeeDayButton>
+        <BeeDayButton Variant="@(Culture == "pt-BR" ? BeeDayButtonVariant.Primary : BeeDayButtonVariant.Secondary)"
+                      Compact="true"
+                      OnClick="@(() => Apply(Kind, "pt-BR", Width))">Português (pt-BR)</BeeDayButton>
+    </div>
+
+    <div class="email-preview-page__controls" role="group" aria-label="@Localizer["WidthGroupLabel"]">
+        <span class="email-preview-page__control-label">@Localizer["WidthLabel"]</span>
+        <BeeDayButton Variant="@(Width == NarrowWidthKey ? BeeDayButtonVariant.Primary : BeeDayButtonVariant.Secondary)"
+                      Compact="true"
+                      OnClick="@(() => Apply(Kind, Culture, NarrowWidthKey))">@Localizer["NarrowWidthOption"]</BeeDayButton>
+        <BeeDayButton Variant="@(Width == StandardWidthKey ? BeeDayButtonVariant.Primary : BeeDayButtonVariant.Secondary)"
+                      Compact="true"
+                      OnClick="@(() => Apply(Kind, Culture, StandardWidthKey))">@Localizer["StandardWidthOption"]</BeeDayButton>
+    </div>
+
+    <p class="email-preview-page__subject"><strong>@Localizer["SubjectLabel"]:</strong> <span data-testid="email-subject">@_preview.Subject</span></p>
+
+    <div class="email-preview-page__frame-wrapper" style="max-width:@(FrameWidthPixels)px;">
+        <iframe title="@_preview.Subject"
+                srcdoc="@_preview.Html"
+                class="email-preview-page__frame"
+                data-testid="email-frame"
+                sandbox=""></iframe>
+    </div>
+
+    <details class="email-preview-page__plain-text">
+        <summary>@Localizer["PlainTextSummary"]</summary>
+        <pre data-testid="email-plain-text">@_preview.PlainText</pre>
+    </details>
+</div>
+
+@code {
+    private const string NarrowWidthKey = "narrow";
+    private const string StandardWidthKey = "standard";
+    private const int NarrowWidthPixels = 375;
+    private const int StandardWidthPixels = 640;
+
+    [Parameter, SupplyParameterFromQuery(Name = "template")]
+    public string? TemplateQuery { get; set; }
+
+    [Parameter, SupplyParameterFromQuery(Name = "culture")]
+    public string? CultureQuery { get; set; }
+
+    [Parameter, SupplyParameterFromQuery(Name = "width")]
+    public string? WidthQuery { get; set; }
+
+    private TransactionalEmailKind Kind { get; set; } = TransactionalEmailKind.Confirmation;
+    private string Culture { get; set; } = "en-US";
+    private string Width { get; set; } = StandardWidthKey;
+    private TransactionalEmailPreview _preview = null!;
+
+    private int FrameWidthPixels => Width == NarrowWidthKey ? NarrowWidthPixels : StandardWidthPixels;
+
+    protected override void OnParametersSet()
+    {
+        Kind = string.Equals(TemplateQuery, "reset", StringComparison.OrdinalIgnoreCase)
+            ? TransactionalEmailKind.PasswordReset
+            : TransactionalEmailKind.Confirmation;
+        Culture = string.Equals(CultureQuery, "pt-BR", StringComparison.OrdinalIgnoreCase) ? "pt-BR" : "en-US";
+        Width = string.Equals(WidthQuery, NarrowWidthKey, StringComparison.OrdinalIgnoreCase) ? NarrowWidthKey : StandardWidthKey;
+
+        _preview = TransactionalEmailTemplateCatalog.Compose(Kind, Culture);
+    }
+
+    private void Apply(TransactionalEmailKind kind, string culture, string width)
+    {
+        var template = kind == TransactionalEmailKind.PasswordReset ? "reset" : "confirmation";
+        Navigation.NavigateTo($"/emails?template={template}&culture={culture}&width={width}");
+    }
+}
