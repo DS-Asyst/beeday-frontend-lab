@@ -502,6 +502,90 @@ public sealed class ScenarioAndLocalizationBoundaryTests
     }
 
     /// <summary>
+    /// Sprint 33.15 (Issue #376): the transactional-email preview surface must never gain a real
+    /// delivery path. Forbids any reference to the production email-sending infrastructure
+    /// (<c>IEmailSender</c>, <c>IdentityEmailOptions</c>, Resend/SMTP client types) or a second,
+    /// independent mock/state engine — the preview is pure composition, rendered client-side in an
+    /// iframe, never posted anywhere.
+    /// </summary>
+    [Fact]
+    public void NoEmailSurfaceFileReferencesRealDeliveryInfrastructureOrANewMockEngine()
+    {
+        var root = FindRepositoryRoot();
+        var emailsDirectory = Path.Combine(root, "src", "BeeDayLab.Web", "Emails");
+        var emailsPageDirectory = Path.Combine(root, "src", "BeeDayLab.Web", "Components", "Pages", "Emails");
+        Assert.True(Directory.Exists(emailsDirectory), $"Expected directory not found: {emailsDirectory}");
+        Assert.True(Directory.Exists(emailsPageDirectory), $"Expected directory not found: {emailsPageDirectory}");
+
+        var sourceFiles = Directory.EnumerateFiles(emailsDirectory, "*.cs", SearchOption.AllDirectories)
+            .Concat(Directory.EnumerateFiles(emailsPageDirectory, "*.cs", SearchOption.AllDirectories))
+            .Concat(Directory.EnumerateFiles(emailsPageDirectory, "*.razor", SearchOption.AllDirectories))
+            .ToList();
+        Assert.NotEmpty(sourceFiles);
+
+        var forbidden = ForbiddenSubstrings
+            .Concat([
+                "IEmailSender",
+                "IdentityEmailOptions",
+                "IIdentityEmailComposer",
+                "Resend",
+                "SmtpClient",
+                "MailKit",
+                "IScenarioProvider",
+                "ScenarioSelection",
+            ])
+            .ToArray();
+
+        var violations = new List<string>();
+        foreach (var file in sourceFiles)
+        {
+            var content = StripComments(File.ReadAllText(file));
+            foreach (var term in forbidden)
+            {
+                if (content.Contains(term, StringComparison.Ordinal))
+                {
+                    violations.Add($"{Path.GetFileName(file)} references '{term}'");
+                }
+            }
+        }
+
+        Assert.True(
+            violations.Count == 0,
+            "Transactional-email preview boundary violated (Sprint 33.15, Issue #376):" + Environment.NewLine
+                + string.Join(Environment.NewLine, violations));
+    }
+
+    /// <summary>
+    /// Sprint 33.15: the composed action URL must always point at the reserved, non-resolving
+    /// <c>.invalid</c> preview host — never a real beeday domain — so no preview link can be mistaken
+    /// for, or reach, a live endpoint.
+    /// </summary>
+    [Fact]
+    public void EmailTemplateCatalogNeverReferencesARealBeedayHost()
+    {
+        var catalogPath = Path.Combine(
+            FindRepositoryRoot(), "src", "BeeDayLab.Web", "Emails", "TransactionalEmailTemplateCatalog.cs");
+        Assert.True(File.Exists(catalogPath), $"Expected file not found: {catalogPath}");
+
+        var content = StripComments(File.ReadAllText(catalogPath));
+
+        Assert.DoesNotContain("beeday.app", content, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("PublicBaseUrl", content, StringComparison.Ordinal);
+        Assert.Contains("beeday-lab.invalid", content, StringComparison.Ordinal);
+    }
+
+    [Fact]
+    public void EmailsStylesheetIsLoadedExactlyOnce()
+    {
+        var root = FindRepositoryRoot();
+        var cssPath = Path.Combine(root, "src", "BeeDayLab.Web", "wwwroot", "css", "emails.css");
+        var app = File.ReadAllText(Path.Combine(root, "src", "BeeDayLab.Web", "Components", "App.razor"));
+
+        Assert.True(File.Exists(cssPath), "Required copied/adapted stylesheet is missing: emails.css");
+        Assert.Single(Regex.Matches(app, @"css/emails\.css").Cast<Match>());
+    }
+
+    /// <summary>
     /// Strips <c>//</c>/<c>///</c> line comments, <c>/* */</c> block comments, and (Sprint 33.12
     /// addition, needed once this file started scanning .razor files too) <c>@* *@</c> Razor
     /// comments, so architecture assertions target real code, not explanatory documentation — this
