@@ -1,0 +1,122 @@
+.beeday-sortable {
+    display: flex;
+    flex-direction: column;
+    gap: .18rem;
+    min-height: 2rem;
+}
+
+.beeday-sortable__item {
+    position: relative;
+    border-radius: var(--beeday-radius-sm);
+    touch-action: pan-y;
+    transition: opacity var(--beeday-transition-fast), transform var(--beeday-transition-fast), box-shadow var(--beeday-transition-fast);
+}
+
+.beeday-sortable__item,
+.beeday-sortable__item .activity-card__body--openable,
+.beeday-sortable__item .habit-card__body--openable {
+    cursor: grab;
+}
+
+.beeday-sortable__item:focus-visible {
+    outline: var(--beeday-focus-ring);
+    outline-offset: 2px;
+}
+
+.beeday-sortable__item button,
+.beeday-sortable__item a,
+.beeday-sortable__item input,
+.beeday-sortable__item textarea,
+.beeday-sortable__item select,
+.beeday-sortable__item label {
+    cursor: pointer;
+}
+
+.beeday-sortable__item.is-drag-armed {
+    transform: scale(.995);
+}
+
+.beeday-sortable__item.is-dragging {
+    opacity: .42;
+    transform: scale(.985);
+}
+
+.beeday-sortable__item.is-drop-before::before,
+.beeday-sortable__item.is-drop-after::after {
+    position: absolute;
+    right: .1rem;
+    left: .1rem;
+    z-index: 40;
+    height: 3px;
+    border-radius: var(--beeday-radius-pill);
+    background: var(--beeday-color-brand-primary);
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--beeday-color-brand-primary) 18%, transparent);
+    content: "";
+}
+
+.beeday-sortable__item.is-drop-before::before {
+    top: -.18rem;
+}
+
+.beeday-sortable__item.is-drop-after::after {
+    bottom: -.18rem;
+}
+
+.beeday-sortable__touch-clone {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: var(--beeday-z-modal);
+    width: min(22rem, calc(100vw - 2rem));
+    pointer-events: none;
+    opacity: .9;
+    filter: drop-shadow(var(--beeday-shadow-lg));
+    will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .beeday-sortable__item {
+        transition: none;
+    }
+}
+
+.beeday-sortable__drag-clone {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: var(--beeday-z-modal);
+    pointer-events: none;
+    opacity: .92;
+    filter: drop-shadow(var(--beeday-shadow-lg));
+    will-change: transform;
+}
+
+.beeday-sortable__item:active,
+.beeday-sortable__item.is-drag-armed,
+.beeday-sortable__item.is-dragging,
+.beeday-sortable__item:active .activity-card__body--openable,
+.beeday-sortable__item:active .habit-card__body--openable,
+.beeday-sortable__item.is-drag-armed .activity-card__body--openable,
+.beeday-sortable__item.is-drag-armed .habit-card__body--openable,
+.beeday-sortable__item.is-dragging .activity-card__body--openable,
+.beeday-sortable__item.is-dragging .habit-card__body--openable,
+body.beeday-is-sorting,
+body.beeday-is-sorting *,
+body.beeday-is-sorting [role="button"] {
+    cursor: grabbing;
+}
+
+body.beeday-is-sorting,
+body.beeday-is-sorting * {
+    user-select: none !important;
+}
+
+.beeday-sortable--virtualized {
+    min-height: 100%;
+    overflow-y: auto;
+    contain: layout paint;
+}
+
+.beeday-sortable--virtualized > div[style*="height"] {
+    flex: 0 0 auto;
+}

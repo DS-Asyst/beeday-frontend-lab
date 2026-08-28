@@ -1,0 +1,86 @@
+.identity-page {
+    display: grid;
+    min-height: 0;
+    place-items: center;
+    padding: 0;
+}
+
+.identity-card {
+    position: relative;
+    width: min(100%, 31rem);
+    border: 1px solid var(--beeday-color-border);
+    border-radius: var(--beeday-radius-xs);
+    background: var(--beeday-color-surface);
+    box-shadow: var(--beeday-shadow-lg);
+}
+
+.identity-card__content {
+    padding: clamp(1.6rem, 5vw, 2.5rem);
+}
+
+.identity-card__brand { margin-bottom: 1.5rem; }
+.identity-header { margin-bottom: 1.4rem; }
+
+.identity-header h1 {
+    margin: 0;
+    color: var(--beeday-color-text-primary);
+    font-size: clamp(1.8rem, 6vw, 2.35rem);
+    line-height: 1;
+}
+
+/* EXP32-F009 (Sprint 32.20): text-secondary for AA normal-text contrast (text-muted is ~4.26:1,
+   below 4.5:1) - aligns every identity page (ConfirmEmail, EmailConfirmationSent, ForgotPassword,
+   ResendConfirmation, ResetPassword) with Login.razor.css's own scoped override, which already used
+   text-secondary for this same header-intro role. */
+.identity-header p {
+    margin: .75rem 0 0;
+    color: var(--beeday-color-text-secondary);
+    line-height: 1.5;
+}
+
+.identity-form { display: grid; gap: 1rem; }
+
+.identity-navigation-link {
+    display: inline-flex;
+    width: 100%;
+    min-height: 2.75rem;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1rem;
+    padding: .55rem .75rem;
+    border-radius: var(--beeday-radius-xs);
+    color: var(--beeday-color-text-primary);
+    font-weight: 700;
+    text-align: center;
+    text-decoration: none;
+}
+
+.identity-navigation-link--primary { color: var(--beeday-color-brand-primary); }
+.identity-navigation-link:hover { color: var(--beeday-color-brand-primary); background: var(--beeday-color-brand-primary-soft); }
+.identity-navigation-link:focus-visible { outline: 3px solid var(--beeday-color-brand-primary); outline-offset: 2px; }
+
+.identity-feedback,
+.identity-note {
+    display: grid;
+    gap: .35rem;
+    margin-bottom: 1rem;
+    padding: .8rem .9rem;
+    border: 1px solid var(--beeday-color-border);
+    border-radius: var(--beeday-radius-xs);
+    box-shadow: var(--beeday-shadow-sm);
+    font-weight: 700;
+}
+
+.identity-feedback--success { background: var(--beeday-color-success-soft); color: var(--beeday-color-success); }
+.identity-feedback--error { background: var(--beeday-color-danger-soft); color: var(--beeday-color-danger); }
+.identity-note { background: var(--beeday-color-info-soft); color: var(--beeday-color-text-primary); font-weight: 500; line-height: 1.45; }
+.identity-note code { overflow-wrap: anywhere; }
+
+@media (max-width: 34rem) {
+    .identity-card__content { padding: 1.35rem; }
+}
+
+@media (max-width: 22rem) {
+    .identity-card__content { padding: 1.1rem; }
+    .identity-header h1 { font-size: 1.65rem; }
+}
