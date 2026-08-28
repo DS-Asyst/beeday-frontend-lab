@@ -1,0 +1,21 @@
+<section id="@SectionId" class="preview-page__section">
+    <BeeDaySettingsSection Title="@Title">
+        <ul class="preview-page__link-list" data-testid="preview-index-@SectionId">
+            @foreach (var entry in Pages)
+            {
+                <li><a href="@entry.Path">@entry.Label</a></li>
+            }
+        </ul>
+    </BeeDaySettingsSection>
+</section>
+
+@code {
+    [Parameter, EditorRequired]
+    public string Title { get; set; } = "";
+
+    [Parameter, EditorRequired]
+    public string SectionId { get; set; } = "";
+
+    [Parameter, EditorRequired]
+    public PreviewPageEntry[] Pages { get; set; } = [];
+}

@@ -1,0 +1,76 @@
+@page "/preview"
+@inject ScenarioSelection ScenarioSelection
+@inject IStringLocalizer<PreviewResources> Localizer
+
+<PageTitle>@Localizer["PageTitle"]</PageTitle>
+
+<div class="preview-page beeday-fade-in">
+    <BeeDayPageHeader Eyebrow="@Localizer["Eyebrow"]" Title="@Localizer["Heading"]" Description="@Localizer["Description"]" />
+
+    <section class="preview-page__toolbar" aria-label="@Localizer["ToolbarAriaLabel"]">
+        <label>
+            @Localizer["StateLabel"]
+            <select @bind="ScenarioSelection.State" data-testid="preview-state-select">
+                @foreach (var state in Enum.GetValues<ScenarioState>())
+                {
+                    <option value="@state">@state</option>
+                }
+            </select>
+        </label>
+        <label>
+            @Localizer["ViewportLabel"]
+            <select @bind="ScenarioSelection.Viewport" data-testid="preview-viewport-select">
+                <option value="">@Localizer["ViewportNoneOption"]</option>
+                @foreach (var preset in Enum.GetValues<ViewportPreset>())
+                {
+                    <option value="@preset">@preset</option>
+                }
+            </select>
+        </label>
+        <div class="preview-page__language">
+            <span>@Localizer["LanguageLabel"]</span>
+            <PublicLanguageSwitcher />
+        </div>
+        <p class="preview-page__toolbar-note">@Localizer["ToolbarNote"]</p>
+    </section>
+
+    <PreviewPageIndexSection Title="@Localizer["PublicAreaHeading"]" Pages="PreviewPageRegistry.Public" SectionId="preview-public" />
+    <PreviewPageIndexSection Title="@Localizer["IdentityAreaHeading"]" Pages="PreviewPageRegistry.Identity" SectionId="preview-identity" />
+    <PreviewPageIndexSection Title="@Localizer["AccountAreaHeading"]" Pages="PreviewPageRegistry.Account" SectionId="preview-account" />
+    <PreviewPageIndexSection Title="@Localizer["DailyAreaHeading"]" Pages="PreviewPageRegistry.Daily" SectionId="preview-daily" />
+    <PreviewPageIndexSection Title="@Localizer["WalletAreaHeading"]" Pages="PreviewPageRegistry.Wallet" SectionId="preview-wallet" />
+    <PreviewPageIndexSection Title="@Localizer["EmailAreaHeading"]" Pages="PreviewPageRegistry.Email" SectionId="preview-email" />
+    <PreviewPageIndexSection Title="@Localizer["SystemAreaHeading"]" Pages="PreviewPageRegistry.System" SectionId="preview-system" />
+
+    <section id="preview-responsive" class="preview-page__section">
+        <BeeDaySettingsSection Title="@Localizer["ResponsivePreviewHeading"]" Description="@Localizer["ResponsivePreviewDescription"]">
+            <label class="preview-page__page-picker">
+                @Localizer["ChoosePageLabel"]
+                <select @bind="_previewPath" data-testid="preview-responsive-select">
+                    @foreach (var entry in PreviewPageRegistry.All)
+                    {
+                        <option value="@entry.Path">@entry.Label</option>
+                    }
+                </select>
+            </label>
+            <div class="preview-page__frames">
+                <div class="preview-page__frame-wrapper" style="max-width:375px;">
+                    <p>@Localizer["MobilePresetLabel"]</p>
+                    <iframe title="@Localizer["MobilePresetLabel"]" src="@_previewPath" data-testid="preview-frame-mobile"></iframe>
+                </div>
+                <div class="preview-page__frame-wrapper" style="max-width:768px;">
+                    <p>@Localizer["TabletPresetLabel"]</p>
+                    <iframe title="@Localizer["TabletPresetLabel"]" src="@_previewPath" data-testid="preview-frame-tablet"></iframe>
+                </div>
+                <div class="preview-page__frame-wrapper" style="max-width:1280px;">
+                    <p>@Localizer["DesktopPresetLabel"]</p>
+                    <iframe title="@Localizer["DesktopPresetLabel"]" src="@_previewPath" data-testid="preview-frame-desktop"></iframe>
+                </div>
+            </div>
+        </BeeDaySettingsSection>
+    </section>
+</div>
+
+@code {
+    private string _previewPath = PreviewPageRegistry.Wallet[0].Path;
+}
