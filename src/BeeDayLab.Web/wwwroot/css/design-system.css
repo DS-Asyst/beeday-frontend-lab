@@ -1,0 +1,400 @@
+/* Canonical BeeDay action-button system. Every action uses a semantic palette and the shared border-depth interaction model. */
+.beeday-button {
+    --beeday-button-background: var(--beeday-color-button-primary-bg);
+    --beeday-button-background-hover: color-mix(in srgb, var(--beeday-button-background) 90%, white);
+    --beeday-button-pressed: var(--beeday-button-depth);
+    --beeday-button-foreground: var(--beeday-color-button-primary-fg);
+    --beeday-button-outline: var(--beeday-color-button-primary-outline);
+    --beeday-button-depth: var(--beeday-color-button-primary-depth);
+    --beeday-button-shadow: var(--beeday-color-button-primary-shadow);
+    --beeday-button-focus: var(--beeday-color-button-focus-default);
+
+    position: relative;
+    display: inline-flex;
+    min-height: 2.75rem;
+    align-items: center;
+    justify-content: center;
+    gap: var(--beeday-spacing-sm);
+    padding: var(--beeday-spacing-sm) var(--beeday-spacing-md);
+    border: var(--beeday-border-width) solid var(--beeday-button-depth);
+    border-bottom-width: var(--beeday-depth-md);
+    border-radius: var(--beeday-radius-lg);
+    clip-path: none;
+    color: var(--beeday-button-foreground);
+    background: var(--beeday-button-background);
+    box-shadow: none;
+    filter: none;
+    font-family: var(--beeday-font-body);
+    font-size: .88rem;
+    font-weight: var(--beeday-font-weight-bold);
+    letter-spacing: .035em;
+    line-height: 1;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    /* .beeday-button is applied to both real <button> elements (never underlined) and <a> elements
+       used as buttons (PublicAuthActions, Home's hero CTAs, and the institutional hero's
+       PrimaryAction slot) — anchors default to underlined text, so the base rule must reset it once
+       instead of relying on every consumer to add its own local override, as the previous
+       consumers did (discovered in Sprint 27.6: the institutional hero's CTA rendered underlined
+       because no such override existed for it). */
+    text-decoration: none;
+    text-transform: uppercase;
+    text-align: center;
+    overflow-wrap: anywhere;
+    transition: background-color var(--beeday-transition-fast), border-color var(--beeday-transition-fast), transform var(--beeday-transition-fast);
+    overflow: visible;
+}
+
+.beeday-button::before,
+.beeday-button::after { content: none; }
+
+.beeday-button--primary {
+    --beeday-button-background: var(--beeday-color-button-primary-bg);
+    --beeday-button-background-hover: var(--beeday-color-button-primary-bg-hover);
+    --beeday-button-foreground: var(--beeday-color-button-primary-fg);
+    --beeday-button-outline: var(--beeday-color-button-primary-outline);
+    --beeday-button-depth: var(--beeday-color-button-primary-depth);
+    --beeday-button-shadow: var(--beeday-color-button-primary-shadow);
+}
+
+.beeday-button--secondary {
+    --beeday-button-background: var(--beeday-color-button-secondary-bg);
+    --beeday-button-background-hover: var(--beeday-color-button-secondary-bg-hover);
+    --beeday-button-foreground: var(--beeday-color-button-secondary-fg);
+    --beeday-button-outline: var(--beeday-color-button-secondary-outline);
+    --beeday-button-depth: var(--beeday-color-button-secondary-depth);
+    --beeday-button-shadow: var(--beeday-color-button-secondary-shadow);
+}
+
+.beeday-button--success {
+    --beeday-button-background: var(--beeday-color-button-success-bg);
+    --beeday-button-background-hover: var(--beeday-color-button-success-bg-hover);
+    --beeday-button-foreground: var(--beeday-color-button-success-fg);
+    --beeday-button-outline: var(--beeday-color-button-success-outline);
+    --beeday-button-depth: var(--beeday-color-button-success-depth);
+    --beeday-button-shadow: var(--beeday-color-button-success-shadow);
+}
+
+.beeday-button--warning {
+    --beeday-button-background: var(--beeday-color-button-warning-bg);
+    --beeday-button-background-hover: var(--beeday-color-button-warning-bg-hover);
+    --beeday-button-foreground: var(--beeday-color-button-warning-fg);
+    --beeday-button-outline: var(--beeday-color-button-warning-outline);
+    --beeday-button-depth: var(--beeday-color-button-warning-depth);
+    --beeday-button-shadow: var(--beeday-color-button-warning-shadow);
+}
+
+.beeday-button--back {
+    --beeday-button-background: var(--beeday-color-button-back-bg);
+    --beeday-button-background-hover: var(--beeday-color-button-back-bg-hover);
+    --beeday-button-foreground: var(--beeday-color-button-back-fg);
+    --beeday-button-outline: var(--beeday-color-button-back-outline);
+    --beeday-button-depth: var(--beeday-color-button-back-depth);
+    --beeday-button-shadow: var(--beeday-color-button-back-shadow);
+}
+
+.beeday-button--danger,
+.beeday-button--confirmation-danger {
+    --beeday-button-background: var(--beeday-color-button-danger-bg);
+    --beeday-button-background-hover: var(--beeday-color-button-danger-bg-hover);
+    --beeday-button-foreground: var(--beeday-color-button-danger-fg);
+    --beeday-button-outline: var(--beeday-color-button-danger-outline);
+    --beeday-button-depth: var(--beeday-color-button-danger-depth);
+    --beeday-button-shadow: var(--beeday-color-button-danger-shadow);
+}
+
+/* Important White — white surface, neutral border, Accent Secondary (COR3, text-safe) text.
+   Reserved for the explicit "important white button" cases (e.g. I ALREADY HAVE AN ACCOUNT, CREATE
+   ACCOUNT), not a general secondary replacement. See --beeday-color-button-important-white-* in
+   variables.css for why the border/depth/shadow are neutral rather than colored, and for Sprint
+   29.3's #2CBAFF design-reference note (text stays the accessible --accent-secondary-on-light token
+   — #2CBAFF itself fails WCAG AA as text on white, same as the COR3 it was already using). */
+.beeday-button--important-white {
+    --beeday-button-background: var(--beeday-color-button-important-white-bg);
+    --beeday-button-background-hover: var(--beeday-color-button-important-white-bg-hover);
+    --beeday-button-foreground: var(--beeday-color-button-important-white-fg);
+    --beeday-button-outline: var(--beeday-color-button-important-white-outline);
+    --beeday-button-depth: var(--beeday-color-button-important-white-depth);
+    --beeday-button-shadow: var(--beeday-color-button-important-white-shadow);
+}
+
+/* Cancel actions are deliberately neutral: white surface and black text. */
+.beeday-button--confirmation-cancel {
+    --beeday-button-background: var(--beeday-color-button-confirmation-cancel-bg);
+    --beeday-button-background-hover: var(--beeday-color-button-confirmation-cancel-bg-hover);
+    --beeday-button-foreground: var(--beeday-color-button-confirmation-cancel-fg);
+    --beeday-button-outline: var(--beeday-color-button-confirmation-cancel-outline);
+    --beeday-button-depth: var(--beeday-color-button-confirmation-cancel-depth);
+    --beeday-button-shadow: var(--beeday-color-button-confirmation-cancel-shadow);
+    --beeday-button-focus: var(--beeday-color-button-confirmation-cancel-focus);
+}
+
+/* The former blue comparison button remains compatible, but uses the shared mechanism. */
+.beeday-button.beeday-button--reference-blue {
+    --beeday-button-background: var(--beeday-color-button-reference-blue-bg);
+    --beeday-button-background-hover: var(--beeday-color-button-reference-blue-bg-hover);
+    --beeday-button-foreground: var(--beeday-color-button-reference-blue-fg);
+    --beeday-button-outline: var(--beeday-color-button-reference-blue-outline);
+    --beeday-button-depth: var(--beeday-color-button-reference-blue-depth);
+    --beeday-button-shadow: var(--beeday-color-button-reference-blue-shadow);
+    --beeday-button-focus: var(--beeday-color-button-reference-blue-focus);
+    min-height: 3rem;
+    padding: .72rem 1rem .82rem;
+    text-transform: none;
+}
+
+/* Shared lightweight icon-only toggle chrome — a square, subtly bordered
+   button used for secondary/contextual actions (view toggles, filters,
+   add-item triggers) that must sit next to real BeeDayButtons without
+   competing with them for visual weight. No elevation, no pixel-press
+   shadow, no thick border — deliberately lighter than .beeday-button.
+   Single shared implementation; do not re-declare this chrome per page. */
+.beeday-icon-toggle {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    padding: 0;
+    border: var(--beeday-border-width-subtle) solid var(--beeday-color-border);
+    border-radius: var(--beeday-radius-lg);
+    color: var(--beeday-color-chrome-icon);
+    background: var(--beeday-color-chrome-icon-surface);
+    font-size: .86rem;
+    font-weight: 700;
+    line-height: 1;
+    cursor: pointer;
+    transition: transform var(--beeday-transition-fast), color var(--beeday-transition-fast), border-color var(--beeday-transition-fast), background-color var(--beeday-transition-fast);
+}
+
+.beeday-icon-toggle:hover,
+.beeday-icon-toggle[aria-pressed="true"],
+.beeday-icon-toggle[aria-expanded="true"] {
+    transform: translateY(-1px);
+    border-color: var(--beeday-color-brand-primary);
+    color: var(--beeday-color-text-inverse);
+    background: var(--beeday-color-brand-primary);
+}
+
+.beeday-icon-toggle:active {
+    transform: translateY(0);
+}
+
+.beeday-icon-toggle:focus-visible {
+    outline-offset: 1px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .beeday-icon-toggle {
+        transition: none;
+    }
+}
+
+/* Plain text action — an opt-in BeeDayButton modifier for lightweight inline actions inside popovers
+   and filter panels (Clear filters, Cancel) that must not compete visually
+   with real operational buttons: no border, no background, no press/shadow
+   chrome, just colored text. Single shared implementation — do not
+   reintroduce a page-specific transparent-button style. */
+.beeday-button.beeday-button--plain {
+    min-height: 2rem;
+    padding: .4rem .3rem;
+    border: 0;
+    border-radius: 2px;
+    background: transparent;
+    box-shadow: none;
+    text-transform: none;
+}
+
+.beeday-button.beeday-button--plain:not(:disabled):hover {
+    transform: none;
+    background: transparent;
+    box-shadow: none;
+    text-decoration: underline;
+}
+
+.beeday-button.beeday-button--plain:not(:disabled):active {
+    transform: none;
+    background: transparent;
+    box-shadow: none;
+}
+
+.beeday-button.beeday-button--plain:focus-visible {
+    outline: 2px solid var(--beeday-color-brand-primary);
+    outline-offset: 2px;
+    box-shadow: none;
+}
+
+.beeday-button.beeday-button--plain:disabled {
+    background: transparent;
+    box-shadow: none;
+    opacity: .5;
+}
+
+.beeday-button.beeday-button--plain-danger { color: var(--beeday-color-danger); }
+.beeday-button.beeday-button--plain-neutral { color: var(--beeday-color-text-secondary); }
+
+.beeday-button--full-width { width: 100%; }
+.beeday-button--compact { height: 2.25rem; min-height: 2.25rem; padding: .375rem .75rem; font-size: var(--beeday-font-size-xs); }
+.beeday-button__label { position: relative; z-index: 1; display: inline-flex; min-width: 0; align-items: center; }
+.beeday-button .beeday-icon { position: relative; z-index: 1; }
+
+.beeday-button:not(:disabled):hover {
+    background: var(--beeday-button-background-hover);
+    box-shadow: none;
+}
+
+.beeday-button:not(:disabled):active {
+    border-bottom-width: 0;
+    background: var(--beeday-button-pressed);
+    box-shadow: none;
+    transform: translateY(var(--beeday-depth-md));
+}
+
+.beeday-button.beeday-button:focus-visible {
+    outline: var(--beeday-border-width) solid var(--beeday-color-brand-primary);
+    outline-offset: 2px;
+    box-shadow: var(--beeday-focus-ring);
+}
+
+.beeday-button:disabled {
+    --beeday-button-background: var(--beeday-color-surface-subtle);
+    --beeday-button-background-hover: var(--beeday-color-surface-subtle);
+    --beeday-button-foreground: var(--beeday-color-text-muted);
+    --beeday-button-outline: var(--beeday-color-border-strong);
+    --beeday-button-depth: var(--beeday-color-border-strong);
+    cursor: not-allowed;
+    opacity: .62;
+}
+
+.beeday-button--loading { position: relative; }
+.beeday-button--loading .beeday-button__label { opacity: 0; }
+.beeday-button__loader { position: absolute; flex: 0 0 auto; animation: beeday-spin .7s linear infinite; }
+@keyframes beeday-spin { to { transform: rotate(360deg); } }
+
+@media (prefers-reduced-motion: reduce) {
+    .beeday-button { transition: none; }
+    .beeday-button__loader { animation: none; }
+}
+
+/* Sprint 21.7: canonical content-card geometry. The default is a neutral, bordered, flat surface;
+   prominent hierarchy and interaction are explicit opt-ins. Panels, dialogs and structural
+   containers remain separate concepts. */
+.beeday-card {
+    min-width: 0;
+    border: var(--beeday-border-width) solid var(--beeday-color-border);
+    border-radius: var(--beeday-radius-lg);
+    background: var(--beeday-color-surface);
+    color: var(--beeday-color-text-primary);
+    box-shadow: none;
+}
+
+.beeday-card--padded { padding: var(--beeday-spacing-md); }
+.beeday-card--muted { background: var(--beeday-color-surface-muted); }
+.beeday-card--prominent { border-color: var(--beeday-color-border-strong); border-radius: var(--beeday-radius-2xl); box-shadow: var(--beeday-shadow-sm); }
+.beeday-card--prominent.beeday-card--padded { padding: var(--beeday-spacing-lg); }
+.beeday-card--interactive { cursor: pointer; transition: border-color var(--beeday-transition-normal), background-color var(--beeday-transition-normal), box-shadow var(--beeday-transition-normal); }
+.beeday-card--interactive:hover { border-color: var(--beeday-color-border-strong); background: var(--beeday-color-surface-muted); }
+.beeday-card--interactive:focus-visible { outline: none; box-shadow: var(--beeday-focus-ring); }
+
+.beeday-page-header,
+.beeday-section-header,
+.beeday-hero__row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--beeday-spacing-lg);
+}
+
+.beeday-page-header { margin-bottom: var(--beeday-spacing-xl); }
+.beeday-page-header__content,
+.beeday-section-header > div:first-child,
+.beeday-hero__content { min-width: 0; }
+
+.beeday-page-header__eyebrow,
+.beeday-section-header__eyebrow {
+    display: block;
+    margin-bottom: var(--beeday-spacing-xs);
+    color: var(--beeday-color-brand-primary);
+    font-size: .75rem;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+}
+
+.beeday-page-header h1,
+.beeday-section-header h2,
+.beeday-hero__content h1 { margin: 0; color: var(--beeday-color-text-primary); }
+.beeday-page-header h1,
+.beeday-hero__content h1 { font-size: clamp(2rem, 5vw, 3.2rem); }
+.beeday-section-header h2 { font-size: 1.55rem; }
+
+/* EXP32-F009 (Sprint 32.20): text-secondary for AA normal-text contrast - confirmed by a live axe
+   scan against /profile that this shared header subtitle failed color-contrast (serious) with
+   text-muted (~4.26:1, below the 4.5:1 AA threshold for normal text). */
+.beeday-page-header p,
+.beeday-section-header p,
+.beeday-hero__subtitle {
+    max-width: 52rem;
+    margin: var(--beeday-spacing-sm) 0 0;
+    color: var(--beeday-color-text-secondary);
+    line-height: 1.55;
+}
+
+.beeday-page-header__actions,
+.beeday-section-header__actions,
+.beeday-hero__primary-action { display: flex; flex-wrap: wrap; gap: var(--beeday-spacing-sm); }
+
+@media (max-width: 42rem) {
+    .beeday-page-header,
+    .beeday-section-header,
+    .beeday-hero__row { flex-direction: column; }
+    .beeday-page-header__actions,
+    .beeday-section-header__actions,
+    .beeday-hero__primary-action { width: 100%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .beeday-button,
+    .beeday-card--interactive { transition: none; }
+}
+
+/* BeeDayHero — a richer introductory panel than BeeDayPageHeader: an
+   optional illustration slot, a single emphasized primary action, brief
+   supporting content, and a contextual variant. See docs/design-system/
+   components.md for when to use this instead of BeeDayPageHeader. */
+.beeday-hero { margin-bottom: var(--beeday-spacing-xl); }
+
+.beeday-hero__illustration {
+    display: flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    /* Reserves a stable box so mounting the consumer-supplied illustration
+       content never shifts surrounding layout (CLS). */
+    min-width: 4rem;
+    min-height: 4rem;
+}
+
+.beeday-hero__supporting {
+    margin-top: var(--beeday-spacing-md);
+    padding-top: var(--beeday-spacing-md);
+    border-top: var(--beeday-border-width-subtle) solid var(--beeday-color-border);
+    color: var(--beeday-color-text-secondary);
+    font-size: var(--beeday-font-size-sm);
+}
+
+.beeday-hero--onboarding {
+    padding: var(--beeday-spacing-lg);
+    border: var(--beeday-border-width-subtle) solid var(--beeday-color-border);
+    border-radius: var(--beeday-radius-lg);
+    background: var(--beeday-color-brand-primary-soft);
+}
+
+@media (max-width: 30rem) {
+    .beeday-hero__illustration { min-width: 3rem; min-height: 3rem; }
+}
+

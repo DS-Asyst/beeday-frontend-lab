@@ -270,6 +270,165 @@ public sealed class ScenarioAndLocalizationBoundaryTests
                 + string.Join(Environment.NewLine, violations));
     }
 
+    /// <summary>
+    /// Sprint 33.14 (Issue #375): every Wallet page/component/model/service/state file is isolated
+    /// from the production runtime. The only replacement types are the centralized
+    /// <c>Wallet*</c> records/enums under <c>Scenarios/</c>.
+    /// </summary>
+    [Fact]
+    public void NoWalletSurfaceFileReferencesTheProductionBackendOrPersistence()
+    {
+        var walletDirectory = Path.Combine(
+            FindRepositoryRoot(), "src", "BeeDayLab.Web", "Components", "Pages", "Wallet");
+        Assert.True(Directory.Exists(walletDirectory), $"Expected directory not found: {walletDirectory}");
+
+        var sourceFiles = Directory.EnumerateFiles(walletDirectory, "*.cs", SearchOption.AllDirectories)
+            .Concat(Directory.EnumerateFiles(walletDirectory, "*.razor", SearchOption.AllDirectories))
+            .ToList();
+        Assert.NotEmpty(sourceFiles);
+
+        var forbidden = ForbiddenSubstrings
+            .Concat([
+                "MediatR",
+                "EnsureCurrentWalletCommand",
+                "GetWalletSummaryQuery",
+                "GetWalletTagsQuery",
+                "GetTransactionsQuery",
+                "CreateTransactionCommand",
+                "UpdateTransactionCommand",
+                "DeleteTransactionCommand",
+                "CreateWalletTagCommand",
+                "UpdateWalletTagCommand",
+                "DeleteWalletTagCommand",
+                "AuthenticatedUserInitializer",
+                "SaveTransactionRequest",
+                "SaveWalletTagRequest",
+            ])
+            .ToArray();
+
+        var violations = new List<string>();
+        foreach (var file in sourceFiles)
+        {
+            var content = StripComments(File.ReadAllText(file));
+            foreach (var term in forbidden)
+            {
+                if (content.Contains(term, StringComparison.Ordinal))
+                {
+                    violations.Add($"{Path.GetFileName(file)} references '{term}'");
+                }
+            }
+        }
+
+        Assert.True(
+            violations.Count == 0,
+            "Wallet surface boundary violated (Sprint 33.14, Issue #375):" + Environment.NewLine
+                + string.Join(Environment.NewLine, violations));
+    }
+
+    [Fact]
+    public void TheWalletPresentationContractIsDeclaredOnlyOnceUnderScenarios()
+    {
+        var root = FindRepositoryRoot();
+        var scenariosDirectory = Path.Combine(root, "src", "BeeDayLab.Web", "Scenarios");
+        var walletDirectory = Path.Combine(root, "src", "BeeDayLab.Web", "Components", "Pages", "Wallet");
+        var expectedTypes = new[]
+        {
+            "WalletTransactionType", "WalletSummaryData", "WalletTransactionData", "WalletTagData",
+            "WalletPagedTransactionsData", "WalletScenarioData",
+        };
+
+        var scenarioSource = string.Concat(
+            Directory.EnumerateFiles(scenariosDirectory, "*.cs", SearchOption.AllDirectories)
+                .Select(File.ReadAllText));
+
+        foreach (var type in expectedTypes)
+        {
+            Assert.True(
+                Regex.IsMatch(scenarioSource, $@"\b(record|enum)\s+{type}\b"),
+                $"'{type}' must be declared under Scenarios/ as the single Wallet translation layer.");
+        }
+
+        var productionTypes = new[]
+        {
+            "TransactionType", "WalletSummaryResponse", "TransactionResponse", "WalletTagResponse",
+            "PagedTransactionsResponse",
+        };
+        var violations = new List<string>();
+
+        foreach (var file in Directory.EnumerateFiles(walletDirectory, "*.cs", SearchOption.AllDirectories))
+        {
+            var content = StripComments(File.ReadAllText(file));
+            foreach (var type in expectedTypes.Concat(productionTypes))
+            {
+                if (Regex.IsMatch(content, $@"\b(record|enum|class)\s+{type}\b"))
+                {
+                    violations.Add($"{Path.GetFileName(file)} declares its own '{type}'");
+                }
+            }
+        }
+
+        Assert.True(
+            violations.Count == 0,
+            "The Wallet presentation contract must not be reinvented per component:" + Environment.NewLine
+                + string.Join(Environment.NewLine, violations));
+    }
+
+    [Fact]
+    public void WalletDoesNotReproduceBalanceOrFinancialAggregationRules()
+    {
+        var root = FindRepositoryRoot();
+        var files = Directory.EnumerateFiles(
+                Path.Combine(root, "src", "BeeDayLab.Web", "Components", "Pages", "Wallet"),
+                "*.*",
+                SearchOption.AllDirectories)
+            .Where(file => file.EndsWith(".cs", StringComparison.OrdinalIgnoreCase)
+                || file.EndsWith(".razor", StringComparison.OrdinalIgnoreCase))
+            .Append(Path.Combine(root, "src", "BeeDayLab.Web", "Scenarios", "WalletScenarioProvider.cs"));
+
+        var forbiddenPatterns = new[]
+        {
+            @"\.Sum\s*\(",
+            @"\.Aggregate\s*\(",
+            @"Calculate(Balance|Income|Expenses)",
+            @"Recalculate(Balance|Income|Expenses)",
+            @"BalanceCalculator",
+            @"FinancialRule",
+        };
+
+        var violations = new List<string>();
+        foreach (var file in files)
+        {
+            var content = StripComments(File.ReadAllText(file));
+            foreach (var pattern in forbiddenPatterns)
+            {
+                if (Regex.IsMatch(content, pattern, RegexOptions.IgnoreCase))
+                {
+                    violations.Add($"{Path.GetFileName(file)} matches forbidden financial rule '{pattern}'");
+                }
+            }
+        }
+
+        Assert.True(
+            violations.Count == 0,
+            "Wallet display values must stay scenario-resolved; no financial aggregation is allowed:" + Environment.NewLine
+                + string.Join(Environment.NewLine, violations));
+    }
+
+    [Fact]
+    public void WalletAndItsCanonicalTransitiveStyleSheetsAreLoaded()
+    {
+        var root = FindRepositoryRoot();
+        var cssDirectory = Path.Combine(root, "src", "BeeDayLab.Web", "wwwroot", "css");
+        var app = File.ReadAllText(Path.Combine(root, "src", "BeeDayLab.Web", "Components", "App.razor"));
+        var required = new[] { "design-system.css", "editor-modal.css", "forms.css", "feedback.css", "wallet.css" };
+
+        foreach (var name in required)
+        {
+            Assert.True(File.Exists(Path.Combine(cssDirectory, name)), $"Required copied stylesheet is missing: {name}");
+            Assert.Single(Regex.Matches(app, $@"css/{Regex.Escape(name)}").Cast<Match>());
+        }
+    }
+
     [Fact]
     public void ScenarioEngineUsesOnlyDeterministicPrimitivesNoRandomOrWallClock()
     {

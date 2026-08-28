@@ -1,0 +1,114 @@
+.beeday-field {
+    display: grid;
+    gap: 0.38rem;
+}
+
+.beeday-field__label {
+    font: var(--beeday-type-label);
+}
+
+.beeday-field__control {
+    width: 100%;
+    box-sizing: border-box;
+    min-height: 3rem;
+    padding: .625rem .75rem;
+    border: var(--beeday-border-width) solid var(--beeday-color-border);
+    border-radius: var(--beeday-radius-lg);
+    background: var(--beeday-color-surface);
+    color: var(--beeday-color-text-primary);
+    font: var(--beeday-type-body);
+    box-shadow: none;
+    outline: none;
+    transition: border-color var(--beeday-transition-fast), background-color var(--beeday-transition-fast), box-shadow var(--beeday-transition-fast);
+}
+
+/* EXP32-F009 (Sprint 32.20): text-secondary for AA normal-text contrast (text-muted is ~4.26:1, below 4.5:1). */
+.beeday-field__control::placeholder { color: var(--beeday-color-text-secondary); opacity: 1; }
+.beeday-field__control:hover:not(:disabled):not([readonly]) { border-color: var(--beeday-color-border-strong); }
+
+/* Sprint 29.3: min-height/line-height moved here from polish.css, which redeclared this same
+   selector and — loading after this file in App.razor with equal specificity — silently won,
+   making this rule's own 4.3rem value dead/unreachable. Forms owns control-height contracts, not
+   the page-rhythm utility sheet; the live 7rem value (unchanged) is preserved, just consolidated
+   into its correct owner. */
+.beeday-field__control--textarea {
+    min-height: 7rem;
+    line-height: 1.5;
+    resize: vertical;
+}
+
+.beeday-field__control:focus-visible {
+    border-color: var(--beeday-color-border-interactive);
+    box-shadow: var(--beeday-focus-ring);
+}
+
+.beeday-field__control.invalid,
+.beeday-field__control[aria-invalid="true"] { border-color: var(--beeday-color-danger); }
+
+.beeday-field__control:disabled,
+.beeday-field__control[readonly] {
+    cursor: not-allowed;
+    background: var(--beeday-color-surface-subtle);
+    color: var(--beeday-color-text-muted);
+    opacity: .72;
+}
+
+.beeday-field__counter {
+    justify-self: end;
+    color: inherit;
+    font: var(--beeday-type-small);
+}
+
+.beeday-checkbox {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    cursor: pointer;
+    min-height: 2.5rem;
+}
+
+.beeday-checkbox__control {
+    width: 1.05rem;
+    height: 1.05rem;
+    accent-color: var(--beeday-color-brand-primary);
+}
+
+.beeday-checkbox__label {
+    font: var(--beeday-type-label);
+}
+
+.beeday-field__control-shell { position: relative; display: block; }
+.beeday-field__control-shell .beeday-field__control { padding-right: 2.25rem; }
+.beeday-field__control--select { appearance: none; }
+.beeday-field__control-icon { position: absolute; top: 50%; right: .7rem; transform: translateY(-50%); pointer-events: none; }
+
+/* BeeDayDateInput already renders its own decorative Calendar BeeDayIcon;
+   suppress the browser's native date-picker glyph so only one calendar icon
+   shows, while keeping the native picker itself openable from anywhere in
+   the field (a fully transparent, full-size indicator, not display:none). */
+.beeday-field__control-shell input[type="date"]::-webkit-calendar-picker-indicator {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    opacity: 0;
+    cursor: pointer;
+}
+.beeday-validation-message { display: flex; align-items: flex-start; gap: .35rem; color: var(--beeday-color-danger); font: var(--beeday-type-small); font-weight: var(--beeday-font-weight-bold); }
+.beeday-validation-message .beeday-icon { margin-top: .08rem; }
+.beeday-checkbox { position: relative; }
+.beeday-checkbox__control { position: absolute; width: 1px; height: 1px; opacity: 0; }
+.beeday-checkbox__visual { display: inline-grid; place-items: center; width: 1.5rem; height: 1.5rem; border-radius: var(--beeday-radius-sm); }
+.beeday-checkbox__visual .beeday-icon { grid-area: 1 / 1; }
+.beeday-checkbox__checked { opacity: 0; }
+.beeday-checkbox__control:checked + .beeday-checkbox__visual .beeday-checkbox__unchecked { opacity: 0; }
+.beeday-checkbox__control:checked + .beeday-checkbox__visual .beeday-checkbox__checked { opacity: 1; }
+.beeday-checkbox__control:focus-visible + .beeday-checkbox__visual { outline: var(--beeday-border-width) solid var(--beeday-color-brand-primary); outline-offset: 2px; box-shadow: var(--beeday-focus-ring); }
+.beeday-checkbox:has(.beeday-checkbox__control:disabled) { cursor: not-allowed; color: var(--beeday-color-text-muted); opacity: .72; }
+
+@media (prefers-reduced-motion: reduce) {
+    .beeday-field__control { transition: none; }
+}
+
