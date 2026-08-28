@@ -586,6 +586,54 @@ public sealed class ScenarioAndLocalizationBoundaryTests
     }
 
     /// <summary>
+    /// Sprint 33.16 (Issue #377) "Do not add new Design System variants only for gallery
+    /// completeness" boundary: the reusable component surface under
+    /// <c>Components/DesignSystem/</c> + <c>Components/Behaviors/DragDrop/</c> must be exactly the
+    /// 26 components already extracted/verified by Sprints 33.8/33.9 (Ledger FE33-013..038/105) —
+    /// the gallery may only compose/consume them, never introduce a new one.
+    /// </summary>
+    [Fact]
+    public void TheGalleryConsumesExactlyTheAlreadyVerifiedDesignSystemComponentSetNoMoreNoLess()
+    {
+        var root = FindRepositoryRoot();
+        var designSystemDirectory = Path.Combine(root, "src", "BeeDayLab.Web", "Components", "DesignSystem");
+        var behaviorsDirectory = Path.Combine(root, "src", "BeeDayLab.Web", "Components", "Behaviors", "DragDrop");
+
+        var actualComponents = Directory.EnumerateFiles(designSystemDirectory, "*.razor", SearchOption.AllDirectories)
+            .Concat(Directory.EnumerateFiles(behaviorsDirectory, "*.razor", SearchOption.AllDirectories))
+            .Select(Path.GetFileNameWithoutExtension)
+            .OrderBy(name => name, StringComparer.Ordinal)
+            .ToArray();
+
+        var expectedComponents = new[]
+        {
+            "BeeDayButton", "BeeDayCard",
+            "BeeDayConfirmDialog", "BeeDayDashboardSkeleton", "BeeDayEmptyState", "BeeDayErrorBoundary",
+            "BeeDayLoading", "BeeDaySkeleton", "BeeDayToastHost",
+            "BeeDayCheckbox", "BeeDayDateInput", "BeeDayInput", "BeeDaySelect", "BeeDayTextArea", "BeeDayValidationMessage",
+            "BeeDayIcon",
+            "BeeDayHero", "BeeDayPageHeader", "BeeDaySectionHeader", "BeeDaySettingsForm", "BeeDaySettingsSection",
+            "EditorModalShell",
+            "BeeDayProgressBar",
+            "BeeDayBrand", "SearchHighlight",
+            "BeeDaySortable",
+        }.OrderBy(name => name, StringComparer.Ordinal).ToArray();
+
+        Assert.Equal(expectedComponents, actualComponents);
+    }
+
+    [Fact]
+    public void GalleryStylesheetIsLoadedExactlyOnce()
+    {
+        var root = FindRepositoryRoot();
+        var cssPath = Path.Combine(root, "src", "BeeDayLab.Web", "wwwroot", "css", "gallery.css");
+        var app = File.ReadAllText(Path.Combine(root, "src", "BeeDayLab.Web", "Components", "App.razor"));
+
+        Assert.True(File.Exists(cssPath), "Required gallery stylesheet is missing: gallery.css");
+        Assert.Single(Regex.Matches(app, @"css/gallery\.css").Cast<Match>());
+    }
+
+    /// <summary>
     /// Strips <c>//</c>/<c>///</c> line comments, <c>/* */</c> block comments, and (Sprint 33.12
     /// addition, needed once this file started scanning .razor files too) <c>@* *@</c> Razor
     /// comments, so architecture assertions target real code, not explanatory documentation — this

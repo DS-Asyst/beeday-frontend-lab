@@ -1,0 +1,339 @@
+@page "/design-system"
+@using System.ComponentModel.DataAnnotations
+@inject IStringLocalizer<GalleryResources> Localizer
+@inject ToastService Toast
+
+<PageTitle>@Localizer["PageTitle"]</PageTitle>
+
+<div class="gallery-page beeday-fade-in">
+    <BeeDayPageHeader Eyebrow="@Localizer["Eyebrow"]" Title="@Localizer["Heading"]" Description="@Localizer["Description"]" />
+
+    <nav class="gallery-page__nav" aria-label="@Localizer["NavAriaLabel"]">
+        <a href="#gallery-buttons">@Localizer["ButtonsHeading"]</a>
+        <a href="#gallery-cards">@Localizer["CardsHeading"]</a>
+        <a href="#gallery-feedback">@Localizer["FeedbackHeading"]</a>
+        <a href="#gallery-forms">@Localizer["FormsHeading"]</a>
+        <a href="#gallery-icons">@Localizer["IconsHeading"]</a>
+        <a href="#gallery-layout">@Localizer["LayoutHeading"]</a>
+        <a href="#gallery-modals">@Localizer["ModalsHeading"]</a>
+        <a href="#gallery-progress">@Localizer["ProgressHeading"]</a>
+        <a href="#gallery-text">@Localizer["TextHeading"]</a>
+        <a href="#gallery-behaviors">@Localizer["BehaviorsHeading"]</a>
+    </nav>
+
+    @* ---------- Buttons (FE33-013) ---------- *@
+    <section id="gallery-buttons" class="gallery-page__section">
+        <BeeDaySettingsSection Title="@Localizer["ButtonsHeading"]">
+            <div class="gallery-page__toggles">
+                <label><input type="checkbox" @bind="_buttonsDisabled" /> @Localizer["DisabledToggleLabel"]</label>
+                <label><input type="checkbox" @bind="_buttonsLoading" /> @Localizer["LoadingToggleLabel"]</label>
+            </div>
+            <div class="gallery-page__swatches">
+                @foreach (var variant in Enum.GetValues<BeeDayButtonVariant>())
+                {
+                    <BeeDayButton Variant="variant" Disabled="_buttonsDisabled" IsLoading="_buttonsLoading">@variant</BeeDayButton>
+                }
+                <BeeDayButton Variant="BeeDayButtonVariant.Primary" Icon="BeeDayIconName.Add" Disabled="_buttonsDisabled" IsLoading="_buttonsLoading">Icon</BeeDayButton>
+            </div>
+        </BeeDaySettingsSection>
+    </section>
+
+    @* ---------- Cards (FE33-014) ---------- *@
+    <section id="gallery-cards" class="gallery-page__section">
+        <BeeDaySettingsSection Title="@Localizer["CardsHeading"]">
+            <div class="gallery-page__cards">
+                <BeeDayCard Padded="true">Default</BeeDayCard>
+                <BeeDayCard Padded="true" Muted="true">Muted</BeeDayCard>
+                <BeeDayCard Padded="true" Prominent="true">Prominent</BeeDayCard>
+                <BeeDayCard Padded="true" Interactive="true">Interactive</BeeDayCard>
+            </div>
+        </BeeDaySettingsSection>
+    </section>
+
+    @* ---------- Feedback (FE33-015..021) ---------- *@
+    <section id="gallery-feedback" class="gallery-page__section">
+        <BeeDaySettingsSection Title="@Localizer["FeedbackHeading"]">
+            <h3>BeeDayEmptyState</h3>
+            <BeeDayEmptyState Title="No demo items" Description="Create one to see it here." Icon="BeeDayIconName.Search" />
+
+            <h3>BeeDaySkeleton</h3>
+            <BeeDaySkeleton Lines="3" />
+
+            <h3>BeeDayDashboardSkeleton</h3>
+            <BeeDayDashboardSkeleton />
+
+            <h3>BeeDayLoading</h3>
+            <label><input type="checkbox" @bind="_loadingVisible" /> @Localizer["ShowLoadingOverlayLabel"]</label>
+            <BeeDayLoading IsVisible="_loadingVisible" />
+
+            <h3>BeeDayErrorBoundary</h3>
+            <BeeDayErrorBoundary>
+                <GalleryThrowOnDemand />
+            </BeeDayErrorBoundary>
+
+            <h3>BeeDayToastHost</h3>
+            <div class="gallery-page__toggles">
+                <BeeDayButton Variant="BeeDayButtonVariant.Success" Compact="true" OnClick="@(() => Toast.ShowSuccess(Localizer["ToastSuccessMessage"]))">@Localizer["TriggerSuccessToastButton"]</BeeDayButton>
+                <BeeDayButton Variant="BeeDayButtonVariant.Danger" Compact="true" OnClick="@(() => Toast.ShowError(Localizer["ToastErrorMessage"]))">@Localizer["TriggerErrorToastButton"]</BeeDayButton>
+                <BeeDayButton Variant="BeeDayButtonVariant.Secondary" Compact="true" OnClick="@(() => Toast.ShowInfo(Localizer["ToastInfoMessage"]))">@Localizer["TriggerInfoToastButton"]</BeeDayButton>
+            </div>
+            <BeeDayToastHost />
+
+            <h3>BeeDayConfirmDialog</h3>
+            <div class="gallery-page__toggles">
+                <BeeDayButton Variant="BeeDayButtonVariant.Secondary" Compact="true" OnClick="@(() => OpenConfirmDialog(busy: false, withError: false))">@Localizer["OpenConfirmDialogButton"]</BeeDayButton>
+                <BeeDayButton Variant="BeeDayButtonVariant.Secondary" Compact="true" OnClick="@(() => OpenConfirmDialog(busy: true, withError: false))">@Localizer["OpenConfirmDialogBusyButton"]</BeeDayButton>
+                <BeeDayButton Variant="BeeDayButtonVariant.Secondary" Compact="true" OnClick="@(() => OpenConfirmDialog(busy: false, withError: true))">@Localizer["OpenConfirmDialogErrorButton"]</BeeDayButton>
+            </div>
+            <BeeDayConfirmDialog IsOpen="_confirmOpen"
+                                  IsBusy="_confirmBusy"
+                                  Title="@Localizer["ConfirmDialogTitle"]"
+                                  Message="@Localizer["ConfirmDialogMessage"]"
+                                  Warning="@Localizer["ConfirmDialogWarning"]"
+                                  ErrorMessage="@_confirmError"
+                                  OnConfirm="@(() => _confirmOpen = false)"
+                                  OnCancel="@(() => _confirmOpen = false)" />
+        </BeeDaySettingsSection>
+    </section>
+
+    @* ---------- Forms (FE33-022..027) ---------- *@
+    <section id="gallery-forms" class="gallery-page__section">
+        <BeeDaySettingsSection Title="@Localizer["FormsHeading"]">
+            <BeeDaySettingsForm Model="_formModel"
+                                 FormName="gallery-demo-form"
+                                 SubmitLabel="@Localizer["SaveDemoFormButton"]"
+                                 IsBusy="_formBusy"
+                                 OnValidSubmit="HandleFormSubmitAsync">
+                <BeeDayInput Id="gallery-name" Label="@Localizer["DemoFormNameLabel"]" Disabled="_formBusy"
+                             @bind-Value="_formModel.Name" />
+                <BeeDayCheckbox Id="gallery-agree" Label="@Localizer["DemoFormAgreeLabel"]" Disabled="_formBusy"
+                                 @bind-Value="_formModel.AgreeToTerms" />
+                <BeeDayDateInput Id="gallery-start-date" Label="@Localizer["DemoFormStartDateLabel"]" Disabled="_formBusy"
+                                  @bind-Value="_formModel.StartDate" />
+                <BeeDaySelect Id="gallery-plan" Label="@Localizer["DemoFormPlanLabel"]" Disabled="_formBusy"
+                              @bind-Value="_formModel.Plan">
+                    <option value="basic">Basic</option>
+                    <option value="pro">Pro</option>
+                    <option value="enterprise">Enterprise</option>
+                </BeeDaySelect>
+                <BeeDayTextArea Id="gallery-notes" Label="@Localizer["DemoFormNotesLabel"]" Disabled="_formBusy" ShowCounter="true" MaxLength="200"
+                                @bind-Value="_formModel.Notes" />
+            </BeeDaySettingsForm>
+        </BeeDaySettingsSection>
+    </section>
+
+    @* ---------- Icons (FE33-028) ---------- *@
+    <section id="gallery-icons" class="gallery-page__section">
+        <BeeDaySettingsSection Title="@Localizer["IconsHeading"]">
+            <h3>Sizes</h3>
+            <div class="gallery-page__swatches">
+                @foreach (var size in Enum.GetValues<BeeDayIconSize>())
+                {
+                    <span class="gallery-page__icon-swatch"><BeeDayIcon Name="BeeDayIconName.Settings" Size="size" /> @size</span>
+                }
+            </div>
+            <h3>Colors</h3>
+            <div class="gallery-page__swatches">
+                @foreach (var color in Enum.GetValues<BeeDayIconColor>())
+                {
+                    <span class="gallery-page__icon-swatch"><BeeDayIcon Name="BeeDayIconName.Warning" Color="color" /> @color</span>
+                }
+            </div>
+            <h3>All @(Enum.GetValues<BeeDayIconName>().Length) mapped icons</h3>
+            <div class="gallery-page__icon-grid">
+                @foreach (var name in Enum.GetValues<BeeDayIconName>())
+                {
+                    <span class="gallery-page__icon-swatch"><BeeDayIcon Name="name" /> @name</span>
+                }
+            </div>
+        </BeeDaySettingsSection>
+    </section>
+
+    @* ---------- Layout (FE33-029..033) ---------- *@
+    <section id="gallery-layout" class="gallery-page__section">
+        <BeeDaySettingsSection Title="@Localizer["LayoutHeading"]">
+            <h3>BeeDayHero</h3>
+            <BeeDayHero Compact="true" Eyebrow="Demo" Title="Hero title" Subtitle="Hero subtitle text.">
+                <PrimaryAction><BeeDayButton Variant="BeeDayButtonVariant.ImportantWhite">Action</BeeDayButton></PrimaryAction>
+            </BeeDayHero>
+            <BeeDayHero Compact="true" Variant="BeeDayHeroVariant.Onboarding" Surface="BeeDayPaletteToken.Cor3" Eyebrow="Onboarding variant" Title="Onboarding hero" Subtitle="Rendered with a palette surface token.">
+                <PrimaryAction><BeeDayButton Variant="BeeDayButtonVariant.ImportantWhite">Continue</BeeDayButton></PrimaryAction>
+            </BeeDayHero>
+
+            <h3>BeeDayPageHeader</h3>
+            <BeeDayPageHeader Eyebrow="Demo" Title="Page header title" Description="Page header description text.">
+                <Actions><BeeDayButton Variant="BeeDayButtonVariant.Secondary" Compact="true">Action</BeeDayButton></Actions>
+            </BeeDayPageHeader>
+
+            <h3>BeeDaySectionHeader</h3>
+            <BeeDaySectionHeader Eyebrow="Demo" Title="Section header title" Description="Section header description text.">
+                <Actions><BeeDayButton Variant="BeeDayButtonVariant.Secondary" Compact="true">Action</BeeDayButton></Actions>
+            </BeeDaySectionHeader>
+
+            <h3>BeeDaySettingsSection</h3>
+            <BeeDaySettingsSection Title="Nested settings section" Description="BeeDaySettingsSection wraps content in a BeeDayCard + BeeDaySectionHeader.">
+                <p>Demo content inside a settings section.</p>
+            </BeeDaySettingsSection>
+        </BeeDaySettingsSection>
+    </section>
+
+    @* ---------- Modals (FE33-034) ---------- *@
+    <section id="gallery-modals" class="gallery-page__section">
+        <BeeDaySettingsSection Title="@Localizer["ModalsHeading"]">
+            <BeeDayButton Variant="BeeDayButtonVariant.Secondary" OnClick="OpenEditorModal">@Localizer["OpenEditorModalButton"]</BeeDayButton>
+            @if (_editorOpen)
+            {
+                <EditorModalShell Model="_editorModel"
+                                   Title="@Localizer["EditorModalTitle"]"
+                                   TitleId="gallery-editor-title"
+                                   ShowDelete="true"
+                                   IsBusy="_editorBusy"
+                                   OnSubmit="HandleEditorSubmitAsync"
+                                   OnCancel="@(() => _editorOpen = false)"
+                                   OnDelete="HandleEditorDeleteAsync">
+                    <HeroContent>
+                        <BeeDayInput Id="gallery-editor-name" Label="@Localizer["EditorModalFieldLabel"]" Disabled="_editorBusy"
+                                     @bind-Value="_editorModel.Name" />
+                    </HeroContent>
+                    <BodyContent>
+                        <p>@Localizer["EditorModalBodyText"]</p>
+                    </BodyContent>
+                </EditorModalShell>
+            }
+        </BeeDaySettingsSection>
+    </section>
+
+    @* ---------- Progress (FE33-035) ---------- *@
+    <section id="gallery-progress" class="gallery-page__section">
+        <BeeDaySettingsSection Title="@Localizer["ProgressHeading"]">
+            <BeeDayProgressBar Label="Primary progress" Value="65" Maximum="100" />
+            <BeeDayProgressBar Label="Reward progress" Value="8" Maximum="10" Tone="BeeDayProgressTone.Reward" />
+            <BeeDayProgressBar Label="Unavailable progress" Value="0" Maximum="0" />
+        </BeeDaySettingsSection>
+    </section>
+
+    @* ---------- Text (FE33-036/037) ---------- *@
+    <section id="gallery-text" class="gallery-page__section">
+        <BeeDaySettingsSection Title="@Localizer["TextHeading"]">
+            <h3>BeeDayBrand</h3>
+            <BeeDayBrand />
+            <div class="gallery-page__dark-swatch">
+                <BeeDayBrand OnDarkSurface="true" />
+            </div>
+
+            <h3>SearchHighlight</h3>
+            <label>
+                @Localizer["HighlightSearchLabel"]
+                <input type="text" @bind="_highlightTerm" @bind:event="oninput" />
+            </label>
+            <p><SearchHighlight Text="@Localizer["HighlightSampleText"].Value" SearchTerm="@_highlightTerm" /></p>
+        </BeeDaySettingsSection>
+    </section>
+
+    @* ---------- Behaviors (FE33-038/105) ---------- *@
+    <section id="gallery-behaviors" class="gallery-page__section">
+        <BeeDaySettingsSection Title="@Localizer["BehaviorsHeading"]">
+            <h3>BeeDaySortable</h3>
+            <BeeDaySortable ItemIds="_sortableOrder"
+                             CollectionKey="gallery-demo"
+                             OnReorder="HandleReorderAsync"
+                             Class="gallery-page__sortable">
+                <ItemTemplate Context="itemId">
+                    <BeeDayCard Padded="true">@GetSortableLabel(itemId)</BeeDayCard>
+                </ItemTemplate>
+            </BeeDaySortable>
+        </BeeDaySettingsSection>
+    </section>
+</div>
+
+@code {
+    private bool _buttonsDisabled;
+    private bool _buttonsLoading;
+    private bool _loadingVisible;
+    private bool _confirmOpen;
+    private bool _confirmBusy;
+    private string? _confirmError;
+    private bool _formBusy;
+    private readonly GalleryFormModel _formModel = new();
+    private bool _editorOpen;
+    private bool _editorBusy;
+    private GalleryEditorModel _editorModel = new();
+    private string _highlightTerm = "wallet";
+
+    private static readonly Guid SortableItemA = new(1, 0x3316, 0x5A16, 0xBE, 0xED, 0xA1, 0x16, 0x00, 0x00, 0x00, 0x01);
+    private static readonly Guid SortableItemB = new(2, 0x3316, 0x5A16, 0xBE, 0xED, 0xA1, 0x16, 0x00, 0x00, 0x00, 0x01);
+    private static readonly Guid SortableItemC = new(3, 0x3316, 0x5A16, 0xBE, 0xED, 0xA1, 0x16, 0x00, 0x00, 0x00, 0x01);
+    private readonly Dictionary<Guid, string> _sortableLabels = new()
+    {
+        [SortableItemA] = "First demo card",
+        [SortableItemB] = "Second demo card",
+        [SortableItemC] = "Third demo card",
+    };
+    private List<Guid> _sortableOrder = [SortableItemA, SortableItemB, SortableItemC];
+
+    private void OpenConfirmDialog(bool busy, bool withError)
+    {
+        _confirmOpen = true;
+        _confirmBusy = busy;
+        _confirmError = withError ? Localizer["ConfirmDialogErrorMessage"].Value : null;
+    }
+
+    private async Task HandleFormSubmitAsync()
+    {
+        _formBusy = true;
+        await Task.Delay(150);
+        _formBusy = false;
+        Toast.ShowSuccess(Localizer["DemoFormSavedToast"]);
+    }
+
+    private void OpenEditorModal()
+    {
+        _editorModel = new GalleryEditorModel { Name = "Demo item" };
+        _editorOpen = true;
+    }
+
+    private async Task HandleEditorSubmitAsync()
+    {
+        _editorBusy = true;
+        await Task.Delay(150);
+        _editorBusy = false;
+        _editorOpen = false;
+        Toast.ShowSuccess(Localizer["EditorModalSavedToast"]);
+    }
+
+    private async Task HandleEditorDeleteAsync()
+    {
+        _editorBusy = true;
+        await Task.Delay(150);
+        _editorBusy = false;
+        _editorOpen = false;
+        Toast.ShowSuccess(Localizer["EditorModalDeletedToast"]);
+    }
+
+    private string GetSortableLabel(Guid itemId) => _sortableLabels.GetValueOrDefault(itemId, itemId.ToString());
+
+    private Task HandleReorderAsync(SortableReorderEvent reorderEvent)
+    {
+        _sortableOrder = [.. SortableOrder.Move(
+            _sortableOrder,
+            Guid.Parse(reorderEvent.ItemId),
+            Guid.Parse(reorderEvent.TargetItemId),
+            reorderEvent.PlaceAfter)];
+        return Task.CompletedTask;
+    }
+
+    private sealed class GalleryFormModel
+    {
+        [Required]
+        public string? Name { get; set; }
+        public bool AgreeToTerms { get; set; }
+        public DateOnly? StartDate { get; set; }
+        public string Plan { get; set; } = "basic";
+        public string? Notes { get; set; }
+    }
+
+    private sealed class GalleryEditorModel
+    {
+        public string? Name { get; set; }
+    }
+}
