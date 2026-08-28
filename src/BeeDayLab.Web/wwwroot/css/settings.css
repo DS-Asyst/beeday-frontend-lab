@@ -1,0 +1,77 @@
+/* Design System — reusable "settings section" layout (BeeDaySettingsSection
+   + BeeDaySettingsForm), used by any settings-style page: a card with a
+   section header, wrapping a form with a fieldset, an optional 2-column
+   field grid, hint text, and a right-aligned submit action. Introduced for
+   the Account page and intended for future Preferences and administrative
+   pages so they reuse this instead of re-implementing it. */
+
+.beeday-settings-section {
+    padding: 0;
+    overflow: hidden;
+    border: var(--beeday-border-width-subtle) solid var(--beeday-color-border);
+    border-radius: var(--beeday-radius-md);
+    background: var(--beeday-color-surface);
+    box-shadow: var(--beeday-shadow-sm);
+}
+
+.beeday-settings-section__header {
+    padding: var(--beeday-spacing-lg);
+    border-bottom: var(--beeday-border-width-subtle) solid var(--beeday-color-border);
+}
+
+.beeday-settings-form {
+    display: grid;
+    gap: var(--beeday-spacing-md);
+    margin: 0;
+    padding: var(--beeday-spacing-lg);
+    border: 0;
+}
+
+.beeday-settings-form:disabled {
+    opacity: .72;
+}
+
+.beeday-settings-form__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--beeday-spacing-md);
+}
+
+/* EXP32-F009 (Sprint 32.20): text-secondary for AA normal-text contrast (text-muted is ~4.26:1, below 4.5:1). */
+.beeday-settings-form__hint {
+    margin: 0;
+    color: var(--beeday-color-text-secondary);
+    font-size: var(--beeday-font-size-sm);
+}
+
+.beeday-settings-form__actions {
+    display: flex;
+    justify-content: flex-end;
+    padding-top: var(--beeday-spacing-xs);
+}
+
+.beeday-settings-form .validation-message {
+    margin-top: var(--beeday-spacing-xs);
+    color: var(--beeday-color-danger);
+    font-size: var(--beeday-font-size-sm);
+}
+
+.beeday-settings-form input[readonly],
+.beeday-settings-form input:disabled {
+    cursor: not-allowed;
+    background: var(--beeday-color-surface-muted);
+}
+
+@media (max-width: 720px) {
+    .beeday-settings-form__grid {
+        grid-template-columns: 1fr;
+    }
+
+    .beeday-settings-form__actions {
+        justify-content: stretch;
+    }
+
+    .beeday-settings-form__actions .beeday-button {
+        width: 100%;
+    }
+}
