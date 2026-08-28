@@ -1,5 +1,7 @@
 using BeeDayLab.Web.Components;
 using BeeDayLab.Web.Components.DesignSystem.Feedback;
+using BeeDayLab.Web.Components.Pages.Daily.Experience.Feedback;
+using BeeDayLab.Web.Components.Pages.Daily.State;
 using BeeDayLab.Web.Components.Pages.Identity.State;
 using BeeDayLab.Web.Localization;
 using BeeDayLab.Web.Scenarios;
@@ -36,10 +38,28 @@ builder.Services.AddSingleton<ConfirmEmailScenarioProvider>();
 builder.Services.AddSingleton<ProfileCreationScenarioProvider>();
 builder.Services.AddSingleton<AccountScenarioProvider>();
 
+// Sprint 33.13 (FE33-088..097): the Daily/productivity surface's single scenario provider. Stateless
+// and pure (a switch over ScenarioContext.State returning static synthetic data), so Singleton for
+// the same reason as every provider above. One provider covers the whole surface — Issue #374's
+// boundary explicitly forbids per-page mock mechanisms.
+builder.Services.AddSingleton<DailyDashboardScenarioProvider>();
+
 // ProfileCreationState mirrors production's own AddScoped registration: it is per-circuit form/step
 // state (Model, Step, IsBusy, ValidationError), the same lifetime reasoning as ToastService/
 // ScenarioSelection above.
 builder.Services.AddScoped<ProfileCreationState>();
+
+// Sprint 33.13 (FE33-090): LabDashboardState holds the per-circuit working copy of the dashboard
+// (the four mutable collections seeded once from the scenario, the search/filter selection, the open
+// editor/workspace, and a CancellationTokenSource tied to the circuit) — Scoped, the same lifetime
+// reasoning as ProfileCreationState above and matching production's own DashboardState registration.
+builder.Services.AddScoped<LabDashboardState>();
+
+// Sprint 33.13 (FE33-096): BeeDayFeedbackStore is per-circuit UI state (the level-up modal currently
+// showing plus a three-entry history), so Scoped — again matching production. What production feeds
+// it with, BeeDayFeedbackEventHandler (a real MediatR INotificationHandler over a domain event), is
+// NOT ported; LabDashboardState calls Add(...) directly with synthetic level-up data instead.
+builder.Services.AddScoped<BeeDayFeedbackStore>();
 
 // Sprint 33.10 (FE33-104): a real but minimal request-localization pipeline — CookieRequestCultureProvider
 // only. No Accept-Language header sniffing, no query-string provider: culture here is always

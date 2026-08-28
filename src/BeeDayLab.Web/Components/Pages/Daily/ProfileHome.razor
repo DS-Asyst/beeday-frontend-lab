@@ -1,0 +1,118 @@
+@page "/profile"
+@rendermode InteractiveServer
+@implements IDisposable
+@using BeeDayLab.Web.Components.Pages.Daily.State
+@using BeeDayLab.Web.Components.Pages.Daily.Experience.Components
+@using BeeDayLab.Web.Components.Pages.Daily.Experience.Models
+@using BeeDayLab.Web.Components.Pages.Daily.Experience.Feedback
+@inject LabDashboardState State
+@inject NavigationManager Navigation
+@inject IStringLocalizer<DashboardResources> Localizer
+
+@* Lab adaptation (Sprint 33.13, FE33-088) of BeeDay.Web's
+   Components/Features/Dashboard/Pages/DashboardHome.razor — the "welcome back" landing summary at
+   /profile (experience card + weekly-history placeholder + active-project card).
+
+   Renamed from DashboardHome to ProfileHome so the file name matches its route, the same reason
+   DailyHome was renamed; the "/profile" route itself is unchanged.
+
+   Dropped entirely (EXCLUDE): @attribute [Authorize], the AuthenticatedUserInitializer injection and
+   its EnsureInitializedAsync() call, and the profile-completeness redirect
+   (`if (!State.HasProfile && !State.IsUnavailable) NavigateTo("/profile/create")`) — the Lab has no
+   account, so there is no completeness to check. The scenario provider always supplies a profile
+   with a nickname, including for the Empty state, precisely so this page previews its real content
+   rather than a redirect.
+
+   ExperienceViewModel.From(profile) is ported (presentation arithmetic over already-resolved
+   numbers); production's second From(UserExperience) overload is Domain-typed and was not ported at
+   all — see ExperienceViewModel's own remarks.
+
+   The eyebrow keeps production's DateTime.Today.ToString("dddd, MMMM d"). It is a real "what day is
+   it" affordance on a landing page, rendered by the page (not by a scenario provider), so the Lab's
+   scenario-determinism rule — which governs Scenarios/ — does not reach it. *@
+
+<PageTitle>@Localizer["ProfilePageTitle"]</PageTitle>
+
+@if (State.IsLoading)
+{
+    <section class="product-home product-home--loading" aria-label="@Localizer["LoadingProfileAriaLabel"]" aria-busy="true">
+        <div class="product-home__skeleton product-home__skeleton--header"></div>
+        <div class="product-home__skeleton product-home__skeleton--feature"></div>
+        <div class="product-home__skeleton product-home__skeleton--row"></div>
+    </section>
+}
+else if (State.IsUnavailable)
+{
+    <section class="product-home" aria-labelledby="home-unavailable-heading">
+        <BeeDayCard Padded="true" Class="product-home__status" role="status">
+            <BeeDayIcon Name="BeeDayIconName.Warning" Size="BeeDayIconSize.Large" Color="BeeDayIconColor.Warning" />
+            <div><strong id="home-unavailable-heading">@Localizer["ProfileUnavailableHeading"]</strong><p>@Localizer["ProfileUnavailableDescription"]</p></div>
+        </BeeDayCard>
+    </section>
+}
+else if (State.HasProfile)
+{
+    var profile = State.Profile;
+    var activeProject = State.Projects.Where(project => !project.Completed).OrderByDescending(project => project.Featured).FirstOrDefault();
+
+    <section class="product-home beeday-fade-in" aria-label="@Localizer["WelcomeBackHeading", profile.Nickname]">
+        <BeeDayPageHeader Eyebrow="@DateTime.Today.ToString("dddd, MMMM d")"
+                          Title="@Localizer["WelcomeBackHeading", profile.Nickname]"
+                          Description="@Localizer["ChooseNextStepDescription"]">
+            <Actions>
+                <BeeDayButton Icon="BeeDayIconName.Daily" OnClick="GoToDaily">@Localizer["OpenDailyButtonLabel"]</BeeDayButton>
+            </Actions>
+        </BeeDayPageHeader>
+
+        <section class="product-home__progress" aria-label="@Localizer["YourProgressAriaLabel"]">
+            <ExperienceBar Model="ExperienceViewModel.From(profile)"
+                           ExperienceGain="State.LatestExperienceGain"
+                           FeedbackKey="State.ExperienceFeedbackVersion" />
+        </section>
+
+        <section class="product-home__section" aria-labelledby="week-heading">
+            <div class="product-home__section-heading">
+                <div><span>@Localizer["ThisWeekEyebrow"]</span><h2 id="week-heading">@Localizer["WeeklyActivityHeading"]</h2></div>
+            </div>
+            <BeeDayCard Padded="true" Class="product-home__weekly-unavailable" role="status">
+                <BeeDayIcon Name="BeeDayIconName.Calendar" Size="BeeDayIconSize.Large" Color="BeeDayIconColor.Muted" />
+                <div><strong>@Localizer["WeeklyHistoryUnavailableHeading"]</strong><p>@Localizer["WeeklyHistoryUnavailableDescription"]</p></div>
+            </BeeDayCard>
+        </section>
+
+        @if (activeProject is not null)
+        {
+            <section class="product-home__section" aria-labelledby="project-heading">
+                <div class="product-home__section-heading">
+                    <div><span>@Localizer["InProgressEyebrow"]</span><h2 id="project-heading">@Localizer["ContinueProjectHeading"]</h2></div>
+                </div>
+                <BeeDayCard Padded="true" Class="product-home__project">
+                    <div class="product-home__project-header">
+                        <BeeDayIcon Name="BeeDayIconName.Project" Size="BeeDayIconSize.Large" Color="BeeDayIconColor.Primary" />
+                        <div><h3>@activeProject.Name</h3><p>@activeProject.Description</p></div>
+                    </div>
+                    <BeeDayProgressBar Label="@Localizer["ProjectProgressLabel", activeProject.Name]"
+                                       Value="@((double)activeProject.ProgressPercentage)"
+                                       Maximum="100"
+                                       ValueText="@Localizer["ProjectProgressValueText", activeProject.ProgressPercentage.ToString("0")]" />
+                    <BeeDayButton Variant="BeeDayButtonVariant.Secondary" Compact="true" OnClick="GoToDaily">@Localizer["ContinueInDailyButtonLabel"]</BeeDayButton>
+                </BeeDayCard>
+            </section>
+        }
+    </section>
+
+    <BeeDayLoading IsVisible="State.IsBusy" />
+    <BeeDayFeedbackHost />
+}
+
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+        State.Changed += HandleStateChanged;
+        await State.InitializeAsync();
+    }
+
+    private void GoToDaily() => Navigation.NavigateTo("/daily");
+    private void HandleStateChanged() => _ = InvokeAsync(StateHasChanged);
+    public void Dispose() => State.Changed -= HandleStateChanged;
+}

@@ -1,0 +1,98 @@
+.habit-editor__direction {
+    display: flex;
+    justify-content: center;
+    gap: 2.35rem;
+    padding: 0.1rem 0 0.15rem;
+}
+
+.habit-editor__direction-button {
+    display: grid;
+    justify-items: center;
+    gap: 0.32rem;
+    min-width: 4rem;
+    border: 0;
+    background: transparent;
+    color: var(--beeday-color-brand-primary);
+    cursor: pointer;
+}
+
+.habit-editor__direction-button span {
+    display: grid;
+    place-items: center;
+    width: 2.8rem;
+    height: 2.8rem;
+    border-radius: 50%;
+    background: #d9d4df;
+    color: var(--beeday-color-surface);
+    font-size: 1.35rem;
+    font-weight: 700;
+    transition: transform 140ms ease, background-color 140ms ease;
+}
+
+.habit-editor__direction-button:hover span { transform: scale(1.05); }
+
+.habit-editor__direction-button strong {
+    font: var(--beeday-type-small);
+    font-weight: var(--beeday-font-weight-bold);
+}
+
+.habit-editor__direction-button.active span { background: var(--beeday-color-brand-primary); }
+
+.habit-editor__error {
+    margin: 0;
+    color: var(--beeday-color-danger-hover);
+    font: var(--beeday-type-small);
+    font-weight: var(--beeday-font-weight-bold);
+    text-align: center;
+}
+
+@media (max-width: 520px) {
+    .habit-editor__direction { gap: 1.5rem; }
+}
+
+/* EXP32-F010 (Sprint 32.15): local fallback - the global safety net only shortens duration, it
+   does not remove the transform/background-color transition itself. */
+@media (prefers-reduced-motion: reduce) {
+    .habit-editor__direction-button span {
+        transition: none;
+    }
+}
+
+/* Sprint 6.2 — preserve the current Habit visual state while editing. */
+.habit-editor--white { --habit-editor-accent: var(--beeday-habit-color-white); --habit-editor-accent-strong: var(--beeday-habit-color-white-dark); }
+.habit-editor--yellow { --habit-editor-accent: var(--beeday-habit-color-yellow); --habit-editor-accent-strong: var(--beeday-habit-color-yellow-dark); }
+.habit-editor--green { --habit-editor-accent: var(--beeday-habit-color-green); --habit-editor-accent-strong: var(--beeday-habit-color-green-dark); }
+.habit-editor--sky { --habit-editor-accent: var(--beeday-habit-color-sky); --habit-editor-accent-strong: var(--beeday-habit-color-sky-dark); }
+.habit-editor--red-light { --habit-editor-accent: var(--beeday-habit-color-red-light); --habit-editor-accent-strong: var(--beeday-habit-color-red-light-dark); }
+.habit-editor--red-medium { --habit-editor-accent: var(--beeday-habit-color-red-medium); --habit-editor-accent-strong: var(--beeday-habit-color-red-medium-dark); }
+.habit-editor--red-strong { --habit-editor-accent: var(--beeday-habit-color-red-strong); --habit-editor-accent-strong: var(--beeday-habit-color-red-strong-dark); }
+
+.habit-editor--white ::deep .editor-modal,
+.habit-editor--yellow ::deep .editor-modal,
+.habit-editor--green ::deep .editor-modal,
+.habit-editor--sky ::deep .editor-modal,
+.habit-editor--red-light ::deep .editor-modal,
+.habit-editor--red-medium ::deep .editor-modal,
+.habit-editor--red-strong ::deep .editor-modal {
+    border-top: .42rem solid var(--habit-editor-accent);
+}
+
+.habit-editor--white ::deep .editor-modal__header,
+.habit-editor--yellow ::deep .editor-modal__header,
+.habit-editor--green ::deep .editor-modal__header,
+.habit-editor--sky ::deep .editor-modal__header,
+.habit-editor--red-light ::deep .editor-modal__header,
+.habit-editor--red-medium ::deep .editor-modal__header,
+.habit-editor--red-strong ::deep .editor-modal__header {
+    box-shadow: inset 0 -1px 0 color-mix(in srgb, var(--habit-editor-accent-strong) 24%, transparent);
+}
+
+.habit-editor--white ::deep .editor-modal__hero,
+.habit-editor--yellow ::deep .editor-modal__hero,
+.habit-editor--green ::deep .editor-modal__hero,
+.habit-editor--sky ::deep .editor-modal__hero,
+.habit-editor--red-light ::deep .editor-modal__hero,
+.habit-editor--red-medium ::deep .editor-modal__hero,
+.habit-editor--red-strong ::deep .editor-modal__hero {
+    background: color-mix(in srgb, var(--habit-editor-accent) 13%, white);
+}

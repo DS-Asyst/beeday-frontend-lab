@@ -1,0 +1,34 @@
+@using BeeDayLab.Web.Components.Pages.Daily
+@inject IStringLocalizer<DashboardResources> Localizer
+
+<div class="filter-bar" aria-label="@Localizer["DashboardControlsAriaLabel"]">
+    <div class="filter-bar__main">
+        <div class="filter-bar__search" role="search">
+            <BeeDayInput Id="dashboard-search"
+                         Value="@inputValue"
+                         ValueChanged="OnInput"
+                         ValueExpression="@(() => inputValue)"
+                         Placeholder="@Localizer["SearchPlaceholder"]"
+                         UpdateOnInput="true"
+                         ShowValidationMessage="false"
+                         FieldCssClass="beeday-field filter-bar__search-field"
+                         InputCssClass="beeday-field__control filter-bar__input"
+                         type="search"
+                         aria-label="@Localizer["SearchActivitiesAriaLabel"]" />
+        </div>
+        <div class="filter-bar__create">
+            <BeeDayButton Variant="BeeDayButtonVariant.Primary" Compact="true" Icon="BeeDayIconName.Add"
+                          Class="filter-bar__create-button" OnClick="ToggleCreateMenu"
+                          aria-haspopup="menu" aria-expanded="@showCreateMenu.ToString().ToLowerInvariant()">@Localizer["CreateActivityButtonLabel"]</BeeDayButton>
+            @if (showCreateMenu)
+            {
+                <div class="filter-bar__menu" role="menu" aria-label="@Localizer["ChooseActivityTypeAriaLabel"]">
+                    <button type="button" role="menuitem" @onclick="CreateHabitAsync"><BeeDayIcon Name="BeeDayIconName.Habit" Size="BeeDayIconSize.Small" Decorative="true" /><span>@Localizer["CreateMenuHabitLabel"]</span></button>
+                    <button type="button" role="menuitem" @onclick="CreateTaskAsync"><BeeDayIcon Name="BeeDayIconName.RecurringTask" Size="BeeDayIconSize.Small" Decorative="true" /><span>@Localizer["CreateMenuTaskLabel"]</span></button>
+                    <button type="button" role="menuitem" @onclick="CreateTodoAsync"><BeeDayIcon Name="BeeDayIconName.Todo" Size="BeeDayIconSize.Small" Decorative="true" /><span>@Localizer["CreateMenuTodoLabel"]</span></button>
+                    <button type="button" role="menuitem" @onclick="CreateProjectAsync"><BeeDayIcon Name="BeeDayIconName.Project" Size="BeeDayIconSize.Small" Decorative="true" /><span>@Localizer["CreateMenuProjectLabel"]</span></button>
+                </div>
+            }
+        </div>
+    </div>
+</div>

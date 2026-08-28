@@ -1,0 +1,15 @@
+@using BeeDayLab.Web.Components.Pages.Daily.Experience
+@implements IDisposable
+@inject BeeDayFeedbackStore Store
+
+<BeeDayFeedbackModal Feedback="Store.Current"
+                      History="Store.History"
+                      OnClose="Store.Consume" />
+
+@code {
+    protected override void OnInitialized() => Store.Changed += HandleChanged;
+
+    private void HandleChanged() => _ = InvokeAsync(StateHasChanged);
+
+    public void Dispose() => Store.Changed -= HandleChanged;
+}

@@ -1,0 +1,96 @@
+@if (Project is not null)
+{
+    <div class="project-workspace" role="presentation" tabindex="-1" @onclick="OnClose" @onkeydown="HandleKeyDown">
+        <section class="project-workspace__panel"
+                 id="@DialogId"
+                 role="dialog"
+                 aria-modal="true"
+                 aria-labelledby="@TitleId"
+                 tabindex="-1"
+                 @onclick:stopPropagation="true">
+            <header class="project-workspace__header">
+                <div>
+                    <span class="project-workspace__eyebrow">@Localizer["ProjectLabel"]</span>
+                    <h2 id="@TitleId">@Project.Name</h2>
+                    @if (!string.IsNullOrWhiteSpace(Project.Description))
+                    {
+                        <p>@Project.Description</p>
+                    }
+                </div>
+                <button type="button" class="beeday-icon-toggle project-workspace__close" aria-label="@Localizer["CloseProjectAriaLabel"]" @onclick="OnClose"><BeeDayIcon Name="BeeDayIconName.Close" Size="BeeDayIconSize.Small" Decorative="true" /></button>
+            </header>
+
+            <div class="project-workspace__summary">
+                <div><span>@Localizer["StatusLabel"]</span><strong>@StatusLabel</strong></div>
+                <div><span>@Localizer["ProgressLabel"]</span><strong>@Project.Todos.Count(todo => todo.Completed) / @Project.Todos.Count</strong></div>
+            </div>
+
+            <div class="project-workspace__progress">
+                <BeeDayProgressBar Label="@Localizer["ProgressLabel"]"
+                                   AriaLabel="@Localizer["ProjectProgressAriaLabel", Project.ProgressPercentage.ToString("0")]"
+                                   Value="@((double)Project.ProgressPercentage)"
+                                   ValueText="@($"{Project.ProgressPercentage:0.##}%")" />
+            </div>
+
+            <div class="project-workspace__toolbar">
+                <div>
+                    <h3>@Localizer["TodosHeading"]</h3>
+                    <p>@Localizer["TodosSubtitle"]</p>
+                </div>
+                <button type="button" class="beeday-icon-toggle project-workspace__add" aria-label="@Localizer["AddTodoAriaLabel"]" title="@Localizer["AddTodoAriaLabel"]" @onclick="OnAddTodo"><BeeDayIcon Name="BeeDayIconName.Add" Size="BeeDayIconSize.Small" Decorative="true" /></button>
+            </div>
+
+            <div class="project-workspace__body">
+                @if (Project.Todos.Count > 0)
+                {
+                    <div class="project-workspace__list-toggle-row">
+                        <button type="button" class="project-workspace__list-toggle" aria-expanded="@showTodos.ToString().ToLowerInvariant()" @onclick="ToggleTodos">
+                            <span>@(showTodos ? Localizer["HideTodosButton"] : Localizer["ShowTodosButton"])</span>
+                            <BeeDayIcon Name="@(showTodos ? BeeDayIconName.ChevronRight : BeeDayIconName.ChevronDown)" Size="BeeDayIconSize.ExtraSmall" Class="project-workspace__list-chevron" Decorative="true" />
+                        </button>
+                    </div>
+                }
+
+                @if (showTodos)
+                {
+                    <div class="project-workspace__todos">
+                        @if (Project.Todos.Count == 0)
+                        {
+                            <div class="project-workspace__empty">
+                                <strong>@Localizer["NoTodosYetTitle"]</strong>
+                                <span>@Localizer["NoTodosYetDescription", Localizer["StatusPlanned"], Localizer["StatusInProgress"]]</span>
+                            </div>
+                        }
+                        else
+                        {
+                            @foreach (var todo in Project.Todos)
+                            {
+                                <article class="project-workspace__todo @(todo.Completed ? "project-workspace__todo--done" : string.Empty)">
+                                    <div class="project-workspace__todo-body">
+                                        <strong title="@todo.Title">@todo.Title</strong>
+                                    </div>
+                                    @if (OnToggleTodo.HasDelegate)
+                                    {
+                                        <button class="activity-card__checkbox project-workspace__todo-toggle"
+                                                type="button"
+                                                title="@ToggleTodoAriaLabel(todo)"
+                                                aria-label="@ToggleTodoAriaLabel(todo)"
+                                                @onclick="@(() => OnToggleTodo.InvokeAsync(todo))">
+                                            <span class="activity-card__checkbox-glyph">
+                                                <BeeDayIcon Name="BeeDayIconName.Complete" Size="BeeDayIconSize.Small" Decorative="true" />
+                                            </span>
+                                        </button>
+                                    }
+                                </article>
+                            }
+                        }
+                    </div>
+                }
+            </div>
+        </section>
+    </div>
+
+    <DialogFocusScope Active="true"
+                      TargetId="@DialogId"
+                      InitialFocusSelector=".project-workspace__close" />
+}

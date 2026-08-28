@@ -1,0 +1,83 @@
+@using BeeDayLab.Web.Components.Pages.Daily
+
+<section class="dashboard-column" aria-labelledby="@HeadingId">
+    <header class="dashboard-column__header">
+        <div class="dashboard-column__heading-group">
+            <div class="dashboard-column__heading">
+                <h2 id="@HeadingId">@Title</h2>
+                <span class="dashboard-column__count" aria-label="@CurrentCountLabel">@CurrentCount</span>
+            </div>
+        </div>
+
+        <div class="dashboard-column__actions">
+            @if (ShowCompletedSection)
+            {
+                <button class="beeday-icon-toggle dashboard-column__view-toggle"
+                        type="button"
+                        aria-pressed="@AriaPressed"
+                        aria-label="@ToggleViewLabel"
+                        title="@ToggleViewLabel"
+                        @onclick="ToggleCompleted">
+                    <BeeDayIcon Name="@CurrentViewIcon" Size="BeeDayIconSize.Small" Decorative="true" />
+                </button>
+            }
+
+            @if (HeaderContent is not null)
+            {
+                <div class="dashboard-column__header-content">
+                    @HeaderContent
+                </div>
+            }
+
+            @if (ShowCreateButton)
+            {
+                <button class="beeday-icon-toggle dashboard-column__add"
+                        type="button"
+                        aria-label="@AddItemAriaLabel"
+                        title="@AddItemAriaLabel"
+                        @onclick="OnCreate">
+                    <BeeDayIcon Name="BeeDayIconName.Add" Size="BeeDayIconSize.Small" Decorative="true" />
+                </button>
+            }
+        </div>
+    </header>
+
+    <div class="dashboard-column__viewport">
+        <div class="dashboard-column__content">
+            @if (showCompleted && ShowCompletedSection)
+            {
+                @if (CompletedCount == 0)
+                {
+                    <BeeDayEmptyState Class="dashboard-column__empty"
+                                       Icon="BeeDayIconName.Completed"
+                                       Title="@(CompletedEmptyTitle ?? string.Empty)"
+                                       Description="@(CompletedEmptyDescription ?? string.Empty)" />
+                }
+                else
+                {
+                    @CompletedContent
+                }
+            }
+            else if (ActiveCount == 0)
+            {
+                <BeeDayEmptyState Class="dashboard-column__empty"
+                                   Icon="@EmptyIcon"
+                                   Title="@EmptyTitle"
+                                   Description="@EmptyDescription" />
+                @if (ShowClearFilterAction)
+                {
+                    <BeeDayButton Variant="BeeDayButtonVariant.ConfirmationCancel"
+                                   Compact="true"
+                                   Class="dashboard-column__clear-filter"
+                                   OnClick="OnClearFilter">
+                        @Localizer["ClearFilterButton"]
+                    </BeeDayButton>
+                }
+            }
+            else
+            {
+                @ActiveContent
+            }
+        </div>
+    </div>
+</section>
