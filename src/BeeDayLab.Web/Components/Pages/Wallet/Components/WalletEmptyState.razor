@@ -1,0 +1,23 @@
+@inject IStringLocalizer<WalletResources> Localizer
+
+<div class="wallet-empty-state">
+    <BeeDayEmptyState Title="@Localizer["EmptyFilteredTitle"]"
+                       Description="@(HasFilters ? Localizer["EmptyFilteredDescription"] : Localizer["EmptyDefaultDescription"])"
+                       Icon="BeeDayIconName.Wallet" />
+    @if (HasFilters)
+    {
+        <BeeDayButton Variant="BeeDayButtonVariant.ConfirmationCancel" Disabled="IsDisabled" OnClick="OnClearFilters">@Localizer["ClearFiltersButton"]</BeeDayButton>
+    }
+    else
+    {
+        <BeeDayButton Variant="BeeDayButtonVariant.Primary" Disabled="IsDisabled" OnClick="OnCreateTransaction">@Localizer["CreateTransactionButton"]</BeeDayButton>
+    }
+</div>
+
+@code {
+    [Parameter] public bool HasFilters { get; set; }
+    [Parameter] public bool IsDisabled { get; set; }
+    [Parameter] public EventCallback OnCreateTransaction { get; set; }
+    [Parameter] public EventCallback OnClearFilters { get; set; }
+}
+

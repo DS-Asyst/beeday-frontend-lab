@@ -1,0 +1,161 @@
+@using BeeDayLab.Web.Scenarios
+@inject IStringLocalizer<WalletResources> Localizer
+
+<div class="wallet-filter-shell">
+    <div class="wallet-filters">
+        <BeeDayInput Id="wallet-search"
+                     Label="@Localizer["SearchLabel"]"
+                     Value="@Search"
+                     ValueChanged="HandleSearchChanged"
+                     ValueExpression="@(() => Search)"
+                     Placeholder="@Localizer["SearchPlaceholder"]"
+                     Disabled="IsDisabled"
+                     UpdateOnInput="true"
+                     ShowValidationMessage="false"
+                     FieldCssClass="wallet-search wallet-filter-field wallet-filter-field--search" />
+
+        <BeeDaySelect TValue="string"
+                      Id="wallet-tag-filter"
+                      Label="@Localizer["TagLabel"]"
+                      Value="@TagFilter"
+                      ValueChanged="HandleTagChanged"
+                      ValueExpression="@(() => TagFilter)"
+                      Disabled="IsDisabled"
+                      ShowValidationMessage="false"
+                      FieldCssClass="wallet-filter-field">
+                <option value="">@Localizer["AllTagsOption"]</option>
+                @foreach (var tag in Tags)
+                {
+                    <option value="@tag.Id">@tag.Name</option>
+                }
+        </BeeDaySelect>
+
+        <div class="wallet-filter-field wallet-filter-toggle-field">
+            <span aria-hidden="true">&nbsp;</span>
+            <BeeDayButton Variant="BeeDayButtonVariant.Secondary"
+                           Class="wallet-filter-toggle"
+                           Disabled="IsDisabled"
+                           OnClick="ToggleSecondaryFilters"
+                           aria-expanded="@isExpanded.ToString().ToLowerInvariant()"
+                           aria-controls="@SecondaryFiltersId">
+                @Localizer["MoreFiltersButton"]
+            </BeeDayButton>
+        </div>
+    </div>
+
+    <div id="@SecondaryFiltersId" class="wallet-secondary-filters" hidden="@(!isExpanded)">
+        @if (isExpanded)
+        {
+            <BeeDaySelect TValue="string"
+                          Id="wallet-type-filter"
+                          Label="@Localizer["TypeLabel"]"
+                          Value="@TypeFilter"
+                          ValueChanged="HandleTypeChanged"
+                          ValueExpression="@(() => TypeFilter)"
+                          Disabled="IsDisabled"
+                          ShowValidationMessage="false"
+                          FieldCssClass="wallet-filter-field">
+                    <option value="">@Localizer["AllTypesOption"]</option>
+                    <option value="Income">@Localizer["TransactionTypeIncomeLabel"]</option>
+                    <option value="Expense">@Localizer["TransactionTypeExpenseLabel"]</option>
+            </BeeDaySelect>
+
+            <BeeDayDateInput TValue="DateOnly?"
+                             Id="wallet-start-date"
+                             Label="@Localizer["FromLabel"]"
+                             Value="@StartDate"
+                             ValueChanged="HandleStartDateChanged"
+                             ValueExpression="@(() => StartDate)"
+                             Disabled="IsDisabled"
+                             ShowValidationMessage="false"
+                             FieldCssClass="wallet-filter-field" />
+
+            <BeeDayDateInput TValue="DateOnly?"
+                             Id="wallet-end-date"
+                             Label="@Localizer["ToLabel"]"
+                             Value="@EndDate"
+                             ValueChanged="HandleEndDateChanged"
+                             ValueExpression="@(() => EndDate)"
+                             Disabled="IsDisabled"
+                             ShowValidationMessage="false"
+                             FieldCssClass="wallet-filter-field" />
+
+            <BeeDaySelect TValue="string"
+                          Id="wallet-sort-filter"
+                          Label="@Localizer["OrderLabel"]"
+                          Value="@Sort"
+                          ValueChanged="HandleSortChanged"
+                          ValueExpression="@(() => Sort)"
+                          Disabled="IsDisabled"
+                          ShowValidationMessage="false"
+                          FieldCssClass="wallet-filter-field">
+                    <option value="date-desc">@Localizer["NewestFirstOption"]</option>
+                    <option value="date-asc">@Localizer["OldestFirstOption"]</option>
+                    <option value="amount-desc">@Localizer["AmountHighestFirstOption"]</option>
+                    <option value="amount-asc">@Localizer["AmountLowestFirstOption"]</option>
+                    <option value="description-asc">@Localizer["DescriptionAToZOption"]</option>
+                    <option value="description-desc">@Localizer["DescriptionZToAOption"]</option>
+            </BeeDaySelect>
+
+            @if (ActiveFilterCount > 0)
+            {
+                <div class="wallet-active-filters" role="status">
+                    <span>@(ActiveFilterCount == 1 ? Localizer["ActiveFilterCountSingular", ActiveFilterCount] : Localizer["ActiveFilterCountPlural", ActiveFilterCount])</span>
+                    <BeeDayButton Variant="BeeDayButtonVariant.ConfirmationCancel"
+                                   Class="beeday-button--plain beeday-button--plain-danger"
+                                   Disabled="IsDisabled"
+                                   OnClick="OnClearFilters">
+                        @Localizer["ClearFiltersButton"]
+                    </BeeDayButton>
+                </div>
+            }
+        }
+    </div>
+</div>
+
+@code {
+    private const string SecondaryFiltersId = "wallet-secondary-filters";
+    private bool isExpanded;
+
+    [Parameter] public bool IsDisabled { get; set; }
+    [Parameter] public string Search { get; set; } = string.Empty;
+    [Parameter] public string TypeFilter { get; set; } = string.Empty;
+    [Parameter] public string TagFilter { get; set; } = string.Empty;
+    [Parameter] public DateOnly? StartDate { get; set; }
+    [Parameter] public DateOnly? EndDate { get; set; }
+    [Parameter] public string Sort { get; set; } = "date-desc";
+    [Parameter] public int ActiveFilterCount { get; set; }
+    [Parameter] public IReadOnlyList<WalletTagData> Tags { get; set; } = [];
+    [Parameter] public EventCallback<string> SearchChanged { get; set; }
+    [Parameter] public EventCallback<string> TypeFilterChanged { get; set; }
+    [Parameter] public EventCallback<string> TagFilterChanged { get; set; }
+    [Parameter] public EventCallback<DateOnly?> StartDateChanged { get; set; }
+    [Parameter] public EventCallback<DateOnly?> EndDateChanged { get; set; }
+    [Parameter] public EventCallback<string> SortChanged { get; set; }
+    [Parameter] public EventCallback OnClearFilters { get; set; }
+
+    private int SecondaryFilterCount =>
+        (string.IsNullOrWhiteSpace(TypeFilter) ? 0 : 1) +
+        (StartDate is null ? 0 : 1) +
+        (EndDate is null ? 0 : 1) +
+        (string.Equals(Sort, "date-desc", StringComparison.Ordinal) ? 0 : 1);
+
+    protected override void OnInitialized() => isExpanded = SecondaryFilterCount > 0;
+
+    private void ToggleSecondaryFilters()
+    {
+        if (IsDisabled)
+        {
+            return;
+        }
+
+        isExpanded = !isExpanded;
+    }
+
+    private Task HandleSearchChanged(string? value) => SearchChanged.InvokeAsync(value ?? string.Empty);
+    private Task HandleTypeChanged(string value) => TypeFilterChanged.InvokeAsync(value ?? string.Empty);
+    private Task HandleTagChanged(string value) => TagFilterChanged.InvokeAsync(value ?? string.Empty);
+    private Task HandleStartDateChanged(DateOnly? value) => StartDateChanged.InvokeAsync(value);
+    private Task HandleEndDateChanged(DateOnly? value) => EndDateChanged.InvokeAsync(value);
+    private Task HandleSortChanged(string value) => SortChanged.InvokeAsync(string.IsNullOrWhiteSpace(value) ? "date-desc" : value);
+}

@@ -43,6 +43,7 @@ builder.Services.AddSingleton<AccountScenarioProvider>();
 // the same reason as every provider above. One provider covers the whole surface — Issue #374's
 // boundary explicitly forbids per-page mock mechanisms.
 builder.Services.AddSingleton<DailyDashboardScenarioProvider>();
+builder.Services.AddSingleton<WalletScenarioProvider>();
 
 // ProfileCreationState mirrors production's own AddScoped registration: it is per-circuit form/step
 // state (Model, Step, IsBusy, ValidationError), the same lifetime reasoning as ToastService/

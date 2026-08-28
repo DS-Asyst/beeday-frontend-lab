@@ -4,6 +4,7 @@ using BeeDayLab.Web.Components.Layout;
 using BeeDayLab.Web.Components.Pages.ExperienceSystem;
 using BeeDayLab.Web.Components.Pages.Institutional;
 using BeeDayLab.Web.Components.Pages.Public;
+using BeeDayLab.Web.Components.Pages.Wallet;
 using BeeDayLab.Web.Resources;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
@@ -100,6 +101,17 @@ public sealed class LocalizationResourceTests
         var localizer = BuildLocalizer<ExperienceSystemResources>();
 
         Assert.Equal(expected, localizer["PillarNavBrand"].Value);
+    }
+
+    [Theory]
+    [InlineData("en-US", "Wallet")]
+    [InlineData("pt-BR", "Carteira")]
+    public void WalletResourcesResolvesHeadingForCulture(string culture, string expected)
+    {
+        using var scope = new CultureScope(culture);
+        var localizer = BuildLocalizer<WalletResources>();
+
+        Assert.Equal(expected, localizer["WalletHeading"].Value);
     }
 
     private static IStringLocalizer<T> BuildLocalizer<T>()

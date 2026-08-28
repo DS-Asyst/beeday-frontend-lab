@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="PageTitle" xml:space="preserve"><value>Carteira | beeday</value></data>
+  <data name="LoadingWalletAriaLabel" xml:space="preserve"><value>Carregando carteira</value></data>
+  <data name="PersonalFinanceEyebrow" xml:space="preserve"><value>Finanças pessoais</value></data>
+  <data name="WalletHeading" xml:space="preserve"><value>Carteira</value></data>
+  <data name="WalletDescription" xml:space="preserve"><value>Acompanhe sua carteira, organize transações e entenda para onde vai o seu dinheiro.</value></data>
+  <data name="NewTransactionButton" xml:space="preserve"><value>Nova transação</value></data>
+  <data name="TryAgainButton" xml:space="preserve"><value>Tentar novamente</value></data>
+  <data name="DeleteTransactionTitle" xml:space="preserve"><value>Excluir transação</value></data>
+  <data name="DeleteTransactionMessage" xml:space="preserve"><value>Tem certeza de que deseja excluir esta transação?</value></data>
+  <data name="DeleteTransactionWarning" xml:space="preserve"><value>Esta ação não pode ser desfeita.</value></data>
+  <data name="DeleteTagTitle" xml:space="preserve"><value>Excluir tag</value></data>
+  <data name="DeleteTagMessage" xml:space="preserve"><value>Transações que usam esta tag permanecerão, mas ficarão sem tag.</value></data>
+  <data name="DeleteTagWarning" xml:space="preserve"><value>A tag será removida permanentemente.</value></data>
+  <data name="LoadErrorMessage" xml:space="preserve"><value>Não foi possível carregar sua carteira. Tente novamente.</value></data>
+  <data name="RefreshErrorMessage" xml:space="preserve"><value>Não foi possível atualizar sua carteira. Sua visualização atual foi preservada.</value></data>
+  <data name="TransactionUpdatedMessage" xml:space="preserve"><value>Transação atualizada com sucesso.</value></data>
+  <data name="TransactionCreatedMessage" xml:space="preserve"><value>Transação criada com sucesso.</value></data>
+  <data name="TransactionSaveErrorInline" xml:space="preserve"><value>Não foi possível salvar a transação. Revise as informações e tente novamente.</value></data>
+  <data name="TransactionDeletedMessage" xml:space="preserve"><value>Transação excluída com sucesso.</value></data>
+  <data name="TransactionDeleteErrorInline" xml:space="preserve"><value>Não foi possível excluir a transação. Tente novamente.</value></data>
+  <data name="TagUpdatedMessage" xml:space="preserve"><value>Tag atualizada com sucesso.</value></data>
+  <data name="TagCreatedMessage" xml:space="preserve"><value>Tag criada com sucesso.</value></data>
+  <data name="TagSaveErrorInline" xml:space="preserve"><value>Não foi possível salvar a tag. Revise as informações e tente novamente.</value></data>
+  <data name="TagDeletedMessage" xml:space="preserve"><value>Tag excluída com sucesso.</value></data>
+  <data name="TagDeleteErrorInline" xml:space="preserve"><value>Não foi possível excluir a tag. Tente novamente.</value></data>
+  <data name="RefreshFailedAfterSuccessMessage" xml:space="preserve"><value>A operação foi concluída, mas não foi possível atualizar a carteira.</value></data>
+  <data name="BalanceUpdatedAnnouncement" xml:space="preserve"><value>Saldo atualizado para {0}.</value></data>
+  <data name="HistoryEyebrow" xml:space="preserve"><value>Histórico</value></data>
+  <data name="TransactionsHeading" xml:space="preserve"><value>Transações</value></data>
+  <data name="ResultCountSingular" xml:space="preserve"><value>{0} resultado</value></data>
+  <data name="ResultCountPlural" xml:space="preserve"><value>{0} resultados</value></data>
+  <data name="TransactionPagesAriaLabel" xml:space="preserve"><value>Páginas de transações</value></data>
+  <data name="PreviousButton" xml:space="preserve"><value>Anterior</value></data>
+  <data name="NextButton" xml:space="preserve"><value>Próxima</value></data>
+  <data name="NoResultsLabel" xml:space="preserve"><value>Nenhum resultado</value></data>
+  <data name="PaginationSummary" xml:space="preserve"><value>Mostrando {0}–{1} de {2}</value></data>
+  <data name="PageOfTotalPages" xml:space="preserve"><value>Página {0} de {1}</value></data>
+  <data name="EditTransactionAriaLabel" xml:space="preserve"><value>Editar transação: {0}, {1}</value></data>
+  <data name="NoTagLabel" xml:space="preserve"><value>Sem tag</value></data>
+  <data name="TransactionTypeIncomeLabel" xml:space="preserve"><value>Receita</value></data>
+  <data name="TransactionTypeExpenseLabel" xml:space="preserve"><value>Despesa</value></data>
+  <data name="EmptyFilteredTitle" xml:space="preserve"><value>Nenhuma transação encontrada</value></data>
+  <data name="EmptyFilteredDescription" xml:space="preserve"><value>Altere ou limpe seus filtros para ver mais resultados.</value></data>
+  <data name="EmptyDefaultDescription" xml:space="preserve"><value>Crie sua primeira transação para começar a acompanhar sua carteira.</value></data>
+  <data name="ClearFiltersButton" xml:space="preserve"><value>Limpar filtros</value></data>
+  <data name="CreateTransactionButton" xml:space="preserve"><value>Criar transação</value></data>
+  <data name="SearchLabel" xml:space="preserve"><value>Buscar</value></data>
+  <data name="SearchPlaceholder" xml:space="preserve"><value>Descrição ou notas</value></data>
+  <data name="TagLabel" xml:space="preserve"><value>Tag</value></data>
+  <data name="AllTagsOption" xml:space="preserve"><value>Todas as tags</value></data>
+  <data name="MoreFiltersButton" xml:space="preserve"><value>Mais filtros</value></data>
+  <data name="TypeLabel" xml:space="preserve"><value>Tipo</value></data>
+  <data name="AllTypesOption" xml:space="preserve"><value>Todos os tipos</value></data>
+  <data name="FromLabel" xml:space="preserve"><value>De</value></data>
+  <data name="ToLabel" xml:space="preserve"><value>Até</value></data>
+  <data name="OrderLabel" xml:space="preserve"><value>Ordem</value></data>
+  <data name="NewestFirstOption" xml:space="preserve"><value>Mais recentes primeiro</value></data>
+  <data name="OldestFirstOption" xml:space="preserve"><value>Mais antigas primeiro</value></data>
+  <data name="AmountHighestFirstOption" xml:space="preserve"><value>Valor (maior primeiro)</value></data>
+  <data name="AmountLowestFirstOption" xml:space="preserve"><value>Valor (menor primeiro)</value></data>
+  <data name="DescriptionAToZOption" xml:space="preserve"><value>Descrição (A-Z)</value></data>
+  <data name="DescriptionZToAOption" xml:space="preserve"><value>Descrição (Z-A)</value></data>
+  <data name="ActiveFilterCountSingular" xml:space="preserve"><value>{0} filtro ativo</value></data>
+  <data name="ActiveFilterCountPlural" xml:space="preserve"><value>{0} filtros ativos</value></data>
+  <data name="SummaryAriaLabel" xml:space="preserve"><value>Resumo da carteira</value></data>
+  <data name="CurrentBalanceLabel" xml:space="preserve"><value>Saldo atual</value></data>
+  <data name="TransactionCountLabel" xml:space="preserve"><value>{0} transações</value></data>
+  <data name="TotalIncomeLabel" xml:space="preserve"><value>Receita total</value></data>
+  <data name="MoneyAddedLabel" xml:space="preserve"><value>Dinheiro adicionado</value></data>
+  <data name="TotalExpensesLabel" xml:space="preserve"><value>Despesa total</value></data>
+  <data name="MoneySpentLabel" xml:space="preserve"><value>Dinheiro gasto</value></data>
+  <data name="OrganizationEyebrow" xml:space="preserve"><value>Organização</value></data>
+  <data name="TagsHeading" xml:space="preserve"><value>Tags</value></data>
+  <data name="NewTagButton" xml:space="preserve"><value>Nova tag</value></data>
+  <data name="NoTagsYetTitle" xml:space="preserve"><value>Nenhuma tag ainda</value></data>
+  <data name="NoTagsYetDescription" xml:space="preserve"><value>Crie uma para organizar suas receitas e despesas.</value></data>
+  <data name="EditTagAriaLabel" xml:space="preserve"><value>Editar tag: {0}</value></data>
+  <data name="TagTransactionCountSingular" xml:space="preserve"><value>{0} transação</value></data>
+  <data name="TagTransactionCountPlural" xml:space="preserve"><value>{0} transações</value></data>
+  <data name="EditTransactionTitle" xml:space="preserve"><value>Editar transação</value></data>
+  <data name="CreateTransactionTitle" xml:space="preserve"><value>Criar transação</value></data>
+  <data name="DescriptionLabel" xml:space="preserve"><value>Descrição</value></data>
+  <data name="DescriptionPlaceholder" xml:space="preserve"><value>Adicionar uma descrição</value></data>
+  <data name="NotesLabel" xml:space="preserve"><value>Notas</value></data>
+  <data name="NotesPlaceholder" xml:space="preserve"><value>Adicionar notas</value></data>
+  <data name="TransactionSummaryHeading" xml:space="preserve"><value>Transação</value></data>
+  <data name="TransactionSummaryDescription" xml:space="preserve"><value>Registre receitas ou despesas na sua carteira.</value></data>
+  <data name="AmountLabel" xml:space="preserve"><value>Valor</value></data>
+  <data name="DateLabel" xml:space="preserve"><value>Data</value></data>
+  <data name="EditTagTitle" xml:space="preserve"><value>Editar tag</value></data>
+  <data name="CreateTagTitle" xml:space="preserve"><value>Criar tag</value></data>
+  <data name="NameLabel" xml:space="preserve"><value>Nome</value></data>
+  <data name="NamePlaceholder" xml:space="preserve"><value>Adicionar um nome</value></data>
+  <data name="TagSummaryHeading" xml:space="preserve"><value>Tag</value></data>
+  <data name="TagSummaryDescription" xml:space="preserve"><value>Organize suas receitas e despesas.</value></data>
+  <data name="ColorLabel" xml:space="preserve"><value>Cor</value></data>
+  <data name="TagColorSwatchLabel" xml:space="preserve"><value>Cor {0}</value></data>
+  <data name="TagColorSelectedLabel" xml:space="preserve"><value>Selecionada</value></data>
+  <data name="SaveButtonLabel" xml:space="preserve"><value>Salvar</value></data>
+  <data name="CreateButtonLabel" xml:space="preserve"><value>Criar</value></data>
+</root>
+
