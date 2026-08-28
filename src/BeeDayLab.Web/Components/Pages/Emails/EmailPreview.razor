@@ -41,7 +41,24 @@
                       OnClick="@(() => Apply(Kind, Culture, StandardWidthKey))">@Localizer["StandardWidthOption"]</BeeDayButton>
     </div>
 
-    <p class="email-preview-page__subject"><strong>@Localizer["SubjectLabel"]:</strong> <span data-testid="email-subject">@_preview.Subject</span></p>
+    <nav class="email-preview-page__quick-review" aria-label="@Localizer["QuickReviewLabel"]" data-testid="email-quick-review">
+        @foreach (var combo in QuickReviewCombinations)
+        {
+            <a href="@BuildPreviewQuery(combo.Kind, combo.Culture, Width)"
+               class="email-preview-page__quick-review-link @(combo.Kind == Kind && combo.Culture == Culture ? "email-preview-page__quick-review-link--active" : null)">
+                @combo.Label
+            </a>
+        }
+    </nav>
+
+    <!-- Sprint 33.18-R "email client review mode": Lab-only chrome showing the envelope From/To/
+         Subject the way an inbox would, entirely OUTSIDE the iframe — never injected into
+         _preview.Html/PlainText themselves. -->
+    <div class="email-preview-page__envelope" data-testid="email-envelope">
+        <p><strong>@Localizer["FromLabel"]:</strong> <span data-testid="email-from">@_preview.From</span></p>
+        <p><strong>@Localizer["ToLabel"]:</strong> <span data-testid="email-to">@_preview.To</span></p>
+        <p class="email-preview-page__subject"><strong>@Localizer["SubjectLabel"]:</strong> <span data-testid="email-subject">@_preview.Subject</span></p>
+    </div>
 
     <div class="email-preview-page__frame-wrapper" style="max-width:@(FrameWidthPixels)px;">
         <iframe title="@_preview.Subject"
@@ -50,6 +67,12 @@
                 data-testid="email-frame"
                 sandbox=""></iframe>
     </div>
+
+    <a class="email-preview-page__open-full beeday-button beeday-button--secondary"
+       target="_blank"
+       rel="noopener"
+       href="@FullPreviewUrl"
+       data-testid="email-open-full-preview">@Localizer["OpenFullPreviewButton"]</a>
 
     <details class="email-preview-page__plain-text">
         <summary>@Localizer["PlainTextSummary"]</summary>
@@ -90,9 +113,30 @@
         _preview = TransactionalEmailTemplateCatalog.Compose(Kind, Culture);
     }
 
-    private void Apply(TransactionalEmailKind kind, string culture, string width)
+    private void Apply(TransactionalEmailKind kind, string culture, string width) =>
+        Navigation.NavigateTo(BuildPreviewQuery(kind, culture, width));
+
+    // Sprint 33.18-R: an explicit, always-visible list of all 4 real template x locale
+    // combinations (Issue requirement — reachable directly, not only via 2 separate toggles a
+    // reviewer has to combine themselves).
+    private IReadOnlyList<(TransactionalEmailKind Kind, string Culture, string Label)> QuickReviewCombinations =>
+    [
+        (TransactionalEmailKind.Confirmation, "pt-BR", Localizer["ConfirmationPtBrQuickLink"].Value),
+        (TransactionalEmailKind.Confirmation, "en-US", Localizer["ConfirmationEnUsQuickLink"].Value),
+        (TransactionalEmailKind.PasswordReset, "pt-BR", Localizer["PasswordResetPtBrQuickLink"].Value),
+        (TransactionalEmailKind.PasswordReset, "en-US", Localizer["PasswordResetEnUsQuickLink"].Value),
+    ];
+
+    private static string BuildPreviewQuery(TransactionalEmailKind kind, string culture, string width)
     {
         var template = kind == TransactionalEmailKind.PasswordReset ? "reset" : "confirmation";
-        Navigation.NavigateTo($"/emails?template={template}&culture={culture}&width={width}");
+        return $"/emails?template={template}&culture={culture}&width={width}";
     }
+
+    // Sprint 33.18-R: the standalone raw-HTML route for the currently selected template/locale —
+    // bypasses the whole Blazor render pipeline (mapped as a minimal API endpoint in Program.cs, not
+    // a @page), so it can never carry Lab layout/navigation/CSS the way a normal routed page would.
+    private string FullPreviewUrl =>
+        (Kind == TransactionalEmailKind.PasswordReset ? "/emails/password-reset/rendered" : "/emails/confirmation/rendered")
+            + $"?culture={Culture}";
 }

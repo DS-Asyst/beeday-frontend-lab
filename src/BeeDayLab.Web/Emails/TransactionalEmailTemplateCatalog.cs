@@ -13,9 +13,11 @@ public enum TransactionalEmailKind
 
 /// <summary>
 /// One composed preview: the resolved subject, the full HTML document, the plain-text alternative,
-/// and the action URL shown/asserted separately so tests don't need to parse it back out of the HTML.
+/// the action URL shown/asserted separately so tests don't need to parse it back out of the HTML,
+/// and the synthetic From/To envelope fields (Sprint 33.18-R "email client review mode" — Lab-only
+/// display metadata, never part of <see cref="Html"/>/<see cref="PlainText"/> themselves).
 /// </summary>
-public sealed record TransactionalEmailPreview(string Subject, string Html, string PlainText, string ActionUrl);
+public sealed record TransactionalEmailPreview(string From, string To, string Subject, string Html, string PlainText, string ActionUrl);
 
 /// <summary>
 /// Lab adaptation of <c>BeeDay.Infrastructure.Identity.IdentityEmailComposer</c> — Sprint 33.15,
@@ -44,6 +46,11 @@ public static class TransactionalEmailTemplateCatalog
     private const string SyntheticDisplayName = "Alex Rivera";
     private const string SyntheticToken = "lab-preview-token-not-real";
     private const string PreviewBaseUrl = "https://beeday-lab.invalid/";
+
+    // Sprint 33.18-R: envelope "From" for the Lab's review-mode chrome only — production's real
+    // sender address/name come from Resend configuration (BEEDAY_RESEND_FROM_ADDRESS/_NAME), never
+    // read or reproduced here. Obviously synthetic, same .invalid host as every other Lab email URL.
+    private const string SyntheticSender = "beeday Lab <noreply@beeday-lab.invalid>";
 
     private sealed record EmailContentKeys(
         string PreheaderKey, string TitleKey, string IntroductionKey, string FooterKey, string ActionLabelKey, string Path);
@@ -75,6 +82,8 @@ public static class TransactionalEmailTemplateCatalog
             Footer: GetString(keys.FooterKey, culture));
 
         return new TransactionalEmailPreview(
+            SyntheticSender,
+            SyntheticRecipient,
             content.Title,
             BuildHtmlTemplate(culture, content),
             BuildPlainTextTemplate(content),

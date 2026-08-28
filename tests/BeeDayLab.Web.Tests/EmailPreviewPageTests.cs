@@ -63,6 +63,62 @@ public sealed class EmailPreviewPageTests
         Assert.DoesNotContain(">Send<", markup, StringComparison.OrdinalIgnoreCase);
     }
 
+    [Fact]
+    public void QuickReviewOffersAllFourRealTemplateLocaleCombinationsAsDirectLinks()
+    {
+        using var context = CreateContext();
+
+        var cut = context.Render<EmailPreviewPage>();
+        var links = cut.Find("[data-testid='email-quick-review']").QuerySelectorAll("a");
+
+        Assert.Equal(4, links.Length);
+        Assert.Contains(links, a => a.GetAttribute("href") == "/emails?template=confirmation&culture=pt-BR&width=standard");
+        Assert.Contains(links, a => a.GetAttribute("href") == "/emails?template=confirmation&culture=en-US&width=standard");
+        Assert.Contains(links, a => a.GetAttribute("href") == "/emails?template=reset&culture=pt-BR&width=standard");
+        Assert.Contains(links, a => a.GetAttribute("href") == "/emails?template=reset&culture=en-US&width=standard");
+    }
+
+    [Fact]
+    public void EnvelopeReviewChromeShowsFromToSubjectSeparatelyFromTheEmailBodyItself()
+    {
+        using var context = CreateContext();
+
+        var cut = context.Render<EmailPreviewPage>();
+        var envelope = cut.Find("[data-testid='email-envelope']");
+
+        var from = cut.Find("[data-testid='email-from']").TextContent;
+        var to = cut.Find("[data-testid='email-to']").TextContent;
+        Assert.Contains("beeday-lab.invalid", from, StringComparison.Ordinal);
+        Assert.Contains("beeday-lab.invalid", to, StringComparison.Ordinal);
+
+        // The envelope chrome (From/To) must never leak into the actual composed email HTML — it is
+        // Lab-only review chrome living outside the iframe, not part of _preview.Html/PlainText.
+        var srcdoc = cut.Find("[data-testid='email-frame']").GetAttribute("srcdoc");
+        Assert.DoesNotContain(from, srcdoc, StringComparison.Ordinal);
+        Assert.NotNull(envelope);
+    }
+
+    [Theory]
+    [InlineData(null, null, "/emails/confirmation/rendered?culture=en-US")]
+    [InlineData("confirmation", "pt-BR", "/emails/confirmation/rendered?culture=pt-BR")]
+    [InlineData("reset", "en-US", "/emails/password-reset/rendered?culture=en-US")]
+    [InlineData("reset", "pt-BR", "/emails/password-reset/rendered?culture=pt-BR")]
+    public void OpenFullPreviewLinkPointsAtTheStandaloneRenderedRouteForTheCurrentSelection(
+        string? template, string? culture, string expectedHref)
+    {
+        using var context = CreateContext();
+        if (template is not null)
+        {
+            Navigate(context, template, culture!, "standard");
+        }
+
+        var cut = context.Render<EmailPreviewPage>();
+        var link = cut.Find("[data-testid='email-open-full-preview']");
+
+        Assert.Equal(expectedHref, link.GetAttribute("href"));
+        Assert.Equal("_blank", link.GetAttribute("target"));
+    }
+
     private static void Navigate(BunitContext context, string template, string culture, string width)
     {
         var navigation = context.Services.GetRequiredService<NavigationManager>();

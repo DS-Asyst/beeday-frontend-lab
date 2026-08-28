@@ -3,6 +3,7 @@ using BeeDayLab.Web.Components.DesignSystem.Feedback;
 using BeeDayLab.Web.Components.Pages.Daily.Experience.Feedback;
 using BeeDayLab.Web.Components.Pages.Daily.State;
 using BeeDayLab.Web.Components.Pages.Identity.State;
+using BeeDayLab.Web.Emails;
 using BeeDayLab.Web.Localization;
 using BeeDayLab.Web.Scenarios;
 using Microsoft.AspNetCore.Localization;
@@ -145,6 +146,21 @@ app.MapPost("/auth/login", (HttpContext _, [FromForm] string? email, [FromForm] 
     var destination = IsLocalPath(returnUrl) ? returnUrl! : "/profile/create";
     return Results.LocalRedirect(destination);
 });
+
+// Sprint 33.18-R (owner review requirement): standalone routes serving the exact raw HTML body an
+// end user would receive, with nothing else on the page — no Lab layout/navigation, no Lab CSS, no
+// Razor component tree at all. A @page can't do this: every Blazor Web App route renders inside the
+// single App.razor host document. A minimal API endpoint is the only mechanism that bypasses that
+// pipeline entirely, so these are mapped exactly like /culture/set and /auth/login above — real
+// ASP.NET Core routes, not Razor pages. Both call the same TransactionalEmailTemplateCatalog.Compose
+// the /emails gallery page already uses (Sprint 33.15) — no independent re-implementation of the
+// email HTML, and the same .invalid-host synthetic data (no real recipient/token/URL, no delivery
+// infrastructure of any kind reachable from here).
+app.MapGet("/emails/confirmation/rendered", (string? culture) =>
+    Results.Content(TransactionalEmailTemplateCatalog.Compose(TransactionalEmailKind.Confirmation, culture ?? LabCultures.Default).Html, "text/html"));
+
+app.MapGet("/emails/password-reset/rendered", (string? culture) =>
+    Results.Content(TransactionalEmailTemplateCatalog.Compose(TransactionalEmailKind.PasswordReset, culture ?? LabCultures.Default).Html, "text/html"));
 
 app.Run();
 
