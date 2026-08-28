@@ -560,6 +560,38 @@ public sealed class ScenarioAndLocalizationBoundaryTests
     /// <c>.invalid</c> preview host — never a real beeday domain — so no preview link can be mistaken
     /// for, or reach, a live endpoint.
     /// </summary>
+    /// <summary>
+    /// Sprint 33.18-R: the two standalone "/emails/*/rendered" minimal API routes added to
+    /// Program.cs must never gain real delivery infrastructure either. Uses narrower, unambiguous
+    /// terms than <see cref="ForbiddenSubstrings"/> because Program.cs legitimately contains
+    /// "ScenarioSelection" (DI registration) and "Resend" (as a substring of
+    /// <c>ResendConfirmationScenarioProvider</c>, Sprint 33.12) for entirely unrelated reasons — a
+    /// whole-file scan with the same forbidden list the dedicated Emails/ directories use would
+    /// false-positive on both.
+    /// </summary>
+    [Fact]
+    public void ProgramCsEmailRenderedRoutesNeverReferenceRealDeliveryInfrastructure()
+    {
+        var programCsPath = Path.Combine(FindRepositoryRoot(), "src", "BeeDayLab.Web", "Program.cs");
+        var content = StripComments(File.ReadAllText(programCsPath));
+
+        var forbidden = new[]
+        {
+            "IEmailSender", "IIdentityEmailComposer", "IdentityEmailOptions", "SmtpClient", "MailKit",
+            "SendGrid", "Resend.", "resend.com", "api.resend",
+        };
+
+        var violations = forbidden.Where(term => content.Contains(term, StringComparison.OrdinalIgnoreCase)).ToArray();
+
+        Assert.True(
+            violations.Length == 0,
+            "Program.cs references real email delivery infrastructure: " + string.Join(", ", violations));
+
+        Assert.Contains("/emails/confirmation/rendered", content, StringComparison.Ordinal);
+        Assert.Contains("/emails/password-reset/rendered", content, StringComparison.Ordinal);
+        Assert.Contains("TransactionalEmailTemplateCatalog.Compose", content, StringComparison.Ordinal);
+    }
+
     [Fact]
     public void EmailTemplateCatalogNeverReferencesARealBeedayHost()
     {

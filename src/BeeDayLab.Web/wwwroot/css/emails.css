@@ -7,3 +7,10 @@
 .email-preview-page__plain-text{border:1px solid var(--beeday-color-border);border-radius:var(--beeday-radius-md);padding:.75rem 1rem;background:var(--beeday-color-surface)}
 .email-preview-page__plain-text summary{cursor:pointer;font-weight:600;color:var(--beeday-color-text-primary)}
 .email-preview-page__plain-text pre{white-space:pre-wrap;word-break:break-word;margin:.75rem 0 0;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:.82rem;color:var(--beeday-color-text-secondary)}
+.email-preview-page__quick-review{display:flex;flex-wrap:wrap;gap:.5rem}
+.email-preview-page__quick-review-link{padding:.35rem .75rem;border-radius:var(--beeday-radius-pill);background:var(--beeday-color-surface);border:1px solid var(--beeday-color-border);font-size:.8rem;font-weight:600;color:var(--beeday-color-text-secondary);text-decoration:none}
+.email-preview-page__quick-review-link:hover,.email-preview-page__quick-review-link:focus-visible{color:var(--beeday-color-brand-primary);border-color:var(--beeday-color-brand-primary)}
+.email-preview-page__quick-review-link--active{color:var(--beeday-color-brand-primary);border-color:var(--beeday-color-brand-primary);background:var(--beeday-color-brand-primary-soft)}
+.email-preview-page__envelope{border:1px solid var(--beeday-color-border);border-radius:var(--beeday-radius-md);padding:.75rem 1rem;background:var(--beeday-color-surface);display:flex;flex-direction:column;gap:.25rem}
+.email-preview-page__envelope p{margin:0;font-size:.85rem;color:var(--beeday-color-text-primary)}
+.email-preview-page__open-full{align-self:flex-start;text-decoration:none}
