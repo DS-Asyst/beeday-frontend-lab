@@ -103,33 +103,33 @@ public sealed class DailyPageTests
     }
 
     [Fact]
-    public void DailyParticipatesInTheSharedAuthenticatedHeroCompositionAboveItsUnchangedBoard()
+    public void DailyHasNoVisibleHeroOrPageHeaderAndKeepsAVisuallyHiddenHeadingAboveItsUnchangedBoard()
     {
-        // EPIC 35 Sprint 35.1-R2: /daily gained the same WorkspaceHero used by /profile and /wallet
-        // (title only — DailyHeading is the only existing label for this route; no eyebrow/subtitle/
-        // action exists in the source material, and none is invented). The previously
-        // visually-hidden <h1>DailyHeading</h1> is gone — WorkspaceHero renders the real, visible
-        // heading with the same text, so there is exactly one <h1>, not two.
+        // Sprint 35.1-R3 (OWNER direction change): the OWNER rejected the authenticated Hero
+        // direction (EPIC 35 Sprint 35.1-R2's WorkspaceHero) for a top-navigation-led shell — Daily is
+        // an operational/productivity page and does not get a page-level Hero or BeeDayPageHeader of
+        // any kind; the top navigation already shows Daily as the active destination. This restores
+        // the pre-Sprint-35.1 contract: a visually-hidden <h1>DailyHeading</h1> (a real heading stays
+        // in the accessibility tree without adding visible page furniture above the board), with the
+        // filter bar and boards exactly where they were.
         using var culture = new TestCultureScope();
         using var context = CreateContext(ScenarioState.Populated);
 
         var cut = context.Render<DailyHome>();
 
-        cut.WaitForAssertion(() => Assert.NotEmpty(cut.FindAll("header.beeday-hero")), TimeSpan.FromSeconds(3));
+        cut.WaitForAssertion(() => Assert.NotEmpty(cut.FindAll(".dashboard-grid")), TimeSpan.FromSeconds(3));
 
-        var hero = cut.Find("header.beeday-hero");
-        Assert.Equal("Daily", hero.QuerySelector("h1")!.TextContent);
-        Assert.Contains("beeday-surface-cor0", hero.ClassList);
+        Assert.Empty(cut.FindAll("header.beeday-hero"));
+        Assert.Empty(cut.FindAll(".beeday-page-header"));
+
+        var heading = cut.Find("h1");
+        Assert.Equal("Daily", heading.TextContent);
+        Assert.Contains("beeday-visually-hidden", heading.ClassList);
         Assert.Single(cut.FindAll("h1"));
 
-        // Sibling, not ancestor/descendant: the board is unaffected, and the hero precedes it.
-        var dashboardPage = cut.Find("section.dashboard-page");
-        Assert.Empty(dashboardPage.QuerySelectorAll("header.beeday-hero"));
-        Assert.NotEmpty(dashboardPage.QuerySelectorAll(".dashboard-grid"));
-
-        var heroPosition = cut.Markup.IndexOf("beeday-hero", StringComparison.Ordinal);
-        var boardPosition = cut.Markup.IndexOf("dashboard-page beeday-fade-in", StringComparison.Ordinal);
-        Assert.True(heroPosition >= 0 && boardPosition > heroPosition);
+        var headingPosition = cut.Markup.IndexOf("beeday-visually-hidden", StringComparison.Ordinal);
+        var boardPosition = cut.Markup.IndexOf("dashboard-grid", StringComparison.Ordinal);
+        Assert.True(headingPosition >= 0 && boardPosition > headingPosition);
     }
 
     [Fact]
@@ -231,57 +231,33 @@ public sealed class DailyPageTests
     }
 
     [Fact]
-    public void ProfileRendersItsWelcomeSummaryAsAFullWidthHeroBeforeTheConstrainedProductHomeSection()
+    public void ProfileRendersItsWelcomeSummaryAsAContentFirstPageHeaderInsideProductHome()
     {
-        // EPIC 35 Sprint 35.1-R2: the welcome summary moved from a BeeDayPageHeader nested inside
-        // .product-home to the shared WorkspaceHero (Components/Layout), rendered as a sibling before
-        // .product-home, so it spans the full authenticated workspace width (MainLayout's
-        // .beeday-main--authenticated has no padding of its own to constrain it) while .product-home
-        // keeps its existing max-width:64rem below. WorkspaceHero is also used by Wallet and Daily —
-        // see WalletPageTests/DailyPageTests for their own coverage of the shared contract.
+        // Sprint 35.1-R3 (OWNER direction change): the OWNER rejected the authenticated full-width
+        // Hero direction (EPIC 35 Sprint 35.1-R2's WorkspaceHero) for a top-navigation-led shell, so
+        // the welcome summary returns to a content-first BeeDayPageHeader nested inside .product-home
+        // — its original, pre-Sprint-35.1 composition — sharing that section's max-width:64rem with
+        // the cards below it instead of spanning the full authenticated workspace width.
         using var culture = new TestCultureScope();
         using var context = CreateContext(ScenarioState.Populated);
 
         var cut = context.Render<ProfileHome>();
 
-        cut.WaitForAssertion(() => Assert.NotEmpty(cut.FindAll("header.beeday-hero")), TimeSpan.FromSeconds(3));
+        cut.WaitForAssertion(() => Assert.NotEmpty(cut.FindAll(".beeday-page-header")), TimeSpan.FromSeconds(3));
 
-        var hero = cut.Find("header.beeday-hero");
-        Assert.Equal("Welcome back, jordan.silva", hero.QuerySelector("h1")!.TextContent);
-        Assert.Contains("Choose one next step and keep your day moving.", hero.TextContent);
-        Assert.Contains("beeday-surface-cor0", hero.ClassList);
-        Assert.NotNull(hero.QuerySelector(".beeday-hero__primary-action .beeday-button"));
+        Assert.Empty(cut.FindAll("header.beeday-hero"));
 
-        // Sibling, not ancestor/descendant: .product-home no longer carries the page header, and the
-        // hero renders before it in document order.
         var productHome = cut.Find("section.product-home");
-        Assert.Empty(productHome.QuerySelectorAll("header.beeday-hero"));
-        Assert.Empty(productHome.QuerySelectorAll(".beeday-page-header"));
-        Assert.NotEmpty(productHome.QuerySelectorAll(".product-home__progress"));
+        var header = productHome.QuerySelector(".beeday-page-header");
+        Assert.NotNull(header);
+        Assert.Equal("Welcome back, jordan.silva", header!.QuerySelector("h1")!.TextContent);
+        Assert.Contains("Choose one next step and keep your day moving.", header.TextContent);
+        Assert.NotNull(header.QuerySelector(".beeday-page-header__actions .beeday-button"));
 
-        var heroPosition = cut.Markup.IndexOf("beeday-hero", StringComparison.Ordinal);
-        var productHomePosition = cut.Markup.IndexOf("product-home beeday-fade-in", StringComparison.Ordinal);
-        Assert.True(heroPosition >= 0 && productHomePosition > heroPosition);
-    }
-
-    [Fact]
-    public void ProfileWrapsItsHeroInTheSharedWorkspaceHeroSoTheBandCssActuallyApplies()
-    {
-        // Sprint 35.1-R2: BeeDayHero is a sibling of .product-home, not nested inside it, so the
-        // shared WorkspaceHero component's own ::deep overrides (workspace band min-height/padding,
-        // page-title typography) need an ancestor element carrying WorkspaceHero's own scope
-        // attribute to attach to. Without a wrapper of some kind, those rules compile to a scope
-        // attribute the hero's own <header> never carries and silently match nothing — confirmed
-        // against the served CSS bundle while diagnosing the OWNER's first "reads like a page header"
-        // review, before this was centralized out of ProfileHome into WorkspaceHero itself.
-        using var culture = new TestCultureScope();
-        using var context = CreateContext(ScenarioState.Populated);
-
-        var cut = context.Render<ProfileHome>();
-        cut.WaitForAssertion(() => Assert.NotEmpty(cut.FindAll("header.beeday-hero")), TimeSpan.FromSeconds(3));
-
-        var wrap = cut.Find("div.workspace-hero");
-        Assert.NotNull(wrap.QuerySelector("header.beeday-hero"));
+        // The page header is the first thing inside .product-home, ahead of the progress card.
+        var headerPosition = cut.Markup.IndexOf("beeday-page-header", StringComparison.Ordinal);
+        var progressPosition = cut.Markup.IndexOf("product-home__progress", StringComparison.Ordinal);
+        Assert.True(headerPosition >= 0 && progressPosition > headerPosition);
     }
 
     [Fact]

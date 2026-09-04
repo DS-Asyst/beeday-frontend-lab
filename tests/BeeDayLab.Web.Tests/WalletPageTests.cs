@@ -99,36 +99,33 @@ public sealed class WalletPageTests
     }
 
     [Fact]
-    public void WalletsHeroFillsTheWorkspaceInsteadOfBeingConstrainedToTheWalletBodyWidth()
+    public void WalletRendersAContentFirstPageHeaderConstrainedInsideTheWalletBody()
     {
-        // EPIC 35 Sprint 35.1-R2 (OWNER correction): the hero used to live inside .wallet-page, so it
-        // was constrained to the page's own 76rem reading width and read as a large card/header
-        // rather than a workspace-width band. It now renders via the shared WorkspaceHero component,
-        // as a sibling before .wallet-page — same pattern ProfileHome/DailyHome use. Content/behavior
-        // unchanged: same eyebrow/title/subtitle/action, same Cor0 surface.
+        // Sprint 35.1-R3 (OWNER direction change): the OWNER rejected the authenticated full-width
+        // Hero direction (EPIC 35 Sprint 35.1-R2's WorkspaceHero) for a top-navigation-led shell.
+        // Wallet returns to a content-first BeeDayPageHeader nested inside .wallet-page, constrained
+        // to the page's own reading width — same pattern every other BeeDayPageHeader consumer
+        // (Account, PreviewHub, ComponentGallery) uses. Content unchanged: same eyebrow/title/
+        // description/action.
         using var culture = new TestCultureScope();
         using var context = CreateContext(ScenarioState.Populated);
 
         var cut = context.Render<WalletPage>();
-        cut.WaitForAssertion(() => Assert.NotEmpty(cut.FindAll("header.beeday-hero")), TimeSpan.FromSeconds(3));
+        cut.WaitForAssertion(() => Assert.NotEmpty(cut.FindAll(".beeday-page-header")), TimeSpan.FromSeconds(3));
 
-        var hero = cut.Find("header.beeday-hero");
-        Assert.Equal("Wallet", hero.QuerySelector("h1")!.TextContent);
-        Assert.Contains("Track your wallet, organize transactions and understand where your money goes.", hero.TextContent);
-        Assert.Contains("beeday-surface-cor0", hero.ClassList);
-        Assert.NotNull(hero.QuerySelector(".beeday-hero__primary-action .beeday-button"));
+        Assert.Empty(cut.FindAll("header.beeday-hero"));
 
-        // Not nested inside the constrained wallet body: .wallet-page contains none of it.
         var walletPage = cut.Find("div.wallet-page");
-        Assert.Empty(walletPage.QuerySelectorAll("header.beeday-hero"));
+        var header = walletPage.QuerySelector(".beeday-page-header");
+        Assert.NotNull(header);
+        Assert.Equal("Wallet", header!.QuerySelector("h1")!.TextContent);
+        Assert.Contains("Track your wallet, organize transactions and understand where your money goes.", header.TextContent);
+        Assert.NotNull(header.QuerySelector(".beeday-page-header__actions .beeday-button"));
         Assert.NotEmpty(walletPage.QuerySelectorAll(".wallet-workspace"));
 
-        var wrap = cut.Find("div.workspace-hero");
-        Assert.NotNull(wrap.QuerySelector("header.beeday-hero"));
-
-        var heroPosition = cut.Markup.IndexOf("beeday-hero", StringComparison.Ordinal);
-        var walletPagePosition = cut.Markup.IndexOf("wallet-page beeday-fade-in", StringComparison.Ordinal);
-        Assert.True(heroPosition >= 0 && walletPagePosition > heroPosition);
+        var headerPosition = cut.Markup.IndexOf("beeday-page-header", StringComparison.Ordinal);
+        var summaryPosition = cut.Markup.IndexOf("wallet-summary", StringComparison.Ordinal);
+        Assert.True(headerPosition >= 0 && summaryPosition > headerPosition);
     }
 
     private static BunitContext CreateContext(ScenarioState state)

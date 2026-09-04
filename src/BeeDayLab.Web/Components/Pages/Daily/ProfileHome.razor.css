@@ -1,8 +1,4 @@
 .product-home { width: 100%; max-width: 64rem; margin-inline: auto; padding: var(--beeday-spacing-2xl) var(--beeday-spacing-xl) var(--beeday-spacing-3xl); }
-/* EPIC 35 Sprint 35.1-R2: the Hero itself (spacing, band height, typography) moved to the shared
-   WorkspaceHero component (Components/Layout/WorkspaceHero.razor.css) — also used by Wallet.razor and
-   DailyHome.razor — so it is defined once instead of duplicated per authenticated page. Nothing
-   product-home-specific remains to say about it here. */
 /* EXP32-F009 (Sprint 32.20): text-secondary for AA normal-text contrast - confirmed by a live axe
    scan against /profile that text-muted here failed color-contrast (serious). */
 .product-home__project p, .product-home__status p { margin: 0; color: var(--beeday-color-text-secondary); }

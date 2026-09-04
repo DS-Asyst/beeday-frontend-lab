@@ -9,33 +9,56 @@ using Xunit;
 namespace BeeDayLab.Web.Tests;
 
 /// <summary>
-/// Deterministic bUnit component tests for Sprint 33.9 (FE33-043..046): proves the authenticated
-/// navigation chrome (DesktopSidebar, MobileHeader, MobileSidebar, NavigationItem, NavigationItems)
-/// renders its accessibility wiring (aria-label, aria-expanded, aria-hidden, aria-current) and real
-/// focus-management behavior (MobileHeader's focus-return-on-close, MobileSidebar's
-/// focus-on-open) with no IStringLocalizer&lt;LayoutResources&gt; dependency anywhere — every
-/// label below is a plain hardcoded English string taken verbatim from LayoutResources.en-US.resx
-/// at extraction time.
+/// Deterministic bUnit component tests for Sprint 33.9 (FE33-043..046), extended in Sprint 35.1-R3
+/// (OWNER direction change: DesktopSidebar replaced by DesktopNavigation, a horizontal top bar) for
+/// the authenticated navigation chrome (DesktopNavigation, MobileHeader, MobileSidebar,
+/// NavigationItem, NavigationItems). Proves the accessibility wiring (aria-label, aria-expanded,
+/// aria-hidden, aria-current) and real focus-management behavior (MobileHeader's
+/// focus-return-on-close, MobileSidebar's focus-on-open) with no IStringLocalizer&lt;LayoutResources&gt;
+/// dependency anywhere — every label below is a plain hardcoded English string taken verbatim from
+/// LayoutResources.en-US.resx at extraction time.
 /// </summary>
 public sealed class NavigationTests
 {
     [Fact]
-    public void DesktopSidebarRendersPrimaryNavigationAriaLabelBrandLinkAndAllFiveItems()
+    public void DesktopNavigationRendersPrimaryNavigationAriaLabelBrandLinkAndAllFiveItems()
     {
         using var context = new BunitContext();
 
-        var cut = context.Render<DesktopSidebar>();
+        var cut = context.Render<DesktopNavigation>();
 
-        var aside = cut.Find("aside.desktop-sidebar");
-        Assert.Equal("Primary navigation", aside.GetAttribute("aria-label"));
+        var header = cut.Find("header.desktop-navigation");
+        Assert.Equal("Primary navigation", header.GetAttribute("aria-label"));
 
-        var brandLink = cut.Find("a.desktop-sidebar__brand-link");
+        var brandLink = cut.Find("a.desktop-navigation__brand-link");
         Assert.Equal("beeday — go to Profile", brandLink.GetAttribute("aria-label"));
 
         foreach (var label in new[] { "Profile", "Daily", "Wallet", "Account", "Logout" })
         {
             Assert.Contains(label, cut.Markup);
         }
+    }
+
+    [Fact]
+    public void DesktopNavigationMarksTheActiveRouteWithAriaCurrentAndIsActive()
+    {
+        // Sprint 35.1-R3: the active-destination contract (aria-current="page" + .is-active) is
+        // NavigationItem's own behavior (NavigationItemRendersAsNavLinkWithAriaCurrentPageOnTheActive
+        // Route below already proves it in isolation) — this proves DesktopNavigation actually wires
+        // real routes through to it, not a static/decorative list of labels.
+        using var context = new BunitContext();
+        var navigation = context.Services.GetRequiredService<NavigationManager>();
+        navigation.NavigateTo("/daily");
+
+        var cut = context.Render<DesktopNavigation>();
+
+        var activeLink = cut.Find("a.is-active");
+        Assert.Equal("Daily", activeLink.QuerySelector(".navigation-item__label")!.TextContent);
+        Assert.Equal("page", activeLink.GetAttribute("aria-current"));
+
+        var profileLink = cut.FindAll("a").First(link => link.TextContent.Contains("Profile", StringComparison.Ordinal));
+        Assert.DoesNotContain("is-active", profileLink.ClassList);
+        Assert.Null(profileLink.GetAttribute("aria-current"));
     }
 
     [Theory]

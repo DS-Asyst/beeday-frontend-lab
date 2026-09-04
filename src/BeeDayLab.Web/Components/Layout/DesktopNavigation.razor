@@ -1,0 +1,19 @@
+@* Sprint 35.1-R3 (OWNER direction change): replaces DesktopSidebar as BeeDay's desktop navigation —
+   a persistent horizontal top bar instead of a persistent left sidebar. This is a presentation-only
+   change: the exact same brand NavLink DesktopSidebar rendered (unchanged href/aria-label) and the
+   exact same <NavigationItems /> (unchanged Profile/Daily/Wallet/Account/Logout destinations, no
+   duplicated route metadata) — only this file's own CSS re-flows NavigationItems' two rendered root
+   elements (nav.navigation-items, div.navigation-items--actions) from a vertical column into a
+   horizontal bar, via ::deep overrides scoped to .desktop-navigation (the same technique
+   DesktopSidebar already used to reach NavLink's rendered anchor). Named DesktopNavigation, not
+   TopNavigation: this is not a restoration of the component removed in the historical EPIC 21
+   Sprint 21.3 (BeeDay.Web's TopNavigation exposed no icons/active-state/Account-Logout separation
+   and was mobile-only); it is DesktopSidebar's direct replacement, keeping the existing
+   Desktop-prefixed naming convention shared with MobileHeader/MobileSidebar. *@
+<header class="desktop-navigation" aria-label="Primary navigation">
+    <NavLink href="/profile" Match="NavLinkMatch.Prefix" class="desktop-navigation__brand-link" aria-label="beeday — go to Profile">
+        <BeeDayBrand />
+    </NavLink>
+
+    <NavigationItems />
+</header>

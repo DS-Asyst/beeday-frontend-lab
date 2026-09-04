@@ -5,21 +5,26 @@
    on every authenticated page load) and calls EnsureInitializedAsync() in OnInitializedAsync. The
    Lab has no real user/auth backend to initialize against (ADR-008 forbids real authentication
    infrastructure), so both the injection and the override are dropped entirely. Everything else —
-   the beeday-app/beeday-shell/beeday-workspace structure, SkipToContentLink, MobileHeader,
-   DesktopSidebar, MobileSidebar, BeeDayErrorBoundary, BeeDayToastHost, and the mobile-nav-open
-   toggle state — is presentation-only and copied as-is. *@
+   the beeday-app/beeday-workspace structure, SkipToContentLink, MobileHeader, DesktopNavigation,
+   MobileSidebar, BeeDayErrorBoundary, BeeDayToastHost, and the mobile-nav-open toggle state — is
+   presentation-only and copied/adapted as-is.
+
+   Sprint 35.1-R3 (OWNER direction change): DesktopSidebar is replaced by DesktopNavigation, a
+   persistent horizontal top bar (see that component's own remarks) instead of a persistent left
+   column — so the previous .beeday-shell wrapper, which existed only to lay the sidebar and
+   .beeday-workspace out side by side, no longer has a second element to arrange and is removed;
+   .beeday-workspace is now a direct child of .beeday-app. MobileHeader/MobileSidebar are unchanged —
+   only one of MobileHeader/DesktopNavigation is ever visible at a time (each toggles via its own
+   1200px CSS breakpoint, exactly as MobileHeader/DesktopSidebar did before). *@
 <div class="beeday-app">
     <SkipToContentLink />
     <MobileHeader IsNavOpen="@_isMobileNavOpen" OnToggleNav="ToggleMobileNav" />
+    <DesktopNavigation />
 
-    <div class="beeday-shell">
-        <DesktopSidebar />
-
-        <div class="beeday-workspace">
-            <main id="main-content" class="beeday-main beeday-main--authenticated">
-                <BeeDayErrorBoundary>@Body</BeeDayErrorBoundary>
-            </main>
-        </div>
+    <div class="beeday-workspace">
+        <main id="main-content" class="beeday-main beeday-main--authenticated">
+            <BeeDayErrorBoundary>@Body</BeeDayErrorBoundary>
+        </main>
     </div>
 
     <MobileSidebar IsOpen="@_isMobileNavOpen"

@@ -31,17 +31,17 @@
    it" affordance on a landing page, rendered by the page (not by a scenario provider), so the Lab's
    scenario-determinism rule — which governs Scenarios/ — does not reach it.
 
-   EPIC 35 Sprint 35.1: the welcome summary, previously a BeeDayPageHeader wrapped inside the same
-   max-width:64rem section as the cards below it, is now a WorkspaceHero (Components/Layout) — the
-   shared authenticated-workspace Hero composition also used by Wallet.razor and DailyHome.razor
-   (Sprint 35.1-R2), built around BeeDayHero with the same Compact/Cor0 treatment Wallet.razor
-   (EPIC 27 Sprint 27.11) originally established. Rendered as a sibling before .product-home (rather
-   than inside it), it becomes a direct child of MainLayout's .beeday-main--authenticated and so spans
-   the full workspace width by the same mechanism the institutional pages' hero already relies on (no
-   ancestor padding to bleed past here — .beeday-main--authenticated has none); .product-home keeps
-   its own max-width:64rem below it unchanged, so the cards are unaffected. BeeDayPageHeader itself is
-   untouched — Account, PreviewHub, EmailPreview, ExperienceSystemPage and ComponentGallery keep using
-   it as before. *@
+   EPIC 35 Sprint 35.1/-R/-R2: the welcome summary went through a full-width, colored, authenticated
+   WorkspaceHero band (Components/Layout) shared with Wallet.razor and DailyHome.razor.
+
+   Sprint 35.1-R3 (OWNER direction change): the OWNER rejected the authenticated full-width Hero
+   direction after live review and moved the authenticated shell to a top-navigation-led composition
+   (see DesktopNavigation) — the page itself returns to a content-first, reading-width-constrained
+   page header. WorkspaceHero is removed entirely (no longer used by any page); this is once again a
+   BeeDayPageHeader, back inside the same max-width:64rem .product-home section as the cards below it,
+   exactly as it was before Sprint 35.1. BeeDayPageHeader itself was never touched by any of this —
+   Account, PreviewHub, EmailPreview, ExperienceSystemPage and ComponentGallery kept using it
+   unchanged throughout. *@
 
 <PageTitle>@Localizer["ProfilePageTitle"]</PageTitle>
 
@@ -67,15 +67,15 @@ else if (State.HasProfile)
     var profile = State.Profile;
     var activeProject = State.Projects.Where(project => !project.Completed).OrderByDescending(project => project.Featured).FirstOrDefault();
 
-    <WorkspaceHero Eyebrow="@DateTime.Today.ToString("dddd, MMMM d")"
-                   Title="@Localizer["WelcomeBackHeading", profile.Nickname]"
-                   Subtitle="@Localizer["ChooseNextStepDescription"]">
-        <PrimaryAction>
-            <BeeDayButton Icon="BeeDayIconName.Daily" OnClick="GoToDaily">@Localizer["OpenDailyButtonLabel"]</BeeDayButton>
-        </PrimaryAction>
-    </WorkspaceHero>
-
     <section class="product-home beeday-fade-in" aria-label="@Localizer["WelcomeBackHeading", profile.Nickname]">
+        <BeeDayPageHeader Eyebrow="@DateTime.Today.ToString("dddd, MMMM d")"
+                          Title="@Localizer["WelcomeBackHeading", profile.Nickname]"
+                          Description="@Localizer["ChooseNextStepDescription"]">
+            <Actions>
+                <BeeDayButton Icon="BeeDayIconName.Daily" OnClick="GoToDaily">@Localizer["OpenDailyButtonLabel"]</BeeDayButton>
+            </Actions>
+        </BeeDayPageHeader>
+
         <section class="product-home__progress" aria-label="@Localizer["YourProgressAriaLabel"]">
             <ExperienceBar Model="ExperienceViewModel.From(profile)"
                            ExperienceGain="State.LatestExperienceGain"

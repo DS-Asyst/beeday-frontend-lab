@@ -71,13 +71,16 @@ public sealed class LabBoundaryTests
     }
 
     [Fact]
-    public void NoDuplicateHeroOrBannerComponentExistsBesideBeeDayHeroAndWorkspaceHero()
+    public void NoDuplicateHeroOrBannerComponentExistsBesideBeeDayHero()
     {
-        // EPIC 35 Sprint 35.1-R2: BeeDayHero (Components/DesignSystem/Layout) is the one shared visual
-        // Hero primitive; WorkspaceHero (Components/Layout) is a thin structural wrapper around it for
-        // the authenticated workspace band (Profile/Wallet/Daily), not a competing Hero. Guards
-        // against a future Sprint introducing an AppBanner/DashboardHero/ProfileHero-style
-        // near-duplicate instead of reusing/extending these two, per the OWNER's explicit boundary.
+        // Sprint 35.1-R3 (OWNER direction change): the OWNER rejected the authenticated full-width
+        // Hero direction and moved the authenticated shell to a top-navigation-led composition.
+        // WorkspaceHero (EPIC 35 Sprint 35.1-R2's thin structural wrapper around BeeDayHero for the
+        // authenticated workspace band) is removed entirely — BeeDayHero (Components/DesignSystem/
+        // Layout) is once again the ONLY Hero primitive in the repository, used solely by the public/
+        // institutional pages it always served. Guards against a future Sprint introducing an
+        // AppBanner/DashboardHero/ProfileHero/WorkspaceHero-style near-duplicate instead of reusing
+        // BeeDayHero (public) or BeeDayPageHeader (authenticated, content-first).
         var repoRoot = FindRepositoryRoot();
         var componentsRoot = Path.Combine(repoRoot, "src", "BeeDayLab.Web", "Components");
         var componentFileNames = Directory.EnumerateFiles(componentsRoot, "*.razor", SearchOption.AllDirectories)
@@ -93,8 +96,36 @@ public sealed class LabBoundaryTests
             .Where(name => name.Contains("Banner", StringComparison.OrdinalIgnoreCase))
             .ToList();
 
-        Assert.Equal(["BeeDayHero.razor", "WorkspaceHero.razor"], heroFiles);
+        Assert.Equal(["BeeDayHero.razor"], heroFiles);
         Assert.Empty(bannerFiles);
+    }
+
+    [Fact]
+    public void NoDuplicateDesktopNavigationSourceExistsBesideNavigationItems()
+    {
+        // Sprint 35.1-R3: DesktopNavigation (the new horizontal top bar) and MobileSidebar both
+        // render the exact same <NavigationItems /> — the one canonical navigation-destination
+        // source. Guards against a future Sprint hardcoding a second, divergent list of
+        // Profile/Daily/Wallet/Account destinations directly into DesktopNavigation (or anywhere
+        // else) instead of reusing NavigationItems, and against the historical TopNavigation
+        // component (removed EPIC 21 Sprint 21.3 in production BeeDay) being reintroduced verbatim.
+        var repoRoot = FindRepositoryRoot();
+        var layoutRoot = Path.Combine(repoRoot, "src", "BeeDayLab.Web", "Components", "Layout");
+        var componentFileNames = Directory.EnumerateFiles(layoutRoot, "*.razor", SearchOption.TopDirectoryOnly)
+            .Select(Path.GetFileName)
+            .Select(name => name!)
+            .ToList();
+
+        Assert.Contains("NavigationItems.razor", componentFileNames);
+        Assert.Contains("DesktopNavigation.razor", componentFileNames);
+        Assert.DoesNotContain("DesktopSidebar.razor", componentFileNames);
+        Assert.DoesNotContain("TopNavigation.razor", componentFileNames);
+
+        var desktopNavigationMarkup = File.ReadAllText(Path.Combine(layoutRoot, "DesktopNavigation.razor"));
+        Assert.Contains("<NavigationItems", desktopNavigationMarkup, StringComparison.Ordinal);
+
+        var mobileSidebarMarkup = File.ReadAllText(Path.Combine(layoutRoot, "MobileSidebar.razor"));
+        Assert.Contains("<NavigationItems", mobileSidebarMarkup, StringComparison.Ordinal);
     }
 
     private static string FindRepositoryRoot()
