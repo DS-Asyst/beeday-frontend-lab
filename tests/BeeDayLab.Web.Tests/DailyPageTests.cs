@@ -233,6 +233,25 @@ public sealed class DailyPageTests
     }
 
     [Fact]
+    public void ProfileWrapsItsHeroInAScopedElementSoTheWorkspaceBandCssActuallyApplies()
+    {
+        // Sprint 35.1-R: BeeDayHero is a sibling of .product-home, not nested inside it, so
+        // ProfileHome.razor.css's ::deep overrides (workspace band min-height/padding, page-title
+        // typography) need an ancestor element written in this file's own markup to attach their
+        // scope attribute to. Without this wrapper, those rules compile to a scope attribute the
+        // hero's own <header> never carries and silently match nothing — confirmed against the
+        // served CSS bundle while diagnosing the OWNER's first "reads like a page header" review.
+        using var culture = new TestCultureScope();
+        using var context = CreateContext(ScenarioState.Populated);
+
+        var cut = context.Render<ProfileHome>();
+        cut.WaitForAssertion(() => Assert.NotEmpty(cut.FindAll("header.beeday-hero")), TimeSpan.FromSeconds(3));
+
+        var wrap = cut.Find("div.product-home__hero-wrap");
+        Assert.NotNull(wrap.QuerySelector("header.beeday-hero"));
+    }
+
+    [Fact]
     public void ProfileRendersTheUnavailablePanelForTheErrorScenario()
     {
         using var culture = new TestCultureScope();
