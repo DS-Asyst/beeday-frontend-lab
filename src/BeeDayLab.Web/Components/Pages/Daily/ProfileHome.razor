@@ -29,7 +29,17 @@
 
    The eyebrow keeps production's DateTime.Today.ToString("dddd, MMMM d"). It is a real "what day is
    it" affordance on a landing page, rendered by the page (not by a scenario provider), so the Lab's
-   scenario-determinism rule — which governs Scenarios/ — does not reach it. *@
+   scenario-determinism rule — which governs Scenarios/ — does not reach it.
+
+   EPIC 35 Sprint 35.1: the welcome summary, previously a BeeDayPageHeader wrapped inside the same
+   max-width:64rem section as the cards below it, is now a BeeDayHero — the same Compact/Cor0
+   composition Wallet.razor (EPIC 27 Sprint 27.11) already established for an authenticated context.
+   Rendered as a sibling before .product-home (rather than inside it), it becomes a direct child of
+   MainLayout's .beeday-main--authenticated and so spans the full workspace width by the same
+   mechanism the institutional pages' hero already relies on (no ancestor padding to bleed past here
+   — .beeday-main--authenticated has none); .product-home keeps its own max-width:64rem below it
+   unchanged, so the cards are unaffected. BeeDayPageHeader itself is untouched — Account, PreviewHub,
+   EmailPreview, ExperienceSystemPage and ComponentGallery keep using it as before. *@
 
 <PageTitle>@Localizer["ProfilePageTitle"]</PageTitle>
 
@@ -55,15 +65,18 @@ else if (State.HasProfile)
     var profile = State.Profile;
     var activeProject = State.Projects.Where(project => !project.Completed).OrderByDescending(project => project.Featured).FirstOrDefault();
 
-    <section class="product-home beeday-fade-in" aria-label="@Localizer["WelcomeBackHeading", profile.Nickname]">
-        <BeeDayPageHeader Eyebrow="@DateTime.Today.ToString("dddd, MMMM d")"
-                          Title="@Localizer["WelcomeBackHeading", profile.Nickname]"
-                          Description="@Localizer["ChooseNextStepDescription"]">
-            <Actions>
-                <BeeDayButton Icon="BeeDayIconName.Daily" OnClick="GoToDaily">@Localizer["OpenDailyButtonLabel"]</BeeDayButton>
-            </Actions>
-        </BeeDayPageHeader>
+    <BeeDayHero Compact="true"
+                Surface="BeeDayPaletteToken.Cor0"
+                Class="product-home__hero"
+                Eyebrow="@DateTime.Today.ToString("dddd, MMMM d")"
+                Title="@Localizer["WelcomeBackHeading", profile.Nickname]"
+                Subtitle="@Localizer["ChooseNextStepDescription"]">
+        <PrimaryAction>
+            <BeeDayButton Icon="BeeDayIconName.Daily" OnClick="GoToDaily">@Localizer["OpenDailyButtonLabel"]</BeeDayButton>
+        </PrimaryAction>
+    </BeeDayHero>
 
+    <section class="product-home beeday-fade-in" aria-label="@Localizer["WelcomeBackHeading", profile.Nickname]">
         <section class="product-home__progress" aria-label="@Localizer["YourProgressAriaLabel"]">
             <ExperienceBar Model="ExperienceViewModel.From(profile)"
                            ExperienceGain="State.LatestExperienceGain"

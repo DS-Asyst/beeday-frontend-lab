@@ -1,4 +1,5 @@
 using BeeDayLab.Web.Components.DesignSystem.Feedback;
+using BeeDayLab.Web.Components.DesignSystem.Layout;
 using BeeDayLab.Web.Components.Layout;
 using Bunit;
 using Microsoft.AspNetCore.Components;
@@ -62,6 +63,40 @@ public sealed class LayoutShellTests
         drawer = cut.Find("aside#mobile-navigation");
         Assert.DoesNotContain("is-open", drawer.ClassList);
         Assert.Equal("true", drawer.GetAttribute("aria-hidden"));
+    }
+
+    [Fact]
+    public void MainLayoutPlacesAWorkspaceHeroInsideMainWithTheSidebarStructurallyUnaffected()
+    {
+        // EPIC 35 Sprint 35.1: proves the general contract behind the authenticated workspace Hero
+        // (first exercised by ProfileHome, DailyPageTests.cs) at the layout level, independent of any
+        // one page — a BeeDayHero placed in Body renders inside main#main-content/.beeday-workspace,
+        // while aside.desktop-sidebar stays a sibling of .beeday-workspace under .beeday-shell,
+        // unmoved, unresized, and not duplicated as a second navigation surface.
+        using var context = new BunitContext();
+        context.Services.AddSingleton<ToastService>();
+
+        var cut = context.Render<MainLayout>(parameters => parameters
+            .Add(p => p.Body, (RenderFragment)(builder =>
+            {
+                builder.OpenComponent<BeeDayHero>(0);
+                builder.AddAttribute(1, nameof(BeeDayHero.Title), "Friday, September 4");
+                builder.CloseComponent();
+            })));
+
+        var shell = cut.Find("div.beeday-shell");
+        var workspace = cut.Find("div.beeday-workspace");
+
+        Assert.Single(cut.FindAll("aside.desktop-sidebar"));
+        Assert.Empty(workspace.QuerySelectorAll("aside.desktop-sidebar"));
+
+        // Sidebar and workspace are both direct children of .beeday-shell — the sidebar is not
+        // nested inside (and so cannot be pushed around by) the workspace the hero renders into.
+        Assert.NotNull(shell.QuerySelector(":scope > aside.desktop-sidebar"));
+        Assert.NotNull(shell.QuerySelector(":scope > div.beeday-workspace"));
+
+        Assert.NotNull(workspace.QuerySelector("header.beeday-hero"));
+        Assert.NotNull(cut.Find("main#main-content").QuerySelector("header.beeday-hero"));
     }
 
     [Fact]

@@ -1,4 +1,9 @@
 .product-home { width: 100%; max-width: 64rem; margin-inline: auto; padding: var(--beeday-spacing-2xl) var(--beeday-spacing-xl) var(--beeday-spacing-3xl); }
+/* EPIC 35 Sprint 35.1: same role as Wallet's .wallet-page__hero (EPIC 27 Sprint 27.11) — BeeDayHero
+   owns its own typography/spacing/surface, this only adds the gap before .product-home's own
+   top padding takes over. Unlike Wallet, this hero is a sibling of .product-home, not its ancestor,
+   so it is not itself width-constrained by the 64rem rule above. */
+.product-home__hero { margin-bottom: var(--beeday-spacing-lg); }
 /* EXP32-F009 (Sprint 32.20): text-secondary for AA normal-text contrast - confirmed by a live axe
    scan against /profile that text-muted here failed color-contrast (serious). */
 .product-home__project p, .product-home__status p { margin: 0; color: var(--beeday-color-text-secondary); }

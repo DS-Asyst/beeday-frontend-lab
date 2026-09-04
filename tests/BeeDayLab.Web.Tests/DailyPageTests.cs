@@ -201,6 +201,38 @@ public sealed class DailyPageTests
     }
 
     [Fact]
+    public void ProfileRendersItsWelcomeSummaryAsAFullWidthHeroBeforeTheConstrainedProductHomeSection()
+    {
+        // EPIC 35 Sprint 35.1: the welcome summary moved from a BeeDayPageHeader nested inside
+        // .product-home to a BeeDayHero rendered as a sibling before it, so it spans the full
+        // authenticated workspace width (MainLayout's .beeday-main--authenticated has no padding of
+        // its own to constrain it) while .product-home keeps its existing max-width:64rem below.
+        using var culture = new TestCultureScope();
+        using var context = CreateContext(ScenarioState.Populated);
+
+        var cut = context.Render<ProfileHome>();
+
+        cut.WaitForAssertion(() => Assert.NotEmpty(cut.FindAll("header.beeday-hero")), TimeSpan.FromSeconds(3));
+
+        var hero = cut.Find("header.beeday-hero");
+        Assert.Equal("Welcome back, jordan.silva", hero.QuerySelector("h1")!.TextContent);
+        Assert.Contains("Choose one next step and keep your day moving.", hero.TextContent);
+        Assert.Contains("beeday-surface-cor0", hero.ClassList);
+        Assert.NotNull(hero.QuerySelector(".beeday-hero__primary-action .beeday-button"));
+
+        // Sibling, not ancestor/descendant: .product-home no longer carries the page header, and the
+        // hero renders before it in document order.
+        var productHome = cut.Find("section.product-home");
+        Assert.Empty(productHome.QuerySelectorAll("header.beeday-hero"));
+        Assert.Empty(productHome.QuerySelectorAll(".beeday-page-header"));
+        Assert.NotEmpty(productHome.QuerySelectorAll(".product-home__progress"));
+
+        var heroPosition = cut.Markup.IndexOf("beeday-hero", StringComparison.Ordinal);
+        var productHomePosition = cut.Markup.IndexOf("product-home beeday-fade-in", StringComparison.Ordinal);
+        Assert.True(heroPosition >= 0 && productHomePosition > heroPosition);
+    }
+
+    [Fact]
     public void ProfileRendersTheUnavailablePanelForTheErrorScenario()
     {
         using var culture = new TestCultureScope();
