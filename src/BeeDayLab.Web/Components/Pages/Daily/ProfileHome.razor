@@ -65,16 +65,17 @@ else if (State.HasProfile)
     var profile = State.Profile;
     var activeProject = State.Projects.Where(project => !project.Completed).OrderByDescending(project => project.Featured).FirstOrDefault();
 
-    <BeeDayHero Compact="true"
-                Surface="BeeDayPaletteToken.Cor0"
-                Class="product-home__hero"
-                Eyebrow="@DateTime.Today.ToString("dddd, MMMM d")"
-                Title="@Localizer["WelcomeBackHeading", profile.Nickname]"
-                Subtitle="@Localizer["ChooseNextStepDescription"]">
-        <PrimaryAction>
-            <BeeDayButton Icon="BeeDayIconName.Daily" OnClick="GoToDaily">@Localizer["OpenDailyButtonLabel"]</BeeDayButton>
-        </PrimaryAction>
-    </BeeDayHero>
+    <div class="product-home__hero-wrap">
+        <BeeDayHero Compact="true"
+                    Surface="BeeDayPaletteToken.Cor0"
+                    Eyebrow="@DateTime.Today.ToString("dddd, MMMM d")"
+                    Title="@Localizer["WelcomeBackHeading", profile.Nickname]"
+                    Subtitle="@Localizer["ChooseNextStepDescription"]">
+            <PrimaryAction>
+                <BeeDayButton Icon="BeeDayIconName.Daily" OnClick="GoToDaily">@Localizer["OpenDailyButtonLabel"]</BeeDayButton>
+            </PrimaryAction>
+        </BeeDayHero>
+    </div>
 
     <section class="product-home beeday-fade-in" aria-label="@Localizer["WelcomeBackHeading", profile.Nickname]">
         <section class="product-home__progress" aria-label="@Localizer["YourProgressAriaLabel"]">
