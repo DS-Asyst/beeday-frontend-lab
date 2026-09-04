@@ -32,7 +32,17 @@
    Lab addition: the IsUnavailable branch. Production's /daily has no error surface of its own
    (DashboardState's catch-block sets IsUnavailable but only /profile renders it), yet Issue #374
    item 2 requires this surface to demonstrate an error state. It reuses the exact warning-card
-   markup DashboardHome.razor already uses for the same condition, so nothing is redesigned. *@
+   markup DashboardHome.razor already uses for the same condition, so nothing is redesigned.
+
+   EPIC 35 Sprint 35.1-R2 (OWNER correction): adds the shared authenticated WorkspaceHero (also used
+   by ProfileHome and Wallet) so /daily participates in the same authenticated Hero composition. Title
+   reuses the existing Localizer["DailyHeading"] string, previously rendered as a visually-hidden <h1>
+   (now removed — WorkspaceHero renders the real, visible <h1> with the same text, so there is no
+   longer a second, redundant heading). No eyebrow/subtitle/action: neither exists in the source
+   material for this route, and the OWNER's own boundary ("Do NOT invent product copy or actions
+   without repository evidence") rules out inventing one. Search/filter/board controls
+   (ActivityFilterBar, the four DashboardColumn boards) stay exactly where they were, below the Hero —
+   they are board-level, not page-level, context. *@
 
 <PageTitle>@Localizer["DailyPageTitle"]</PageTitle>
 
@@ -54,8 +64,9 @@ else if (State.IsUnavailable)
 }
 else if (State.HasProfile)
 {
+    <WorkspaceHero Title="@Localizer["DailyHeading"]" />
+
     <section class="dashboard-page beeday-fade-in">
-        <h1 class="beeday-visually-hidden">@Localizer["DailyHeading"]</h1>
         <div class="dashboard-page__content">
             <ActivityFilterBar Value="@State.Search"
                                ValueChanged="@(value => State.Search = value)"

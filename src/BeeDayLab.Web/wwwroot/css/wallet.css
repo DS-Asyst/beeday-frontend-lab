@@ -28,13 +28,6 @@
     color: var(--beeday-color-text-primary);
 }
 
-/* EPIC 27 Sprint 27.11: the page header is now BeeDayHero (Compact, Surface Cor0) — see
-   Wallet.razor. .wallet-page__hero only needs a bottom margin; BeeDayHero owns its own
-   typography/spacing/surface. */
-.wallet-page__hero {
-    margin-bottom: 1.5rem;
-}
-
 .wallet-eyebrow {
     color: var(--beeday-color-tag-default);
 }
