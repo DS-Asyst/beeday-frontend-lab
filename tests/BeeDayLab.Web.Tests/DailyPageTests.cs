@@ -103,6 +103,36 @@ public sealed class DailyPageTests
     }
 
     [Fact]
+    public void DailyParticipatesInTheSharedAuthenticatedHeroCompositionAboveItsUnchangedBoard()
+    {
+        // EPIC 35 Sprint 35.1-R2: /daily gained the same WorkspaceHero used by /profile and /wallet
+        // (title only — DailyHeading is the only existing label for this route; no eyebrow/subtitle/
+        // action exists in the source material, and none is invented). The previously
+        // visually-hidden <h1>DailyHeading</h1> is gone — WorkspaceHero renders the real, visible
+        // heading with the same text, so there is exactly one <h1>, not two.
+        using var culture = new TestCultureScope();
+        using var context = CreateContext(ScenarioState.Populated);
+
+        var cut = context.Render<DailyHome>();
+
+        cut.WaitForAssertion(() => Assert.NotEmpty(cut.FindAll("header.beeday-hero")), TimeSpan.FromSeconds(3));
+
+        var hero = cut.Find("header.beeday-hero");
+        Assert.Equal("Daily", hero.QuerySelector("h1")!.TextContent);
+        Assert.Contains("beeday-surface-cor0", hero.ClassList);
+        Assert.Single(cut.FindAll("h1"));
+
+        // Sibling, not ancestor/descendant: the board is unaffected, and the hero precedes it.
+        var dashboardPage = cut.Find("section.dashboard-page");
+        Assert.Empty(dashboardPage.QuerySelectorAll("header.beeday-hero"));
+        Assert.NotEmpty(dashboardPage.QuerySelectorAll(".dashboard-grid"));
+
+        var heroPosition = cut.Markup.IndexOf("beeday-hero", StringComparison.Ordinal);
+        var boardPosition = cut.Markup.IndexOf("dashboard-page beeday-fade-in", StringComparison.Ordinal);
+        Assert.True(heroPosition >= 0 && boardPosition > heroPosition);
+    }
+
+    [Fact]
     public void DailyShowsEmptyStatesRatherThanCardsForTheEmptyScenario()
     {
         using var culture = new TestCultureScope();
@@ -203,10 +233,12 @@ public sealed class DailyPageTests
     [Fact]
     public void ProfileRendersItsWelcomeSummaryAsAFullWidthHeroBeforeTheConstrainedProductHomeSection()
     {
-        // EPIC 35 Sprint 35.1: the welcome summary moved from a BeeDayPageHeader nested inside
-        // .product-home to a BeeDayHero rendered as a sibling before it, so it spans the full
-        // authenticated workspace width (MainLayout's .beeday-main--authenticated has no padding of
-        // its own to constrain it) while .product-home keeps its existing max-width:64rem below.
+        // EPIC 35 Sprint 35.1-R2: the welcome summary moved from a BeeDayPageHeader nested inside
+        // .product-home to the shared WorkspaceHero (Components/Layout), rendered as a sibling before
+        // .product-home, so it spans the full authenticated workspace width (MainLayout's
+        // .beeday-main--authenticated has no padding of its own to constrain it) while .product-home
+        // keeps its existing max-width:64rem below. WorkspaceHero is also used by Wallet and Daily —
+        // see WalletPageTests/DailyPageTests for their own coverage of the shared contract.
         using var culture = new TestCultureScope();
         using var context = CreateContext(ScenarioState.Populated);
 
@@ -233,21 +265,22 @@ public sealed class DailyPageTests
     }
 
     [Fact]
-    public void ProfileWrapsItsHeroInAScopedElementSoTheWorkspaceBandCssActuallyApplies()
+    public void ProfileWrapsItsHeroInTheSharedWorkspaceHeroSoTheBandCssActuallyApplies()
     {
-        // Sprint 35.1-R: BeeDayHero is a sibling of .product-home, not nested inside it, so
-        // ProfileHome.razor.css's ::deep overrides (workspace band min-height/padding, page-title
-        // typography) need an ancestor element written in this file's own markup to attach their
-        // scope attribute to. Without this wrapper, those rules compile to a scope attribute the
-        // hero's own <header> never carries and silently match nothing — confirmed against the
-        // served CSS bundle while diagnosing the OWNER's first "reads like a page header" review.
+        // Sprint 35.1-R2: BeeDayHero is a sibling of .product-home, not nested inside it, so the
+        // shared WorkspaceHero component's own ::deep overrides (workspace band min-height/padding,
+        // page-title typography) need an ancestor element carrying WorkspaceHero's own scope
+        // attribute to attach to. Without a wrapper of some kind, those rules compile to a scope
+        // attribute the hero's own <header> never carries and silently match nothing — confirmed
+        // against the served CSS bundle while diagnosing the OWNER's first "reads like a page header"
+        // review, before this was centralized out of ProfileHome into WorkspaceHero itself.
         using var culture = new TestCultureScope();
         using var context = CreateContext(ScenarioState.Populated);
 
         var cut = context.Render<ProfileHome>();
         cut.WaitForAssertion(() => Assert.NotEmpty(cut.FindAll("header.beeday-hero")), TimeSpan.FromSeconds(3));
 
-        var wrap = cut.Find("div.product-home__hero-wrap");
+        var wrap = cut.Find("div.workspace-hero");
         Assert.NotNull(wrap.QuerySelector("header.beeday-hero"));
     }
 

@@ -70,6 +70,33 @@ public sealed class LabBoundaryTests
         }
     }
 
+    [Fact]
+    public void NoDuplicateHeroOrBannerComponentExistsBesideBeeDayHeroAndWorkspaceHero()
+    {
+        // EPIC 35 Sprint 35.1-R2: BeeDayHero (Components/DesignSystem/Layout) is the one shared visual
+        // Hero primitive; WorkspaceHero (Components/Layout) is a thin structural wrapper around it for
+        // the authenticated workspace band (Profile/Wallet/Daily), not a competing Hero. Guards
+        // against a future Sprint introducing an AppBanner/DashboardHero/ProfileHero-style
+        // near-duplicate instead of reusing/extending these two, per the OWNER's explicit boundary.
+        var repoRoot = FindRepositoryRoot();
+        var componentsRoot = Path.Combine(repoRoot, "src", "BeeDayLab.Web", "Components");
+        var componentFileNames = Directory.EnumerateFiles(componentsRoot, "*.razor", SearchOption.AllDirectories)
+            .Select(Path.GetFileName)
+            .Select(name => name!)
+            .ToList();
+
+        var heroFiles = componentFileNames
+            .Where(name => name.EndsWith("Hero.razor", StringComparison.Ordinal))
+            .OrderBy(name => name, StringComparer.Ordinal)
+            .ToList();
+        var bannerFiles = componentFileNames
+            .Where(name => name.Contains("Banner", StringComparison.OrdinalIgnoreCase))
+            .ToList();
+
+        Assert.Equal(["BeeDayHero.razor", "WorkspaceHero.razor"], heroFiles);
+        Assert.Empty(bannerFiles);
+    }
+
     private static string FindRepositoryRoot()
     {
         var directory = new DirectoryInfo(AppContext.BaseDirectory);

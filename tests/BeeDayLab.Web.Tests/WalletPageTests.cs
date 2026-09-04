@@ -98,6 +98,39 @@ public sealed class WalletPageTests
         Assert.NotEmpty(cut.FindAll(selector));
     }
 
+    [Fact]
+    public void WalletsHeroFillsTheWorkspaceInsteadOfBeingConstrainedToTheWalletBodyWidth()
+    {
+        // EPIC 35 Sprint 35.1-R2 (OWNER correction): the hero used to live inside .wallet-page, so it
+        // was constrained to the page's own 76rem reading width and read as a large card/header
+        // rather than a workspace-width band. It now renders via the shared WorkspaceHero component,
+        // as a sibling before .wallet-page — same pattern ProfileHome/DailyHome use. Content/behavior
+        // unchanged: same eyebrow/title/subtitle/action, same Cor0 surface.
+        using var culture = new TestCultureScope();
+        using var context = CreateContext(ScenarioState.Populated);
+
+        var cut = context.Render<WalletPage>();
+        cut.WaitForAssertion(() => Assert.NotEmpty(cut.FindAll("header.beeday-hero")), TimeSpan.FromSeconds(3));
+
+        var hero = cut.Find("header.beeday-hero");
+        Assert.Equal("Wallet", hero.QuerySelector("h1")!.TextContent);
+        Assert.Contains("Track your wallet, organize transactions and understand where your money goes.", hero.TextContent);
+        Assert.Contains("beeday-surface-cor0", hero.ClassList);
+        Assert.NotNull(hero.QuerySelector(".beeday-hero__primary-action .beeday-button"));
+
+        // Not nested inside the constrained wallet body: .wallet-page contains none of it.
+        var walletPage = cut.Find("div.wallet-page");
+        Assert.Empty(walletPage.QuerySelectorAll("header.beeday-hero"));
+        Assert.NotEmpty(walletPage.QuerySelectorAll(".wallet-workspace"));
+
+        var wrap = cut.Find("div.workspace-hero");
+        Assert.NotNull(wrap.QuerySelector("header.beeday-hero"));
+
+        var heroPosition = cut.Markup.IndexOf("beeday-hero", StringComparison.Ordinal);
+        var walletPagePosition = cut.Markup.IndexOf("wallet-page beeday-fade-in", StringComparison.Ordinal);
+        Assert.True(heroPosition >= 0 && walletPagePosition > heroPosition);
+    }
+
     private static BunitContext CreateContext(ScenarioState state)
     {
         var context = new BunitContext();

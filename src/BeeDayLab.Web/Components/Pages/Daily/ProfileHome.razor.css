@@ -1,35 +1,8 @@
 .product-home { width: 100%; max-width: 64rem; margin-inline: auto; padding: var(--beeday-spacing-2xl) var(--beeday-spacing-xl) var(--beeday-spacing-3xl); }
-/* EPIC 35 Sprint 35.1: same role as Wallet's .wallet-page__hero (EPIC 27 Sprint 27.11) — BeeDayHero
-   owns its own typography/spacing/surface, this only adds the gap before .product-home's own
-   top padding takes over. Unlike Wallet, this hero is a sibling of .product-home, not its ancestor,
-   so it is not itself width-constrained by the 64rem rule above. */
-.product-home__hero-wrap { margin-bottom: var(--beeday-spacing-lg); }
-
-/* EPIC 35 Sprint 35.1-R (OWNER correction): the wrapper above is required for the two ::deep rules
-   below to work at all — <BeeDayHero> is a sibling of .product-home, not nested inside it, so
-   without an element of THIS file's own markup (carrying this component's own scope attribute)
-   wrapping it, ::deep has no scoped ancestor to attach to and silently matches nothing (confirmed by
-   inspecting the served BeeDayLab.Web.styles.css bundle: the first version of this fix compiled to a
-   scope attribute the hero's actual rendered <header> never carried).
-
-   Compact's own min-height:0 (BeeDayHero.razor.css .beeday-hero--compact) leaves the surface exactly
-   as tall as its content — the same "colored strip with text" outcome that component's own Sprint
-   29.5 comment identifies for the institutional hero without a real min-height, just reached here
-   from the opposite direction. Deliberately far short of the institutional hero's own
-   clamp(22rem, 32vw, 36rem) — that editorial-cover height would dominate the dashboard fold below
-   it; this is sized to read as a real band without pushing the cards below the fold. */
-.product-home__hero-wrap ::deep .beeday-hero {
-    min-height: clamp(9rem, 16vw, 13rem);
-    padding-block: clamp(2rem, 4.5vw, 3rem);
-}
-
-/* Same correction for typography: Compact's own h1 clamp(1.7rem, 3.4vw, 2.4rem) — and its "Coiny"
-   display font, BeeDayHero's institutional/brand voice — still read oversized and off-register once
-   the surface above gained real presence. Reuses the Design System's own existing "page-title" role
-   (--beeday-type-page-title, TypographyGuidelines.razor.css) instead of inventing a new size: same
-   role, same body font (Nunito, not Coiny), that BeeDayPageHeader's other authenticated consumers
-   already read at. */
-.product-home__hero-wrap ::deep .beeday-hero__content h1 { font: var(--beeday-type-page-title); }
+/* EPIC 35 Sprint 35.1-R2: the Hero itself (spacing, band height, typography) moved to the shared
+   WorkspaceHero component (Components/Layout/WorkspaceHero.razor.css) — also used by Wallet.razor and
+   DailyHome.razor — so it is defined once instead of duplicated per authenticated page. Nothing
+   product-home-specific remains to say about it here. */
 /* EXP32-F009 (Sprint 32.20): text-secondary for AA normal-text contrast - confirmed by a live axe
    scan against /profile that text-muted here failed color-contrast (serious). */
 .product-home__project p, .product-home__status p { margin: 0; color: var(--beeday-color-text-secondary); }
