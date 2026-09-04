@@ -13,30 +13,46 @@
 
     <link rel="stylesheet" href="app.css" />
 
-    <!-- Canonical foundation plus the component/Wallet/Email sheets required by Sprints 33.14/33.15. -->
+    <!-- Sprint 33.18-R (CSS composition remediation): full production stylesheet graph and order
+         restored from DS-Asyst/BeeDay@acce26a's App.razor, verbatim relative order. Lab-only
+         gallery/preview sheets (no production equivalent) are appended after the last real
+         production sheet and before typography-policy.css, which stays last in both apps as the
+         final override layer. -->
     <link rel="stylesheet" href="css/variables.css" />
     <link rel="stylesheet" href="css/design-system.css" />
+    <link rel="stylesheet" href="css/activity-design-system.css" />
     <link rel="stylesheet" href="css/typography.css" />
     <link rel="stylesheet" href="css/editor-modal.css" />
     <link rel="stylesheet" href="css/forms.css" />
+    <link rel="stylesheet" href="css/settings.css" />
+    <link rel="stylesheet" href="css/cards.css" />
     <link rel="stylesheet" href="css/feedback.css" />
+    <link rel="stylesheet" href="css/dragdrop.css" />
     <link rel="stylesheet" href="css/theme.css" />
     <link rel="stylesheet" href="css/utilities.css" />
     <link rel="stylesheet" href="css/animations.css" />
     <link rel="stylesheet" href="css/polish.css" />
     <link rel="stylesheet" href="css/wallet.css" />
+    <link rel="stylesheet" href="css/identity.css" />
+    <link rel="stylesheet" href="css/institutional.css" />
+
+    <!-- CSS-isolation bundle (BeeDayLab.Web.styles.css, generated at build from every *.razor.css
+         file) — mirrors production's BeeDay.Web.styles.css position exactly. This was previously
+         never linked, so all 44 component-scoped stylesheets were silently inert. -->
+    <link rel="stylesheet" href="BeeDayLab.Web.styles.css" />
+
     <link rel="stylesheet" href="css/emails.css" />
     <link rel="stylesheet" href="css/gallery.css" />
     <link rel="stylesheet" href="css/preview.css" />
-    <link rel="stylesheet" href="css/typography-policy.css" />
 
-    <link rel="stylesheet" href="css/lab-shell.css" />
+    <link rel="stylesheet" href="css/typography-policy.css" />
 
     <HeadOutlet />
 </head>
 
 <body>
     <Routes @rendermode="InteractiveServer" />
+    <ReconnectModal />
     <script src="_framework/blazor.web.js"></script>
 </body>
 </html>

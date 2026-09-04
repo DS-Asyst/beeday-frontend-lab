@@ -1,0 +1,59 @@
+:root {
+    /* Feature aliases preserve the Activity API while sharing the canonical physical scale. */
+    --activity-space-xs: var(--beeday-spacing-xs);
+    --activity-space-sm: var(--beeday-spacing-sm);
+    --activity-space-md: var(--beeday-spacing-smd);
+    --activity-space-lg: var(--beeday-spacing-md);
+    --activity-radius-sm: .25rem;
+    --activity-radius-md: .4rem;
+    --activity-transition-fast: 120ms ease;
+    --activity-transition-standard: 160ms ease;
+    --activity-shadow-rest: 0 1px 2px rgb(40 27 52 / 8%);
+    --activity-shadow-hover: 0 4px 12px rgb(45 28 66 / 13%);
+    --activity-title-size: .82rem;
+    --activity-body-size: .64rem;
+    --activity-meta-size: .55rem;
+}
+
+.activity-card,
+.habit-card,
+.dashboard-column,
+.beeday-empty-state,
+.delete-confirmation,
+.editor-modal {
+    font-family: var(--beeday-font-body);
+}
+
+.activity-card,
+.habit-card {
+    box-shadow: var(--activity-shadow-rest);
+    transition: transform var(--activity-transition-standard),
+                box-shadow var(--activity-transition-standard),
+                border-color var(--activity-transition-standard);
+}
+
+.activity-card:hover,
+.habit-card:hover {
+    box-shadow: var(--activity-shadow-hover);
+}
+
+.activity-card h3,
+.habit-card h3 {
+    font-size: var(--activity-title-size);
+}
+
+.activity-card p,
+.habit-card p {
+    font-size: var(--activity-body-size);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .activity-card,
+    .habit-card,
+    .dashboard-column,
+    .editor-modal,
+    .delete-confirmation {
+        transition: none !important;
+        animation: none !important;
+    }
+}

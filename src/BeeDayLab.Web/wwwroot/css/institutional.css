@@ -1,0 +1,159 @@
+/* EPIC 27 Sprint 27.3 — institutional page framework: the shared shell (hero, via BeeDayHero) and
+   the four content-family variants (editorial, product, help, legal). Documentation/guidelines
+   (Brand guidelines) gets its own sidebar layout in Sprint 27.8; until then it scaffolds through the
+   editorial family like the other not-yet-filled pages.
+   Sprint 29.2: the four families previously narrowed this shared width per family (editorial 46rem,
+   help 48rem, legal 42rem; product had no matching rule at all and silently fell back to this same
+   72rem base) — that mismatch put the body content on a different horizontal axis than the hero's
+   own 72rem row (BeeDayHero.razor.css), and read as a narrow column lost in a much wider page. All
+   four families now share this single width, matching the hero row exactly. */
+
+.institutional-hero__home-link {
+    display: inline-flex;
+    align-items: center;
+    border-radius: var(--beeday-radius-xs);
+    color: inherit;
+    text-decoration: none;
+}
+
+    .institutional-hero__home-link:focus-visible {
+        outline: var(--beeday-border-width) solid currentColor;
+        outline-offset: 4px;
+
+    }
+
+.institutional-hero__context-label {
+    font-size: var(--beeday-font-size-md);
+    font-weight: var(--beeday-font-weight-bold);
+    letter-spacing: var(--beeday-letter-spacing-label);
+    text-transform: uppercase;
+}
+
+.institutional-page__body {
+    width: min(100% - 2 * var(--beeday-page-gutter), 72rem);
+    margin-inline: auto;
+    padding-block: clamp(2.5rem, 5vw, 4rem);
+}
+
+.institutional-page__body h2 {
+    margin: 0 0 var(--beeday-spacing-md);
+    color: var(--beeday-color-text-primary);
+    font-size: var(--beeday-font-size-2xl);
+    font-weight: var(--beeday-font-weight-extrabold);
+    line-height: var(--beeday-line-height-tight);
+}
+
+.institutional-page__body p {
+    margin: 0 0 var(--beeday-spacing-md);
+    color: var(--beeday-color-text-secondary);
+    line-height: var(--beeday-line-height-relaxed);
+}
+
+.institutional-page__body section + section { margin-top: var(--beeday-spacing-2xl); }
+
+/* Sprint 29.4 — editorial story blocks: predictable narrative rhythm (EditorialStoryBlock.razor)
+   instead of "H2, paragraph, H2, paragraph" thrown vertically. */
+.editorial-story-blocks {
+    display: grid;
+    gap: clamp(2.5rem, 6vw, 4rem);
+}
+
+.editorial-story-blocks + section { margin-top: var(--beeday-spacing-2xl); }
+
+/* Product/marketing — beeday, beeday Plus, Android, iOS: full-width sections, room for a feature
+   grid and a CTA row (populated in Sprint 27.6). */
+.institutional-product__features {
+    display: grid;
+    margin: var(--beeday-spacing-lg) 0;
+    gap: var(--beeday-spacing-lg);
+    grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+}
+
+.institutional-product__feature {
+    padding: var(--beeday-spacing-lg);
+    border: var(--beeday-border-width-subtle) solid var(--beeday-color-border);
+    border-radius: var(--beeday-radius-lg);
+    background: var(--beeday-color-surface);
+}
+
+.institutional-product__feature h3 {
+    margin: 0 0 var(--beeday-spacing-xs);
+    color: var(--beeday-color-text-primary);
+    font-size: var(--beeday-font-size-lg);
+    font-weight: var(--beeday-font-weight-bold);
+}
+
+.institutional-product__feature p { margin: 0; }
+
+.institutional-product__status {
+    display: inline-flex;
+    margin-bottom: var(--beeday-spacing-md);
+    padding: var(--beeday-spacing-xs) var(--beeday-spacing-sm);
+    border-radius: var(--beeday-radius-pill);
+    background: var(--beeday-color-surface-muted);
+    color: var(--beeday-color-text-secondary);
+    font-size: var(--beeday-font-size-xs);
+    font-weight: var(--beeday-font-weight-bold);
+    letter-spacing: var(--beeday-letter-spacing-label);
+    text-transform: uppercase;
+}
+
+/* Help — beeday FAQs: a native, keyboard- and touch-accessible accordion. Sprint 29.4: separator
+   rows, not four small bordered cards floating in empty space (§19) — the editorial microsite
+   avoids the card-per-fragment pattern for content that isn't its own surface. */
+.institutional-faq { display: grid; }
+
+.institutional-faq__item {
+    padding: var(--beeday-spacing-md) 0;
+    border-bottom: var(--beeday-border-width-subtle) solid var(--beeday-color-border);
+}
+
+.institutional-faq__item:first-child { padding-top: 0; }
+.institutional-faq__item:last-child { border-bottom: none; }
+
+.institutional-faq__item summary {
+    color: var(--beeday-color-text-primary);
+    font-weight: var(--beeday-font-weight-bold);
+    cursor: pointer;
+    list-style: none;
+}
+
+.institutional-faq__item summary::-webkit-details-marker { display: none; }
+
+.institutional-faq__item summary:focus-visible {
+    outline: var(--beeday-border-width) solid var(--beeday-color-brand-primary);
+    outline-offset: 3px;
+    border-radius: var(--beeday-radius-xs);
+}
+
+.institutional-faq__item p { margin: var(--beeday-spacing-sm) 0 0; }
+
+/* Legal/document — Community guidelines, Terms, Privacy: reading-first, no fabricated clauses. */
+
+/* Shared "content pending" callout — used by the legal/document pages (no approved clauses exist
+   yet) and Efficacy (no evidence/metrics exist yet). Generic name and generic styling since the
+   same honest-disclosure pattern applies to any not-yet-available content, not only legal text. */
+.institutional-pending-notice {
+    margin-bottom: var(--beeday-spacing-lg);
+    padding: var(--beeday-spacing-md) var(--beeday-spacing-lg);
+    border: var(--beeday-border-width-subtle) solid var(--beeday-color-border);
+    border-radius: var(--beeday-radius-lg);
+    background: var(--beeday-color-info-soft);
+    color: var(--beeday-color-text-primary);
+    font-weight: var(--beeday-font-weight-bold);
+}
+
+.institutional-legal__toc {
+    margin-bottom: var(--beeday-spacing-xl);
+    padding: var(--beeday-spacing-md) var(--beeday-spacing-lg);
+    border: var(--beeday-border-width-subtle) solid var(--beeday-color-border);
+    border-radius: var(--beeday-radius-lg);
+    background: var(--beeday-color-surface-muted);
+}
+
+.institutional-legal__toc h2 { margin-bottom: var(--beeday-spacing-sm); font-size: var(--beeday-font-size-md); }
+.institutional-legal__toc ol { display: grid; margin: 0; padding-left: 1.2rem; gap: var(--beeday-spacing-xs); }
+
+@media (max-width: 34rem) {
+    .institutional-page__body { padding-block: var(--beeday-spacing-xl); }
+}

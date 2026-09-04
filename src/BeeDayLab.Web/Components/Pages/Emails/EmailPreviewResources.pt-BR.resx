@@ -74,4 +74,12 @@
   <data name="StandardWidthOption" xml:space="preserve"><value>Padrão (640px)</value></data>
   <data name="SubjectLabel" xml:space="preserve"><value>Assunto</value></data>
   <data name="PlainTextSummary" xml:space="preserve"><value>Alternativa em texto simples</value></data>
+  <data name="FromLabel" xml:space="preserve"><value>De</value></data>
+  <data name="ToLabel" xml:space="preserve"><value>Para</value></data>
+  <data name="QuickReviewLabel" xml:space="preserve"><value>Revisão rápida</value></data>
+  <data name="ConfirmationPtBrQuickLink" xml:space="preserve"><value>Confirmação — pt-BR</value></data>
+  <data name="ConfirmationEnUsQuickLink" xml:space="preserve"><value>Confirmação — en-US</value></data>
+  <data name="PasswordResetPtBrQuickLink" xml:space="preserve"><value>Redefinição de Senha — pt-BR</value></data>
+  <data name="PasswordResetEnUsQuickLink" xml:space="preserve"><value>Redefinição de Senha — en-US</value></data>
+  <data name="OpenFullPreviewButton" xml:space="preserve"><value>Abrir pré-visualização completa do e-mail</value></data>
 </root>
