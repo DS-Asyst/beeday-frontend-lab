@@ -13,22 +13,24 @@
 }
 else
 {
-    @* EPIC 35 Sprint 35.1-R2 (OWNER correction): the hero moved from inside .wallet-page (where it was
-       constrained to the page's own 76rem reading width, reading as a large card/header rather than a
-       workspace-width band) to WorkspaceHero, a sibling rendered before .wallet-page. Content/behavior
-       unchanged — same eyebrow/title/subtitle/action, same Cor0 surface. *@
-    <WorkspaceHero Eyebrow="@Localizer["PersonalFinanceEyebrow"]"
-                   Title="@Localizer["WalletHeading"]"
-                   Subtitle="@Localizer["WalletDescription"]">
-        <PrimaryAction>
-            <BeeDayButton Variant="BeeDayButtonVariant.ImportantWhite"
-                           Icon="BeeDayIconName.Add"
-                           Disabled="ControlsDisabled"
-                           OnClick="OpenCreateTransaction">@Localizer["NewTransactionButton"]</BeeDayButton>
-        </PrimaryAction>
-    </WorkspaceHero>
-
     <div class="wallet-page beeday-fade-in" aria-busy="@_interaction.IsBusy.ToString().ToLowerInvariant()">
+        @* Sprint 35.1-R3 (OWNER direction change): the OWNER rejected the authenticated full-width
+           colored Hero direction (EPIC 35 Sprint 35.1-R2's WorkspaceHero, itself a correction of
+           Sprint 35.1's page-constrained hero) after live review, moving the authenticated shell to a
+           top-navigation-led composition. Wallet returns to a content-first page header — a
+           BeeDayPageHeader back inside .wallet-page, constrained to the page's own reading width like
+           every other BeeDayPageHeader consumer (Account, PreviewHub, ComponentGallery). Same
+           eyebrow/title/description/action content as before; only the surrounding chrome changed. *@
+        <BeeDayPageHeader Eyebrow="@Localizer["PersonalFinanceEyebrow"]"
+                          Title="@Localizer["WalletHeading"]"
+                          Description="@Localizer["WalletDescription"]">
+            <Actions>
+                <BeeDayButton Icon="BeeDayIconName.Add"
+                              Disabled="ControlsDisabled"
+                              OnClick="OpenCreateTransaction">@Localizer["NewTransactionButton"]</BeeDayButton>
+            </Actions>
+        </BeeDayPageHeader>
+
         @if (!string.IsNullOrWhiteSpace(_errorMessage))
         {
             <div class="wallet-alert" role="alert">

@@ -1,0 +1,56 @@
+.desktop-navigation { display: none; }
+
+@media (min-width: 1200px) {
+    .desktop-navigation {
+        position: fixed;
+        inset: 0 0 auto 0;
+        z-index: var(--beeday-z-navigation);
+        display: flex;
+        align-items: center;
+        gap: var(--beeday-spacing-lg);
+        min-height: var(--beeday-top-navigation-height);
+        padding-inline: var(--beeday-spacing-lg);
+        color: var(--beeday-color-text-primary);
+        background: var(--beeday-color-surface);
+        border-bottom: 2px solid var(--beeday-color-border);
+        font-family: var(--beeday-font-family);
+    }
+}
+
+/* NavLink is a child component, not markup literally written in this file, so its rendered <a>
+   never receives DesktopNavigation's own scope attribute — ::deep is required to reach it at all
+   (same fix DesktopSidebar's own brand link already needed, EPIC 27 Sprint 27.9/27.12). */
+.desktop-navigation ::deep .desktop-navigation__brand-link {
+    display: flex;
+    flex: none;
+    align-items: center;
+    padding-inline: var(--beeday-spacing-sm);
+    border-radius: var(--beeday-radius-md);
+    text-decoration: none;
+}
+
+.desktop-navigation ::deep .desktop-navigation__brand-link:hover { background: var(--beeday-color-surface-muted); }
+.desktop-navigation ::deep .desktop-navigation__brand-link:focus-visible { outline: var(--beeday-border-width) solid var(--beeday-color-brand-primary); outline-offset: 2px; box-shadow: var(--beeday-focus-ring); }
+
+/* NavigationItems renders two sibling root elements (nav.navigation-items for the primary
+   Profile/Daily/Wallet destinations, div.navigation-items--actions for Account/Logout) — both
+   become direct children of this header once placed here, so re-flowing them below is enough to
+   turn NavigationItems' own vertical sidebar/drawer stack into a horizontal bar with Account/Logout
+   visually separated at the far end (not a primary destination peer), without changing
+   NavigationItems.razor itself or introducing a second navigation source. */
+.desktop-navigation ::deep .navigation-items {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--beeday-spacing-xs);
+}
+
+.desktop-navigation ::deep .navigation-items--actions {
+    margin-top: 0;
+    margin-left: auto;
+    padding-top: 0;
+    padding-left: var(--beeday-spacing-md);
+    border-top: 0;
+    border-left: 2px solid var(--beeday-color-border);
+}
+
+.desktop-navigation ::deep .navigation-item { width: auto; }

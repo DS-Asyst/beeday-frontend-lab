@@ -34,15 +34,19 @@
    item 2 requires this surface to demonstrate an error state. It reuses the exact warning-card
    markup DashboardHome.razor already uses for the same condition, so nothing is redesigned.
 
-   EPIC 35 Sprint 35.1-R2 (OWNER correction): adds the shared authenticated WorkspaceHero (also used
-   by ProfileHome and Wallet) so /daily participates in the same authenticated Hero composition. Title
-   reuses the existing Localizer["DailyHeading"] string, previously rendered as a visually-hidden <h1>
-   (now removed — WorkspaceHero renders the real, visible <h1> with the same text, so there is no
-   longer a second, redundant heading). No eyebrow/subtitle/action: neither exists in the source
-   material for this route, and the OWNER's own boundary ("Do NOT invent product copy or actions
-   without repository evidence") rules out inventing one. Search/filter/board controls
-   (ActivityFilterBar, the four DashboardColumn boards) stay exactly where they were, below the Hero —
-   they are board-level, not page-level, context. *@
+   EPIC 35 Sprint 35.1-R2 (OWNER correction, superseded): added the shared authenticated WorkspaceHero
+   (also used by ProfileHome and Wallet) so /daily participated in the same authenticated Hero
+   composition, replacing the visually-hidden <h1>DailyHeading</h1> that stood in for a page title
+   before that.
+
+   Sprint 35.1-R3 (OWNER direction change): the OWNER rejected the authenticated Hero direction and
+   moved to a top-navigation-led shell (see DesktopNavigation) — Daily is an operational/productivity
+   page and does not get a page-level header of any kind (Hero or otherwise): the new top navigation
+   already shows Daily as the active destination (aria-current), so a second, page-level "Daily"
+   heading would be redundant chrome above the board. The visually-hidden <h1>DailyHeading</h1> is
+   restored (a real heading remains in the accessibility tree; it is simply not rendered as visible
+   page furniture) — search/filter/board controls (ActivityFilterBar, the four DashboardColumn boards)
+   stay exactly where they were, at the top of the usable workspace. *@
 
 <PageTitle>@Localizer["DailyPageTitle"]</PageTitle>
 
@@ -64,10 +68,9 @@ else if (State.IsUnavailable)
 }
 else if (State.HasProfile)
 {
-    <WorkspaceHero Title="@Localizer["DailyHeading"]" />
-
     <section class="dashboard-page beeday-fade-in">
         <div class="dashboard-page__content">
+            <h1 class="beeday-visually-hidden">@Localizer["DailyHeading"]</h1>
             <ActivityFilterBar Value="@State.Search"
                                ValueChanged="@(value => State.Search = value)"
                                OnCreate="State.OpenCreate" />
